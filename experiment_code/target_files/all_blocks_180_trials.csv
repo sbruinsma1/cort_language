@@ -2012,3 +2012,44 @@ trial,The doorway was decorated with a colorful ,wreath,0.35,5.66,17,0.43,3.92,8
 trial,The washing machine destroyed the old jacket's ,lining,0.34,7.46,8,0.55,3.5,2,3,The washing machine destroyed the old jacket's lining,500.0,10000.0,0.0,11
 trial,The toddler cheerfully sat in the dirt and ,played,0.88,11.10,16,0.66,0.89,\N,\N,The toddler cheerfully sat in the dirt and played,500.0,10000.0,0.0,11
 end,,,,,,,,,,,,,,11
+instructions,,,,,,,,,,,,,,12
+trial,The toddler cheerfully sat in the dirt and ,played,0.88,11.10,16,0.66,0.89,\N,\N,The toddler cheerfully sat in the dirt and played,500.0,10000.0,0.0,12
+trial,The artist loved to work with colorful ,paints,0.72,7.25,4,0.56,2.07,\N,\N,The artist loved to work with colorful paints,500.0,10000.0,0.0,12
+trial,"At the petting zoo, the boy cried after being ",bitten,0.66,7.19,7,0.44,2.34,3,8,"At the petting zoo, the boy cried after being bitten",500.0,10000.0,0.0,12
+trial,The patient's condition stemmed from a mutation in a ,gene,0.72,10.15,17,0.62,1.47,9,14,The patient's condition stemmed from a mutation in a gene,500.0,10000.0,0.0,12
+trial,"After years of working various jobs, Karen found her ",calling,0.39,10.55,10,0.67,2.47,45,2,"After years of working various jobs, Karen found her calling",500.0,10000.0,0.0,12
+trial,Burst pipes forced workers to shut off the water ,main,0.39,11.21,40,0.69,2.82,119,27,Burst pipes forced workers to shut off the water main,500.0,10000.0,0.0,12
+trial,The baby laughed when he saw the bunny ,hop,0.68,8.41,15,0.60,1.59,2,19,The baby laughed when he saw the bunny hop,500.0,10000.0,0.0,12
+trial,The silly game required using one leg to ,hop,0.53,8.41,15,0.60,2.31,2,19,The silly game required using one leg to hop,500.0,10000.0,0.0,12
+trial,The country boy disliked when people called him a ,hick,0.31,6.07,29,0.33,3.41,1,25,The country boy disliked when people called him a hick,500.0,10000.0,0.0,12
+trial,Sally's parents bought the car but she paid for ,insurance,0.64,10.18,1,0.63,1.54,46,0,Sally's parents bought the car but she paid for insurance,500.0,10000.0,0.0,12
+trial,Jean was impressed the tapestry was made using a ,loom,0.47,6.47,22,0.41,2.82,6,18,Jean was impressed the tapestry was made using a loom,500.0,10000.0,0.0,12
+trial,The yarn was woven into textiles using the ,loom,0.53,6.47,22,0.41,2.28,6,18,The yarn was woven into textiles using the loom,500.0,10000.0,0.0,12
+trial,Jerry wanted to weave yarn so he needed a ,loom,0.56,6.47,22,0.41,2.68,6,18,Jerry wanted to weave yarn so he needed a loom,500.0,10000.0,0.0,12
+break,,,,,,,,,,,,,1.0,12
+trial,The ruin site is cursed according to ancient ,legend,0.31,9.51,0,0.65,3.89,26,0,The ruin site is cursed according to ancient legend,500.0,10000.0,0.0,12
+trial,He acted as though he didn't give a ,damn,0.35,10.33,24,0.53,2.59,\N,\N,He acted as though he didn't give a damn,500.0,10000.0,0.0,12
+trial,The king's arrival was signaled by sounding the ,trumpet,0.44,8.88,1,0.57,2.25,7,0,The king's arrival was signaled by sounding the trumpet,500.0,10000.0,0.0,12
+trial,The girls' mother hated it when they would ,argye,0.31,\N,\N,\N,3.32,\N,\N,The girls' mother hated it when they would argye,500.0,10000.0,0.0,12
+trial,Garrett fell asleep and missed everything that was ,happening,0.4,9.87,0,0.58,2.97,\N,\N,Garrett fell asleep and missed everything that was happening,500.0,10000.0,0.0,12
+trial,The children slid down the snow bank on a ,sled,0.92,7.79,8,0.45,0.56,1,8,The children slid down the snow bank on a sled,500.0,10000.0,0.0,12
+trial,Mother said he couldn't bring the cup without a ,saucer,0.31,7.15,4,0.43,3.64,1,0,Mother said he couldn't bring the cup without a saucer,500.0,10000.0,0.0,12
+trial,"With medicine, it's important to consume the right ",amount,0.36,11.03,1,0.67,1.85,172,1,"With medicine, it's important to consume the right amount",500.0,10000.0,0.0,12
+trial,"Before battle, the knight needed to get a new ",sword,0.65,9.73,18,0.62,1.86,7,11,"Before battle, the knight needed to get a new sword",500.0,10000.0,0.0,12
+trial,Mimi hadn't yelled yet but she was on the ,verge,0.71,7.38,9,0.48,1.78,2,7,Mimi hadn't yelled yet but she was on the verge,500.0,10000.0,0.0,12
+trial,"While biking, Julia's shoelace got caught in the ",spokes,0.35,7.07,4,0.39,2.4,\N,\N,"While biking, Julia's shoelace got caught in the spokes",500.0,10000.0,0.0,12
+trial,"The counties in Britain all share the same suffix, ",shire,0.39,6.40,18,0.56,4.04,1,14,"The counties in Britain all share the same suffix, shire",500.0,10000.0,0.0,12
+trial,Callie woke up early because of the bird's loud ,chirping,0.5,5.11,3,0.25,2.69,\N,\N,Callie woke up early because of the bird's loud chirping,500.0,10000.0,0.0,12
+break,,,,,,,,,,,,,1.0,12
+trial,Andre said his car desperately needed a ,tuneup,0.47,\N,\N,\N,3.15,\N,\N,Andre said his car desperately needed a tuneup,500.0,10000.0,0.0,12
+trial,To scare off the stray cat the mother said ,shoo,0.33,5.38,33,0.20,2.81,\N,\N,To scare off the stray cat the mother said shoo,500.0,10000.0,0.0,12
+trial,The first word that the baby ever said was ,mama,0.34,8.19,5,0.56,3.33,44,3,The first word that the baby ever said was mama,500.0,10000.0,0.0,12
+trial,"In the feudal system, servants were loyal to their ",masters,0.58,9.32,5,0.64,2.03,\N,\N,"In the feudal system, servants were loyal to their masters",500.0,10000.0,0.0,12
+trial,Celia went to the dentist to fix her large ,cavity,0.5,6.99,0,0.57,2.37,12,0,Celia went to the dentist to fix her large cavity,500.0,10000.0,0.0,12
+trial,The family was insulted when Elise called them simple ,minded,0.39,8.41,2,0.44,3.18,\N,\N,The family was insulted when Elise called them simple minded,500.0,10000.0,0.0,12
+trial,The new President believed no one should live in ,poverty,0.9,8.93,0,0.60,0.82,20,0,The new President believed no one should live in poverty,500.0,10000.0,0.0,12
+trial,Many tourists came to the rodeo to see the ,bulls,0.51,7.84,12,0.57,2.6,\N,\N,Many tourists came to the rodeo to see the bulls,500.0,10000.0,0.0,12
+trial,Melinda talked so much her friends called her a ,chatterbox,0.34,3.97,0,0.22,3.68,1,0,Melinda talked so much her friends called her a chatterbox,500.0,10000.0,0.0,12
+trial,"When abroad, Wade observed the locals worshipping their ",gods,0.61,9.35,9,0.61,2.05,\N,\N,"When abroad, Wade observed the locals worshipping their gods",500.0,10000.0,0.0,12
+trial,The town generated its' clean energy with a large ,windmill,0.68,5.71,0,0.54,2.1,1,0,The town generated its' clean energy with a large windmill,500.0,10000.0,0.0,12
+end,,,,,,,,,,,,,,12
