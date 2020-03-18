@@ -16,7 +16,19 @@ warnings.filterwarnings("ignore")
 from experiment_code.constants import Defaults
 
 def make_gorilla_spreadsheet(filename="Peele_cloze_3.csv", num_sentences_per_block=180, num_blocks=11, num_breaks_per_block=2, trial_dur_ms=10000, iti_dur=500):
+    """
+    this function creates a spreadsheet for the gorilla experiment platform
 
+    Args:
+        filename (str): "Peele_cloze_3.csv" assumes it is saved in the /experiment_code/stimuli folder
+        num_sentences_per_block (int): any number but num_sentences_per_block*num_blocks cannot exceed 3000
+        num_blocks (int): any number but see above
+        num_breaks_per_block (int): default is 2
+        trial_dur_ms (int): trial duration of each sentence
+        iti_dur (int): inter-trial-interval
+    Returns:
+        saves out new target file
+    """
     # load in peele spreadsheet
     df = pd.read_csv(os.path.join(Defaults.STIM_DIR, filename))
 
