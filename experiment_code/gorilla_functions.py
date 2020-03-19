@@ -64,3 +64,5 @@ def make_gorilla_spreadsheet(filename="Peele_cloze_3.csv", num_sentences_per_blo
 
     df_new.to_csv(outname, header=True, index=True)
 
+    print('target file successfully saved out!')
+
