@@ -135,3 +135,19 @@ def cloze_cort_distribution(dataframe):
         plt.legend(cort_scores, fontsize=20)
         plt.xticks(fontsize=20)
         plt.yticks(fontsize=20)
+
+    plt.show()
+
+def item_analysis(dataframe):
+    """ plots the mean and std of all sentences
+        Args:
+            dataframe
+    """
+    plt.figure(figsize=(10,10))
+    sns.scatterplot(dataframe.groupby('full_sentence')['Response'].mean(), dataframe.groupby('full_sentence')['Response'].std())
+    plt.xlabel('mean CoRT')
+    plt.ylabel('std of CoRT')
+    plt.title('item analysis of sentences')
+    plt.show()
+
+
