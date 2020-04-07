@@ -15,7 +15,7 @@ warnings.filterwarnings("ignore")
 # load in directories
 from experiment_code.constants import Defaults
 
-def make_gorilla_spreadsheet(filename="Peele_cloze_3.csv", num_sentences_per_block=180, num_blocks=11, num_breaks_per_block=2, trial_dur_ms=10000, iti_dur=500):
+def make_gorilla_spreadsheet_CoRT_scaling(filename="Peele_cloze_3.csv", num_sentences_per_block=180, num_blocks=11, num_breaks_per_block=2, trial_dur_ms=10000, iti_dur=500):
     """
     this function creates a spreadsheet for the gorilla experiment platform
 

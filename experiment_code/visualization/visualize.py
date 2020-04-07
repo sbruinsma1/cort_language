@@ -23,8 +23,8 @@ def participant_version_count(dataframe, version):
         Returns: 
             plots score count per version
     """
+
     dataframe_version = dataframe.loc[dataframe['version'] == version]
-    dataframe_version.Participant_Private_ID.unique()
     
     plt.figure(figsize=(10,10));
     sns.countplot(x='CoRT', hue='participant_id', data= dataframe_version);
@@ -105,7 +105,6 @@ def cort_scores_group_count(dataframe):
     plt.yticks(fontsize=20)
     plt.show()
         
-
 def cort_scores_mode(dataframe):
     """ plots mode of scores per cort value
         Args:
@@ -163,7 +162,7 @@ def item_analysis(dataframe):
             dataframe
     """
     plt.figure(figsize=(10,10))
-    sns.scatterplot(dataframe.groupby('full_sentence')['CoRT'].mean(), dataframe.groupby('full_sentence')['Cort'].std())
+    sns.scatterplot(dataframe.groupby('full_sentence')['CoRT'].mean(), dataframe.groupby('full_sentence')['CoRT'].std())
     plt.xlabel('mean CoRT')
     plt.ylabel('std of CoRT')
     plt.title('item analysis of sentences')

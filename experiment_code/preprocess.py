@@ -15,7 +15,7 @@ warnings.filterwarnings("ignore")
 # load in directories
 from experiment_code.constants import Defaults
 
-def preprocess_peele(filename="gorilla_v3.csv", **kwargs):
+def _preprocess_peele(filename="gorilla_v3.csv", **kwargs):
     """ loads in data downloaded from gorilla and does some cleaning: filtering, renaming etc
         returns preprocessed dataframe
         Args: 
@@ -92,7 +92,7 @@ def preprocess_peele(filename="gorilla_v3.csv", **kwargs):
 
     return df_filtered
 
-def preprocess_blockbaldwin(filename="Participant Info.csv", **kwargs):
+def _preprocess_blockbaldwin(filename="Participant Info.csv", **kwargs):
     """ loads in data downloaded from individual subjects, concatenates it, and does some cleaning: filtering, renaming etc
         returns preprocessed dataframe
         Args: 
@@ -132,7 +132,6 @@ def preprocess_blockbaldwin(filename="Participant Info.csv", **kwargs):
 
     #merge df info dataframe and subj data dataframes
     df_merged = df_all.merge(df_info, on='subj_id')
-    df_merged
 
     #CLEAN UP DATAFRMA
         
@@ -149,14 +148,10 @@ def preprocess_blockbaldwin(filename="Participant Info.csv", **kwargs):
             return value
         
     df_merged['CoRT'] = df_merged['CoRT'].apply(lambda x: extract_string(x))
-            
-    #drop NaN values
-    df_merged = df_merged.dropna()
     
     #KWARGS
-    
     def _add_cloze(dataframe, filename):
-         """ add in cloze probabilities from another dataset
+        """ add in cloze probabilities from another dataset
             Args:
                 dataframe: existing dataframe that contains cort results
                 filename(str): one option is "Block_Baldwin_2010.csv" (stored in `/stimuli/`)
@@ -170,7 +165,6 @@ def preprocess_blockbaldwin(filename="Participant Info.csv", **kwargs):
         
         #add cloze probabilities to CoRT scores
         df_cloze_cort = df_merged.merge(df_cloze, left_on="Sentence Stem", right_on="sentence")
-        df_cloze_cort = df_cloze_cort.dropna()
         
         return df_cloze_cort
     
@@ -189,19 +183,26 @@ def concat_peele_baldwin():
             dataframe
     """
     
-    df1 = preprocess_peele(cloze_filename="Peele_cloze_3.csv")
-    df2 = preprocess_blockbaldwin(cloze_filename="Block_Baldwin_2010.csv")
+    df1 = _preprocess_peele(cloze_filename="Peele_cloze_3.csv") #bad_subjs=[],
+    df2 = _preprocess_blockbaldwin(cloze_filename="Block_Baldwin_2010.csv")
     
-    df1_filtered = df1.filter({'Response', 'version', 'Participant_Private_ID', 'cloze probability', 'full_sentence'})
-    df1_filtered = df1_filtered.rename({'Response':'CoRT', 'Participant_Private_ID':'participant_id', 'cloze probability': 'cloze_probability'})
+    # filter peele dataset
+    df1_filtered = df1.filter({'Response', 'version', 'Participant_Private_ID', 'cloze probability', 'full_sentence'}, axis=1)
+    df1_filtered = df1_filtered.rename({'Response':'CoRT', 'Participant_Private_ID':'participant_id', 'cloze probability': 'cloze_probability'}, axis=1)
+    # add in dataset column
+    df1_filtered['dataset'] = "peele"
     
-    df2_filtered = df2.filter({'CoRT', 'versions', 'subj_id', 'cloze', 'Sentence Stem', 'Response', 'group'})
-    df2_filtered = df2_filtered.rename({'Sentence Stem': 'Sentence_Stem'})
-    df2_filtered['full_sentence'] = df2_filtered['Sentence_Stem'] + '' + df_cloze['Response']
+    # filter block baldwin dataset
+    df2_filtered = df2.filter({'CoRT', 'versions', 'subj_id', 'cloze', 'Sentence Stem', 'Response', 'group'}, axis=1)
+    df2_filtered['full_sentence'] = df2_filtered['Sentence Stem'] + ' ' + df2_filtered['Response'].str.lower()
+    df2_filtered = df2_filtered.rename({'versions':'version', 'subj_id': 'participant_id', 'cloze':'cloze_probability'}, axis=1)
     df2_filtered = df2_filtered.drop({'Sentence Stem', 'Response'}, axis=1)
-    df2_filtered = df2_filtered.rename({'versions':'version', 'subj_id': 'participant_id', 'cloze':'cloze_probability'})
-    
+    # add in dataset column
+    df2_filtered['dataset'] = "block_baldwin"
+
     df_concat = pd.concat([df1_filtered, df2_filtered])
     
     return df_concat
 
+def sentence_selection():
+    pass
