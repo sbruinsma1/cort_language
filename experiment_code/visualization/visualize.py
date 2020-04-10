@@ -97,7 +97,7 @@ def cort_scores_group_count(dataframe):
         plots score count per cort value per group
     """
     plt.figure(figsize=(10,10))
-    sns.countplot(x='CoRT', hue='group', data=df_merged)
+    sns.countplot(x='CoRT', hue='group', data=dataframe)
     plt.xlabel('CoRT Scaling', fontsize=20)
     plt.ylabel('count', fontsize=20)
     plt.title('Number of responses (Expert vs Novice)', fontsize=20);
@@ -114,7 +114,7 @@ def cort_scores_mode(dataframe):
     """
     plt.figure(figsize=(10,10))
     x = dataframe.groupby('version').apply(lambda x: x[['CoRT']].mode()).reset_index()
-    sns.barplot(x=x['version'], y=x['Response']);
+    sns.barplot(x=x['version'], y=x['CoRT']);
     plt.xlabel('version', fontsize=20)
     plt.ylabel('mode of CoRT scores', fontsize=20)
     plt.xticks(fontsize=20)

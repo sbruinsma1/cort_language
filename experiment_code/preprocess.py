@@ -182,27 +182,68 @@ def concat_peele_baldwin():
         Returns:
             dataframe
     """
-    
-    df1 = _preprocess_peele(cloze_filename="Peele_cloze_3.csv") #bad_subjs=[],
+
+    #preprocess appropriate peele and block/baldwin dataframes
+    df1 = _preprocess_peele(cloze_filename="Peele_cloze_3.csv", bad_subjs=[1194659.0])
     df2 = _preprocess_blockbaldwin(cloze_filename="Block_Baldwin_2010.csv")
     
-    # filter peele dataset
+    # FILTER PEELE DATASET
+    #select relevant rows
     df1_filtered = df1.filter({'Response', 'version', 'Participant_Private_ID', 'cloze probability', 'full_sentence'}, axis=1)
+    #rename rows to match df2
     df1_filtered = df1_filtered.rename({'Response':'CoRT', 'Participant_Private_ID':'participant_id', 'cloze probability': 'cloze_probability'}, axis=1)
     # add in dataset column
     df1_filtered['dataset'] = "peele"
     
-    # filter block baldwin dataset
+    # FILTER BLOCK/BALDWIN DATASET
+    #select relevant rows
     df2_filtered = df2.filter({'CoRT', 'versions', 'subj_id', 'cloze', 'Sentence Stem', 'Response', 'group'}, axis=1)
+    #combine into 1 sentence row
     df2_filtered['full_sentence'] = df2_filtered['Sentence Stem'] + ' ' + df2_filtered['Response'].str.lower()
+    #rename rows to match df1
     df2_filtered = df2_filtered.rename({'versions':'version', 'subj_id': 'participant_id', 'cloze':'cloze_probability'}, axis=1)
+    #drop irrelevant rows
     df2_filtered = df2_filtered.drop({'Sentence Stem', 'Response'}, axis=1)
     # add in dataset column
     df2_filtered['dataset'] = "block_baldwin"
 
+    #concatenate df1 & df2
     df_concat = pd.concat([df1_filtered, df2_filtered])
     
     return df_concat
 
-def sentence_selection():
-    pass
+def sentence_selection(n): 
+    """ loads in the concatenated dataframe of peele and block/baldwin
+        returns a csv of the top n sentences for pre-piloting
+
+        Args: 
+            n (int): number of top sentences desired (must be <722)
+
+        Returns:
+            saves out new stimulus file
+    """
+
+    #outname
+    outname = Defaults.STIM_DIR / f'pre_pilot.csv'
+
+    #concatenate peele & block/baldwin dataframes
+    df = preprocess.concat_peele_baldwin()
+
+    #remove novice scores of 5 for block/baldwin datset
+    novice = ["novice"]
+    df = df[~((df["group"].isin(novice)) & (df['CoRT'] == 5))]
+
+    #group sentences and find mean and standard deviation for each
+    df_grouped = df.groupby(['full_sentence', 'cloze_probability', 'dataset']).agg({'CoRT': ['mean', 'std']}).reset_index()
+    df_grouped.columns = ["_".join(pair) for pair in df_grouped.columns]
+
+    #select for sentences with a CoRT score of greater than 4 or less than 2
+    df_grouped = df_grouped[((df_grouped['CoRT_mean'] > 4) | (df_grouped['CoRT_mean'] < 2))]
+    
+    #select for n number of these sentences with the lowest standard deviation
+    df_grouped = df_grouped.nsmallest(n, 'CoRT_std').reset_index()
+    
+    #save out csv 
+    df_grouped.to_csv(outname, header=True, index=True)
+    
+    print('stimulus file successfully saved out!')
