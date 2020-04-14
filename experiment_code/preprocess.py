@@ -227,7 +227,7 @@ def sentence_selection(n):
     outname = Defaults.STIM_DIR / f'pre_pilot.csv'
 
     #concatenate peele & block/baldwin dataframes
-    df = preprocess.concat_peele_baldwin()
+    df = concat_peele_baldwin()
 
     #remove novice scores of 5 for block/baldwin datset
     novice = ["novice"]
@@ -246,4 +246,21 @@ def sentence_selection(n):
     #save out csv 
     df_grouped.to_csv(outname, header=True, index=True)
     
+    #add categorical non-cort and cort column
+
+    def _get_condition(x):
+    if x<2:
+        value = 'non-CoRT'
+    elif x>4:
+        value = 'CoRT'
+    return value
+
+    df_grouped['condition']=df_grouped['CoRT_mean'].apply(lambda x: _get_condition(x))
+
+    #rename columns
+    df_grouped = df_grouped.rename({'full_sentence_':'full_sentence', 'cloze_probability_':'cloze_probability', 'dataset_':'dataset', 'CoRT_mean':'CoRT'}, axis=1)
+
+    #generate random word at end - MAEDBH
+
     print('stimulus file successfully saved out!')
+    return df_grouped

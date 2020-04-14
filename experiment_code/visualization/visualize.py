@@ -16,7 +16,8 @@ warnings.filterwarnings("ignore")
 from experiment_code.constants import Defaults
 
 def participant_version_count(dataframe, version):
-    """Gives distribution of scores for each participant of a particular version (where x='version', i.e. V1, V2, etc). 
+    """Gives distribution of scores for each participant of a particular version (where x='version', i.e. V1, V2, etc).
+        Useful for concat_peele_baldwin df. 
         Args: 
             dataframe: 
             version (str): version to plot. "V1" etc
@@ -37,7 +38,7 @@ def participant_version_count(dataframe, version):
 
 def scores_version_count(dataframe):
     """ plots response count per version
-        Useful for the Peele dataset specifically.
+        Useful for the Peele dataset specifically and concat_peele_baldwin df. 
         Args: 
             dataframe: 
         Returns:
@@ -73,6 +74,7 @@ def cort_scores_count(dataframe):
 
 def cort_scores_version_count(dataframe):
     """ count scores per cort value per version
+        Useful for concat_peele_baldwin df. 
         Args:
             dataframe
         Returns:
@@ -90,7 +92,7 @@ def cort_scores_version_count(dataframe):
 
 def cort_scores_group_count(dataframe):
     """count scores per cort value per group.
-    Useful for the Block & Baldwin dataset specifically.
+    Useful for the Block & Baldwin dataset specifically and concat_peele_baldwin df. 
     Args:
         dataframe
     Returns:
