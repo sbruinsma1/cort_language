@@ -138,6 +138,20 @@ def cloze_distribution(dataframe):
     plt.yticks(fontsize=20);
     plt.show()
 
+def standard_deviation(dataframe):
+    """ plots distribution of cloze probabilities
+        Args:
+            dataframe
+    """
+    plt.figure(figsize=(10,10))
+
+    sns.distplot(dataframe['CoRT_std'])
+    plt.xlabel('standard deviation', fontsize=20)
+    plt.title('Distribution of standard deviation', fontsize=20);
+    plt.xticks(fontsize=20)
+    plt.yticks(fontsize=20);
+    plt.show()
+
 def cloze_cort_distribution(dataframe):
     """ plots distribution of cloze probabilities across cort scaling
         Args:

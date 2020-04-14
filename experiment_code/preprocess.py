@@ -247,13 +247,12 @@ def sentence_selection(n):
     df_grouped.to_csv(outname, header=True, index=True)
     
     #add categorical non-cort and cort column
-
     def _get_condition(x):
-    if x<2:
-        value = 'non-CoRT'
-    elif x>4:
-        value = 'CoRT'
-    return value
+        if x<2:
+            value = 'non-CoRT'
+        elif x>4:
+            value = 'CoRT'
+        return value
 
     df_grouped['condition']=df_grouped['CoRT_mean'].apply(lambda x: _get_condition(x))
 
