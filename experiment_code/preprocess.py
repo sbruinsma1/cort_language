@@ -212,19 +212,19 @@ def concat_peele_baldwin():
     
     return df_concat
 
-def sentence_selection(n): 
+def sentence_selection(num_sentences): 
     """ loads in the concatenated dataframe of peele and block/baldwin
         returns a csv of the top n sentences for pre-piloting
 
         Args: 
-            n (int): number of top sentences desired (must be <722)
+            num_sentences (int): number of top sentences desired (must be <722)
 
         Returns:
             saves out new stimulus file
     """
 
     #outname
-    outname = Defaults.STIM_DIR / f'pre_pilot.csv'
+    outname = Defaults.STIM_DIR / f'pre_pilot_sentences.csv'
 
     #concatenate peele & block/baldwin dataframes
     df = concat_peele_baldwin()
@@ -241,7 +241,7 @@ def sentence_selection(n):
     df_grouped = df_grouped[((df_grouped['CoRT_mean'] > 4) | (df_grouped['CoRT_mean'] < 2))]
     
     #select for n number of these sentences with the lowest standard deviation
-    df_grouped = df_grouped.nsmallest(n, 'CoRT_std').reset_index()
+    df_grouped = df_grouped.nsmallest(num_sentences, 'CoRT_std').reset_index()
     
     #save out csv 
     df_grouped.to_csv(outname, header=True, index=True)
@@ -260,6 +260,11 @@ def sentence_selection(n):
     df_grouped = df_grouped.rename({'full_sentence_':'full_sentence', 'cloze_probability_':'cloze_probability', 'dataset_':'dataset', 'CoRT_mean':'CoRT'}, axis=1)
 
     #generate random word at end - MAEDBH
+    df_grouped['target_word'] = df_grouped['full_sentence'].apply(lambda x: x.split(" ")[-1]).to_list()
+    df_grouped['random_word'] = df_grouped['target_word'].sample(n=len(df_grouped), random_state=2, replace=False).to_list()
+
+    # save out stimulus set
+    df_grouped.to_csv(outname, header=True, index=True)
 
     print('stimulus file successfully saved out!')
     return df_grouped
