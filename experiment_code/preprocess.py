@@ -224,18 +224,20 @@ def sentence_selection(num_sentences):
     """
 
     #outname
-    outname = Defaults.STIM_DIR / f'pre_pilot_sentences.csv'
+    outname = Defaults.STIM_DIR / f'sentence_validation_{num_sentences}.csv'
 
     #concatenate peele & block/baldwin dataframes
     df = concat_peele_baldwin()
 
     #remove novice scores of 5 for block/baldwin datset
-    novice = ["novice"]
-    df = df[~((df["group"].isin(novice)) & (df['CoRT'] == 5))]
+    df = df[~((df["group"].isin(["novice"])) & (df['CoRT'] == 5))]
 
     #group sentences and find mean and standard deviation for each
     df_grouped = df.groupby(['full_sentence', 'cloze_probability', 'dataset']).agg({'CoRT': ['mean', 'std']}).reset_index()
+
+    # join multilevel columns
     df_grouped.columns = ["_".join(pair) for pair in df_grouped.columns]
+    df_grouped.columns = df_grouped.columns.str.strip('_')
 
     #select for sentences with a CoRT score of greater than 4 or less than 2
     df_grouped = df_grouped[((df_grouped['CoRT_mean'] > 4) | (df_grouped['CoRT_mean'] < 2))]
@@ -244,8 +246,8 @@ def sentence_selection(num_sentences):
     df_grouped = df_grouped.nsmallest(num_sentences, 'CoRT_std').reset_index()
     
     #save out csv 
-    df_grouped.to_csv(outname, header=True, index=True)
-    
+    # df_grouped.to_csv(outname, header=True, index=True)
+
     #add categorical non-cort and cort column
     def _get_condition(x):
         if x<2:
@@ -254,17 +256,23 @@ def sentence_selection(num_sentences):
             value = 'CoRT'
         return value
 
+    # add categorical column for CoRT vs. non-CoRT
     df_grouped['condition']=df_grouped['CoRT_mean'].apply(lambda x: _get_condition(x))
 
-    #rename columns
-    df_grouped = df_grouped.rename({'full_sentence_':'full_sentence', 'cloze_probability_':'cloze_probability', 'dataset_':'dataset', 'CoRT_mean':'CoRT'}, axis=1)
-
-    #generate random word at end - MAEDBH
+    #generate random word at end
     df_grouped['target_word'] = df_grouped['full_sentence'].apply(lambda x: x.split(" ")[-1]).to_list()
     df_grouped['random_word'] = df_grouped['target_word'].sample(n=len(df_grouped), random_state=2, replace=False).to_list()
 
+    # split `full_sentence` into separate cols
+    split_sentence = lambda sent: [x for x in re.split(r"[\s\.\,]+", sent) if x]
+    sentences = [split_sentence(s) for s in df_grouped["full_sentence"].values]
+    sent_df = pd.DataFrame.from_records(sentences)
+    sent_df.columns = [f"word_{x}" for x in sent_df.columns]
+
+    df_out = pd.concat([df_grouped, sent_df], axis=1)
+
     # save out stimulus set
-    df_grouped.to_csv(outname, header=True, index=True)
+    df_out.to_csv(outname, header=True, index=True)
 
     print('stimulus file successfully saved out!')
-    return df_grouped
+    return df_out, df_grouped
