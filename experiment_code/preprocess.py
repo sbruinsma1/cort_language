@@ -244,9 +244,6 @@ def sentence_selection(num_sentences):
     
     #select for n number of these sentences with the lowest standard deviation
     df_grouped = df_grouped.nsmallest(num_sentences, 'CoRT_std').reset_index()
-    
-    #save out csv 
-    # df_grouped.to_csv(outname, header=True, index=True)
 
     #add categorical non-cort and cort column
     def _get_condition(x):
@@ -256,6 +253,15 @@ def sentence_selection(num_sentences):
             value = 'CoRT'
         return value
 
+    def _split_sentence(dataframe):
+        # split `full_sentence` into separate cols
+        split_sentence = lambda sent: [x for x in re.split(r"[\s\.\,]+", sent) if x]
+        sentences = [split_sentence(s) for s in dataframe["full_sentence"].values]
+        sent_df = pd.DataFrame.from_records(sentences)
+        sent_df.columns = [f"word_{x}" for x in sent_df.columns]
+        df_out = pd.concat([dataframe, sent_df], axis=1)
+        return df_out
+
     # add categorical column for CoRT vs. non-CoRT
     df_grouped['condition']=df_grouped['CoRT_mean'].apply(lambda x: _get_condition(x))
 
@@ -263,13 +269,8 @@ def sentence_selection(num_sentences):
     df_grouped['target_word'] = df_grouped['full_sentence'].apply(lambda x: x.split(" ")[-1]).to_list()
     df_grouped['random_word'] = df_grouped['target_word'].sample(n=len(df_grouped), random_state=2, replace=False).to_list()
 
-    # split `full_sentence` into separate cols
-    split_sentence = lambda sent: [x for x in re.split(r"[\s\.\,]+", sent) if x]
-    sentences = [split_sentence(s) for s in df_grouped["full_sentence"].values]
-    sent_df = pd.DataFrame.from_records(sentences)
-    sent_df.columns = [f"word_{x}" for x in sent_df.columns]
-
-    df_out = pd.concat([df_grouped, sent_df], axis=1)
+    # split sentence into single words
+    df_out = _split_sentence(dataframe=df_grouped)
 
     # save out stimulus set
     df_out.to_csv(outname, header=True, index=True)

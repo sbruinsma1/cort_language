@@ -102,10 +102,8 @@ def make_gorilla_spreadsheet_sentence_validation(num_sentences=400, num_sentence
 
     # Let's create a row which we want to insert 
     for row_number in breaks:
-        # row_number = 2
         row_value = np.tile('break', len(df_concat.columns))
         # df_concat.set_value(breaks, 'ShowProgressBar', 1)
-
         if row_number > df.index.max()+1: 
             print("Invalid row_number") 
         else: 
@@ -118,6 +116,8 @@ def make_gorilla_spreadsheet_sentence_validation(num_sentences=400, num_sentence
     df_concat.to_csv(outname, header=True, index=True)
 
     print('target file successfully saved out!')
+
+    return df_concat
 
 def  _insert_row(row_number, df, row_value): 
     # Slice the upper half of the dataframe 
