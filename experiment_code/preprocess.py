@@ -212,12 +212,13 @@ def concat_peele_baldwin():
     
     return df_concat
 
-def sentence_selection(num_sentences): 
+def sentence_selection(num_sentences, split_sentence=False): 
     """ loads in the concatenated dataframe of peele and block/baldwin
         returns a csv of the top n sentences for pre-piloting
 
         Args: 
             num_sentences (int): number of top sentences desired (must be <722)
+            split_sentence (bool): if True, splits sentence into separate cols (one word per col). if False, adds | between each word in sentence
 
         Returns:
             saves out new stimulus file
@@ -270,10 +271,14 @@ def sentence_selection(num_sentences):
     df_grouped['random_word'] = df_grouped['target_word'].sample(n=len(df_grouped), random_state=2, replace=False).to_list()
 
     # split sentence into single words
-    df_out = _split_sentence(dataframe=df_grouped)
+    if split_sentence:
+        df_out = _split_sentence(dataframe=df_grouped)
+    else:
+        df_out = df_grouped
+        df_out['full_sentence'] = df_grouped['full_sentence'].str.replace(" ", "|")
 
     # save out stimulus set
     df_out.to_csv(outname, header=True, index=True)
 
     print('stimulus file successfully saved out!')
-    return df_out, df_grouped
+    return df_out

@@ -81,6 +81,10 @@ def make_gorilla_spreadsheet_sentence_validation(num_sentences=400, num_sentence
     # load in stimulus dataset for sentence validation pilot
     df = pd.read_csv(os.path.join(Defaults.STIM_DIR / f'sentence_validation_{num_sentences}.csv'))
 
+    # if `num_sentences` exceeds `num_sentences_per_block`*`num_blocks`
+    # then randomly sample from `df`
+    df = df.sample(num_sentences_per_block*num_blocks, replace=False)
+
     # outname
     outname = Defaults.TARGET_DIR / f'sentence_validation_pilot_{num_sentences_per_block}_trials.csv'
 
@@ -92,7 +96,13 @@ def make_gorilla_spreadsheet_sentence_validation(num_sentences=400, num_sentence
     df_new = pd.DataFrame({'display': np.tile('trial', num_sentences_per_block*num_blocks), 'iti_dur_ms':np.tile(iti_dur, num_sentences_per_block*num_blocks), 'trial_dur_ms': np.tile(trial_dur_ms, num_sentences_per_block*num_blocks), 'ShowProgressBar':np.tile(0, num_sentences_per_block*num_blocks)}, columns=['display', 'iti_dur_ms', 'trial_dur_ms', 'ShowProgressBar'])
 
     # concat the dataframes
-    df_concat = pd.concat([df, df_new], axis=1)
+    df_concat = pd.concat([df.reset_index(), df_new], axis=1)
+
+    # add block info
+    df_concat['block'] = np.repeat(np.arange(1,num_blocks+1), num_sentences_per_block)
+
+    # add in manipulation: meaningful/not meaningful 70/30% of trials per block
+    
 
     # add instructions, breaks, and end display per block
     df_concat = pd.concat([pd.DataFrame([{'display': 'instructions'}]), df_concat], ignore_index=True, sort=False)
@@ -109,17 +119,12 @@ def make_gorilla_spreadsheet_sentence_validation(num_sentences=400, num_sentence
         else: 
             df_concat = _insert_row(row_number, df_concat, row_value)
 
-    # add in manipulation: meaningful/not meaningful 70/30% of trials
-
-    # remove the `full_sentence` column
-    df_concat = df_concat.drop({'full_sentence'}, axis=1)
     df_concat.to_csv(outname, header=True, index=True)
-
     print('target file successfully saved out!')
 
     return df_concat
 
-def  _insert_row(row_number, df, row_value): 
+def _insert_row(row_number, df, row_value): 
     # Slice the upper half of the dataframe 
     df1 = df[0:row_number] 
    
