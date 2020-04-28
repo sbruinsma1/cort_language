@@ -103,7 +103,6 @@ def make_gorilla_spreadsheet_sentence_validation(num_sentences=400, num_sentence
 
     # add in manipulation: meaningful/not meaningful 70/30% of trials per block
     
-
     # add instructions, breaks, and end display per block
     df_concat = pd.concat([pd.DataFrame([{'display': 'instructions'}]), df_concat], ignore_index=True, sort=False)
     df_concat = df_concat.append([{'display': 'end'}], ignore_index=True, sort=False)

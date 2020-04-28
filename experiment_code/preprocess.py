@@ -264,7 +264,7 @@ def sentence_selection(num_sentences, split_sentence=False):
         return df_out
 
     # add categorical column for CoRT vs. non-CoRT
-    df_grouped['condition']=df_grouped['CoRT_mean'].apply(lambda x: _get_condition(x))
+    df_grouped['condition'] = df_grouped['CoRT_mean'].apply(lambda x: _get_condition(x))
 
     #generate random word at end
     df_grouped['target_word'] = df_grouped['full_sentence'].apply(lambda x: x.split(" ")[-1]).to_list()
