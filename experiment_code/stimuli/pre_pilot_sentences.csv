@@ -1,0 +1,501 @@
+,index,full_sentence,cloze_probability,dataset,CoRT,CoRT_std,condition,target_word,random_word
+0,10,A good combination of flavors can be sweet and sour,0.51,peele,1.0,0.0,non-CoRT,sour,purse
+1,128,After the dog ate the trash he began to vomit,0.58,peele,5.0,0.0,CoRT,vomit,head
+2,193,"Among other things, vegetarians do not eat meat",0.7,peele,1.0,0.0,non-CoRT,meat,god
+3,281,Be careful not to touch the pan when it's hot,0.99,peele,1.0,0.0,non-CoRT,hot,leash
+4,309,Being a father and a businessman made his role difficult,0.31,peele,1.0,0.0,non-CoRT,difficult,bell
+5,467,During the battle all of the sailors fled the ship,0.37,peele,5.0,0.0,CoRT,ship,debt
+6,580,"For many people, textbooks are a good learning tool",0.76,peele,1.0,0.0,non-CoRT,tool,vomit
+7,604,"Gaby disliked spinach, a veggie she claimed she'd always hated",0.7,peele,1.0,0.0,non-CoRT,hated,face
+8,748,I could not remember his name,0.92,block_baldwin,1.0,0.0,non-CoRT,name,hire
+9,762,"If Phil decides to cook dinner, then cook he will",0.61,peele,1.0,0.0,non-CoRT,will,splash
+10,822,Instead of dressing I prefer vinegar and oil,0.76,block_baldwin,1.0,0.0,non-CoRT,oil,tire
+11,833,It is painful to have diseases like cancer,0.36,peele,1.0,0.0,non-CoRT,cancer,cake
+12,938,Karen put the grilled hamburger on a brioche bun,0.74,peele,5.0,0.0,CoRT,bun,stupid
+13,984,Lois is taller than most girls,0.35,block_baldwin,1.0,0.0,non-CoRT,girls,crash
+14,1070,Mrcoach,0.43,peele,1.0,0.0,non-CoRT,Mrcoach,ditch
+15,1146,One must take time out of every day to relax,0.36,peele,1.0,0.0,non-CoRT,relax,run
+16,1184,Pure memorization may not be great method to learn,0.63,peele,1.0,0.0,non-CoRT,learn,sew
+17,1195,Religions vary widely in their conception of god,0.52,peele,1.0,0.0,non-CoRT,god,huff
+18,1196,"Respect, riches, and fame were what the knight wanted",0.41,peele,1.0,0.0,non-CoRT,wanted,bed
+19,1226,Sam does not like desserts that are too sweet,0.86,peele,1.0,0.0,non-CoRT,sweet,scam
+20,1247,Sharon majored in Education to learn how to teach,0.95,peele,1.0,0.0,non-CoRT,teach,feud
+21,1330,Some people won't eat lemons because they are too sour,0.75,peele,1.0,0.0,non-CoRT,sour,for
+22,1375,The British businessman was the wealthiest in the whole country,0.36,peele,1.0,0.0,non-CoRT,country,seagull
+23,1506,The car door hit Steven's face right in the nose,0.62,peele,5.0,0.0,CoRT,nose,gas
+24,1673,The expensive tie was made of silk,0.89,block_baldwin,1.0,0.0,non-CoRT,silk,tag
+25,1748,The gas station is about two miles down the road,0.88,block_baldwin,1.0,0.0,non-CoRT,road,lose
+26,1803,The hungry baby scrunched its face and started to cry,0.74,peele,5.0,0.0,CoRT,cry,wanted
+27,1865,The lecture should last about one hour,0.91,block_baldwin,1.0,0.0,non-CoRT,hour,joke
+28,1954,The new accusations cast a lot of doubt,0.74,peele,1.0,0.0,non-CoRT,doubt,ball
+29,2038,The rambunctious dog pulled and tugged against the leash,0.49,peele,5.0,0.0,CoRT,leash,teach
+30,2049,The restaurants on the west end were very expensive,0.44,peele,1.0,0.0,non-CoRT,expensive,well
+31,2106,The snow was high on the mountain’s peak,0.65,block_baldwin,1.0,0.0,non-CoRT,peak,hear
+32,2124,The startled swimmer screamed when she saw the shark fin,0.4,peele,5.0,0.0,CoRT,fin,cement
+33,2125,The state park was popular for its long trails,0.52,block_baldwin,1.0,0.0,non-CoRT,trails,contract
+34,2169,The tennis player won the match with a high score,0.62,peele,1.0,0.0,non-CoRT,score,find
+35,2220,The vacuum's defects affected its ability to clean,0.38,peele,1.0,0.0,non-CoRT,clean,bark
+36,2264,The woman’s shirt was so worn it had a hole,0.86,block_baldwin,1.0,0.0,non-CoRT,hole,vague
+37,2293,There were hundreds of bees buzzing around the hive,0.68,peele,5.0,0.0,CoRT,hive,howl
+38,2447,Too many men are out of  work,0.26,block_baldwin,1.0,0.0,non-CoRT,work,big
+39,192,American Presidents are limited to serving a period of eight    years,0.84,block_baldwin,1.1428571428571428,0.3779644730092272,non-CoRT,years,laugh
+40,341,Bradley prefers cats over dogs,0.91,block_baldwin,1.1428571428571428,0.3779644730092272,non-CoRT,dogs,map
+41,1459,The book was a steal at such a low  price,0.89,block_baldwin,1.1428571428571428,0.3779644730092272,non-CoRT,price,silk
+42,1514,The castle was protected by its stone walls,0.86,block_baldwin,1.1428571428571428,0.3779644730092272,non-CoRT,walls,steal
+43,1591,The crime rate has gone up this year,0.81,block_baldwin,1.1428571428571428,0.3779644730092272,non-CoRT,year,batch
+44,1,A Dalmatian dog is recognized by its black and white spots,0.84,block_baldwin,1.1666666666666667,0.408248290463863,non-CoRT,spots,meal
+45,39,"After a busy week, I just want to relax",0.53,peele,1.1666666666666667,0.408248290463863,non-CoRT,relax,tractor
+46,711,Her dress was made of a very fine silk,0.6,block_baldwin,1.1666666666666667,0.408248290463863,non-CoRT,silk,lead
+47,761,If Frieda gets bad news she will probably cry,0.53,peele,1.8333333333333333,0.408248290463863,non-CoRT,cry,manage
+48,889,Jen's love for children and school convinced her to teach,0.89,peele,1.1666666666666667,0.408248290463863,non-CoRT,teach,clown
+49,899,Jessica went to the treadmill and started to slowly walk,0.6,peele,4.833333333333333,0.408248290463863,CoRT,walk,knitted
+50,1164,Pam needs a new doorbell because hers doesn't work,0.9,peele,1.1666666666666667,0.408248290463863,non-CoRT,work,good
+51,1209,"Roger couldn't whistle yet, as he was just a baby",0.33,peele,1.1666666666666667,0.408248290463863,non-CoRT,baby,ham
+52,1259,She did not have the right key for the  lock,0.44,block_baldwin,1.1666666666666667,0.408248290463863,non-CoRT,lock,whale
+53,1282,She only hosted the event to save money,0.56,peele,1.1666666666666667,0.408248290463863,non-CoRT,money,shivered
+54,1302,She went to bed because she was tired,0.72,block_baldwin,4.166666666666667,0.408248290463863,CoRT,tired,had
+55,1328,Some people have never had a square meal,0.24,block_baldwin,1.1666666666666667,0.408248290463863,non-CoRT,meal,attic
+56,1518,The cheerleaders were part of the popular crowd,0.48,block_baldwin,1.1666666666666667,0.408248290463863,non-CoRT,crowd,fin
+57,1778,The gym class knew the rope would be a  task,0.26,block_baldwin,1.1666666666666667,0.408248290463863,non-CoRT,task,whale
+58,2054,The river ended three hundred miles from its mouth,0.43,block_baldwin,1.1666666666666667,0.408248290463863,non-CoRT,mouth,for
+59,2423,To relax herself she liked to listen to smooth jazz,0.47,block_baldwin,1.8333333333333333,0.408248290463863,non-CoRT,jazz,heart
+60,2477,Weddings bring out excitement and general feelings of joy,0.34,peele,1.1666666666666667,0.408248290463863,non-CoRT,joy,wait
+61,1158,Out of the brown egg hatched a tiny yellow chick,0.71,peele,4.833333333333333,0.40824829046386313,CoRT,chick,milk
+62,1495,The burglar took the purse and quickly turned to run,0.73,peele,4.833333333333333,0.40824829046386313,CoRT,run,mower
+63,104,"After returning home, Sharon hung her jacket on the hook",0.43,peele,4.8,0.44721359549995787,CoRT,hook,large
+64,105,"After returning to his bedroom, the monk removed his robe",0.5,peele,4.8,0.44721359549995787,CoRT,robe,model
+65,111,After she bought the dress she ripped off its tag,0.81,peele,4.8,0.44721359549995787,CoRT,tag,size
+66,228,As he left the insulted man made a gesture,0.4,peele,4.8,0.44721359549995787,CoRT,gesture,chickens
+67,550,Everyone on the cruise gasped and pointed out the massive whale,0.49,peele,4.8,0.44721359549995787,CoRT,whale,gesture
+68,551,Everyone ran from the man like he was a monster,0.31,peele,4.8,0.44721359549995787,CoRT,monster,dogs
+69,693,He wouldn't jump so his sister gave him a push,0.52,peele,4.2,0.44721359549995787,CoRT,push,hate
+70,770,"In class, Paula took out her notebook and wrote",0.42,peele,4.8,0.44721359549995787,CoRT,wrote,price
+71,826,Isaac ran to the water cooler and filled his cup,0.36,peele,4.8,0.44721359549995787,CoRT,cup,dog
+72,968,Laura jumped up and shouted after burning her hand,0.56,peele,4.8,0.44721359549995787,CoRT,hand,pencil
+73,1007,Marcus struggled to build a birdhouse even with the instructions,0.39,peele,4.8,0.44721359549995787,CoRT,instructions,kite
+74,1140,"Once he heard the bad news, Mark's face became red",0.32,peele,4.8,0.44721359549995787,CoRT,red,crop
+75,1143,"Once the cake was unattended, the dog took a bite",0.92,peele,4.8,0.44721359549995787,CoRT,bite,pull
+76,1651,The earthquake made the photos fall off the wall,0.68,peele,4.8,0.44721359549995787,CoRT,wall,push
+77,1738,The frightened children ran from the growling dog,0.76,peele,4.8,0.44721359549995787,CoRT,dog,Mrcoach
+78,2046,The reckless driver drove too quickly around the corner,0.42,peele,4.2,0.44721359549995787,CoRT,corner,nervous
+79,2228,The waitress wiped the table with a damp cloth,0.76,peele,4.2,0.44721359549995787,CoRT,cloth,tag
+80,2515,When he fled the stage the crowd began to boo,0.53,peele,4.8,0.44721359549995787,CoRT,boo,head
+81,188,"Always full of energy, Wilson never seemed to tire",0.51,peele,1.2,0.4472135954999579,non-CoRT,tire,chick
+82,316,"Beth hasn't figure out the solution, but Martha has",0.72,peele,1.2,0.4472135954999579,non-CoRT,has,due
+83,374,Chocolate is made from the roasted cacao bean,0.84,peele,1.8,0.4472135954999579,non-CoRT,bean,bun
+84,416,Dean dropped the cookies and had to make a fresh batch,0.95,peele,4.8,0.4472135954999579,CoRT,batch,dresses
+85,558,Experts could not give Amy the answers she wanted,0.58,peele,1.2,0.4472135954999579,non-CoRT,wanted,slept
+86,700,Helen removed the paint from her face with a cloth,0.33,peele,4.8,0.4472135954999579,CoRT,cloth,mouse
+87,744,His worst fear was that the spectators would boo,0.36,peele,1.2,0.4472135954999579,non-CoRT,boo,forest
+88,937,Karen lost lots of money after losing a foolish bet,0.97,peele,1.8,0.4472135954999579,non-CoRT,bet,hive
+89,947,Katie didn't know who the present was for,0.72,peele,1.2,0.4472135954999579,non-CoRT,for,pull
+90,1022,Mary missed Ellen's birthday party because she was sick,0.62,peele,1.8,0.4472135954999579,non-CoRT,sick,meat
+91,1031,May thought her leg was taking too long to heal,0.9,peele,1.2,0.4472135954999579,non-CoRT,heal,road
+92,1215,"Running low on cookies, the bakery needed a new batch",0.54,peele,1.8,0.4472135954999579,non-CoRT,batch,knitted
+93,1222,Sally heard that our new teacher was impossible to please,0.48,peele,1.2,0.4472135954999579,non-CoRT,please,seeds
+94,1277,She loved ice cream when she was a tiny girl,0.54,peele,1.2,0.4472135954999579,non-CoRT,girl,slipped
+95,1468,The boy cried when he hurt his knee after the fall,0.71,peele,4.8,0.4472135954999579,CoRT,fall,eggs
+96,1553,The color of the shirt's fabric was a beautiful blue,0.35,peele,1.2,0.4472135954999579,non-CoRT,blue,puff
+97,1647,The driver was concerned about the heavy load,0.36,peele,1.2,0.4472135954999579,non-CoRT,load,cheer
+98,2083,The score of the championship tennis match was tied,0.59,peele,1.2,0.4472135954999579,non-CoRT,tied,cry
+99,2224,The villagers had never ventured out of the village,0.32,peele,1.2,0.4472135954999579,non-CoRT,village,mean
+100,2284,Their water source on the farm was the old well,0.89,peele,1.2,0.4472135954999579,non-CoRT,well,bill
+101,2304,They didn't agree with the concepts the school taught,0.48,peele,1.2,0.4472135954999579,non-CoRT,taught,price
+102,2320,They needed to add more honey to the tea,0.34,peele,1.8,0.4472135954999579,non-CoRT,tea,money
+103,2388,To get the garden started one can use seeds,0.32,peele,1.8,0.4472135954999579,non-CoRT,seeds,dog
+104,2427,"To stay fit, Jim participates in a basketball game",0.42,peele,4.2,0.4472135954999579,CoRT,game,chores
+105,2538,When she retired the CEO would live on a pension,0.38,peele,1.2,0.4472135954999579,non-CoRT,pension,month
+106,929,Juice spilled when the baby knocked over the cup,0.54,peele,4.8,0.44721359549995804,CoRT,cup,cry
+107,1047,Mike exited the shower and quickly put on his robe,0.44,peele,4.8,0.44721359549995804,CoRT,robe,art
+108,2243,The woman applied concealer with a gentle touch,0.35,peele,4.8,0.44721359549995804,CoRT,touch,hated
+109,506,"Ellen enjoys poetry, painting, and other forms of art",0.94,block_baldwin,1.2857142857142858,0.48795003647426655,non-CoRT,art,salt
+110,658,He hoped his grumpy teen was just going through a  phase,0.77,block_baldwin,1.2857142857142858,0.4879500364742666,non-CoRT,phase,meditate
+111,1243,Several hours into his shift Lyle was ready for a break,0.78,block_baldwin,1.7142857142857142,0.4879500364742666,non-CoRT,break,reach
+112,1757,The girl knew a lot for her age,0.8,block_baldwin,1.2857142857142858,0.4879500364742666,non-CoRT,age,heal
+113,2020,The princess was only permitted to marry a prince,0.9,block_baldwin,1.2857142857142858,0.4879500364742666,non-CoRT,prince,mate
+114,1504,The candles smelled even better when they were lit,0.87,block_baldwin,1.7142857142857142,0.48795003647426666,non-CoRT,lit,duck
+115,107,"After saying goodbye, Tim gave his wife a quick kiss",0.84,peele,4.75,0.4999999999999999,CoRT,kiss,leash
+116,622,Greg clutched his queasy stomach and began to vomit,0.47,peele,4.75,0.4999999999999999,CoRT,vomit,mush
+117,640,He blew out his cigarette smoke in a small puff,0.34,peele,4.75,0.4999999999999999,CoRT,puff,lipstick
+118,657,He heard a noise at midnight and grabbed his gun,0.67,peele,4.75,0.4999999999999999,CoRT,gun,lit
+119,1029,Matt topped the nachos with cheddar cheese and shredded lettuce,0.38,peele,4.75,0.4999999999999999,CoRT,lettuce,family
+120,1242,Several girls fought over the store's last remaining dresses,0.33,peele,4.75,0.4999999999999999,CoRT,dresses,soothe
+121,1505,The captain steered the ship and narrowly avoided the iceberg,0.34,peele,4.75,0.4999999999999999,CoRT,iceberg,huff
+122,1754,The girl got in trouble trying to pass a note,0.52,peele,4.25,0.4999999999999999,CoRT,note,doubt
+123,1802,The huge monster thundered away with a roar,0.41,peele,4.75,0.4999999999999999,CoRT,roar,beach
+124,1838,The kids ran through the sprinklers on the front lawn,0.89,peele,4.75,0.4999999999999999,CoRT,lawn,will
+125,1915,The matador ran when the bull began to charge,0.69,block_baldwin,4.75,0.4999999999999999,CoRT,charge,jar
+126,1948,The musician plucked at the strings of his flatguitar,0.7,peele,4.75,0.4999999999999999,CoRT,flatguitar,care
+127,2001,The pirates escaped with a large bag of gold,0.44,peele,4.75,0.4999999999999999,CoRT,gold,boo
+128,2120,The squirrel dashed by in order to bury a nut,0.77,peele,4.75,0.4999999999999999,CoRT,nut,monster
+129,2172,The thief ran away after taking the woman's purse,0.9,peele,4.75,0.4999999999999999,CoRT,purse,sour
+130,2191,The town flooded after a leak in the dam,0.56,peele,4.25,0.4999999999999999,CoRT,dam,hull
+131,2547,"When the building came down, there was a loud crash",0.49,peele,4.25,0.4999999999999999,CoRT,crash,tie
+132,102,"After receiving a treat, the dog's tail began to wag",0.98,peele,4.25,0.5,CoRT,wag,rails
+133,117,"After stubbing her toe, the woman let slip a curse",0.37,peele,4.25,0.5,CoRT,curse,lure
+134,310,Ben cleaned out his blocked sinuses with a saline solution,0.57,peele,4.25,0.5,CoRT,solution,shook
+135,362,Casey didn't go to the movie theater alone,0.45,peele,1.25,0.5,non-CoRT,alone,wine
+136,370,Charles knew that the woman was out of his league,0.82,peele,1.25,0.5,non-CoRT,league,wrote
+137,446,Drake didn't like eating barbecued meat because of the taste,0.37,peele,1.75,0.5,non-CoRT,taste,do
+138,535,"Every morning, Liz would carefully brush her hair",0.64,peele,4.25,0.5,CoRT,hair,void
+139,601,"Frustrated with his teammates, Julian stormed off in a huff",0.62,peele,4.25,0.5,CoRT,huff,sleep
+140,648,He crept into the room without a sound,0.7,block_baldwin,4.25,0.5,CoRT,sound,solution
+141,688,He was so silly the kids called him a clown,0.66,peele,1.25,0.5,non-CoRT,clown,expensive
+142,697,Heather's young kids were only one and three,0.47,peele,1.25,0.5,non-CoRT,three,limited
+143,757,Ian's favorite pie was either apple or cherry,0.43,peele,1.25,0.5,non-CoRT,cherry,oil
+144,814,"In woodshop, Alex smoothed the baseball bat with the sander",0.32,peele,4.75,0.5,CoRT,sander,steal
+145,819,"Instead of buying a new phone, Shannon replaced the battery",0.36,peele,4.25,0.5,CoRT,battery,god
+146,825,Isaac didn't know what her behavior could mean,0.48,peele,1.25,0.5,non-CoRT,mean,gas
+147,831,It is important for swimmers to learn how to float,0.34,peele,1.25,0.5,non-CoRT,float,mace
+148,835,It seemed like the accident shook her to the core,0.84,peele,1.25,0.5,non-CoRT,core,burp
+149,839,It was announced the  two companies would merge,0.96,peele,1.25,0.5,non-CoRT,merge,gin
+150,849,It was too windy so Jen reeled in her kite,0.45,peele,4.75,0.5,CoRT,kite,lettuce
+151,903,Jill is frustrated by people who are always late,0.73,peele,1.75,0.5,non-CoRT,late,peck
+152,905,Jim convinced her that it was a bad prank to pull,0.43,peele,1.75,0.5,non-CoRT,pull,bag
+153,965,Larry's motto was always do what you want,0.5,peele,1.25,0.5,non-CoRT,want,meat
+154,970,Lee wouldn't get allowance if she didn't finish her chores,0.67,peele,1.25,0.5,non-CoRT,chores,wander
+155,995,Malcolm wanted to tidy the lawn but had no mower,0.33,peele,1.75,0.5,non-CoRT,mower,wrong
+156,1000,Many people don't recycle even though they should,0.79,peele,1.25,0.5,non-CoRT,should,leash
+157,1009,Marie pulled out the clothes she wanted to wear,0.76,peele,1.75,0.5,non-CoRT,wear,weight
+158,1023,Mary was upset she spilled coffee on her favorite blouse,0.35,peele,4.75,0.5,CoRT,blouse,three
+159,1093,Nina had no confidence and always expected to fail,0.63,peele,1.25,0.5,non-CoRT,fail,ribs
+160,1159,"Over the summer, Tyler wanted something to do",0.77,peele,1.25,0.5,non-CoRT,do,white
+161,1193,Rebecca was gullible but she was not stupid,0.72,peele,1.75,0.5,non-CoRT,stupid,bet
+162,1249,She adores rain but doesn't at all like snow,0.42,peele,1.75,0.5,non-CoRT,snow,wake
+163,1309,Shelly wanted to be a scientist working at a lab,0.72,peele,1.25,0.5,non-CoRT,lab,girl
+164,1326,Some people don't enjoy food and only eat to survive,0.38,peele,1.75,0.5,non-CoRT,survive,fun
+165,1390,The actress rolled her eyes and left in a huff,0.58,peele,4.75,0.5,CoRT,huff,badge
+166,1456,The boat sailed faster after tightly pulling in the sail,0.5,peele,4.75,0.5,CoRT,sail,rat
+167,1493,The building isn't for sale but it's available to rent,0.81,peele,1.25,0.5,non-CoRT,rent,leash
+168,1540,The children spent hours at the beach making a castle,0.62,peele,4.75,0.5,CoRT,castle,hot
+169,1550,The college student looked for a summer job,0.76,peele,1.75,0.5,non-CoRT,job,walls
+170,1560,The company said they were looking to hire,0.37,peele,1.25,0.5,non-CoRT,hire,lab
+171,1562,The competitive students were always afraid to lose,0.65,peele,1.25,0.5,non-CoRT,lose,gas
+172,1564,The confident man believed he was right without a doubt,0.49,peele,1.75,0.5,non-CoRT,doubt,hire
+173,1573,The cop entered the building and showed his badge,0.92,peele,4.25,0.5,CoRT,badge,tea
+174,1579,The couple realized they needed new crystal glasses,0.36,peele,1.25,0.5,non-CoRT,glasses,sick
+175,1619,The details surrounding the crime were extremely vague,0.4,peele,1.25,0.5,non-CoRT,vague,nails
+176,1658,The email offer for a free car was a scam,0.67,peele,1.25,0.5,non-CoRT,scam,bull
+177,1777,The guilty children fled to avoid their mother's wrath,0.59,peele,4.25,0.5,CoRT,wrath,fail
+178,1832,The key to a great burger is good quality meat,0.55,peele,1.75,0.5,non-CoRT,meat,doubt
+179,1902,The man read a book while his wife slept,0.35,peele,1.25,0.5,non-CoRT,slept,touch
+180,1933,The mother had included each child in her will,0.77,peele,1.25,0.5,non-CoRT,will,cry
+181,1969,The officer barged in and quickly flashed his badge,0.81,peele,4.75,0.5,CoRT,badge,cry
+182,1994,The phone call about a free cruise was a scam,0.64,peele,1.75,0.5,non-CoRT,scam,expected
+183,2042,The range of options on the menu was very limited,0.49,peele,1.75,0.5,non-CoRT,limited,girls
+184,2080,The scared girl ran upstairs to her bedroom and hid,0.61,peele,4.75,0.5,CoRT,hid,suit
+185,2116,The soup was extremely hot and burned Matt's tongue,0.74,peele,4.75,0.5,CoRT,tongue,search
+186,2140,The student discussed his research proposal with his professor,0.45,peele,1.75,0.5,non-CoRT,professor,crop
+187,2145,The sugar content in Ivy's cake was too high,0.63,peele,1.25,0.5,non-CoRT,high,scam
+188,2326,They threw eggs at Barry but he knew to duck,0.75,peele,4.75,0.5,CoRT,duck,wine
+189,2355,Timothy was hesitant when he had to make a decision,0.4,peele,1.25,0.5,non-CoRT,decision,wear
+190,2403,"To learn responsibility, each child should have a chore",0.51,peele,1.25,0.5,non-CoRT,chore,place
+191,2504,When at the fair her kids always have great times,0.45,peele,1.75,0.5,non-CoRT,times,loan
+192,2570,"When travelling, tourists like to carry items in a bag",0.48,peele,1.75,0.5,non-CoRT,bag,roof
+193,2628,You should always read it over before signing a contract,0.8,peele,1.25,0.5,non-CoRT,contract,tool
+194,1884,The little puppy outside the house started to bark,0.36,peele,4.333333333333333,0.5163977794943221,CoRT,bark,touch
+195,76,After his episode everyone thought the man was crazy,0.54,peele,1.6666666666666667,0.5163977794943222,non-CoRT,crazy,fan
+196,887,Jeff felt like he would never finish at that pace,0.45,peele,1.3333333333333333,0.5163977794943222,non-CoRT,pace,tired
+197,1432,The baseball player’s cap protected him from the sun,0.74,block_baldwin,1.3333333333333333,0.5163977794943222,non-CoRT,sun,clean
+198,2408,To move quickly through the crowd he began to run,0.42,peele,4.333333333333333,0.5163977794943222,CoRT,run,glasses
+199,71,"After getting hit by the ball, Tyler started to cry",0.71,peele,4.666666666666667,0.5163977794943223,CoRT,cry,bull
+200,579,For his interview Mr. Jones needed a new suit,0.72,block_baldwin,1.3333333333333333,0.5163977794943223,non-CoRT,suit,village
+201,636,Harrison didn't want to clip the wings of his bird,0.71,peele,1.3333333333333333,0.5163977794943223,non-CoRT,bird,fair
+202,649,He didn't like the puppies because they would always bark,0.49,peele,1.6666666666666667,0.5163977794943223,non-CoRT,bark,mouse
+203,710,Her disease created some difficulties but she could manage,0.46,peele,1.3333333333333333,0.5163977794943223,non-CoRT,manage,age
+204,928,Judith went to college to learn how to teach,0.42,peele,1.6666666666666667,0.5163977794943223,non-CoRT,teach,cry
+205,958,Kids don't like that particular fruit because it's sour,0.44,peele,1.3333333333333333,0.5163977794943223,non-CoRT,sour,nut
+206,1014,Marlena thought Jack's behavior was out of control,0.38,peele,1.3333333333333333,0.5163977794943223,non-CoRT,control,art
+207,1021,Mary liked sewing a lot but needed a new machine,0.51,peele,1.3333333333333333,0.5163977794943223,non-CoRT,machine,hose
+208,1378,The Jones children wanted a house with a large yard,0.6,block_baldwin,1.3333333333333333,0.5163977794943223,non-CoRT,yard,hoop
+209,1483,The bracelet fell off her wrist because it was too big,0.67,block_baldwin,4.333333333333333,0.5163977794943223,CoRT,big,pole
+210,1507,The car suddenly appeared and Liz wasn't able to stop,0.35,peele,4.333333333333333,0.5163977794943223,CoRT,stop,pope
+211,2162,The teenager was nervous about having to drive,0.34,peele,1.6666666666666667,0.5163977794943223,non-CoRT,drive,float
+212,2302,They couldn't talk because it was too hard to hear,0.75,peele,1.6666666666666667,0.5163977794943223,non-CoRT,hear,mile
+213,2390,To guess the answer she needed a  hint,0.57,block_baldwin,1.6666666666666667,0.5163977794943223,non-CoRT,hint,nose
+214,2478,What that old house really needs is a new roof,0.4,peele,1.3333333333333333,0.5163977794943223,non-CoRT,roof,tied
+215,1931,The mother caressed her baby in an attempt to soothe,0.5,peele,4.333333333333333,0.5163977794943224,CoRT,soothe,decision
+216,1574,The corn farmer felt this year would yield a good crop,0.85,block_baldwin,1.4285714285714286,0.5345224838248488,non-CoRT,crop,gun
+217,1622,The directions did not match any roads on the map,0.85,block_baldwin,1.4285714285714286,0.5345224838248488,non-CoRT,map,perfume
+218,2633,Zoos have many animals only found in the wild,0.81,block_baldwin,1.5714285714285714,0.5345224838248488,non-CoRT,wild,right
+219,25,Aaron wrote the lesson on the board with colorful chalk,0.61,peele,4.4,0.547722557505166,CoRT,chalk,nail
+220,882,Jason fell off his skateboard when he hit the curb,0.34,peele,4.6,0.547722557505166,CoRT,curb,sander
+221,1687,The farm worker collected fresh eggs from the chickens,0.41,peele,4.4,0.547722557505166,CoRT,chickens,joy
+222,1817,The incubated egg soon hatched into a baby chick,0.51,peele,4.5,0.547722557505166,CoRT,chick,pack
+223,2002,The pitbull was so strong that he snapped the leash,0.31,peele,4.4,0.547722557505166,CoRT,leash,live
+224,2186,The toddler stumbled forward and grabbed the bottle of milk,0.63,peele,4.6,0.547722557505166,CoRT,milk,beach
+225,2623,Worship began after the monk sounded the bell,0.51,peele,4.6,0.547722557505166,CoRT,bell,late
+226,95,"After moving jobs, Jim wasn't sure where to live",0.35,peele,1.4,0.5477225575051661,non-CoRT,live,professor
+227,198,"An expert in hiding, the thief was hard to find",0.6,peele,1.5,0.5477225575051661,non-CoRT,find,job
+228,279,Barry said that accounting work was no fun,0.35,peele,1.4,0.5477225575051661,non-CoRT,fun,cancer
+229,354,Cameron cleaned the spilled milk with a clean cloth,0.33,peele,4.6,0.5477225575051661,CoRT,cloth,tongue
+230,495,Dustin's score was much lower than what he had expected,0.33,peele,1.4,0.5477225575051661,non-CoRT,expected,cry
+231,556,"Exiting the pool, the children were so cold they shivered",0.87,peele,4.4,0.5477225575051661,CoRT,shivered,nail
+232,618,Grace didn't like eating foods with a lot of salt,0.39,peele,1.4,0.5477225575051661,non-CoRT,salt,badge
+233,660,He knew about the prank they were trying to pull,0.8,peele,1.4,0.5477225575051661,non-CoRT,pull,queen
+234,719,Her left hand was freezing after she lost her glove,0.8,peele,4.4,0.5477225575051661,CoRT,glove,flatguitar
+235,866,Jake hated the game and he said it wasn't fair,0.44,peele,1.4,0.5477225575051661,non-CoRT,fair,teach
+236,964,Kyle carefully scooped the honey out of the jar,0.5,peele,4.6,0.5477225575051661,CoRT,jar,date
+237,1015,"Married to a duchess, Max earned the title of duke",0.88,peele,1.6,0.5477225575051661,non-CoRT,duke,gold
+238,1160,"Over the summer, the boys went swimming at the lake",0.5,peele,4.4,0.5477225575051661,CoRT,lake,raise
+239,1166,Patrick did not think Kayla was worth fighting for,0.8,peele,1.4,0.5477225575051661,non-CoRT,for,rough
+240,1207,Robert reached into the cabinet for a bottle of wine,0.32,peele,4.6,0.5477225575051661,CoRT,wine,task
+241,1273,She learned that the waves depended on the moon,0.36,peele,1.4,0.5477225575051661,non-CoRT,moon,cry
+242,1338,Spaghetti is the girl's favorite type of food,0.49,peele,1.6,0.5477225575051661,non-CoRT,food,dam
+243,1356,Summer vacation is a time to lounge around and relax,0.62,peele,1.5,0.5477225575051661,non-CoRT,relax,control
+244,1367,Terry thought the shirt was bland because it was white,0.44,peele,1.4,0.5477225575051661,non-CoRT,white,duke
+245,1425,The baby's face puckered when she ate something sour,0.94,peele,4.5,0.5477225575051661,CoRT,sour,tree
+246,1595,The crowd became rowdy after drinking too much sweet wine,0.32,peele,4.6,0.5477225575051661,CoRT,wine,year
+247,1718,The fisherman easily put the bait on the hook,0.93,peele,4.4,0.5477225575051661,CoRT,hook,red
+248,1852,The landscaper cleared the lawn of leaves with the rake,0.54,peele,4.6,0.5477225575051661,CoRT,rake,sail
+249,1869,The lion wasn't fullcub,0.86,peele,1.4,0.5477225575051661,non-CoRT,fullcub,cup
+250,2148,The sweater was not worn much because it collected lint,0.53,block_baldwin,1.5,0.5477225575051661,non-CoRT,lint,relax
+251,2210,The two young brothers' least favorite drink was milk,0.38,peele,1.6,0.5477225575051661,non-CoRT,milk,heal
+252,2252,The woman said she thought Joe loved her too much,0.96,peele,1.6,0.5477225575051661,non-CoRT,much,dad
+253,2309,They found it difficult to remember what had been said,0.54,peele,1.4,0.5477225575051661,non-CoRT,said,choke
+254,2338,They were worried because the timing had to be perfect,0.67,peele,1.6,0.5477225575051661,non-CoRT,perfect,door
+255,2352,Timmy couldn't wait to hang out at the mall,0.32,peele,1.6,0.5477225575051661,non-CoRT,mall,dug
+256,2437,Tom carefully searched for a bolt of the right size,0.56,peele,4.4,0.5477225575051661,CoRT,size,tune
+257,2486,"When Joel twisted his ankle, he began to cry",0.37,peele,4.5,0.5477225575051661,CoRT,cry,should
+258,2512,"When fishing, Reese always used his lucky lure",0.32,peele,1.6,0.5477225575051661,non-CoRT,lure,dare
+259,4,"A crowd formed at the beach, curious about the whale",0.46,peele,4.6,0.5477225575051662,CoRT,whale,wanted
+260,17,A plant's roots can extract nutrients from the soil,0.72,peele,1.6,0.5477225575051662,non-CoRT,soil,chore
+261,35,"After Chris dropped bread in the water, it became soggy",0.78,peele,4.6,0.5477225575051662,CoRT,soggy,years
+262,70,"After filling the bowl with cereal, Josh added milk",0.87,peele,4.6,0.5477225575051662,CoRT,milk,break
+263,158,Alexander just knew that he would win the big prize,0.32,peele,1.6,0.5477225575051662,non-CoRT,prize,kite
+264,223,"As Jill felt the sharp pain, she began to cry",0.46,peele,4.6,0.5477225575051662,CoRT,cry,taste
+265,251,At the beach Sammy's sandwich was snatched by a seagull,0.56,peele,4.6,0.5477225575051662,CoRT,seagull,clothes
+266,262,"At the landfill, Fred cut himself on a rusty nail",0.66,peele,4.4,0.5477225575051662,CoRT,nail,difficult
+267,339,"Brad wasn't completely sure, but something just felt wrong",0.57,peele,1.6,0.5477225575051662,non-CoRT,wrong,bat
+268,678,He turned to see the dog charging like a bull,0.83,peele,4.4,0.5477225575051662,CoRT,bull,game
+269,730,His favorite place to relax is on the beach,0.41,peele,1.4,0.5477225575051662,non-CoRT,beach,thought
+270,759,If Alex drifts off he should really take a nap,0.79,peele,1.6,0.5477225575051662,non-CoRT,nap,love
+271,790,In the evening grandpa smokes using his pipe,0.96,peele,4.4,0.5477225575051662,CoRT,pipe,survive
+272,801,"In the past, the military only enlisted men",0.88,peele,1.4,0.5477225575051662,non-CoRT,men,pension
+273,940,Karen shrieked when she discovered the dead mouse,0.36,peele,4.4,0.5477225575051662,CoRT,mouse,moon
+274,957,Kevin frowned when he awoke and the light was on,0.55,peele,4.6,0.5477225575051662,CoRT,on,fair
+275,989,Lucy hid Liam's presents so he had to carefully search,0.46,peele,4.6,0.5477225575051662,CoRT,search,said
+276,1004,Many women are very conscious of their weight,0.32,peele,1.4,0.5477225575051662,non-CoRT,weight,milk
+277,1043,Michael was sure of who would win so he bet,0.53,peele,1.6,0.5477225575051662,non-CoRT,bet,stars
+278,1065,"Most people, when they eat fruit, don't eat the seeds",0.31,peele,1.6,0.5477225575051662,non-CoRT,seeds,tip
+279,1089,Nicole hung the wall painting using a small nail,0.69,peele,4.4,0.5477225575051662,CoRT,nail,has
+280,1103,Noah started crying when the baseball hit his head,0.41,peele,4.6,0.5477225575051662,CoRT,head,nurse
+281,1179,Phil restarted the stalled lawn mower with a strong pull,0.73,peele,4.6,0.5477225575051662,CoRT,pull,cup
+282,1335,"Soon after Janice stepped on the wet floor, she slipped",0.82,peele,4.6,0.5477225575051662,CoRT,slipped,boo
+283,1344,"Staring blankly out the window, Nick let his eyes wander",0.64,peele,4.6,0.5477225575051662,CoRT,wander,robe
+284,1457,The body builder's arm muscles were extremely large,0.4,peele,1.6,0.5477225575051662,non-CoRT,large,nap
+285,1460,The boss kept his employees on a short leash,0.93,peele,1.4,0.5477225575051662,non-CoRT,leash,please
+286,1481,The boys already knew it was wrong to steal,0.39,peele,1.4,0.5477225575051662,non-CoRT,steal,poop
+287,1578,The couple needed an apartment at a good price,0.73,peele,1.4,0.5477225575051662,non-CoRT,price,on
+288,1648,The driver was unsure what pushing that button did,0.7,peele,1.6,0.5477225575051662,non-CoRT,did,pin
+289,1702,The fat cat lazily swatted at the small mouse,0.38,peele,4.4,0.5477225575051662,CoRT,mouse,tag
+290,1719,The fisherman lifted the heavy fish using his sharp hook,0.53,peele,4.6,0.5477225575051662,CoRT,hook,shift
+291,1843,The kids' favorite type of lunch meat is smoked ham,0.7,peele,1.4,0.5477225575051662,non-CoRT,ham,read
+292,1914,The market does not provide customers with a shopping cart,0.52,peele,1.6,0.5477225575051662,non-CoRT,cart,want
+293,2035,The raging horse kicked the stable worker with its hoof,0.59,peele,4.6,0.5477225575051662,CoRT,hoof,taught
+294,2040,The ranch workers were startled by the charging angry bull,0.72,peele,4.6,0.5477225575051662,CoRT,bull,try
+295,2048,The restaurant made millions with its famous secret recipe,0.49,peele,1.6,0.5477225575051662,non-CoRT,recipe,ship
+296,2096,"The simple, fun camp game soon escalated into a fight",0.5,peele,4.4,0.5477225575051662,CoRT,fight,spots
+297,2184,The toddler jumped but the jar was out of reach,0.82,peele,4.6,0.5477225575051662,CoRT,reach,prince
+298,2241,The wolf blew the house down with one final blow,0.46,peele,4.4,0.5477225575051662,CoRT,blow,curb
+299,2301,They broke into the store and began to steal,0.42,peele,4.6,0.5477225575051662,CoRT,steal,sound
+300,2585,While eating the peanuts Gary began to choke,0.57,peele,4.4,0.5477225575051662,CoRT,choke,stop
+301,2595,"While in the basement, Alexis caught and killed a rat",0.35,peele,4.6,0.5477225575051662,CoRT,rat,curse
+302,2611,Winston's prized chess set was missing a piece,0.43,peele,1.6,0.5477225575051662,non-CoRT,piece,soggy
+303,939,Karen realized she had stepped in a pile of poop,0.49,peele,4.6,0.5477225575051663,CoRT,poop,seeds
+304,1822,The ink flowed steadily from the fountain pen's tip,0.51,peele,4.6,0.5477225575051663,CoRT,tip,cloth
+305,1946,The museum curator placed the sculpture back in its place,0.52,peele,4.6,0.5477225575051663,CoRT,place,school
+306,2242,The wolves approached the campsite in a pack,0.5,peele,4.4,0.5477225575051663,CoRT,pack,kiss
+307,2556,"When the opposing team entered, the fans started to boo",0.73,peele,4.4,0.5477225575051663,CoRT,boo,moat
+308,28,Abby stuck his picture to her wall with a tack,0.46,peele,4.333333333333333,0.5773502691896257,CoRT,tack,chief
+309,126,"After the clumsy woman fell, the crowd began to laugh",0.52,peele,4.5,0.5773502691896257,CoRT,laugh,control
+310,162,"Ali disliked her boss, a man she had come to hate",0.34,peele,1.5,0.5773502691896257,non-CoRT,hate,hid
+311,204,Andrew's favorite type of fruit is the apple,0.31,peele,1.6666666666666667,0.5773502691896257,non-CoRT,apple,doubts
+312,229,"As night fell, all of the dogs began to howl",0.44,peele,4.5,0.5773502691896257,CoRT,howl,duck
+313,277,Barb pulled her sleeve back to reveal a big bruise,0.39,peele,4.5,0.5773502691896257,CoRT,bruise,peach
+314,326,Bill jumped in the lake and made a big splash,0.92,block_baldwin,4.666666666666667,0.5773502691896257,CoRT,splash,food
+315,445,"Down to two colleges, Russell still couldn't make a decision",0.71,peele,1.5,0.5773502691896257,non-CoRT,decision,small
+316,503,Elle got behind the stalled car and began to push,0.87,peele,4.5,0.5773502691896257,CoRT,push,will
+317,521,Even more than the cookies Davis liked the cake,0.46,peele,1.5,0.5773502691896257,non-CoRT,cake,god
+318,554,Everyone who knew him said he had a big heart,0.49,peele,1.5,0.5773502691896257,non-CoRT,heart,relax
+319,626,Greta quickly woke after Jess gave her a painful pinch,0.39,peele,4.5,0.5773502691896257,CoRT,pinch,mail
+320,667,He promised everyone but they still had doubts,0.52,peele,1.5,0.5773502691896257,non-CoRT,doubts,bell
+321,679,He used his skateboard to grind along the rails,0.38,peele,4.5,0.5773502691896257,CoRT,rails,void
+322,698,"Heidi loves Georgia, because her favorite fruit is the peach",0.93,peele,1.5,0.5773502691896257,non-CoRT,peach,hole
+323,734,His mother cautioned him about letting the bananas rot,0.38,peele,1.5,0.5773502691896257,non-CoRT,rot,teach
+324,785,In the bathroom Aubrey slipped and fell in the tub,0.66,peele,4.5,0.5773502691896257,CoRT,tub,blow
+325,798,"In the morning, Kathy hoped that the birds wouldn't chirp",0.39,peele,1.5,0.5773502691896257,non-CoRT,chirp,hook
+326,910,Jo can never decide what food to eat,0.62,peele,1.5,0.5773502691896257,non-CoRT,eat,bruise
+327,927,Judith wanted her grandma to teach her how to sew,0.41,peele,1.5,0.5773502691896257,non-CoRT,sew,battery
+328,963,Kristin did not like the healthy smoothie's taste,0.62,peele,1.5,0.5773502691896257,non-CoRT,taste,note
+329,1008,Margie has the time management skills that many students lack,0.57,peele,1.5,0.5773502691896257,non-CoRT,lack,knife
+330,1019,Martin was so exhausted he fell onto his bed,0.56,peele,4.5,0.5773502691896257,CoRT,bed,merge
+331,1079,Nate doesn't make big decisions before giving them thought,0.74,peele,1.5,0.5773502691896257,non-CoRT,thought,steep
+332,1239,"Satisfied with his dinner, Harold let out a huge burp",0.36,peele,4.5,0.5773502691896257,CoRT,burp,decision
+333,1301,She wasn't certain she'd find him but she would try,0.81,peele,1.5,0.5773502691896257,non-CoRT,try,sun
+334,1369,"Terry wanted to skip school, but she wouldn't dare",0.43,peele,1.5,0.5773502691896257,non-CoRT,dare,cry
+335,1396,The angry chicken gave the farmer a sharp peck,0.83,peele,4.5,0.5773502691896257,CoRT,peck,huff
+336,1426,The baby's ice cream was snatched up by the dog,0.47,peele,4.5,0.5773502691896257,CoRT,dog,cure
+337,1430,The baseball hit the batter's chest and broke his ribs,0.7,peele,4.5,0.5773502691896257,CoRT,ribs,search
+338,1443,The best way to travel at sea is to sail,0.43,peele,1.5,0.5773502691896257,non-CoRT,sail,robe
+339,1444,The big friendly dog wetted her face with his tongue,0.7,peele,4.5,0.5773502691896257,CoRT,tongue,name
+340,1509,The cardinals wondered which of them would become the pope,0.5,peele,1.5,0.5773502691896257,non-CoRT,pope,wake
+341,1663,The enemies stormed the castle despite the protective moat,0.39,peele,4.5,0.5773502691896257,CoRT,moat,leak
+342,1685,The fans cheered when the baseball player went to bat,0.5,peele,4.333333333333333,0.5773502691896257,CoRT,bat,knot
+343,1796,The host made the whole room dance an energetic jig,0.37,peele,4.5,0.5773502691896257,CoRT,jig,times
+344,1867,The lightning struck and the whole building shook,0.7,peele,4.5,0.5773502691896257,CoRT,shook,glove
+345,1891,The man added tonic water to his glass of gin,0.55,peele,4.5,0.5773502691896257,CoRT,gin,sour
+346,1910,The manager thought Cheryl was the right person to hire,0.42,peele,1.5,0.5773502691896257,non-CoRT,hire,made
+347,1912,The marathon runners struggled through the last mile,0.62,peele,4.5,0.5773502691896257,CoRT,mile,men
+348,1930,The monument was the largest constructed to date,0.73,peele,1.5,0.5773502691896257,non-CoRT,date,house
+349,2014,The postman walked up and handed the man his mail,0.72,peele,4.5,0.5773502691896257,CoRT,mail,lake
+350,2097,The sitcom repeatedly used the same running joke,0.43,peele,1.5,0.5773502691896257,non-CoRT,joke,wind
+351,2122,The stable was home to Rick's favorite horse,0.89,peele,1.5,0.5773502691896257,non-CoRT,horse,corner
+352,2144,The students' preferred writing utensil was a pencil,0.49,peele,1.5,0.5773502691896257,non-CoRT,pencil,lack
+353,2181,The toddler covered the walls with her mother's lipstick,0.48,peele,4.5,0.5773502691896257,CoRT,lipstick,silk
+354,2182,"The toddler enjoyed feeding bread to the fat, white duck",0.5,peele,4.5,0.5773502691896257,CoRT,duck,washer
+355,2203,The tribe respected the girl because her father was chief,0.53,peele,1.5,0.5773502691896257,non-CoRT,chief,bee
+356,2218,The unstable beam struck the construction worker on the head,0.68,peele,4.5,0.5773502691896257,CoRT,head,cry
+357,2250,The woman said every girl should carry mace,0.56,peele,1.6666666666666667,0.5773502691896257,non-CoRT,mace,cry
+358,2262,The woman wasn't sure when the baby was due,0.53,peele,1.5,0.5773502691896257,non-CoRT,due,chalk
+359,2281,The youth baseball team was ranked first in the league,0.36,peele,1.5,0.5773502691896257,non-CoRT,league,fail
+360,2363,"To avoid hitting her head, she had to duck",0.85,peele,4.5,0.5773502691896257,CoRT,duck,sail
+361,2380,To enter the castle she rode across a bridge,0.4,peele,4.5,0.5773502691896257,CoRT,bridge,fullcub
+362,2407,"To maximize profits, the companies decided to merge",0.37,peele,1.5,0.5773502691896257,non-CoRT,merge,alone
+363,2470,Wade spotted the incoming ball and was able to duck,0.36,peele,4.5,0.5773502691896257,CoRT,duck,bird
+364,2529,"When nervous, Julie would sometimes bite her nails",0.51,peele,1.5,0.5773502691896257,non-CoRT,nails,cow
+365,2533,When sailing one must be mindful of the wind,0.67,peele,1.6666666666666667,0.5773502691896257,non-CoRT,wind,phase
+366,159,Alexander placed the car key in the ignition,0.52,peele,4.333333333333333,0.5773502691896258,CoRT,ignition,hoop
+367,224,As Shelley walked up the mountain trail it became steep,0.67,block_baldwin,4.5,0.5773502691896258,CoRT,steep,hook
+368,300,Before placing each brick he applied a glob of cement,0.46,peele,4.666666666666667,0.5773502691896258,CoRT,cement,cart
+369,922,Jordan learned a lot about cars from his dad,0.45,peele,1.3333333333333333,0.5773502691896258,non-CoRT,dad,batch
+370,1131,"On the lawn, Patrick tripped where the dog had dug",0.31,peele,4.5,0.5773502691896258,CoRT,dug,sour
+371,2066,The rotten fruit had turned into a soft mush,0.7,peele,4.5,0.5773502691896258,CoRT,mush,run
+372,2090,The ship's passengers panicked after damage to the hull,0.6,peele,4.5,0.5773502691896258,CoRT,hull,sour
+373,2128,The stench of the dumpster made the passerby gag,0.35,peele,4.5,0.5773502691896258,CoRT,gag,hour
+374,2137,The strong winds prevented Jillian from flying her kite,0.91,peele,4.666666666666667,0.5773502691896258,CoRT,kite,match
+375,2206,The truck lost control and swerved into the ditch,0.69,block_baldwin,4.666666666666667,0.5773502691896258,CoRT,ditch,lint
+376,724,His boss refused to give him a  raise,0.87,block_baldwin,1.8571428571428572,0.6900655593423541,non-CoRT,raise,head
+377,755,I would drive but my car is low on gas,0.9,block_baldwin,1.8571428571428572,0.6900655593423541,non-CoRT,gas,wrath
+378,146,"After waiting three hours, Cal whined and started to cry",0.5,peele,4.166666666666667,0.752772652709081,CoRT,cry,high
+379,662,He lay down and went to sleep,0.76,block_baldwin,4.166666666666667,0.752772652709081,CoRT,sleep,core
+380,1275,She lived in sunny Florida and never saw falling snow,0.72,block_baldwin,1.8333333333333333,0.752772652709081,non-CoRT,snow,for
+381,2362,To afford a new car Tim got a  loan,0.71,block_baldwin,1.8333333333333333,0.752772652709081,non-CoRT,loan,rain
+382,2036,The rain this year cause the farmer to have a poor crop,0.81,block_baldwin,1.7142857142857142,0.7559289460184544,non-CoRT,crop,mitt
+383,314,Benny tried to make a keep a new resolution each year,0.9,block_baldwin,1.7142857142857142,0.7559289460184545,non-CoRT,year,well
+384,611,George must keep his pet on a  leash,0.9,block_baldwin,1.7142857142857142,0.7559289460184545,non-CoRT,leash,blouse
+385,1958,The new officer was of a higher rank,0.81,block_baldwin,1.2857142857142858,0.7559289460184545,non-CoRT,rank,cherry
+386,891,Jenny was creative and loved to study art,0.82,block_baldwin,1.5714285714285714,0.7867957924694431,non-CoRT,art,mouse
+387,571,For breakfast Jim wanted bacon and eggs,0.91,block_baldwin,1.4285714285714286,0.7867957924694432,non-CoRT,eggs,jazz
+388,663,He liked lemon and sugar in his tea,0.81,block_baldwin,1.4285714285714286,0.7867957924694432,non-CoRT,tea,bark
+389,681,He was afraid to work the night shift,0.9,block_baldwin,1.4285714285714286,0.7867957924694432,non-CoRT,shift,milk
+390,800,In the night sky it is easier to see all the stars,0.94,block_baldwin,1.4285714285714286,0.7867957924694432,non-CoRT,stars,yard
+391,998,Many commuters complain about the price of gas,0.88,block_baldwin,1.5714285714285714,0.7867957924694432,non-CoRT,gas,hoop
+392,1266,She graduated at the top of her class,0.95,block_baldwin,1.5714285714285714,0.7867957924694432,non-CoRT,class,merge
+393,1447,The bill was due at the end of the  month,0.76,block_baldwin,1.5714285714285714,0.7867957924694432,non-CoRT,month,roar
+394,2022,The princess would someday become a queen,0.93,block_baldwin,1.4285714285714286,0.7867957924694432,non-CoRT,queen,apple
+395,136,"After the mother left, the baby began to loudly cry",0.75,peele,4.333333333333333,0.8164965809277259,CoRT,cry,learn
+396,1054,Molly stubbed her big toe and she began to cry,0.65,peele,4.333333333333333,0.8164965809277259,CoRT,cry,milk
+397,2537,When she lost her doll the girl began to cry,0.84,peele,4.333333333333333,0.8164965809277259,CoRT,cry,hoop
+398,2561,"When the robber trapped Dorothy, she began to cry",0.37,peele,4.333333333333333,0.8164965809277259,CoRT,cry,cloth
+399,148,After watching some baseball games she became a fan,0.8,peele,1.6666666666666667,0.816496580927726,non-CoRT,fan,tack
+400,401,Courtney was so happy and relieved she started to cry,0.71,peele,4.333333333333333,0.816496580927726,CoRT,cry,well
+401,420,Dennis looked sweet but really he was a jerk,0.35,peele,1.6666666666666667,0.816496580927726,non-CoRT,jerk,jig
+402,671,He slept so soundly that he was impossible to wake,0.71,peele,1.6666666666666667,0.816496580927726,non-CoRT,wake,load
+403,774,"In her free time, Meredith really liked to read",0.49,peele,1.6666666666666667,0.816496580927726,non-CoRT,read,charge
+404,855,Ivan did not know the time since his watch broke,0.76,block_baldwin,1.6666666666666667,0.816496580927726,non-CoRT,broke,chick
+405,944,Katherine can't enter without the code for the door,0.36,peele,1.6666666666666667,0.816496580927726,non-CoRT,door,tire
+406,1251,She bought the pants only because they were cheap,0.48,peele,1.6666666666666667,0.816496580927726,non-CoRT,cheap,bell
+407,1405,The artist loved his painting and knew it was good,0.37,peele,1.6666666666666667,0.816496580927726,non-CoRT,good,tub
+408,249,At recess the younger children usually play tag,0.42,peele,4.2,0.8366600265340753,CoRT,tag,rank
+409,695,"Hearing noises from above, the confused man inspected the attic",0.32,peele,4.5,0.8366600265340753,CoRT,attic,crowd
+410,1129,"On the back porch, Karen hung a clanging bell",0.35,peele,4.2,0.8366600265340753,CoRT,bell,sweet
+411,2567,When they lost their dog their neighbors helped to search,0.59,peele,4.2,0.8366600265340755,CoRT,search,cloth
+412,3,"A clumsy toddler, Serena often spilled her milk",0.34,peele,4.2,0.8366600265340756,CoRT,milk,eat
+413,19,A stray baseball smacked an unsuspecting walker in the head,0.45,peele,4.2,0.8366600265340756,CoRT,head,wine
+414,21,"A thorough worker, Jane treated each project with great care",0.62,peele,1.8,0.8366600265340756,non-CoRT,care,taste
+415,54,"After climbing the mountain, they could see the wooded forest",0.37,peele,4.2,0.8366600265340756,CoRT,forest,push
+416,56,"After college, the student had amassed a lot of debt",0.76,peele,1.8,0.8366600265340756,non-CoRT,debt,score
+417,112,"After soccer practice, Logan threw his clothes in the washer",0.42,peele,4.2,0.8366600265340756,CoRT,washer,fight
+418,168,All the crumbs on the floor were sure to attract a  mouse,0.67,block_baldwin,1.5,0.8366600265340756,non-CoRT,mouse,hair
+419,270,"At the show, all the animals jumped through a hoop",0.94,peele,4.2,0.8366600265340756,CoRT,hoop,perfect
+420,296,"Before leaving for the party, Kim dabbed on some perfume",0.49,peele,4.2,0.8366600265340756,CoRT,perfume,wall
+421,313,Benjamin had trouble parking because the space was small,0.56,peele,4.2,0.8366600265340756,CoRT,small,dull
+422,388,Clara worried that her first painting wouldn't turn out well,0.47,peele,1.8,0.8366600265340756,non-CoRT,well,cry
+423,391,Clay refused to settle down and buy his own house,0.47,peele,1.8,0.8366600265340756,non-CoRT,house,did
+424,405,Daniel backed his car into the base of the basketball hoop,0.36,peele,4.2,0.8366600265340756,CoRT,hoop,year
+425,487,During the war his mother had been a nurse,0.62,peele,1.8,0.8366600265340756,non-CoRT,nurse,blue
+426,504,Elle let out her frustration in a big sigh,0.47,peele,4.2,0.8366600265340756,CoRT,sigh,bean
+427,519,Eva is constantly complimented on her trendy clothes,0.34,peele,1.8,0.8366600265340756,non-CoRT,clothes,much
+428,582,"For the client dinner, the company will pay the bill",0.6,peele,1.8,0.8366600265340756,non-CoRT,bill,ignition
+429,670,He slept quite deeply and was almost impossible to wake,0.79,peele,1.5,0.8366600265340756,non-CoRT,wake,bridge
+430,701,Helen was happy in life and especially loved her husband,0.35,peele,1.8,0.8366600265340756,non-CoRT,husband,tongue
+431,713,Her father said the most important people are your family,0.6,peele,1.8,0.8366600265340756,non-CoRT,family,instructions
+432,859,Jacob and his wife liked to take long walks by the beach,0.31,peele,4.2,0.8366600265340756,CoRT,beach,gag
+433,967,"Lately, Sam has felt like he is in a rut",0.43,peele,1.8,0.8366600265340756,non-CoRT,rut,rake
+434,973,Lily's favorite part of summer was going to the beach,0.63,peele,1.8,0.8366600265340756,non-CoRT,beach,cheap
+435,1106,None of the witnesses could describe the suspect's face,0.5,peele,1.8,0.8366600265340756,non-CoRT,face,jerk
+436,1147,One of the most common recess games is tag,0.58,peele,1.8,0.8366600265340756,non-CoRT,tag,hook
+437,1162,Paige thought the color of the wall was rather dull,0.34,peele,1.8,0.8366600265340756,non-CoRT,dull,class
+438,1165,Pam worried that she'd never find a boy to love,0.45,peele,1.8,0.8366600265340756,non-CoRT,love,pull
+439,1182,Preston thought the song had quite a catchy tune,0.52,peele,1.8,0.8366600265340756,non-CoRT,tune,pipe
+440,1185,Quinn was surprised that Mariah didn't believe in god,0.43,peele,1.8,0.8366600265340756,non-CoRT,god,beach
+441,1230,Sandra was cast in the school production as the lead,0.49,peele,1.8,0.8366600265340756,non-CoRT,lead,league
+442,1321,Sofia liked riding the Ferris wheel at the local fair,0.75,peele,1.8,0.8366600265340756,non-CoRT,fair,husband
+443,1431,The baseball player always used his lucky catcher's mitt,0.91,peele,1.8,0.8366600265340756,non-CoRT,mitt,recipe
+444,1471,The boy screamed after he was stung by a bee,0.81,peele,4.2,0.8366600265340756,CoRT,bee,walk
+445,1496,The business owner was scared that his business would fail,0.77,peele,1.8,0.8366600265340756,non-CoRT,fail,machine
+446,1635,The dog ran inside just before it started to rain,0.82,peele,4.2,0.8366600265340756,CoRT,rain,peeve
+447,1657,The elementary school girl loved to hula hoop,0.83,peele,1.8,0.8366600265340756,non-CoRT,hoop,counter
+448,1698,"The farmer, while organizing, had to move a tractor",0.35,peele,4.2,0.8366600265340756,CoRT,tractor,wag
+449,1714,The first animal sound Jackie learned was for a cow,0.4,peele,1.5,0.8366600265340756,non-CoRT,cow,work
+450,1798,The hotel shower had everything he needed except soap,0.44,peele,1.8,0.8366600265340756,non-CoRT,soap,lake
+451,1844,The kind grandmother told stories while she knitted,0.37,peele,4.2,0.8366600265340756,CoRT,knitted,lock
+452,1859,The lawyer found a loophole that made the contract void,0.52,peele,1.8,0.8366600265340756,non-CoRT,void,boo
+453,1879,The little girl tripped and immediately began to cry,0.9,peele,4.5,0.8366600265340756,CoRT,cry,soap
+454,1986,The passengers feared capsizing when the ship began to rock,0.36,peele,4.2,0.8366600265340756,CoRT,rock,peak
+455,1988,The patient's broken arm took awhile to heal,0.88,peele,1.8,0.8366600265340756,non-CoRT,heal,iceberg
+456,2016,The preschooler tied his shoelaces with an extra knot,0.68,peele,4.2,0.8366600265340756,CoRT,knot,drive
+457,2084,The screaming little girl made the sitter very nervous,0.33,peele,4.2,0.8366600265340756,CoRT,nervous,horse
+458,2170,The tent quickly collapsed after Patrick broke a pole,0.53,peele,4.2,0.8366600265340756,CoRT,pole,rock
+459,2208,The two opposing families had an ongoing feud,0.39,block_baldwin,1.5,0.8366600265340756,non-CoRT,feud,piece
+460,2212,The ugly bird had trouble finding a mate,0.57,peele,1.8,0.8366600265340756,non-CoRT,mate,pace
+461,2287,There is no cold that homemade soup cannot cure,0.79,peele,1.8,0.8366600265340756,non-CoRT,cure,bet
+462,2312,"They had no news yet, so they could only wait",0.39,peele,1.8,0.8366600265340756,non-CoRT,wait,chirp
+463,2385,"To get rid of emotional clutter, Will resolved to meditate",0.38,peele,1.8,0.8366600265340756,non-CoRT,meditate,rot
+464,2452,Tyler and his opponent shook hands before the match,0.58,peele,4.2,0.8366600265340756,CoRT,match,mall
+465,2461,"Upset with her brother's rudeness, Kelsey left in a huff",0.54,peele,4.2,0.8366600265340756,CoRT,huff,snow
+466,2464,Veronica placed the paperwork in the bank vault,0.57,peele,4.2,0.8366600265340756,CoRT,vault,mouth
+467,2553,"When the manager leaves, the office is under Liam's control",0.49,peele,1.5,0.8366600265340756,non-CoRT,control,trails
+468,2562,"When the runner finished, the crowd let out a cheer",0.65,peele,4.2,0.8366600265340756,CoRT,cheer,work
+469,2583,"While cooking, Luke accidentally cut himself with a knife",0.96,peele,4.2,0.8366600265340756,CoRT,knife,league
+470,141,"After the vandal punctured the water tower, water began to leak",0.43,peele,4.4,0.8944271909999157,CoRT,leak,baby
+471,202,Andrea watered her garden with a small hose,0.45,peele,4.4,0.8944271909999157,CoRT,hose,duck
+472,1075,Nancy applied ointment to the cut with a gentle touch,0.4,peele,4.4,0.8944271909999157,CoRT,touch,sigh
+473,1229,Sandra hung red and green Christmas lights from the tree,0.6,peele,4.4,0.8944271909999157,CoRT,tree,soil
+474,63,"After driving over sharp glass, Ronald had a flat tire",1.0,peele,4.4,0.8944271909999159,CoRT,tire,tea
+475,161,Alexis was embarrassed by her child's behavior in school,0.36,peele,1.6,0.8944271909999159,non-CoRT,school,crazy
+476,166,All of the wet paper had rolled into a ball,0.73,peele,1.6,0.8944271909999159,non-CoRT,ball,rent
+477,219,Arlene wasn't sure if she believed in god,0.56,peele,1.6,0.8944271909999159,non-CoRT,god,hoof
+478,383,Claire claimed motherhood was the hardest job she ever had,0.82,peele,1.6,0.8944271909999159,non-CoRT,had,vomit
+479,515,Eric was worried that his car didn't have enough gas,0.86,peele,1.6,0.8944271909999159,non-CoRT,gas,lawn
+480,589,Frank read by the fireplace while his grandmother knitted,0.4,peele,4.4,0.8944271909999159,CoRT,knitted,broke
+481,620,Grandmother baked a pie and set it on the counter,0.34,peele,4.4,0.8944271909999159,CoRT,counter,wild
+482,716,Her grandfather was a criminal who would steal,0.48,peele,1.4,0.8944271909999159,non-CoRT,steal,price
+483,815,Incredibly poor food service is my pet peeve,0.96,peele,1.4,0.8944271909999159,non-CoRT,peeve,pinch
+484,881,Jared was so sure that he was in the right,0.4,peele,1.4,0.8944271909999159,non-CoRT,right,cry
+485,931,Julia fastened the scarf around her neck with a pin,0.36,peele,4.6,0.8944271909999159,CoRT,pin,hint
+486,981,Little Amelia's favorite toy was her hula hoop,0.99,peele,1.6,0.8944271909999159,non-CoRT,hoop,lunchsign
+487,1013,Mark's favorite spot to fish was a pier by the lake,0.34,peele,4.4,0.8944271909999159,CoRT,lake,fall
+488,1055,Molly thought the table surface was too rough,0.44,peele,1.6,0.8944271909999159,non-CoRT,rough,rut
+489,1076,Napa Valley in California is known for making wine,0.94,peele,1.6,0.8944271909999159,non-CoRT,wine,snow
+490,1096,No one could buy the book because of the price,0.6,peele,1.4,0.8944271909999159,non-CoRT,price,prize
+491,1098,No one expected the game to end with a tie,0.58,peele,1.6,0.8944271909999159,non-CoRT,tie,duck
+492,1124,"On his lunch break, the lunchsign",0.87,peele,1.6,0.8944271909999159,non-CoRT,lunchsign,bite
+493,1142,"Once outside, the playful toddler started throwing rocks",0.37,peele,4.4,0.8944271909999159,CoRT,rocks,vault
+494,1183,Pull the cord to hoist the bucket out of the well,0.66,peele,4.4,0.8944271909999159,CoRT,well,steal
+495,1317,"Since the child was only seventeen, the contract was void",0.56,peele,1.6,0.8944271909999159,non-CoRT,void,country
+496,1332,Some townspeople believed the proposed law was worth fighting for,0.77,peele,1.6,0.8944271909999159,non-CoRT,for,hand
+497,1453,The blanket looked like something a child had made,0.44,peele,1.4,0.8944271909999159,non-CoRT,made,rocks
+498,1508,The car was similar but it was a different model,0.4,peele,1.4,0.8944271909999159,non-CoRT,model,relax
+499,1561,The competition started when they heard the bell,0.35,peele,4.4,0.8944271909999159,CoRT,bell,castle
