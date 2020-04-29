@@ -278,7 +278,7 @@ def sentence_selection(num_sentences, split_sentence=False):
         df_out['full_sentence'] = df_grouped['full_sentence'].str.replace(" ", "|")
 
     # save out stimulus set
-    df_out.to_csv(outname, header=True, index=True)
+    df_out.to_csv(outname, header=True, index=False)
 
     print('stimulus file successfully saved out!')
     return df_out
