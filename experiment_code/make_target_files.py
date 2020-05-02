@@ -99,7 +99,7 @@ def make_gorilla_spreadsheet_sentence_validation(num_sentences=400, num_sentence
     df = df.sample(num_sentences_per_block*num_blocks, replace=False)
 
     # create outname
-    outname = Defaults.TARGET_DIR / f'sentence_validation_pilot_{num_sentences_per_block}_trials.csv'
+    outname = Defaults.TARGET_DIR / f'sentence_validation_pilot_{num_sentences_per_block*num_blocks}_trials.csv'
 
     # add block info
     df['block'] = np.repeat(np.arange(1,num_blocks+1), num_sentences_per_block)
