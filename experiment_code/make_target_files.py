@@ -67,7 +67,7 @@ def make_gorilla_spreadsheet_CoRT_scaling(filename="Peele_cloze_3.csv", num_sent
 
     print('target file successfully saved out!')
 
-def make_gorilla_spreadsheet_sentence_validation(num_sentences=400, num_sentences_per_block=50, num_blocks=8, num_breaks=7, trial_dur_ms=10000, iti_dur=500, frac_random=.3):
+def make_gorilla_spreadsheet_sentence_validation(num_sentences=500, num_sentences_per_block=50, num_blocks=10, num_breaks=9, trial_dur_ms=10000, iti_dur=500, frac_random=.3):
     """ this function creates a spreadsheet for the gorilla experiment platform. 
 
     Args:
