@@ -67,11 +67,14 @@ def make_gorilla_spreadsheet_CoRT_scaling(filename="Peele_cloze_3.csv", num_sent
 
     print('target file successfully saved out!')
 
+<<<<<<< HEAD
 def make_gorilla_spreadsheet_sentence_validation(num_sentences=500, num_sentences_per_block=50, num_blocks=10, num_breaks=9, trial_dur_ms=10000, iti_dur=500, frac_random=.3):
+=======
+def make_gorilla_spreadsheet_sentence_validation(num_sentences_per_block=50, num_blocks=8, num_breaks=7, trial_dur_ms=10000, iti_dur=500, frac_random=.3):
+>>>>>>> ad7086a33ca7a8c8bd06d9b37bf9885b4ce82363
     """ this function creates a spreadsheet for the gorilla experiment platform. 
 
     Args:
-        num_sentences_per_block (int): any number but `num_sentences_per_block`*`num_blocks` cannot exceed `num_sentences`
         num_blocks (int): any number but see above
         num_breaks_per_block (int): default is 2
         trial_dur_ms (int): trial duration of each sentence
@@ -80,6 +83,8 @@ def make_gorilla_spreadsheet_sentence_validation(num_sentences=500, num_sentence
     Returns:
         saves out new target file
     """
+    num_sentences = num_sentences_per_block*num_blocks
+
     # load in stimulus dataset for sentence validation pilot
     fpath = os.path.join(Defaults.STIM_DIR, f'sentence_validation_{num_sentences}.csv')
     if not os.path.isfile(fpath):
@@ -94,12 +99,8 @@ def make_gorilla_spreadsheet_sentence_validation(num_sentences=500, num_sentence
     # if os.path.isfile(fpath_merge):
     #     df = df.merge(pd.read_csv(fpath_merge), on='cloze_probability')
 
-    # if `num_sentences` exceeds `num_sentences_per_block`*`num_blocks`
-    # then randomly sample from `df`
-    df = df.sample(num_sentences_per_block*num_blocks, replace=False)
-
     # create outname
-    outname = Defaults.TARGET_DIR / f'sentence_validation_pilot_{num_sentences_per_block}_trials.csv'
+    outname = Defaults.TARGET_DIR / f'sentence_validation_pilot_{num_sentences}_trials.csv'
 
     # add block info
     df['block'] = np.repeat(np.arange(1,num_blocks+1), num_sentences_per_block)
@@ -108,10 +109,10 @@ def make_gorilla_spreadsheet_sentence_validation(num_sentences=500, num_sentence
     df = _add_random_word(df, frac_random=frac_random)
 
     # define gorilla dataframe
-    df_gorilla = pd.DataFrame({'display': np.tile('trial', num_sentences_per_block*num_blocks), 
-            'iti_dur_ms':np.tile(iti_dur, num_sentences_per_block*num_blocks), 
-            'trial_dur_ms': np.tile(trial_dur_ms, num_sentences_per_block*num_blocks), 
-            'ShowProgressBar':np.tile(0, num_sentences_per_block*num_blocks)}, 
+    df_gorilla = pd.DataFrame({'display': np.tile('trial', num_sentences), 
+            'iti_dur_ms':np.tile(iti_dur, num_sentences), 
+            'trial_dur_ms': np.tile(trial_dur_ms, num_sentences), 
+            'ShowProgressBar':np.tile(0, num_sentences)}, 
             columns=['display', 'iti_dur_ms', 'trial_dur_ms', 'ShowProgressBar'])
 
     # add gorilla info
@@ -137,7 +138,7 @@ def _insert_row(row_number, df, row_value):
     # Store the result of lower half of the dataframe 
     df2 = df[row_number:] 
    
-    # Inser the row in the upper half dataframe 
+    # Insert the row in the upper half dataframe 
     df1.loc[row_number]=row_value 
    
     # Concat the two dataframes 
