@@ -68,7 +68,7 @@ def make_gorilla_spreadsheet_CoRT_scaling(filename="Peele_cloze_3.csv", num_sent
     print('target file successfully saved out!')
 
 def make_gorilla_spreadsheet_sentence_validation(num_sentences_per_block=50, num_blocks=5, num_breaks=4, num_targetfiles=2, trial_dur_ms=10000, iti_dur=500, frac_random=.3):
-    """ this function creates a spreadsheet for the gorilla experiment platform. 
+    """ this function creates spreadsheet(s) for the gorilla experiment platform. 
 
     Args:
         num_sentences_per_block (int): number of sentences per block (in each targetfile)
