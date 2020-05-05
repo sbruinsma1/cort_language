@@ -67,65 +67,83 @@ def make_gorilla_spreadsheet_CoRT_scaling(filename="Peele_cloze_3.csv", num_sent
 
     print('target file successfully saved out!')
 
-def make_gorilla_spreadsheet_sentence_validation(num_sentences_per_block=50, num_blocks=8, num_breaks=7, trial_dur_ms=10000, iti_dur=500, frac_random=.3):
-    """ this function creates a spreadsheet for the gorilla experiment platform. 
+def make_gorilla_spreadsheet_sentence_validation(num_sentences_per_block=50, num_blocks=5, num_breaks=4, num_targetfiles=2, trial_dur_ms=10000, iti_dur=500, frac_random=.3):
+    """ this function creates spreadsheets for the gorilla experiment platform. 
 
     Args:
-        num_blocks (int): any number but see above
-        num_breaks_per_block (int): default is 2
+        num_sentences_per_block (int): number of sentences per block (in each targetfile)
+        num_blocks (int): number of blocks (in each targetfile)
+        num_breaks (int): number of breaks (in each targetfile)
+        num_targetfiles (int): number of target files to be created. num sentences in each targetfile = (`num_sentences_per_block`*`num_blocks`)/`num_targetfiles`
         trial_dur_ms (int): trial duration of each sentence
         iti_dur (int): inter-trial-interval
-        frac_random (int): what % of random words will be sampled?
+        frac_random (int): the % of random words that will be sampled in each block
     Returns:
-        saves out new target file
+        saves out new target file(s)
     """
-    num_sentences = num_sentences_per_block*num_blocks
+    # overall number of sentences across `num_targetfiles`
+    num_sentences = (num_sentences_per_block*num_blocks)*num_targetfiles
 
     # load in stimulus dataset for sentence validation pilot
     fpath = os.path.join(Defaults.STIM_DIR, f'sentence_validation_{num_sentences}.csv')
     if not os.path.isfile(fpath):
         sentence_selection(num_sentences=num_sentences)
     
-    # read in dataframe
+    # read in stimulus dataframe
     df = pd.read_csv(fpath)
 
-    # # merge with manually edited file (if it exists)
-    # this code doesn't work!
-    # fpath_merge = os.path.join(Defaults.STIM_DIR, "reviewed_pre_pilot_sentences.csv")
-    # if os.path.isfile(fpath_merge):
-    #     df = df.merge(pd.read_csv(fpath_merge), on='cloze_probability')
+    # determine number of rows (i.e. num sentences for each target file)
+    num_rows = int(len(df) / num_targetfiles)
 
-    # create outname
-    outname = Defaults.TARGET_DIR / f'sentence_validation_pilot_{num_sentences}_trials.csv'
+    # set a random seed generator for random sampling (ensures reproducibility)
+    seeds = np.arange(num_targetfiles)+1
+    # loop over `num_targetfiles` and save out separate gorilla spreadsheets
+    for num in np.arange(num_targetfiles):
 
-    # add block info
-    df['block'] = np.repeat(np.arange(1,num_blocks+1), num_sentences_per_block)
+        # shuffle and set a seed (to ensure reproducibility)
+        random_state = seeds[num]
 
-    # add in manipulation: target/random words 70/30% of trials per block
-    df = _add_random_word(df, frac_random=frac_random)
+        # define new dataframe for targetfile with `num_rows`
+        df_target = df.sample(n=(num_rows), random_state=random_state, replace=False)
 
-    # define gorilla dataframe
-    df_gorilla = pd.DataFrame({'display': np.tile('trial', num_sentences), 
-            'iti_dur_ms':np.tile(iti_dur, num_sentences), 
-            'trial_dur_ms': np.tile(trial_dur_ms, num_sentences), 
-            'ShowProgressBar':np.tile(0, num_sentences)}, 
-            columns=['display', 'iti_dur_ms', 'trial_dur_ms', 'ShowProgressBar'])
+        # now remove those rows from the dataframe so that we're always sampling novel sentences
+        # for each targetfile
+        df_new = df.merge(df_target, how='left', indicator=True)
+        df_new = df_new[df_new['_merge'] == 'left_only'].drop('_merge', axis=1)
 
-    # add gorilla info
-    df_concat = _add_gorilla_info(df, df_gorilla, num_sentences_per_block, num_blocks, num_breaks)
+        # create outname for gorilla spreadsheet
+        outname = Defaults.TARGET_DIR / f'sentence_validation_pilot_{(num_rows)}_trials_version_{num+1}.csv'
 
-    # drop redundant cols if they exist
-    try: 
-        cols_to_drop = ['level_0', 'index']
-        df_concat = df_concat.drop(cols_to_drop, axis=1)
-    except: 
-        print('redundant cols don''t exist')
+        # add block info
+        df_target['block'] = np.repeat(np.arange(1,num_blocks+1), num_sentences_per_block)
 
-    # save out to file
-    df_concat.to_csv(outname, header=True, index=False)
-    print('target file successfully saved out!')
+        # add in manipulation: target/random words 70/30% of trials per block
+        df_target = _add_random_word(df_target, frac_random=frac_random)
 
-    return df_concat
+        # define gorilla dataframe
+        df_gorilla = pd.DataFrame({'display': np.tile('trial', num_rows), 
+                'iti_dur_ms':np.tile(iti_dur, num_rows), 
+                'trial_dur_ms': np.tile(trial_dur_ms, num_rows), 
+                'ShowProgressBar':np.tile(0, num_rows)}, 
+                columns=['display', 'iti_dur_ms', 'trial_dur_ms', 'ShowProgressBar'])
+
+        # add gorilla info to dataframe
+        df_concat = pd.DataFrame()
+        df_concat = _add_gorilla_info(df_target, df_gorilla, num_sentences_per_block, num_blocks, num_breaks)
+
+        # drop redundant cols if they exist
+        try: 
+            cols_to_drop = ['level_0', 'index']
+            df_concat = df_concat.drop(cols_to_drop, axis=1)
+        except: 
+            print('redundant cols don''t exist')
+
+        # save out targetfile to TARGET_FILES
+        df_concat.to_csv(outname, header=True, index=False)
+        print('target file successfully saved out!')
+
+        # set new dataframe for subsequent targetfile
+        df = df_new
 
 def _insert_row(row_number, df, row_value): 
     # Slice the upper half of the dataframe 
