@@ -1,0 +1,11 @@
+index,full_sentence,cloze_probability,dataset,CoRT_mean,CoRT_std,condition,target_word,random_word
+10,A|good|combination|of|flavors|can|be|sweet|and|sour,0.51,peele,1.0,0.0,non-CoRT,sour,difficult
+128,After|the|dog|ate|the|trash|he|began|to|vomit,0.58,peele,5.0,0.0,CoRT,vomit,vomit
+193,"Among|other|things,|vegetarians|do|not|eat|meat",0.7,peele,1.0,0.0,non-CoRT,meat,ship
+281,Be|careful|not|to|touch|the|pan|when|it's|hot,0.99,peele,1.0,0.0,non-CoRT,hot,sour
+309,Being|a|father|and|a|businessman|made|his|role|difficult,0.31,peele,1.0,0.0,non-CoRT,difficult,hated
+467,During|the|battle|all|of|the|sailors|fled|the|ship,0.37,peele,5.0,0.0,CoRT,ship,meat
+580,"For|many|people,|textbooks|are|a|good|learning|tool",0.76,peele,1.0,0.0,non-CoRT,tool,hot
+604,"Gaby|disliked|spinach,|a|veggie|she|claimed|she'd|always|hated",0.7,peele,1.0,0.0,non-CoRT,hated,tool
+748,I|could|not|remember|his|name,0.92,block_baldwin,1.0,0.0,non-CoRT,name,will
+762,"If|Phil|decides|to|cook|dinner,|then|cook|he|will",0.61,peele,1.0,0.0,non-CoRT,will,name

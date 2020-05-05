@@ -67,11 +67,7 @@ def make_gorilla_spreadsheet_CoRT_scaling(filename="Peele_cloze_3.csv", num_sent
 
     print('target file successfully saved out!')
 
-<<<<<<< HEAD
 def make_gorilla_spreadsheet_sentence_validation(num_sentences=500, num_sentences_per_block=50, num_blocks=10, num_breaks=9, trial_dur_ms=10000, iti_dur=500, frac_random=.3):
-=======
-def make_gorilla_spreadsheet_sentence_validation(num_sentences_per_block=50, num_blocks=8, num_breaks=7, trial_dur_ms=10000, iti_dur=500, frac_random=.3):
->>>>>>> ad7086a33ca7a8c8bd06d9b37bf9885b4ce82363
     """ this function creates a spreadsheet for the gorilla experiment platform. 
 
     Args:
@@ -112,10 +108,10 @@ def make_gorilla_spreadsheet_sentence_validation(num_sentences_per_block=50, num
     df_gorilla = pd.DataFrame({'display': np.tile('trial', num_sentences), 
             'iti_dur_ms':np.tile(iti_dur, num_sentences), 
             'trial_dur_ms': np.tile(trial_dur_ms, num_sentences), 
-            'ShowProgressBar':np.tile(0, num_sentences)}, 
+            'ShowProgressBar':np.tile(1, num_sentences)}, 
             columns=['display', 'iti_dur_ms', 'trial_dur_ms', 'ShowProgressBar'])
 
-    # add gorilla info
+    # add gorilla
     df_concat = _add_gorilla_info(df, df_gorilla, num_sentences_per_block, num_blocks, num_breaks)
 
     # drop redundant cols if they exist
@@ -196,8 +192,10 @@ def _add_random_word(df, frac_random=.3):
     sampidx = samples.index.levels[1]
     df["sampled"] = df.index.isin(sampidx)
 
+    df["ANSWER"] = ~df["sampled"]
+
     df["last_word"] = df.apply(lambda x: x["random_word"] if x["sampled"] else x["target_word"], axis=1)
 
-    df["full_sentence"] = df.apply(lambda x: "|".join(x["full_sentence"].split("|")[:-1] + [x["last_word"]]), axis=1)
+    df["full_sentence"] = df.apply(lambda x: "|".join(x["full_sentence"].split("|")[:-1]), axis=1)
 
     return df
