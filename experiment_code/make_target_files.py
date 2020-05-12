@@ -90,7 +90,7 @@ def make_gorilla_spreadsheet_sentence_validation(num_sentences_per_block=50, num
         sentence_selection(num_sentences=num_sentences)
     
     # read in stimulus dataframe
-    df = pd.read_csv(fpath)
+    df = pd.read_csv(fpath, index_col=False)
 
     # determine number of rows (i.e. num sentences for each target file)
     num_rows = int(len(df) / num_targetfiles)
@@ -139,7 +139,7 @@ def make_gorilla_spreadsheet_sentence_validation(num_sentences_per_block=50, num
             print('redundant cols don''t exist')
 
         # save out targetfile to TARGET_FILES
-        df_concat.to_csv(outname, header=True, index=False)
+        df_concat.to_csv(outname, header=True, index=True)
         print('target file successfully saved out!')
 
         # set new dataframe for subsequent targetfile
@@ -174,8 +174,6 @@ def _add_gorilla_info(df, df_gorilla, num_sentences_per_block, num_blocks, num_b
         Returns: 
             returns gorilla-ready dataframe
     """
-
-    
 
     # concat the dataframes
     df_concat = pd.concat([df.reset_index(), df_gorilla], axis=1)
