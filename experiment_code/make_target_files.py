@@ -67,13 +67,8 @@ def make_gorilla_spreadsheet_CoRT_scaling(filename="Peele_cloze_3.csv", num_sent
 
     print('target file successfully saved out!')
 
-<<<<<<< HEAD
-def make_gorilla_spreadsheet_sentence_validation(num_sentences=500, num_sentences_per_block=50, num_blocks=10, num_breaks=9, trial_dur_ms=10000, iti_dur=500, frac_random=.3):
-    """ this function creates a spreadsheet for the gorilla experiment platform. 
-=======
 def make_gorilla_spreadsheet_sentence_validation(num_sentences_per_block=50, num_blocks=5, num_breaks=4, num_targetfiles=2, trial_dur_ms=10000, iti_dur=500, frac_random=.3):
     """ this function creates spreadsheet(s) for the gorilla experiment platform. 
->>>>>>> 2413bf3733cecc89850c7c803232579cb5dacd9b
 
     Args:
         num_sentences_per_block (int): number of sentences per block (in each targetfile)
@@ -111,17 +106,6 @@ def make_gorilla_spreadsheet_sentence_validation(num_sentences_per_block=50, num
         # define new dataframe for targetfile with `num_rows`
         df_target = df.sample(n=(num_rows), random_state=random_state, replace=False)
 
-<<<<<<< HEAD
-    # define gorilla dataframe
-    df_gorilla = pd.DataFrame({'display': np.tile('trial', num_sentences), 
-            'iti_dur_ms':np.tile(iti_dur, num_sentences), 
-            'trial_dur_ms': np.tile(trial_dur_ms, num_sentences), 
-            'ShowProgressBar':np.tile(1, num_sentences)}, 
-            columns=['display', 'iti_dur_ms', 'trial_dur_ms', 'ShowProgressBar'])
-
-    # add gorilla
-    df_concat = _add_gorilla_info(df, df_gorilla, num_sentences_per_block, num_blocks, num_breaks)
-=======
         # now remove those rows from the dataframe so that we're always sampling novel sentences
         # for each targetfile
         df_new = df.merge(df_target, how='left', indicator=True)
@@ -129,7 +113,6 @@ def make_gorilla_spreadsheet_sentence_validation(num_sentences_per_block=50, num
 
         # create outname for gorilla spreadsheet
         outname = Defaults.TARGET_DIR / f'sentence_validation_pilot_{(num_rows)}_trials_version_{num+1}.csv'
->>>>>>> 2413bf3733cecc89850c7c803232579cb5dacd9b
 
         # add block info
         df_target['block'] = np.repeat(np.arange(1,num_blocks+1), num_sentences_per_block)
@@ -141,7 +124,7 @@ def make_gorilla_spreadsheet_sentence_validation(num_sentences_per_block=50, num
         df_gorilla = pd.DataFrame({'display': np.tile('trial', num_rows), 
                 'iti_dur_ms':np.tile(iti_dur, num_rows), 
                 'trial_dur_ms': np.tile(trial_dur_ms, num_rows), 
-                'ShowProgressBar':np.tile(0, num_rows)}, 
+                'ShowProgressBar':np.tile(1, num_rows)}, 
                 columns=['display', 'iti_dur_ms', 'trial_dur_ms', 'ShowProgressBar'])
 
         # add gorilla info to dataframe
@@ -233,10 +216,6 @@ def _add_random_word(df, frac_random=.3):
 
     df["last_word"] = df.apply(lambda x: x["random_word"] if x["sampled"] else x["target_word"], axis=1)
 
-<<<<<<< HEAD
     df["full_sentence"] = df.apply(lambda x: "|".join(x["full_sentence"].split("|")[:-1]), axis=1)
-=======
-    # df["full_sentence"] = df.apply(lambda x: "|".join(x["full_sentence"].split("|")[:-1] + [x["last_word"]]), axis=1)
->>>>>>> 2413bf3733cecc89850c7c803232579cb5dacd9b
 
     return df
