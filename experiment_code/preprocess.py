@@ -68,9 +68,9 @@ def _preprocess_peele(filename="gorilla_v3.csv", **kwargs):
                 new dataframe now with cloze prob
         """
         df_cloze = pd.read_csv(os.path.join(Defaults.STIM_DIR, filename))
-    
+
         # add in cloze probabilities
-        df_cloze['sentence_new'] = df_cloze['sentence'].str.extract(pat = "([A-Za-z ,']+)") 
+        df_cloze['sentence_new'] = df_cloze['sentence'].str.extract(pat = "([A-Za-z .,']+)") 
         df_cloze['full_sentence'] = df_cloze['sentence_new'] + '' + df_cloze['target word']
         df_cloze = df_cloze.drop({'sentence', 'sentence_new', 'target word'}, axis=1)
 
@@ -89,7 +89,10 @@ def _preprocess_peele(filename="gorilla_v3.csv", **kwargs):
     if kwargs.get('cloze_filename'):
         cloze_filename = kwargs['cloze_filename']
         df_filtered = _add_cloze(df_filtered, filename=cloze_filename)
-
+    
+    # remove sentences that have word or fewer
+    df_filtered = df_filtered[df_filtered['full_sentence'].str.contains(' ')]
+    
     return df_filtered
 
 def _preprocess_blockbaldwin(filename="Participant Info.csv", **kwargs):
@@ -187,7 +190,7 @@ def concat_peele_baldwin():
     df1 = _preprocess_peele(cloze_filename="Peele_cloze_3.csv", bad_subjs=[1194659.0])
     df2 = _preprocess_blockbaldwin(cloze_filename="Block_Baldwin_2010.csv")
     
-    # FILTER PEELE DATASET
+    # # FILTER PEELE DATASET
     #select relevant rows
     df1_filtered = df1.filter({'Response', 'version', 'Participant_Private_ID', 'cloze probability', 'full_sentence'}, axis=1)
     #rename rows to match df2
@@ -281,4 +284,5 @@ def sentence_selection(num_sentences, split_sentence=False):
     df_out.to_csv(outname, header=True, index=False)
 
     print('stimulus file successfully saved out!')
+
     return df_out
