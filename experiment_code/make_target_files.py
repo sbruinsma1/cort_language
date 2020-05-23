@@ -90,7 +90,7 @@ class PilotSentences(Utils):
         self.cort = ['strong non-CoRT', 'strong CoRT'] # options: 'strong non-CoRT', 'strong CoRT', 'ambiguous'
     
     def cort_language(self, num_stims=[2, 32, 32, 32, 32, 32, 32], **kwargs):
-        """ makes spreadsheet for social prediction task
+        """ makes spreadsheet for cort language task
 
         Args: 
             num_stims (list): practice then experiment trials
