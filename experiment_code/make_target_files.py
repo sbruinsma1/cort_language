@@ -104,6 +104,7 @@ class PilotSentences(Utils):
         self.num_blocks = len(num_stims)
 
         # load in stimulus dataset for sentence validation pilot
+        # create if this file doesn't already exist
         fpath = os.path.join(Defaults.STIM_DIR, f'sentence_validation.csv')
         if not os.path.isfile(fpath):
             cs = CortScaling() 
@@ -153,6 +154,7 @@ class PilotSentences(Utils):
         
         seeds = np.arange(self.num_blocks)+1
         
+        # create target files for each block
         for self.block, self.key in enumerate(self.block_design):
             # randomly sample so that conditions (easy and hard) are equally represented
             self.random_state = seeds[self.block]
