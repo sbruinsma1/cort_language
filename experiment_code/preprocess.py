@@ -15,16 +15,19 @@ warnings.filterwarnings("ignore")
 # load in directories
 from experiment_code.constants import Defaults
 
-class CoRT_sentence_selection:
+class CortScaling:
 
     def __init__(self):
-        pass
+        self.task_name = "cort_language"
+        self.cort_cutoff = [2, 4] # non-cort should have minimum score of <2 and cort should have minimum score of 4>
+        self.wordcount_cutoff = 10 # sentences should not be longer than 10 words
+        self.cloze_cutoff = [.5, .7] # low cloze <= .5 and high cloze =<.7
 
-    def _preprocess_peele(filename="gorilla_v3.csv", **kwargs):
+    def _preprocess_peele(self, filename="peele_cort_scaling_v3.csv", **kwargs):
         """ loads in data downloaded from gorilla and does some cleaning: filtering, renaming etc
             returns preprocessed dataframe
             Args: 
-                filename (str): default is "gorilla_v3.csv"
+                filename (str): default is "peele_cort_scaling_v3.csv"
                 
                 Kwargs: 
                     bad_subjs (list): list of id(s) of bad subj(s). on gorilla, id is given by `Participant_Private_ID`.
@@ -33,7 +36,6 @@ class CoRT_sentence_selection:
             Returns:
                 dataframe
         """
-
         # load in data from gorilla
         df = pd.read_csv(os.path.join(Defaults.RAW_DIR, filename))
 
@@ -64,7 +66,7 @@ class CoRT_sentence_selection:
             """
             return dataframe[~dataframe["Participant_Private_ID"].isin(bad_subjs)]
 
-        def _add_cloze(dataframe, filename):
+        def _add_cloze(dataframe, filename, fpath):
             """ add in cloze probabilities from another dataset
                 Args:
                     dataframe: existing dataframe that contains cort results
@@ -72,7 +74,7 @@ class CoRT_sentence_selection:
                 Returns:
                     new dataframe now with cloze prob
             """
-            df_cloze = pd.read_csv(os.path.join(Defaults.STIM_DIR, filename))
+            df_cloze = pd.read_csv(os.path.join(fpath, filename))
 
             # add in cloze probabilities
             df_cloze['sentence_new'] = df_cloze['sentence'].str.extract(pat = "([A-Za-z .,']+)") 
@@ -93,18 +95,18 @@ class CoRT_sentence_selection:
         # add cloze probilities if kwargs option
         if kwargs.get('cloze_filename'):
             cloze_filename = kwargs['cloze_filename']
-            df_filtered = _add_cloze(df_filtered, filename=cloze_filename)
+            df_filtered = _add_cloze(df_filtered, filename=cloze_filename, fpath=Defaults.STIM_DIR)
         
         # remove sentences that have word or fewer
         df_filtered = df_filtered[df_filtered['full_sentence'].str.contains(' ')]
         
         return df_filtered
 
-    def _preprocess_blockbaldwin(filename="Participant Info.csv", **kwargs):
+    def _preprocess_blockbaldwin(self, filename="block_baldwin_participant_info.csv", **kwargs):
         """ loads in data downloaded from individual subjects, concatenates it, and does some cleaning: filtering, renaming etc
             returns preprocessed dataframe
             Args: 
-                filename (str): default is "Participant Info.csv"
+                filename (str): default is "participant_info.csv"
                 
                 Kwargs: 
                     cloze_filename (str): option to add in cloze probabilities, give path to filename. one option is "Block_Baldwin_2010.csv"
@@ -112,7 +114,6 @@ class CoRT_sentence_selection:
             Returns:
                 dataframe
         """
-        
         #LOAD IN PARTICIPANT INFO
         df_info = pd.read_csv(os.path.join(Defaults.RAW_DIR, filename))
         
@@ -120,7 +121,7 @@ class CoRT_sentence_selection:
         
         #navigate to raw data folder
         os.chdir(Defaults.RAW_DIR)
-        file_list = glob.glob("*cort_scaling*")
+        file_list = glob.glob("*cort_scaling.csv*")
 
         #make empty dataframe
         df_all = pd.DataFrame()
@@ -141,7 +142,7 @@ class CoRT_sentence_selection:
         #merge df info dataframe and subj data dataframes
         df_merged = df_all.merge(df_info, on='subj_id')
 
-        #CLEAN UP DATAFRMA
+        #CLEAN UP DATAFRAME
             
         #extract string for CoRT scores
         def extract_string(x):
@@ -158,7 +159,7 @@ class CoRT_sentence_selection:
         df_merged['CoRT'] = df_merged['CoRT'].apply(lambda x: extract_string(x))
         
         #KWARGS
-        def _add_cloze(dataframe, filename):
+        def _add_cloze(dataframe, filename, fpath):
             """ add in cloze probabilities from another dataset
                 Args:
                     dataframe: existing dataframe that contains cort results
@@ -166,7 +167,7 @@ class CoRT_sentence_selection:
                 Returns:
                     new dataframe now with cloze prob
             """
-            df_cloze = pd.read_csv(os.path.join(Defaults.STIM_DIR, filename))
+            df_cloze = pd.read_csv(os.path.join(fpath, filename))
             
             #clean up: rename and drop columns
             df_cloze = df_cloze.rename({'Present (2010)':'cloze', 'Sentence Stem': 'sentence', 'Response':'response'}, axis=1).drop({'Response.1', 'B&F (1980)'}, axis=1)
@@ -179,11 +180,11 @@ class CoRT_sentence_selection:
         #add cloze probabilities if kwargs option
         if kwargs.get('cloze_filename'):
             cloze_filename = kwargs['cloze_filename']
-            df_merged = _add_cloze(df_merged, filename=cloze_filename)
+            df_merged = _add_cloze(df_merged, filename=cloze_filename, fpath=Defaults.STIM_DIR)
         
         return df_merged
 
-    def concat_peele_baldwin():
+    def concat_peele_baldwin(self):
         """ loads in the default version of preprocess_peele and preprocess_blockbaldwin done to its respective datasets, and does some cleaning: filtering, renaming etc
             returns preprocessed dataframe
 
@@ -192,8 +193,8 @@ class CoRT_sentence_selection:
         """
 
         #preprocess appropriate peele and block/baldwin dataframes
-        df1 = _preprocess_peele(cloze_filename="Peele_cloze_3.csv", bad_subjs=[1194659.0])
-        df2 = _preprocess_blockbaldwin(cloze_filename="Block_Baldwin_2010.csv")
+        df1 = self._preprocess_peele(cloze_filename="Peele_cloze_3.csv", bad_subjs=[1194659.0])
+        df2 = self._preprocess_blockbaldwin(cloze_filename="Block_Baldwin_2010.csv")
         
         # # FILTER PEELE DATASET
         #select relevant rows
@@ -220,46 +221,56 @@ class CoRT_sentence_selection:
         
         return df_concat
 
-    def sentence_selection(num_sentences, split_sentence=False): 
+    def sentence_selection(self, split_sentence=False): 
         """ loads in the concatenated dataframe of peele and block/baldwin
             returns a csv of the top n sentences for pre-piloting
 
             Args: 
-                num_sentences (int): number of top sentences desired (must be <722)
+                num_sentences (int): number of top sentences desired
                 split_sentence (bool): if True, splits sentence into separate cols (one word per col). if False, adds | between each word in sentence
 
             Returns:
                 saves out new stimulus file
         """
-
         #outname
-        outname = Defaults.STIM_DIR / f'sentence_validation_{num_sentences}.csv'
+        outname = Defaults.STIM_DIR / f'sentence_validation.csv'
 
         #concatenate peele & block/baldwin dataframes
-        df = concat_peele_baldwin()
+        df = self.concat_peele_baldwin()
 
-        #remove novice scores of 5 for block/baldwin datset
-        df = df[~((df["group"].isin(["novice"])) & (df['CoRT'] == 5))]
+        def _count_filter_words(dataframe):
+            dataframe['word_count'] = dataframe['full_sentence'].apply(lambda x: len(x.split('|')))
 
-        #group sentences and find mean and standard deviation for each
-        df_grouped = df.groupby(['full_sentence', 'cloze_probability', 'dataset']).agg({'CoRT': ['mean', 'std']}).reset_index()
+            dataframe = dataframe.query(f'word_count<={self.wordcount_cutoff}')
 
-        # join multilevel columns
-        df_grouped.columns = ["_".join(pair) for pair in df_grouped.columns]
-        df_grouped.columns = df_grouped.columns.str.strip('_')
-
-        #select for sentences with a CoRT score of greater than 4 or less than 2
-        df_grouped = df_grouped[((df_grouped['CoRT_mean'] > 4) | (df_grouped['CoRT_mean'] < 2))]
+            return dataframe
         
-        #select for n number of these sentences with the lowest standard deviation
-        df_grouped = df_grouped.nsmallest(num_sentences, 'CoRT_std').reset_index()
+        def _filter_sentences(dataframe):
+            #group sentences and find mean and standard deviation for each
+            df_grouped = dataframe.groupby(['full_sentence', 'cloze_probability', 'dataset']).agg({'CoRT': ['mean', 'std']}).reset_index()
 
-        #add categorical non-cort and cort column
-        def _get_condition(x):
-            if x<2:
-                value = 'non-CoRT'
-            elif x>4:
-                value = 'CoRT'
+            # join multilevel columns
+            df_grouped.columns = ["_".join(pair) for pair in df_grouped.columns]
+            df_grouped.columns = df_grouped.columns.str.strip('_')
+
+            #select for sentences with a CoRT score of greater than 4 or less than 2
+            # df_grouped = df_grouped[((df_grouped['CoRT_mean'] > self.cort_cutoff[1]) | (df_grouped['CoRT_mean'] < self.cort_cutoff[0]))]
+
+            #select for n number of these sentences with the lowest standard deviation
+            # df_grouped = df_grouped.nsmallest(num_sentences, 'CoRT_std').reset_index()
+
+            # add categorical column for CoRT vs. non-CoRT
+            df_grouped['CoRT_descript'] = df_grouped['CoRT_mean'].apply(lambda x: _describe_cort(x))
+            
+            return df_grouped
+        
+        def _describe_cort(x):
+            if x<=self.cort_cutoff[0]:
+                value = 'strong non-CoRT'
+            elif x>=self.cort_cutoff[1]:
+                value = 'strong CoRT'
+            else:
+                value = 'ambiguous'
             return value
 
         def _split_sentence(dataframe):
@@ -271,13 +282,31 @@ class CoRT_sentence_selection:
             df_out = pd.concat([dataframe, sent_df], axis=1)
             return df_out
 
-        # add categorical column for CoRT vs. non-CoRT
-        df_grouped['condition'] = df_grouped['CoRT_mean'].apply(lambda x: _get_condition(x))
-
-        #generate random word at end
         def _generate_random_word(dataframe):
-            df_grouped['target_word'] = df_grouped['full_sentence'].apply(lambda x: x.split(" ")[-1]).to_list()
-            df_grouped['random_word'] = df_grouped['target_word'].sample(n=len(df_grouped), random_state=2, replace=False).to_list()
+            #generate random word at end
+            dataframe['target_word'] = dataframe['full_sentence'].apply(lambda x: x.split(" ")[-1]).to_list()
+            dataframe['random_word'] = dataframe['target_word'].sample(n=len(dataframe), random_state=2, replace=False).to_list()
+            
+            return dataframe
+        
+        def _describe_cloze(x):
+            if x >= self.cloze_cutoff[1]:
+                value = 'high cloze'
+            elif x <= self.cloze_cutoff[0]:
+                value = 'low cloze'
+            else:
+                value = 'medium cloze'
+            
+            return value
+        
+        # filter dataframe based on CoRT description
+        df_grouped = _filter_sentences(dataframe=df)
+
+        # add `target_word` and `random_word` cols 
+        df_grouped = _generate_random_word(dataframe=df_grouped)
+
+        # drop last word from full sentence
+        df_grouped['full_sentence'] = df_grouped['full_sentence'].apply(lambda x: ' '.join(x.split(' ')[:-1]))
 
         # split sentence into single words
         if split_sentence:
@@ -286,6 +315,12 @@ class CoRT_sentence_selection:
             df_out = df_grouped
             df_out['full_sentence'] = df_grouped['full_sentence'].str.replace(" ", "|")
 
+        # filter based on word count
+        df_out = _count_filter_words(dataframe=df_out)
+
+        # describe cloze
+        df_out['cloze_descript'] = df_out['cloze_probability'].apply(lambda x: _describe_cloze(x))
+
         # save out stimulus set
         df_out.to_csv(outname, header=True, index=False)
 
@@ -293,7 +328,7 @@ class CoRT_sentence_selection:
 
         return df_out
 
-class pre-pilot:
+class PilotingSentences:
 
     def __init__(self):
         pass 
