@@ -277,8 +277,7 @@ class pre_pilot:
         plt.yticks(fontsize=20);
         plt.show()
         print('RT mean:', df_incorrect.RT.mean())
-
-    
+ 
     def run_rt_by_version(dataframe):
         # reactime times across runs, categorized by version
         sns.set(rc={'figure.figsize':(20,10)})
