@@ -78,7 +78,7 @@ class PilotSentences(Utils):
     def __init__(self):
         self.task_name = "cort_language"
         self.condition_dict = {'low cloze': 'hard', 'high cloze': 'easy'} # 'medium cloze': 'medium'
-        self.block_design = {'run0':['strong non-CoRT', 'strong CoRT'], 'run1':['strong non-CoRT', 'strong CoRT'], 'run2':['strong CoRT', 'strong non-CoRT'], 'run3':['strong CoRT', 'strong non-CoRT'], 'run4':['strong CoRT', 'strong non-CoRT'], 'run5':['strong CoRT', 'strong non-CoRT'], 'run6':['strong CoRT', 'strong non-CoRT']}
+        self.block_design = {'run0':['strong non-CoRT', 'strong CoRT'], 'run1':['strong non-CoRT', 'strong CoRT'], 'run2':['strong CoRT', 'strong non-CoRT'], 'run3':['strong CoRT', 'strong non-CoRT'], 'run4':['strong CoRT', 'strong non-CoRT'], 'run5':['strong CoRT', 'strong non-CoRT'], 'run6':['strong CoRT', 'strong non-CoRT'], 'run7':['strong CoRT', 'strong non-CoRT']}
         self.display = {'run0': 'instructions', 'run6': 'end'}
         self.trial_dur = 7
         self.iti_dur = .5
@@ -170,7 +170,7 @@ class PilotSentences(Utils):
 
             df_filtered, _ = self._save_target_files(df_target, df_filtered)             
     
-    def make_online_spreadsheet(self, num_stims=[2, 32, 32, 32, 32, 32, 32], version=1, **kwargs):
+    def make_online_spreadsheet(self, num_stims=[2, 32, 32, 32, 32, 32, 32, 32], version=1, **kwargs):
         """
         load in target files that have already been made (or make them if they don't exist). 
         make gorilla-specific spreadsheet and save in `gorilla_versions`. the code will take ANY <task_name>

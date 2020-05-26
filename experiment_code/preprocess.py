@@ -305,6 +305,8 @@ class CortScaling:
         # add `target_word` and `random_word` cols 
         df_grouped = _generate_random_word(dataframe=df_grouped)
 
+        
+
         # drop last word from full sentence
         df_grouped['full_sentence'] = df_grouped['full_sentence'].apply(lambda x: ' '.join(x.split(' ')[:-1]))
 
