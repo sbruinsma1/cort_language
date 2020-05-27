@@ -8,6 +8,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import re
 from pathlib import Path
+import datetime as dt
 
 import warnings
 warnings.filterwarnings("ignore")
@@ -331,7 +332,7 @@ class CortScaling:
 
         return df_out
 
-class PilotingSentences:
+class  PilotSentence:
 
     def __init__(self):
         pass 
@@ -452,7 +453,7 @@ class PilotSentencesMK:
     def __init__(self):
         pass
     
-    def clean_data(task_name = "cort_language", versions = [1,2,3,4], **kwargs):
+    def clean_data(self, task_name = "cort_language", versions = [1,2,3], **kwargs):
         """
         cleans data downloaded from gorilla. removes any rows that are not trials
         and remove bad subjs if they exist
@@ -462,12 +463,11 @@ class PilotSentencesMK:
         """
         df_all = pd.DataFrame()
         for version in versions: 
-            fpath = os.path.join(Defaults.RAW_DIR, "gorilla", f"{task_name}_gorilla_v{version}.csv")
+            fpath = os.path.join(Defaults.RAW_DIR, f"{task_name}_gorilla_v{version}.csv")
             df = pd.read_csv(fpath)
 
             def _get_response_type():
-                if self.task_name=="cort_language":
-                    response_type = "response_keyboard_single"
+                response_type = "response_keyboard_single"
                 return response_type
             
             def _assign_trialtype(x):
@@ -481,14 +481,14 @@ class PilotSentencesMK:
             
             # filter dataset to include trials and experimental blocks (i.e. not instructions)
             df = df.rename({'Zone Type': 'Zone_Type', 'Reaction Time':'rt'}, axis=1)
-            response_type = _get_response_type(task_name=task_name) # response_type is different across the task
+            response_type = _get_response_type() # response_type is different across the task
             df = df.query(f'display=="trial" and block_num>0 and Zone_Type=="{response_type}"')
             df['rt'] = df['rt'].astype(float)  
             
             # filter out bad subjs based on specified cutoff
             if kwargs.get('cutoff'):
                 cutoff = kwargs['cutoff']
-                df = _remove_bad_subjs(df, cutoff)
+                df = self._remove_bad_subjs(df, cutoff)
 
             if kwargs.get('trial_type'):
                 df['trial_type'] = df['sampled'].apply(lambda x: _assign_trialtype(x))
@@ -500,10 +500,10 @@ class PilotSentencesMK:
             df['condition_name'] = df['condition_name'].str.extract('([a-zA-Z]*)')
 
             # get version description
-            df["version_descript"] = df["version"].apply(lambda x: _get_version_description(x))
+            df["version_descript"] = df["version"].apply(lambda x: self._get_version_description(x))
 
             # determine which cols to keep depending on task
-            cols_to_keep = _cols_to_keep(task_name=task_name)
+            cols_to_keep = self._cols_to_keep()
 
             df = df[cols_to_keep]
 
@@ -512,7 +512,7 @@ class PilotSentencesMK:
 
         return df_all
 
-    def _cols_to_keep():
+    def _cols_to_keep(self):
         """ cols to keep - different for each task
             Returns: 
                 list of cols to keep for analysis 
@@ -529,7 +529,7 @@ class PilotSentencesMK:
 
         return cols_to_keep
 
-    def _remove_bad_subjs(dataframe, cutoff, colname='Participant Private ID'):
+    def _remove_bad_subjs(self, dataframe, cutoff, colname='Participant Private ID'):
         """
         filters out bad subjs if they spent too little time on task
             Args:
@@ -539,7 +539,7 @@ class PilotSentencesMK:
         """
         
         # return elapsed time for all participants
-        elapsed_time = _get_elapsed_time_all_participants(dataframe, cutoff, colname)
+        elapsed_time = self._get_elapsed_time_all_participants(dataframe, cutoff, colname)
                 
         def _filter_subjs(x, elapsed_time, cutoff):
             """
@@ -555,7 +555,7 @@ class PilotSentencesMK:
         
         return dataframe
 
-    def _get_elapsed_time_all_participants(dataframe, cutoff, colname):
+    def _get_elapsed_time_all_participants(self, dataframe, cutoff, colname):
         """
         returns a dictionary of participant ids and time spent on task
         used to filter out bad subjects
@@ -570,13 +570,13 @@ class PilotSentencesMK:
             date1 = dataframe.loc[dataframe[colname]==participant_id]['Local Date'].iloc[0]
             date2 = dataframe.loc[dataframe[colname]==participant_id]['Local Date'].iloc[-1]
 
-            diff_min = _time_spent_on_task(date1, date2)
+            diff_min = self._time_spent_on_task(date1, date2)
 
             dict.update({participant_id:diff_min})
 
         return dict
 
-    def _time_spent_on_task(date1, date2):
+    def _time_spent_on_task(self, date1, date2):
         """
         calculate how long each participant spent on the task
         Args:
@@ -592,7 +592,7 @@ class PilotSentencesMK:
         
         return diff_min
 
-    def _get_version_description(version):
+    def _get_version_description(self, version):
         """ assign description to `version` for `self.task_name`
             Args:
                 version (int): get version from `gorilla` csv 
@@ -608,6 +608,6 @@ class PilotSentencesMK:
         elif version==4:
             value = "train on cort, test on cort and non-cort v1"
         else:
-            print(f'{self.task_name} does not have a description')
+            pass
         return value
 
