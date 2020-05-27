@@ -15,7 +15,7 @@ warnings.filterwarnings("ignore")
 # load in directories
 from experiment_code.constants import Defaults
 
-class CoRT_sentence_selection:
+class CoRTSentenceSelection:
     
     def __init__(self):
         pass    
@@ -189,12 +189,28 @@ class CoRT_sentence_selection:
         plt.title('item analysis of sentences')
         plt.show()
 
-class pre_pilot:
+class PilotSentences:
     
     def __init__(self):
-        pass 
-        #add things??                       
-
+        # data cleaning stuff
+        self.trial_type = True
+        self.cutoff = 30
+        self.task_name = "cort_language"
+        self.versions = [1,2,3,4]
+        
+        # fig stuff
+        self.plt_figure = plt.figure(figsize=(10,10))
+        self.xticks(fontsize=20)
+        self.yticks(fontsize=20)
+                               
+    def load_dataframe(self):
+        # load in cleaned data
+        df = preprocess.clean_data(task_name=self.task_name, 
+                                            versions=self.versions, 
+                                            cutoff=self.cutoff,
+                                            trial_type=self.trial_type)
+        return df
+    
     def count_of_correct(dataframe)
         # gives counts of correct (1.0) vs incorrect (0.0) responses 
         # note: NA are counted as 0
@@ -259,24 +275,24 @@ class pre_pilot:
     def rt_dist_correct(dataframe):
         #plots distribution of reaction times for correct answers only
 
-        sns.distplot(df_correct['RT'])
+        sns.distplot(dataframe['RT'])
         plt.xlabel('RT', fontsize=20)
         plt.title('Distribution of reaction time for correct responses', fontsize=20);
         plt.xticks(fontsize=20)
         plt.yticks(fontsize=20);
         plt.show()
-        print('RT mean:', df_correct.RT.mean())
+        print('RT mean:', dataframe.RT.mean())
     
     def rt_dist_incorrect(dataframe):
         #plots distribution of reaction times for incorrect answers only
 
-        sns.distplot(df_incorrect['RT'])
+        sns.distplot(dataframe['RT'])
         plt.xlabel('RT', fontsize=20)
         plt.title('Distribution of reaction time for incorrect responses', fontsize=20);
         plt.xticks(fontsize=20)
         plt.yticks(fontsize=20);
         plt.show()
-        print('RT mean:', df_incorrect.RT.mean())
+        print('RT mean:', dataframe.RT.mean())
  
     def run_rt_by_version(dataframe):
         # reactime times across runs, categorized by version
