@@ -8,12 +8,14 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import re
 from pathlib import Path
+import datetime as dt
 
 import warnings
 warnings.filterwarnings("ignore")
 
 # load in directories
 from experiment_code.constants import Defaults
+from experiment_code import preprocess
 
 class CortScaling:
 
@@ -305,6 +307,8 @@ class CortScaling:
         # add `target_word` and `random_word` cols 
         df_grouped = _generate_random_word(dataframe=df_grouped)
 
+
+
         # drop last word from full sentence
         df_grouped['full_sentence'] = df_grouped['full_sentence'].apply(lambda x: ' '.join(x.split(' ')[:-1]))
 
@@ -328,7 +332,7 @@ class CortScaling:
 
         return df_out
 
-class PilotingSentences:
+class  PilotSentence:
 
     def __init__(self):
         pass 
@@ -443,4 +447,167 @@ class PilotingSentences:
         df_english_filtered = df_english_filtered.query('zone_type == "response_keyboard"')
 
         return df_english_filtered
+
+class PilotSentencesMK:
+
+    def __init__(self):
+        pass
+    
+    def clean_data(self, task_name = "cort_language", versions = [1,2,3], **kwargs):
+        """
+        cleans data downloaded from gorilla. removes any rows that are not trials
+        and remove bad subjs if they exist
+        (optional):
+            cutoff (int): cutoff threshold for minutes spent on task. assumes 'Participant Private ID' is the col name for participant id
+            trial_type (bool): assign trial type for `cort_language` task
+        """
+        df_all = pd.DataFrame()
+        for version in versions: 
+            fpath = os.path.join(Defaults.RAW_DIR, f"{task_name}_gorilla_v{version}.csv")
+            df = pd.read_csv(fpath)
+
+            def _get_response_type():
+                response_type = "response_keyboard_single"
+                return response_type
+            
+            def _assign_trialtype(x):
+                if x==False:
+                    value = "meaningful"
+                elif x==True:
+                    value = "meaningless"
+                else:
+                    value = x
+                return value
+            
+            # filter dataset to include trials and experimental blocks (i.e. not instructions)
+            df = df.rename({'Zone Type': 'Zone_Type', 'Reaction Time':'rt'}, axis=1)
+            response_type = _get_response_type() # response_type is different across the task
+            df = df.query(f'display=="trial" and block_num>0 and Zone_Type=="{response_type}"')
+            df['rt'] = df['rt'].astype(float)  
+            
+            # filter out bad subjs based on specified cutoff
+            if kwargs.get('cutoff'):
+                cutoff = kwargs['cutoff']
+                df = self._remove_bad_subjs(df, cutoff)
+
+            if kwargs.get('trial_type'):
+                df['trial_type'] = df['sampled'].apply(lambda x: _assign_trialtype(x))
+
+            # get version
+            df["version"] = version
+
+            # get condition name (make sure it's just characters)
+            df['condition_name'] = df['condition_name'].str.extract('([a-zA-Z]*)')
+
+            # get version description
+            df["version_descript"] = df["version"].apply(lambda x: self._get_version_description(x))
+
+            # determine which cols to keep depending on task
+            cols_to_keep = self._cols_to_keep()
+
+            df = df[cols_to_keep]
+
+            # concat versions if there are more than one
+            df_all = pd.concat([df_all, df])
+
+        return df_all
+
+    def _cols_to_keep(self):
+        """ cols to keep - different for each task
+            Returns: 
+                list of cols to keep for analysis 
+        """
+
+        cols_to_keep = ['Experiment ID', 'Participant Public ID', 'Experiment Version',
+                        'Participant Private ID', 'Task Name', 'Task Version', 'Trial Number',
+                        'version', 'version_descript', 'Zone_Type', 'rt', 'Response', 'Attempt',
+                        'Correct', 'Incorrect', 'display', 'block_num', 'condition_name','good_subjs']
+
+        cols_to_keep.extend(['full_sentence', 'last_word', 'sampled','CoRT_descript', 'CoRT_mean',
+                            'CoRT_std','cloze_descript', 'cloze_probability', 'trial_type',
+                            'dataset', 'random_word', 'target_word', 'word_count'])
+
+        return cols_to_keep
+
+    def _remove_bad_subjs(self, dataframe, cutoff, colname='Participant Private ID'):
+        """
+        filters out bad subjs if they spent too little time on task
+            Args:
+            elapsed_time (dict): dictionary of participant ids and elapsed time
+            Returns:
+            new dataframe with only good subjs
+        """
+        
+        # return elapsed time for all participants
+        elapsed_time = self._get_elapsed_time_all_participants(dataframe, cutoff, colname)
+                
+        def _filter_subjs(x, elapsed_time, cutoff):
+            """
+            return boolean value for subjects to keep
+            """
+            if elapsed_time[x]>cutoff:
+                value = True
+            else:
+                value = False
+            return value
+        
+        dataframe['good_subjs'] = dataframe[colname].apply(lambda x: _filter_subjs(x, elapsed_time, cutoff))
+        
+        return dataframe
+
+    def _get_elapsed_time_all_participants(self, dataframe, cutoff, colname):
+        """
+        returns a dictionary of participant ids and time spent on task
+        used to filter out bad subjects
+            Args:
+            dataframe (dataframe): results dataframe
+            cutoff (int): min number of minutes that participant must stay on task
+            colname (str): column in dataset that refers to participant id
+        """
+        dict = {}
+        participant_ids = dataframe[colname].unique()
+        for participant_id in participant_ids: 
+            date1 = dataframe.loc[dataframe[colname]==participant_id]['Local Date'].iloc[0]
+            date2 = dataframe.loc[dataframe[colname]==participant_id]['Local Date'].iloc[-1]
+
+            diff_min = self._time_spent_on_task(date1, date2)
+
+            dict.update({participant_id:diff_min})
+
+        return dict
+
+    def _time_spent_on_task(self, date1, date2):
+        """
+        calculate how long each participant spent on the task
+        Args:
+            date1 (str): format: date/month/year hour:minute:second
+            date2 (str): format: date/month/year hour:minute:second
+        """
+        datetimeformat = '%d/%m/%Y %H:%M:%S'
+
+        diff_secs = dt.datetime.strptime(date2, datetimeformat)\
+            - dt.datetime.strptime(date1, datetimeformat)
+
+        diff_min = np.round(diff_secs.seconds/60)
+        
+        return diff_min
+
+    def _get_version_description(self, version):
+        """ assign description to `version` for `self.task_name`
+            Args:
+                version (int): get version from `gorilla` csv 
+            Returns: 
+                return description for `version` for `self.task_name`
+        """
+        if version==1:
+            value = "train on cort, test on non-cort v1"
+        elif version==2:
+            value = "train on cort, test on non-cort v2"
+        elif version==3:
+            value = "train on non-cort, test on cort v1"
+        elif version==4:
+            value = "train on cort, test on cort and non-cort v1"
+        else:
+            pass
+        return value
 

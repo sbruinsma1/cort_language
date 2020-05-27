@@ -14,8 +14,9 @@ warnings.filterwarnings("ignore")
 
 # load in directories
 from experiment_code.constants import Defaults
+from experiment_code.preprocess import PilotSentencesMK
 
-class CoRT_sentence_selection:
+class CoRTSentenceSelection:
     
     def __init__(self):
         pass    
@@ -189,15 +190,28 @@ class CoRT_sentence_selection:
         plt.title('item analysis of sentences')
         plt.show()
 
-class pre_pilot:
+class CoRTLanguage:
     
     def __init__(self):
-        pass 
-        #add things??                       
-
-    def count_of_correct(dataframe)
-        # gives counts of correct (1.0) vs incorrect (0.0) responses 
-        # note: NA are counted as 0
+        # data cleaning stuff
+        self.trial_type = True
+        self.cutoff = 30
+        self.task_name = "cort_language"
+        self.versions = [3]
+                               
+    def load_dataframe(self):
+        # import class
+        pilot = PilotSentencesMK()
+        df = pilot.clean_data(task_name=self.task_name, 
+                            versions=self.versions, 
+                            cutoff=self.cutoff,
+                            trial_type=self.trial_type)
+        return df
+    
+    def count_of_correct(self, dataframe):
+        """gives counts of correct (1.0) vs incorrect (0.0) responses
+        note: NA are counted as 0
+        """
 
         plt.figure(figsize=(10,10));
         sns.countplot(x='correct', data= dataframe);
@@ -209,7 +223,7 @@ class pre_pilot:
         print('Answers mean:', dataframe.correct.mean())
         #print('Percentage of correct vs incorrect',dataframe['correct'].value_counts(normalize=True) * 100)
 
-    def count_of_correct_per_participant(dataframe)
+    def count_of_correct_per_participant(self, dataframe):
         # gives counts of correct (1.0) vs incorrect (0.0) responses for each participant
         # note: NA are counted as 0
 
@@ -224,7 +238,7 @@ class pre_pilot:
         plt.xticks(fontsize=20)
         plt.yticks(fontsize=20);
 
-    def count_of_responses(dataframe):
+    def count_of_responses(self, dataframe):
         # gives counts of 'True' vs 'False' responses
 
         plt.figure(figsize=(10,10));
@@ -235,7 +249,7 @@ class pre_pilot:
         plt.xticks(fontsize=20)
         plt.yticks(fontsize=20);
 
-    def item_analysis(dataframe):
+    def item_analysis(self, dataframe):
         # plots the mean and std of correct answers for all sentences
 
         plt.figure(figsize=(10,10))
@@ -245,7 +259,7 @@ class pre_pilot:
         plt.title('item analysis of sentences')
         plt.show()
 
-    def rt_distribution(dataframe):
+    def rt_distribution(self, dataframe):
         #plots distribution of reaction times
 
         sns.distplot(dataframe['RT'])
@@ -256,29 +270,29 @@ class pre_pilot:
         plt.show()
         print('RT mean:', dataframe.RT.mean())
 
-    def rt_dist_correct(dataframe):
+    def rt_dist_correct(self, dataframe):
         #plots distribution of reaction times for correct answers only
 
-        sns.distplot(df_correct['RT'])
+        sns.distplot(dataframe['RT'])
         plt.xlabel('RT', fontsize=20)
         plt.title('Distribution of reaction time for correct responses', fontsize=20);
         plt.xticks(fontsize=20)
         plt.yticks(fontsize=20);
         plt.show()
-        print('RT mean:', df_correct.RT.mean())
+        print('RT mean:', dataframe.RT.mean())
     
-    def rt_dist_incorrect(dataframe):
+    def rt_dist_incorrect(self, dataframe):
         #plots distribution of reaction times for incorrect answers only
 
-        sns.distplot(df_incorrect['RT'])
+        sns.distplot(dataframe['RT'])
         plt.xlabel('RT', fontsize=20)
         plt.title('Distribution of reaction time for incorrect responses', fontsize=20);
         plt.xticks(fontsize=20)
         plt.yticks(fontsize=20);
         plt.show()
-        print('RT mean:', df_incorrect.RT.mean())
+        print('RT mean:', dataframe.RT.mean())
  
-    def run_rt_by_version(dataframe):
+    def run_rt_by_version(self, dataframe):
         # reactime times across runs, categorized by version
         sns.set(rc={'figure.figsize':(20,10)})
         # versions = dataframe['version'].unique()
@@ -291,12 +305,12 @@ class pre_pilot:
 
         plt.show()
 
-    def run_accuracy_by_version(dataframe):
+    def run_accuracy_by_condition(self, dataframe):
         # accuracy across runs, categorized by version
         sns.set(rc={'figure.figsize':(20,10)})
         # versions = dataframe['version'].unique()
 
-        sns.factorplot(x='block', y='correct', hue='task_version', data=dataframe)
+        sns.factorplot(x='block_num', y='Correct', hue='condition_name', data=dataframe.query('Attempt==1 and trial_type=="meaningful"'))
         plt.xlabel('Run', fontsize=20),
         plt.ylabel('% Correct', fontsize=20)
         plt.title('', fontsize=20);
@@ -304,15 +318,15 @@ class pre_pilot:
 
         plt.show()
 
-    def run_rt_conditions(dataframe):
+    def run_rt_conditions(self, dataframe):
         # rt across runs, categorized by CoRT condition
         sns.set(rc={'figure.figsize':(20,10)})
 
-        versions = dataframe['task_version'].unique()
+        versions = dataframe['version'].unique()
 
         for i, version in enumerate(versions):
 
-            sns.factorplot(x='block', y='RT', hue='condition', data=dataframe)
+            sns.factorplot(x='block_num', y='rt', hue='condition_name', data=dataframe.query('Attempt==1 and Correct==1 and trial_type=="meaningful"'))
             plt.xlabel('Run', fontsize=20)
             plt.ylabel('Reaction Time', fontsize=20)
             plt.title(f'{versions[i]}', fontsize=20);
@@ -320,7 +334,7 @@ class pre_pilot:
 
             plt.show()
 
-    def mean_correct(dataframe):
+    def mean_correct(self, dataframe):
         # distribution of mean accuracy across sentences 
         # utilize with df_by_sentence 
 
@@ -333,7 +347,7 @@ class pre_pilot:
         plt.yticks(fontsize=20);
         plt.show()
 
-    def standard_deviation_correct(dataframe):
+    def standard_deviation_correct(self, dataframe):
         # distribution of standard deviation for mean accuracy across sentences
         # utilize with df_by_sentence 
 
@@ -345,6 +359,32 @@ class pre_pilot:
         plt.xticks(fontsize=20)
         plt.yticks(fontsize=20);
         plt.show()
+
+    def distribution_cloze_by_run(self, dataframe):
+        plt.figure(figsize=(10,10))
+
+        versions = dataframe['version'].unique()
+        runs = dataframe['block_num'].unique()
+
+        dataframe = dataframe.query('CoRT_descript=="strong CoRT"')
+
+        # loop over versions
+        for i, version in enumerate(versions):
+
+            # loop over runs and plot distribution
+            for run in runs:
+
+                sns.kdeplot(dataframe.loc[dataframe['block_num']==run]['cloze_probability'], shade=True)
+                
+        # plot stuff        
+        plt.title('distrubtion of cloze probabilities across runs')
+        plt.xlabel('cloze probability', fontsize=20)
+        plt.legend(runs, fontsize=20)
+        plt.xticks(fontsize=20)
+        plt.yticks(fontsize=20)
+
+        plt.show()
+
     
 
 
