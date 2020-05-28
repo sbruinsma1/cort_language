@@ -387,6 +387,34 @@ class CoRTLanguage:
 
         plt.show()
 
+    def run_reaction_time_trialtype(self, dataframe):
+        # rt for different levels
+        # sns.set(rc={'figure.figsize':(20,10)})
+        fig = plt.figure(figsize=(10,10))
+        
+        versions = dataframe['version'].unique()
+        version_descripts = dataframe['version_descript'].unique()
+        
+        for i, version in enumerate(versions):
+
+            ax = fig.add_subplot(1, len(versions), i+1)
+
+            sns.lineplot(x='block_num', 
+                        y='rt', hue='trial_type', 
+                        data=dataframe.query(f'Attempt==1 and Correct==1 and good_subjs==[True] and version=={version}'),
+                        ax=ax)
+
+            ax.set_xlabel('', fontsize=15)
+            ax.set_ylabel('', fontsize=15)
+            ax.set_title(f'{version_descripts[i]}', fontsize=10);
+            ax.tick_params(axis = 'both', which = 'major', labelsize = 15)
+            # ax.set_ylim(bottom=.7, top=800)
+
+        ax.set_xlabel('Run', fontsize=15),
+        ax.set_ylabel('Reaction Time', fontsize=15)
+        plt.subplots_adjust(left=0.125, right=0.9, bottom=0.1, top=0.9, wspace=0.3, hspace=0.2)
+        plt.show()
+
 class EnglishVerif:
 
     def __init__(self):
@@ -413,7 +441,9 @@ class EnglishVerif:
         plt.title('Number of correct answers', fontsize=20);
         plt.xticks(fontsize=20)
         plt.yticks(fontsize=20);
-        print('Answers mean:', dataframe.Correct.mean())
+        plt.show()
+        
+        print('Answers mean:', dataframe.correct.mean())
         #print('Percentage of correct vs incorrect',dataframe['correct'].value_counts(normalize=True) * 100)
 
     

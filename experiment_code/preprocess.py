@@ -332,7 +332,7 @@ class CortScaling:
 
         return df_out
 
-class CoRTLanguageV1:
+class PilotSentencesV1:
     #preprocessing for versions 1 and 2 of testing
 
     def __init__(self):
@@ -454,7 +454,7 @@ class PilotSentences:
     def __init__(self):
         pass
     
-    def clean_data(self, task_name = "cort_language", versions = [1,2,3], **kwargs):
+    def clean_data(self, task_name = "cort_language", versions = [3], **kwargs):
         """
         cleans data downloaded from gorilla. removes any rows that are not trials
         and remove bad subjs if they exist
@@ -601,16 +601,17 @@ class PilotSentences:
                 return description for `version` for `self.task_name`
         """
         if version==1:
-            value = "train on cort, test on non-cort v1"
+            value = "cort and non-cort v1"
         elif version==2:
-            value = "train on cort, test on non-cort v2"
+            value = "cort and non-cort v2"
         elif version==3:
-            value = "train on non-cort, test on cort v1"
+            value = "cort and non-cort v3"
         elif version==4:
-            value = "train on cort, test on cort and non-cort v1"
+            value = "cort and non-cort v4"
         else:
             pass
         return value
+
 
 class EnglishPrescreen:
 
