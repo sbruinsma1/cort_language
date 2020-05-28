@@ -332,7 +332,8 @@ class CortScaling:
 
         return df_out
 
-class  PilotSentence:
+class CoRTLanguageV1:
+    #preprocessing for versions 1 and 2 of testing
 
     def __init__(self):
         pass 
@@ -343,10 +344,10 @@ class  PilotSentence:
         # note: make below into automatized definition
 
         # load in task data from gorilla
-        df1 = pd.read_csv(os.path.join(Defaults.RAW_DIR, "prepilot_task_v10_v1sheet.csv"))
-        df2 = pd.read_csv(os.path.join(Defaults.RAW_DIR, "prepilot_task_v10_v2sheet.csv"))
-        df3 = pd.read_csv(os.path.join(Defaults.RAW_DIR, "prepilot_task_v14_v1sheet.csv"))
-        df4 = pd.read_csv(os.path.join(Defaults.RAW_DIR, "prepilot_task_v14_v2sheet.csv"))
+        df1 = pd.read_csv(os.path.join(Defaults.RAW_DIR, "cort_language_gorilla_v1_sheet1.csv"))
+        df2 = pd.read_csv(os.path.join(Defaults.RAW_DIR, "cort_language_gorilla_v1_sheet2.csv"))
+        df3 = pd.read_csv(os.path.join(Defaults.RAW_DIR, "cort_language_gorilla_v2_sheet1.csv"))
+        df4 = pd.read_csv(os.path.join(Defaults.RAW_DIR, "cort_language_gorilla_v2_sheet2.csv"))
 
         # merge task dataframes
         df = df1.append([df2, df3, df4])
@@ -427,10 +428,10 @@ class  PilotSentence:
         # note: make below into automatized definition
 
         # load in english data from gorilla
-        df1_english = pd.read_csv(os.path.join(Defaults.RAW_DIR, "prepilot_english_5-12-20.csv"))
-        df2_english = pd.read_csv(os.path.join(Defaults.RAW_DIR, "prepilot_english_5-13-20.csv"))
-        df3_english = pd.read_csv(os.path.join(Defaults.RAW_DIR, "prepilot_english_5-17-20.csv"))
-        df4_english = pd.read_csv(os.path.join(Defaults.RAW_DIR, "prepilot_english_5-17-20_2.csv"))
+        df1_english = pd.read_csv(os.path.join(Defaults.RAW_DIR, "prepilot_english_v1_sheet1.csv"))
+        df2_english = pd.read_csv(os.path.join(Defaults.RAW_DIR, "prepilot_english_v1_sheet2.csv"))
+        df3_english = pd.read_csv(os.path.join(Defaults.RAW_DIR, "prepilot_english_v2_sheet1.csv"))
+        df4_english = pd.read_csv(os.path.join(Defaults.RAW_DIR, "prepilot_english_v2_sheet2.csv"))
 
         # merge task dataframes
         df_english = df1_english.append([df2_english, df3_english, df4_english])
@@ -448,7 +449,7 @@ class  PilotSentence:
 
         return df_english_filtered
 
-class PilotSentencesMK:
+class PilotSentences:
 
     def __init__(self):
         pass
@@ -611,3 +612,52 @@ class PilotSentencesMK:
             pass
         return value
 
+class EnglishPrescreen:
+
+    def __init__(self):
+        pass
+
+    def clean_data(self, task_name = "prepilot_english", versions = [3]):
+        """
+        cleans english preprocessing task data downloaded from gorilla. removes any rows that are not trials.
+        """
+        df_all = pd.DataFrame()
+        for version in versions: 
+            fpath = os.path.join(Defaults.RAW_DIR, f"{task_name}_v{version}.csv")
+            df = pd.read_csv(fpath)
+
+            def _get_response_type():
+                response_type = "response_keyboard"
+                return response_type
+
+            # determine which cols to keep depending on task
+            cols_to_keep = self._cols_to_keep()
+
+            df = df[cols_to_keep]
+
+            #rename columns that are not already renamed (i.e. 'zone_type' and 'rt')
+            df = df.rename({'Experiment ID':'experiment_ID', 'Experiment Version':'experiment_version', 'Participant Private ID':'participant_ID', 'Spreadsheet Row': 'sentence_num', 'Zone Type':'zone_type', 'Reaction Time':'rt', 
+                            'Correct':'correct', 'Incorrect':'incorrect'}, axis=1)
+
+            # filter dataset to include trials and experimental blocks (i.e. not instructions)
+            response_type = _get_response_type() # response_type is different across the task
+            df = df.query(f'display=="main" and zone_type=="{response_type}"')
+            df['rt'] = df['rt'].astype(float)
+
+            # get version
+            df["version"] = version
+
+            # concat versions if there are more than one
+            df_all = pd.concat([df_all, df])
+
+        return df_all
+
+    def _cols_to_keep(self):
+        """
+        Returns: list of columns to keep for analysis
+        """
+        cols_to_keep = ['Experiment ID', 'Experiment Version', 'Participant Private ID', 'Spreadsheet Row', 'Zone Type', 'Reaction Time', 'Correct', 'Incorrect', 
+                        'display', 'response', 'type', 'item']
+
+        return cols_to_keep
+        
