@@ -604,11 +604,11 @@ class PilotSentences:
                 return description for `version` for `self.task_name`
         """
         if version==1:
-            value = "first round with even CoRT and cloze distributions"
+            value = " "
         elif version==2:
             value = " "
         elif version==3:
-            value = " "
+            value = "first round with even CoRT and cloze distributions"
         elif version==4:
             value = " "
         else:
