@@ -10,36 +10,6 @@ import glob
 from experiment_code.constants import Defaults
 
 class Utils():
-
-    def __init__(self):
-        self.bdrive = Bdrive()
-
-    def _make_file(self, local_path, remote_folder_download, remote_folder_upload, dataframe):
-        print(f'{Path(local_path).name} does not exist on bdrive or on local desktop, Ill try extracting the file from the clip.')
-    
-        # set the video file to make the files
-        video_path = os.path.join(str(Path(local_path).parent), dataframe['video_name']  + '.mp4')
-        
-        # downloads the video from bdrive
-        self._check_file(video_path, remote_folder_download)
-
-        ut = make_stimuli_utils()
-
-        # extract frames/video depending on filetype
-        if Path(local_path).suffix==".jpg":
-            ut._extract_frame(video_path, dataframe['image_time'], local_path)
-        elif Path(local_path).suffix==".mp4":
-            ut._extract_video(video_path, dataframe['video_start_time'], dataframe['video_end_time'], local_path)
-        # upload extracted files/videos to bdrive
-        self.bdrive.upload_file(local_path, remote_folder_upload)
-        print('uploading file to bdrive')
-        # delete the downloaded extracted clip from bdrive
-        os.remove(video_path)
-
-    def _check_file(self, local_path, remote_folder):
-        if not os.path.isfile(local_path):
-            self.bdrive.download_file(filename=Path(local_path).name, remote_folder=remote_folder, local_folder=Path(local_path).parent)
-            print(f'{Path(local_path).name} does not exist on local desktop, successfully downloaded from bdrive')
     
     def _sample_evenly_from_col(self, dataframe, num_stim, column="trial_type", **kwargs):
         if kwargs.get("random_state"):

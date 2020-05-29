@@ -195,7 +195,6 @@ class CoRTLanguage:
     
     def __init__(self):
         # data cleaning stuff
-        self.trial_type = True 
         self.cutoff = 30
         self.task_name = "cort_language"
         self.versions = [3]
@@ -205,8 +204,7 @@ class CoRTLanguage:
         pilot = PilotSentences()
         df = pilot.clean_data(task_name=self.task_name, 
                             versions=self.versions, 
-                            cutoff=self.cutoff,
-                            trial_type=self.trial_type)
+                            cutoff=self.cutoff)
         return df
     
     def count_of_correct(self, dataframe):
