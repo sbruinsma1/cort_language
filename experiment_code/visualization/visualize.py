@@ -195,7 +195,7 @@ class CoRTLanguage:
     
     def __init__(self):
         # data cleaning stuff
-        self.trial_type = True
+        self.trial_type = True 
         self.cutoff = 30
         self.task_name = "cort_language"
         self.versions = [3]
@@ -215,24 +215,24 @@ class CoRTLanguage:
         """
 
         plt.figure(figsize=(10,10));
-        sns.countplot(x='Correct', data= dataframe);
+        sns.countplot(x='correct', data= dataframe);
         plt.xlabel('incorrect vs correct', fontsize=20)
         plt.ylabel('count', fontsize=20)
         plt.title('Number of correct answers', fontsize=20);
         plt.xticks(fontsize=20)
         plt.yticks(fontsize=20);
-        print('Answers mean:', dataframe.Correct.mean())
+        print('Answers mean:', dataframe.correct.mean())
         #print('Percentage of correct vs incorrect',dataframe['correct'].value_counts(normalize=True) * 100)
 
     def count_of_correct_per_participant(self, dataframe):
         # gives counts of correct (1.0) vs incorrect (0.0) responses for each participant
         # note: NA are counted as 0
 
-        dataframe.participant_ID.unique()
+        dataframe.participant_id.unique()
         #dataframe_version = dataframe.loc[dataframe['version'] == version] - if want by version
 
         plt.figure(figsize=(10,10));
-        sns.countplot(x='Correct', hue='Participant Private ID', data= dataframe);
+        sns.countplot(x='correct', hue='participant_id', data= dataframe);
         plt.xlabel('incorrect vs correct', fontsize=20)
         plt.ylabel('count', fontsize=20)
         plt.title('Number of correct answers per participant', fontsize=20);
@@ -243,7 +243,7 @@ class CoRTLanguage:
         # gives counts of 'True' vs 'False' responses
 
         plt.figure(figsize=(10,10));
-        sns.countplot(x='Response', data= dataframe);
+        sns.countplot(x='response', data= dataframe);
         plt.xlabel('Response', fontsize=20)
         plt.ylabel('count', fontsize=20)
         plt.title('Number of responses', fontsize=20);
@@ -254,7 +254,7 @@ class CoRTLanguage:
         # plots the mean and std of correct answers for all sentences
 
         plt.figure(figsize=(10,10))
-        sns.scatterplot(dataframe.groupby('full_sentence')['Correct'].mean(), dataframe.groupby('full_sentence')['Correct'].std())
+        sns.scatterplot(dataframe.groupby('full_sentence')['correct'].mean(), dataframe.groupby('full_sentence')['correct'].std())
         plt.xlabel('mean correct answers')
         plt.ylabel('std of correct answers')
         plt.title('item analysis of sentences')
@@ -264,34 +264,34 @@ class CoRTLanguage:
         #plots distribution of reaction times
 
         sns.distplot(dataframe['rt'])
-        plt.xlabel('RT', fontsize=20)
+        plt.xlabel('reaction time', fontsize=20)
         plt.title('Distribution of reaction time', fontsize=20);
         plt.xticks(fontsize=20)
         plt.yticks(fontsize=20);
         plt.show()
-        print('RT mean:', dataframe.RT.mean())
+        #print('RT mean:', dataframe.rt.mean())
 
     def rt_dist_correct(self, dataframe):
         #plots distribution of reaction times for correct answers only
 
         sns.distplot(dataframe['rt'])
-        plt.xlabel('RT', fontsize=20)
+        plt.xlabel('reaction time', fontsize=20)
         plt.title('Distribution of reaction time for correct responses', fontsize=20);
         plt.xticks(fontsize=20)
         plt.yticks(fontsize=20);
         plt.show()
-        print('RT mean:', dataframe.RT.mean())
+        #print('RT mean:', dataframe.rt.mean())
     
     def rt_dist_incorrect(self, dataframe):
         #plots distribution of reaction times for incorrect answers only
 
         sns.distplot(dataframe['rt'])
-        plt.xlabel('RT', fontsize=20)
+        plt.xlabel('reaction time', fontsize=20)
         plt.title('Distribution of reaction time for incorrect responses', fontsize=20);
         plt.xticks(fontsize=20)
         plt.yticks(fontsize=20);
         plt.show()
-        print('RT mean:', dataframe.RT.mean())
+        #print('RT mean:', dataframe.rt.mean())
  
     def run_rt_by_version(self, dataframe):
         # reactime times across runs, categorized by version
@@ -384,7 +384,6 @@ class CoRTLanguage:
         plt.legend(runs, fontsize=20)
         plt.xticks(fontsize=20)
         plt.yticks(fontsize=20)
-
         plt.show()
 
     def run_reaction_time_trialtype(self, dataframe):
@@ -401,7 +400,7 @@ class CoRTLanguage:
 
             sns.lineplot(x='block_num', 
                         y='rt', hue='trial_type', 
-                        data=dataframe.query(f'Attempt==1 and Correct==1 and good_subjs==[True] and version=={version}'),
+                        data=dataframe.query(f'attempt==1 and correct==1 and good_subjs==[True] and version=={version}'),
                         ax=ax)
 
             ax.set_xlabel('', fontsize=15)
@@ -445,5 +444,17 @@ class EnglishVerif:
         
         print('Answers mean:', dataframe.correct.mean())
         #print('Percentage of correct vs incorrect',dataframe['correct'].value_counts(normalize=True) * 100)
+
+    def frequency_dist_of_correct_per_participant(self, dataframe):
+        """
+        gives frquency disribution of the percent correct per participant
+        """
+        plt.figure(figsize=(10,10));
+        sns.barplot(x="participant_ID", y="correct", data=dataframe)
+        plt.xlabel('participant', fontsize=20)
+        plt.ylabel('% correct', fontsize=20)
+        plt.title('Number of correct answers', fontsize=20);
+        plt.yticks(fontsize=20);
+        plt.show()
 
     

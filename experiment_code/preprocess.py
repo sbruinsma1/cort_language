@@ -479,11 +479,20 @@ class PilotSentences:
                 else:
                     value = x
                 return value
+
+            # determine which cols to keep depending on task
+            cols_to_keep = self._cols_to_keep()
+
+            df = df[cols_to_keep]
+
+            #rename some columns for analysis
+            df = df.rename({'Local Date':'local_date','Experiment ID':'experiment_id', 'Experiment Version':'experiment_version', 'Participant Public ID':'participant_public_id', 'Participant Private ID':'participant_id', 
+                            'Task Name':'task_name', 'Task Version':'task_name', 'Spreadsheet Name':'spreadsheet_version', 'Spreadsheet Row': 'spreadsheet_row', 'Trial Number': 'sentence_num', 'Zone Type':'zone_type', 
+                            'Reaction Time':'rt', 'Response':'response', 'Attempt':'attempt', 'Correct':'correct', 'Incorrect':'incorrect'}, axis=1)
             
             # filter dataset to include trials and experimental blocks (i.e. not instructions)
-            df = df.rename({'Zone Type': 'Zone_Type', 'Reaction Time':'rt'}, axis=1)
             response_type = _get_response_type() # response_type is different across the task
-            df = df.query(f'display=="trial" and block_num>0 and Zone_Type=="{response_type}"')
+            df = df.query(f'display=="trial" and block_num>0 and zone_type=="{response_type}"')
             df['rt'] = df['rt'].astype(float)  
             
             # filter out bad subjs based on specified cutoff
@@ -491,8 +500,8 @@ class PilotSentences:
                 cutoff = kwargs['cutoff']
                 df = self._remove_bad_subjs(df, cutoff)
 
-            if kwargs.get('trial_type'):
-                df['trial_type'] = df['sampled'].apply(lambda x: _assign_trialtype(x))
+            # get meaningful assesment
+            df['trial_type'] = df['sampled'].apply(lambda x: _assign_trialtype(x))
 
             # get version
             df["version"] = version
@@ -503,11 +512,6 @@ class PilotSentences:
             # get version description
             df["version_descript"] = df["version"].apply(lambda x: self._get_version_description(x))
 
-            # determine which cols to keep depending on task
-            cols_to_keep = self._cols_to_keep()
-
-            df = df[cols_to_keep]
-
             # concat versions if there are more than one
             df_all = pd.concat([df_all, df])
 
@@ -515,22 +519,21 @@ class PilotSentences:
 
     def _cols_to_keep(self):
         """ cols to keep - different for each task
+            also renames some columns for analysis
             Returns: 
                 list of cols to keep for analysis 
         """
 
-        cols_to_keep = ['Experiment ID', 'Participant Public ID', 'Experiment Version',
-                        'Participant Private ID', 'Task Name', 'Task Version', 'Trial Number',
-                        'version', 'version_descript', 'Zone_Type', 'rt', 'Response', 'Attempt',
-                        'Correct', 'Incorrect', 'display', 'block_num', 'condition_name','good_subjs']
+        cols_to_keep = ['Local Date', 'Experiment ID', 'Experiment Version', 'Participant Public ID', 'Participant Private ID',
+                        'Task Name', 'Task Version', 'Spreadsheet Name', 'Spreadsheet Row', 'Trial Number', 'Zone Type', 
+                        'Reaction Time', 'Response', 'Attempt', 'Correct', 'Incorrect', 'display', 'block_num']
 
-        cols_to_keep.extend(['full_sentence', 'last_word', 'sampled','CoRT_descript', 'CoRT_mean',
-                            'CoRT_std','cloze_descript', 'cloze_probability', 'trial_type',
-                            'dataset', 'random_word', 'target_word', 'word_count'])
+        cols_to_keep.extend(['full_sentence', 'last_word', 'sampled','CoRT_descript', 'CoRT_mean','condition_name',
+                            'CoRT_std','cloze_descript', 'cloze_probability', 'dataset', 'random_word', 'target_word', 'word_count'])
 
         return cols_to_keep
 
-    def _remove_bad_subjs(self, dataframe, cutoff, colname='Participant Private ID'):
+    def _remove_bad_subjs(self, dataframe, cutoff, colname='participant_id'):
         """
         filters out bad subjs if they spent too little time on task
             Args:
@@ -568,8 +571,8 @@ class PilotSentences:
         dict = {}
         participant_ids = dataframe[colname].unique()
         for participant_id in participant_ids: 
-            date1 = dataframe.loc[dataframe[colname]==participant_id]['Local Date'].iloc[0]
-            date2 = dataframe.loc[dataframe[colname]==participant_id]['Local Date'].iloc[-1]
+            date1 = dataframe.loc[dataframe[colname]==participant_id]['local_date'].iloc[0]
+            date2 = dataframe.loc[dataframe[colname]==participant_id]['local_date'].iloc[-1]
 
             diff_min = self._time_spent_on_task(date1, date2)
 
@@ -601,13 +604,13 @@ class PilotSentences:
                 return description for `version` for `self.task_name`
         """
         if version==1:
-            value = "cort and non-cort v1"
+            value = "first round with even CoRT and cloze distributions"
         elif version==2:
-            value = "cort and non-cort v2"
+            value = " "
         elif version==3:
-            value = "cort and non-cort v3"
+            value = " "
         elif version==4:
-            value = "cort and non-cort v4"
+            value = " "
         else:
             pass
         return value
