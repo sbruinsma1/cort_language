@@ -618,7 +618,6 @@ class PilotSentences:
             pass
         return value
 
-
 class EnglishPrescreen:
 
     def __init__(self):
@@ -667,4 +666,5 @@ class EnglishPrescreen:
                         'display', 'response', 'type', 'item']
 
         return cols_to_keep
+
         
