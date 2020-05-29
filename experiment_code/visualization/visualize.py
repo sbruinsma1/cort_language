@@ -445,7 +445,7 @@ class EnglishVerif:
         print('Answers mean:', dataframe.correct.mean())
         #print('Percentage of correct vs incorrect',dataframe['correct'].value_counts(normalize=True) * 100)
 
-    def frequency_dist_of_correct_per_participant(self, dataframe):
+    def participant_accuracy(self, dataframe):
         """
         gives frquency disribution of the percent correct per participant
         """

@@ -170,7 +170,7 @@ class PilotSentences(Utils):
 
             df_filtered, _ = self._save_target_files(df_target, df_filtered)             
     
-    def make_online_spreadsheet(self, num_stims=[2, 32, 32, 32, 32, 32, 32, 32], version=1, **kwargs):
+    def make_online_spreadsheet(self, num_stims=[2, 32, 32, 32, 32, 32, 32, 32], version=4, **kwargs):
         """
         load in target files that have already been made (or make them if they don't exist). 
         make gorilla-specific spreadsheet and save in `gorilla_versions`. the code will take ANY <task_name>
