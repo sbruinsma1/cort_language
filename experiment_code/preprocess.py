@@ -460,7 +460,6 @@ class PilotSentences:
         and remove bad subjs if they exist
         (optional):
             cutoff (int): cutoff threshold for minutes spent on task. assumes 'Participant Private ID' is the col name for participant id
-            trial_type (bool): assign trial type for `cort_language` task
         """
         df_all = pd.DataFrame()
         for version in versions: 
@@ -480,16 +479,20 @@ class PilotSentences:
                     value = x
                 return value
 
+            def _rename_cols(dataframe):
+                #rename some columns for analysis
+                return dataframe.rename({'Local Date':'local_date','Experiment ID':'experiment_id', 'Experiment Version':'experiment_version', 'Participant Public ID':'participant_public_id', 'Participant Private ID':'participant_id', 
+                            'Task Name':'task_name', 'Task Version':'task_name', 'Spreadsheet Name':'spreadsheet_version', 'Spreadsheet Row': 'spreadsheet_row', 'Trial Number': 'sentence_num', 'Zone Type':'zone_type', 
+                            'Reaction Time':'rt', 'Response':'response', 'Attempt':'attempt', 'Correct':'correct', 'Incorrect':'incorrect'}, axis=1)
+
             # determine which cols to keep depending on task
             cols_to_keep = self._cols_to_keep()
 
             df = df[cols_to_keep]
 
             #rename some columns for analysis
-            df = df.rename({'Local Date':'local_date','Experiment ID':'experiment_id', 'Experiment Version':'experiment_version', 'Participant Public ID':'participant_public_id', 'Participant Private ID':'participant_id', 
-                            'Task Name':'task_name', 'Task Version':'task_name', 'Spreadsheet Name':'spreadsheet_version', 'Spreadsheet Row': 'spreadsheet_row', 'Trial Number': 'sentence_num', 'Zone Type':'zone_type', 
-                            'Reaction Time':'rt', 'Response':'response', 'Attempt':'attempt', 'Correct':'correct', 'Incorrect':'incorrect'}, axis=1)
-            
+            df = _rename_cols(df)
+
             # filter dataset to include trials and experimental blocks (i.e. not instructions)
             response_type = _get_response_type() # response_type is different across the task
             df = df.query(f'display=="trial" and block_num>0 and zone_type=="{response_type}"')
