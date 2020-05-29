@@ -78,7 +78,7 @@ class PilotSentences(Utils):
     def __init__(self):
         self.task_name = "cort_language"
         self.condition_dict = {'low cloze': 'hard', 'high cloze': 'easy'} # 'medium cloze': 'medium'
-        self.block_design = {'run0':['strong non-CoRT', 'strong CoRT'], 'run1':['strong non-CoRT', 'strong CoRT'], 'run2':['strong CoRT', 'strong non-CoRT'], 'run3':['strong CoRT', 'strong non-CoRT'], 'run4':['strong CoRT', 'strong non-CoRT'], 'run5':['strong CoRT', 'strong non-CoRT'], 'run6':['strong CoRT', 'strong non-CoRT'], 'run7':['strong CoRT', 'strong non-CoRT']}
+        self.block_design = {'run0':['strong non-CoRT', 'strong CoRT'], 'run1':['strong non-CoRT', 'strong CoRT'], 'run2':['strong CoRT', 'strong non-CoRT'], 'run3':['strong CoRT', 'strong non-CoRT'], 'run4':['strong CoRT', 'strong non-CoRT'], 'run5':['strong CoRT', 'strong non-CoRT'], 'run6':['strong CoRT', 'strong non-CoRT']}
         self.display = {'run0': 'instructions', 'run6': 'end'}
         self.trial_dur = 7
         self.iti_dur = .5
@@ -89,7 +89,7 @@ class PilotSentences(Utils):
         self.frac = .3
         self.cort = ['strong non-CoRT', 'strong CoRT'] # options: 'strong non-CoRT', 'strong CoRT', 'ambiguous'
     
-    def cort_language(self, num_stims=[2, 32, 32, 32, 32, 32, 32], **kwargs):
+    def cort_language(self, num_stims=[6, 16, 16, 16, 16, 16, 16], **kwargs):
         """ makes spreadsheet for cort language task
 
         Args: 
@@ -162,15 +162,16 @@ class PilotSentences(Utils):
             # filter the dataframe based on `block design`
             df_target, multiplier = _block_design(df_filtered)
 
-            # group the dataframe according to `condition`
-            df_target = df_target.groupby('CoRT_descript', as_index=False).apply(lambda x: self._sample_evenly_from_col(dataframe=x, num_stim=num_stims[self.block]*multiplier, column='condition_name', random_state=self.random_state)).reset_index().drop({'level_0', 'level_1'}, axis=1) # so ugly -- fix!!
-
             # add in manipulation: target/random words 70/30% of trials per block
             df_target = _add_random_word(dataframe=df_target)
 
+            # group the dataframe according to `condition`
+            df_target = df_target.groupby(['CoRT_descript', 'sampled'], as_index=False).apply(lambda x: self._sample_evenly_from_col(dataframe=x, num_stim=num_stims[self.block]*multiplier, column='condition_name', random_state=self.random_state)).reset_index().drop({'level_0', 'level_1'}, axis=1) # so ugly -- fix!!
+
+
             df_filtered, _ = self._save_target_files(df_target, df_filtered)             
     
-    def make_online_spreadsheet(self, num_stims=[2, 32, 32, 32, 32, 32, 32, 32], version=1, **kwargs):
+    def make_online_spreadsheet(self, num_stims=[6, 16, 16, 16, 16, 16, 16], version=4, **kwargs):
         """
         load in target files that have already been made (or make them if they don't exist). 
         make gorilla-specific spreadsheet and save in `gorilla_versions`. the code will take ANY <task_name>
