@@ -89,7 +89,7 @@ class PilotSentences(Utils):
         self.frac = .3
         self.cort = ['strong non-CoRT', 'strong CoRT'] # options: 'strong non-CoRT', 'strong CoRT', 'ambiguous'
     
-    def cort_language(self, num_stims=[6, 16, 16, 16, 16, 16, 16], **kwargs):
+    def cort_language(self, num_stims=[12, 32, 32, 32, 32, 32, 32], **kwargs):
         """ makes spreadsheet for cort language task
 
         Args: 
@@ -117,21 +117,22 @@ class PilotSentences(Utils):
             dataframe = dataframe.query(f'CoRT_descript=={self.cort} and cloze_descript=={list(self.condition_dict.keys())}')
             return dataframe
 
-        def _add_random_word(dataframe):
+        def _add_random_word(dataframe, columns):
             """ sample `frac_random` and add to `full_sentence`
                 Args: 
                     dataframe (pandas dataframe): dataframe
                 Returns: 
                     dataframe with modified `full_sentence` col
             """
-            samples = dataframe.sample(frac=self.frac, replace=False, random_state=42)
+            samples = dataframe[columns].sample(frac=self.frac, replace=False, random_state=2)
+            # samples = dataframe.sample(frac=self.frac, replace=False, random_state=42)
             sampidx = samples.index # samples.index.levels[1]
             dataframe["sampled"] = dataframe.index.isin(sampidx)
 
             dataframe["last_word"] = dataframe.apply(lambda x: x["random_word"] if x["sampled"] else x["target_word"], axis=1)
             # dataframe["full_sentence"] = dataframe.apply(lambda x: "|".join(x["full_sentence"].split("|")[:-1] + [x["last_word"]]), axis=1)
             return dataframe
-        
+
         def _get_condition(x):
             value = self.condition_dict[x]
             return value
@@ -162,16 +163,15 @@ class PilotSentences(Utils):
             # filter the dataframe based on `block design`
             df_target, multiplier = _block_design(df_filtered)
 
-            # add in manipulation: target/random words 70/30% of trials per block
-            df_target = _add_random_word(dataframe=df_target)
-
             # group the dataframe according to `condition`
-            df_target = df_target.groupby(['CoRT_descript', 'sampled'], as_index=False).apply(lambda x: self._sample_evenly_from_col(dataframe=x, num_stim=num_stims[self.block]*multiplier, column='condition_name', random_state=self.random_state)).reset_index().drop({'level_0', 'level_1'}, axis=1) # so ugly -- fix!!
+            df_target = df_target.groupby(['CoRT_descript'], as_index=False).apply(lambda x: self._sample_evenly_from_col(dataframe=x, num_stim=num_stims[self.block]*multiplier, column='condition_name', random_state=self.random_state)).reset_index().drop({'level_0', 'level_1'}, axis=1) # so ugly -- fix!!
 
+            # add in manipulation: target/random words 70/30% of trials per block
+            df_target = _add_random_word(dataframe=df_target, columns=['CoRT_descript', 'condition_name'])
 
-            df_filtered, _ = self._save_target_files(df_target, df_filtered)             
+            df_filtered, _ = self._save_target_files(df_target, df_filtered)            
     
-    def make_online_spreadsheet(self, num_stims=[6, 16, 16, 16, 16, 16, 16], version=4, **kwargs):
+    def make_online_spreadsheet(self, num_stims=[12, 32, 32, 32, 32, 32, 32], version=4, **kwargs):
         """
         load in target files that have already been made (or make them if they don't exist). 
         make gorilla-specific spreadsheet and save in `gorilla_versions`. the code will take ANY <task_name>
@@ -215,5 +215,15 @@ class PilotSentences(Utils):
         # delete target files
         for target_file in set(target_files):
             os.remove(target_file)
+
+# run quick script
+pilot = PilotSentences()
+pilot.make_online_spreadsheet()
+
+os.chdir(os.path.join(Defaults.TARGET_DIR, "gorilla_versions"))
+
+df = pd.read_csv('cort_language_gorilla_experiment_v4.csv')
+
+print(df.groupby(['block_num', 'CoRT_descript',  'cloze_descript', 'sampled']).count())
 
  
