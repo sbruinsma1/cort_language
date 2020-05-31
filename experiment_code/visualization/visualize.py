@@ -200,7 +200,9 @@ class CoRTLanguage:
         self.versions = [3]
                                
     def load_dataframe(self):
-        # import class
+        """ imports clean dataframe
+        """
+
         pilot = PilotSentences()
         df = pilot.clean_data(task_name=self.task_name, 
                             versions=self.versions, 
@@ -223,8 +225,9 @@ class CoRTLanguage:
         #print('Percentage of correct vs incorrect',dataframe['correct'].value_counts(normalize=True) * 100)
 
     def count_of_correct_per_participant(self, dataframe):
-        # gives counts of correct (1.0) vs incorrect (0.0) responses for each participant
-        # note: NA are counted as 0
+        """ gives counts of correct (1.0) vs incorrect (0.0) responses for each participant
+        note: NA are counted as 0
+        """
 
         dataframe.participant_id.unique()
         #dataframe_version = dataframe.loc[dataframe['version'] == version] - if want by version
@@ -237,19 +240,9 @@ class CoRTLanguage:
         plt.xticks(fontsize=20)
         plt.yticks(fontsize=20);
 
-    def count_of_responses(self, dataframe):
-        # gives counts of 'True' vs 'False' responses
-
-        plt.figure(figsize=(10,10));
-        sns.countplot(x='response', data= dataframe);
-        plt.xlabel('Response', fontsize=20)
-        plt.ylabel('count', fontsize=20)
-        plt.title('Number of responses', fontsize=20);
-        plt.xticks(fontsize=20)
-        plt.yticks(fontsize=20);
-
     def item_analysis(self, dataframe):
-        # plots the mean and std of correct answers for all sentences
+        """ plots the mean and std of correct answers for all sentences
+        """
 
         plt.figure(figsize=(10,10))
         sns.scatterplot(dataframe.groupby('full_sentence')['correct'].mean(), dataframe.groupby('full_sentence')['correct'].std())
@@ -258,9 +251,12 @@ class CoRTLanguage:
         plt.title('item analysis of sentences')
         plt.show()
 
-    def rt_distrib
-    ution(self, dataframe):
-        #plots distribution of reaction times
+    def rt_distribution(self, dataframe):
+        """ plots distribution of reaction times
+            does so only for meaningful and correct responses.
+        """
+
+        dataframe = dataframe.query('attempt==1 and correct==1 and trial_type=="meaningful"')
 
         sns.distplot(dataframe['rt'])
         plt.xlabel('reaction time', fontsize=20)
@@ -269,124 +265,81 @@ class CoRTLanguage:
         plt.yticks(fontsize=20);
         plt.show()
         #print('RT mean:', dataframe.rt.mean())
-
-    def rt_dist_correct(self, dataframe):
-        #plots distribution of reaction times for correct answers only
-
-        sns.distplot(dataframe['rt'])
-        plt.xlabel('reaction time', fontsize=20)
-        plt.title('Distribution of reaction time for correct responses', fontsize=20);
-        plt.xticks(fontsize=20)
-        plt.yticks(fontsize=20);
-        plt.show()
-        #print('RT mean:', dataframe.rt.mean())
-    
-    def rt_dist_incorrect(self, dataframe):
-        #plots distribution of reaction times for incorrect answers only
-
-        sns.distplot(dataframe['rt'])
-        plt.xlabel('reaction time', fontsize=20)
-        plt.title('Distribution of reaction time for incorrect responses', fontsize=20);
-        plt.xticks(fontsize=20)
-        plt.yticks(fontsize=20);
-        plt.show()
-        #print('RT mean:', dataframe.rt.mean())
  
-    def run_rt_by_version(self, dataframe):
-        # reactime times across runs, categorized by version
-        sns.set(rc={'figure.figsize':(20,10)})
-        # versions = dataframe['version'].unique()
+    def run_rt_by_condition(self, dataframe):
+        """ plots reaction time across runs, categorized by easy vs hard cloze condition.
+            does so only for meaningful and correct responses.
+        """
 
-        sns.factorplot(x='block_num', y='rt', hue='version', data=dataframe)
+        sns.set(rc={'figure.figsize':(20,10)})
+
+        sns.factorplot(x='block_num', y='rt', hue='condition_name', data=dataframe.query('attempt==1 and correct==1 and trial_type=="meaningful"'))
         plt.xlabel('Run', fontsize=20),
         plt.ylabel('RT', fontsize=20)
-        plt.title('', fontsize=20);
+        plt.title('Reaction time across cloze conditions', fontsize=20);
         plt.tick_params(axis = 'both', which = 'major', labelsize = 20)
 
         plt.show()
 
     def run_accuracy_by_condition(self, dataframe):
-        # accuracy across runs, categorized by version
-        sns.set(rc={'figure.figsize':(20,10)})
-        # versions = dataframe['version'].unique()
+        """ plots reaction time across runs, categorized by easy vs hard cloze condition.
+            does so only for meaningful and correct responses.
+        """
 
-        sns.factorplot(x='block_num', y='Correct', hue='condition_name', data=dataframe.query('Attempt==1 and trial_type=="meaningful"'))
+        sns.set(rc={'figure.figsize':(20,10)})
+
+        sns.factorplot(x='block_num', y='Correct', hue='condition_name', data=dataframe.query('attempt==1 and trial_type=="meaningful"'))
         plt.xlabel('Run', fontsize=20),
         plt.ylabel('% Correct', fontsize=20)
-        plt.title('', fontsize=20);
+        plt.title('Accuracy across cloze conditions', fontsize=20);
         plt.tick_params(axis = 'both', which = 'major', labelsize = 20)
         plt.ylim(bottom=.7, top=1.0)
 
         plt.show()
 
-    def run_rt_conditions(self, dataframe):
-        # rt across runs, categorized by CoRT condition
+    def run_rt_by_conditions_versions(self, dataframe):
+        """ plots reaction time across runs, categorized by easy vs hard cloze condition, and across versions.
+            does so only for meaningful and correct responses.
+        """
         sns.set(rc={'figure.figsize':(20,10)})
 
         versions = dataframe['version'].unique()
+        version_descripts = dataframe['version_descript'].unique()
 
         for i, version in enumerate(versions):
 
-            sns.factorplot(x='block_num', y='rt', hue='condition_name', data=dataframe.query('Attempt==1 and Correct==1 and trial_type=="meaningful"'))
+            sns.factorplot(x='block_num', y='rt', hue='condition_name', data=dataframe.query('attempt==1 and correct==1 and trial_type=="meaningful"'))
             plt.xlabel('Run', fontsize=20)
             plt.ylabel('Reaction Time', fontsize=20)
-            plt.title(f'{versions[i]}', fontsize=20);
+            plt.title(f'{version_descripts[i]}', fontsize=20);
             plt.tick_params(axis = 'both', which = 'major', labelsize = 20)
 
             plt.show()
 
-    def mean_correct(self, dataframe):
-        # distribution of mean accuracy across sentences 
-        # utilize with df_by_sentence 
-
-        plt.figure(figsize=(10,10))
-
-        sns.distplot(dataframe['correct_mean'])
-        plt.xlabel('mean', fontsize=20)
-        plt.title('Distribution of mean', fontsize=20);
-        plt.xticks(fontsize=20)
-        plt.yticks(fontsize=20);
-        plt.show()
-
-    def standard_deviation_correct(self, dataframe):
-        # distribution of standard deviation for mean accuracy across sentences
-        # utilize with df_by_sentence 
-
-        plt.figure(figsize=(10,10))
-
-        sns.distplot(dataframe['correct_std'])
-        plt.xlabel('standard deviation', fontsize=20)
-        plt.title('Distribution of standard deviation', fontsize=20);
-        plt.xticks(fontsize=20)
-        plt.yticks(fontsize=20);
-        plt.show()
-
-    def distribution_cloze_by_run(self, dataframe):
-        plt.figure(figsize=(10,10))
+    def run_rt_by_CoRT_versions(self, dataframe):
+        """ plots reaction time across runs, categorized by easy vs hard cloze condition, and across versions.
+            does so only for meaningful and correct responses.
+        """
+        sns.set(rc={'figure.figsize':(20,10)})
 
         versions = dataframe['version'].unique()
-        runs = dataframe['block_num'].unique()
+        version_descripts = dataframe['version_descript'].unique()
 
-        dataframe = dataframe.query('CoRT_descript=="strong CoRT"')
-
-        # loop over versions
         for i, version in enumerate(versions):
 
-            # loop over runs and plot distribution
-            for run in runs:
+            sns.factorplot(x='block_num', y='rt', hue='CoRT_descript', data=dataframe.query('attempt==1 and correct==1 and trial_type=="meaningful"'))
+            plt.xlabel('Run', fontsize=20)
+            plt.ylabel('Reaction Time', fontsize=20)
+            plt.title(f'{version_descripts[i]}', fontsize=20);
+            plt.tick_params(axis = 'both', which = 'major', labelsize = 20)
 
-                sns.kdeplot(dataframe.loc[dataframe['block_num']==run]['cloze_probability'], shade=True)
-                
-        # plot stuff        
-        plt.title('distrubtion of cloze probabilities across runs')
-        plt.xlabel('cloze probability', fontsize=20)
-        plt.legend(runs, fontsize=20)
-        plt.xticks(fontsize=20)
-        plt.yticks(fontsize=20)
-        plt.show()
+            plt.show()
 
-    def run_reaction_time_trialtype(self, dataframe):
-        # rt for different levels
+    def run_rt_trialtype(self, dataframe):
+        """ plots reaction time across runs, categorized by meaningful and meaningless sentences, and across versions.
+            does so only for correct responses.
+        """
+
         # sns.set(rc={'figure.figsize':(20,10)})
         fig = plt.figure(figsize=(10,10))
         
@@ -413,6 +366,123 @@ class CoRTLanguage:
         plt.subplots_adjust(left=0.125, right=0.9, bottom=0.1, top=0.9, wspace=0.3, hspace=0.2)
         plt.show()
 
+    def cloze_distribution(self, dataframe):
+        """ plots distribution of cloze probabilities across version.
+        """
+        # sns.set(rc={'figure.figsize':(20,10)})
+        fig = plt.figure(figsize=(10,10))
+
+        versions = dataframe['version'].unique()
+        version_descripts = dataframe['version_descript'].unique()
+
+        for i, version in enumerate(versions):
+
+            fig.add_subplot(1, len(versions), i+1)
+
+            df = dataframe.query(f'version=={version}')
+            
+            sns.distplot(df['cloze_probability'])
+            plt.title(f'{version_descripts[i]}', fontsize=10)
+            plt.xlabel('cloze probability', fontsize=15)
+            plt.tick_params(axis = 'both', which = 'major', labelsize = 15)
+
+        plt.show()
+
+    def cort_distribution(self, dataframe):
+        """ plots distribution of CoRT scores across version.
+        """
+        # sns.set(rc={'figure.figsize':(20,10)})
+
+        fig = plt.figure(figsize=(10,10))
+
+        versions = dataframe['version'].unique()
+        version_descripts = dataframe['version_descript'].unique()
+
+        for i, version in enumerate(versions):
+
+            fig.add_subplot(1, len(versions), i+1)
+
+            df = dataframe.query(f'version=={version}')
+
+            sns.distplot(df['CoRT_mean'])
+            plt.title(f'{version_descripts[i]}', fontsize=10)
+            plt.xlabel('cort scaling', fontsize=15)
+            plt.tick_params(axis = 'both', which = 'major', labelsize = 15)
+
+        plt.show()
+
+    def distribution_cloze_by_run(self, dataframe):
+        """ plots kde plot of distribution of cloze probabilities across runs.
+        """
+        plt.figure(figsize=(10,10))
+
+        versions = dataframe['version'].unique()
+        runs = dataframe['block_num'].unique()
+
+        #dataframe = dataframe.query('CoRT_descript=="strong CoRT"')
+
+        # loop over versions
+        for i, version in enumerate(versions):
+
+            # loop over runs and plot distribution
+            for run in runs:
+
+                sns.kdeplot(dataframe.loc[dataframe['block_num']==run]['cloze_probability'], shade=True)
+                
+        # plot stuff        
+        plt.title('distrubtion of cloze probabilities across runs')
+        plt.xlabel('cloze probability', fontsize=20)
+        plt.legend(runs, fontsize=20)
+        plt.xticks(fontsize=20)
+        plt.yticks(fontsize=20)
+        plt.show()
+
+    def distribution_CoRT_by_run(self, dataframe):
+        """ plots kde plot of distribution of cloze probabilities across runs.
+        """
+        plt.figure(figsize=(10,10))
+
+        versions = dataframe['version'].unique()
+        runs = dataframe['block_num'].unique()
+
+        #dataframe = dataframe.query('CoRT_descript=="strong CoRT"')
+
+        # loop over versions
+        for i, version in enumerate(versions):
+
+            # loop over runs and plot distribution
+            for run in runs:
+
+                sns.kdeplot(dataframe.loc[dataframe['block_num']==run]['CoRT_mean'], shade=True)
+                
+        # plot stuff        
+        plt.title('distrubtion of CoRT scores across runs')
+        plt.xlabel('CoRT scaling', fontsize=20)
+        plt.legend(runs, fontsize=20)
+        plt.xticks(fontsize=20)
+        plt.yticks(fontsize=20)
+        plt.show()
+
+    def describe_block_design(self, dataframe):
+
+        # sns.set(rc={'figure.figsize':(20,10)})
+
+        fig = plt.figure(figsize=(10,10))
+
+        versions = dataframe['version'].unique()
+        version_descripts = dataframe['version_descript'].unique()
+
+        for i, version in enumerate(versions):
+
+            fig.add_subplot(1, len(versions), i+1)
+
+            sns.countplot(x='block_num', hue='CoRT_descript', data=dataframe.query(f'version=={version} and trial_type=="meaningful"'))
+            plt.title(f'{version_descripts[i]}', fontsize=10)
+            plt.xlabel('block_design', fontsize=15)
+            plt.tick_params(axis = 'both', which = 'major', labelsize = 15)
+
+        plt.show()
+
 class EnglishVerif:
 
     def __init__(self):
@@ -421,7 +491,9 @@ class EnglishVerif:
         self.versions = [3]
                                
     def load_dataframe(self):
-        # import class
+        """ imports clean dataframe
+        """
+
         english = EnglishPrescreen()
         df = english.clean_data(task_name=self.task_name, 
                             versions=self.versions) 
@@ -445,9 +517,9 @@ class EnglishVerif:
         #print('Percentage of correct vs incorrect',dataframe['correct'].value_counts(normalize=True) * 100)
 
     def participant_accuracy(self, dataframe):
+        """gives frequency disribution of the percent correct per participant
         """
-        gives frquency disribution of the percent correct per participant
-        """
+
         plt.figure(figsize=(10,10));
         sns.barplot(x="participant_ID", y="correct", data=dataframe)
         plt.xlabel('participant', fontsize=20)

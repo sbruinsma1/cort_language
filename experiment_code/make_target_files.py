@@ -220,7 +220,8 @@ class PilotSentences(Utils):
         for target_file in set(target_files):
             os.remove(target_file)
 
-# run quick script
+# run quick script 
+# only need to type "import experiment_code.make_target_files" to create targetfile
 pilot = PilotSentences()
 pilot.make_online_spreadsheet()
 

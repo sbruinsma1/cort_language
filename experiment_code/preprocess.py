@@ -248,7 +248,8 @@ class CortScaling:
             return dataframe
         
         def _filter_sentences(dataframe):
-            #group sentences and find mean and standard deviation for each
+            """ group sentences and find mean and standard deviation for each
+            """
             df_grouped = dataframe.groupby(['full_sentence', 'cloze_probability', 'dataset']).agg({'CoRT': ['mean', 'std']}).reset_index()
 
             # join multilevel columns
@@ -276,7 +277,8 @@ class CortScaling:
             return value
 
         def _split_sentence(dataframe):
-            # split `full_sentence` into separate cols
+            """ split `full_sentence` into separate cols
+            """
             split_sentence = lambda sent: [x for x in re.split(r"[\s\.\,]+", sent) if x]
             sentences = [split_sentence(s) for s in dataframe["full_sentence"].values]
             sent_df = pd.DataFrame.from_records(sentences)
@@ -285,7 +287,8 @@ class CortScaling:
             return df_out
 
         def _generate_random_word(dataframe):
-            #generate random word at end
+            """ generate random word at end
+            """
             dataframe['target_word'] = dataframe['full_sentence'].apply(lambda x: x.split(" ")[-1]).to_list()
             dataframe['random_word'] = dataframe['target_word'].sample(n=len(dataframe), random_state=2, replace=False).to_list()
             
@@ -333,15 +336,17 @@ class CortScaling:
         return df_out
 
 class PilotSentencesV1:
-    #preprocessing for versions 1 and 2 of testing
+    """ creates clean dataframe (task and english) for visualizing, only for versions 1 and 2 of testing
+    """
 
     def __init__(self):
         pass 
         #add things??
 
-    def load_dataframe():
-        # loads in cleaned dataframe
-        # note: make below into automatized definition
+    def load_dataframe(self):
+        """ loads in cleaned dataframe
+            note: make below into automatized definition
+        """
 
         # load in task data from gorilla
         df1 = pd.read_csv(os.path.join(Defaults.RAW_DIR, "cort_language_gorilla_v1_sheet1.csv"))
@@ -372,16 +377,18 @@ class PilotSentencesV1:
 
         return df_filtered  
 
-    def make_correct_only_dataframe(dataframe):
-        # creates dataframe that only has correct responses 
-        # recommended input: df_filtered
+    def make_correct_only_dataframe(self, dataframe):
+        """ creates dataframe that only has correct responses 
+            recommended input: df_filtered
+        """
 
         df_correct = dataframe[dataframe.correct != 0]    
         return df_correct  
 
-    def make_incorrect_only_dataframe(dataframe):   
-        # creates dataframe that only has correct responses (for fun)
-        # recommended input: df_filtered
+    def make_incorrect_only_dataframe(self, dataframe):   
+        """ creates dataframe that only has correct responses (for fun)
+            recommended input: df_filtered
+        """
 
         df_incorrect = dataframe[dataframe.correct != 1]
         return df_incorrect
@@ -397,12 +404,12 @@ class PilotSentencesV1:
             #value = 'medium cloze'
         #return value
     
-    def make_grouped_sentences_dataframe(dataframe, **kwargs):
-        # create dataframe with the sentences grouped (i.e. one row for each sentence) and columns for mean and std of correct column
-        # kwargs argument: 
-            #correct_min: type "correct min" =
-            #a decimal (0-1) of desired minimum percent of correct responses
-        # recommended dataframe input: df_filtered
+    def make_grouped_sentences_dataframe(self, dataframe, **kwargs):
+        """ create dataframe with the sentences grouped (i.e. one row for each sentence) and columns for mean and std of correct column
+            kwargs argument: 
+                correct_min: type "correct min" = a decimal (0-1) of desired minimum percent of correct responses
+            recommended dataframe input: df_filtered
+        """
 
         # group sentences and find mean and standard deviation for each
         df_by_sentence = dataframe.groupby(['full_sentence', 'cloze', 'CoRT_mean', 'condition','last_word','answer','target_word','random_word']).agg({'correct': ['mean', 'std']}).reset_index()
@@ -411,6 +418,7 @@ class PilotSentencesV1:
         df_by_sentence.columns = ["_".join(pair) for pair in df_by_sentence.columns]
         df_by_sentence.columns = df_by_sentence.columns.str.strip('_')
 
+        #KWARGS
         def _select_correct_min_mean(correct_min):
             # only returns sentences below a minimum percent of correct responses
             # input: a decimal between 0-1 
@@ -424,8 +432,9 @@ class PilotSentencesV1:
         return df_by_sentence
 
     def load_english_dataframe():
-        # loads in cleaned dataframe of data from english prescreening if want to look at 
-        # note: make below into automatized definition
+        """ loads in cleaned dataframe of data from english prescreening if want to look at 
+            note: make below into automatized definition
+        """
 
         # load in english data from gorilla
         df1_english = pd.read_csv(os.path.join(Defaults.RAW_DIR, "prepilot_english_v1_sheet1.csv"))
@@ -480,9 +489,10 @@ class PilotSentences:
                 return value
 
             def _rename_cols(dataframe):
-                #rename some columns for analysis
+                """rename some columns for analysis
+                """
                 return dataframe.rename({'Local Date':'local_date','Experiment ID':'experiment_id', 'Experiment Version':'experiment_version', 'Participant Public ID':'participant_public_id', 'Participant Private ID':'participant_id', 
-                            'Task Name':'task_name', 'Task Version':'task_name', 'Spreadsheet Name':'spreadsheet_version', 'Spreadsheet Row': 'spreadsheet_row', 'Trial Number': 'sentence_num', 'Zone Type':'zone_type', 
+                            'Task Name':'task_name', 'Task Version':'task_version', 'Spreadsheet Name':'spreadsheet_version', 'Spreadsheet Row': 'spreadsheet_row', 'Trial Number': 'sentence_num', 'Zone Type':'zone_type', 
                             'Reaction Time':'rt', 'Response':'response', 'Attempt':'attempt', 'Correct':'correct', 'Incorrect':'incorrect'}, axis=1)
 
             # determine which cols to keep depending on task
@@ -617,6 +627,36 @@ class PilotSentences:
         else:
             pass
         return value
+    
+    def _make_grouped_sentences_dataframe(self, dataframe, **kwargs):
+        """ create dataframe with the sentences grouped (i.e. one row for each sentence) and columns for mean and std of correct column.
+            NOT incorporated in clean_data -- run that first.
+
+            kwargs argument: 
+                "correct min" = a decimal (0-1) of desired minimum percent of correct responses
+                    output: shortened dataframe only with rows (i.e. sentences) with a correct score below minimum desired.
+            
+            example input: _make_grouped_sentences_dataframe(df, correct_min = 0.5)
+        """
+
+        # group sentences and find mean and standard deviation for each
+        df_by_sentence = dataframe.groupby(['full_sentence', 'cloze_probability', 'condition_name', 'CoRT_mean', 'CoRT_std', 'CoRT_descript','last_word','target_word','random_word']).agg({'correct': ['mean', 'std']}).reset_index()
+
+        # join multilevel columns
+        df_by_sentence.columns = ["_".join(pair) for pair in df_by_sentence.columns]
+        df_by_sentence.columns = df_by_sentence.columns.str.strip('_')
+
+        def _select_correct_min_mean(correct_min):
+            # only returns sentences below a minimum percent of correct responses
+            # input: a decimal between 0-1 
+
+            return df_by_sentence.loc[df_by_sentence['correct_mean'] <= correct_min]
+
+        if kwargs.get('correct_min'):
+            correct_min = kwargs['correct_min']
+            df_by_sentence = _select_correct_min_mean(correct_min)
+
+        return df_by_sentence
 
 class EnglishPrescreen:
 
@@ -631,6 +671,8 @@ class EnglishPrescreen:
         for version in versions: 
             fpath = os.path.join(Defaults.RAW_DIR, f"{task_name}_v{version}.csv")
             df = pd.read_csv(fpath)
+
+            # still need to add data from first 2 rounds, maybe if file doesn't exist = concat -- unsure how to do
 
             def _get_response_type():
                 response_type = "response_keyboard"
