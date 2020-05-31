@@ -258,7 +258,8 @@ class CoRTLanguage:
         plt.title('item analysis of sentences')
         plt.show()
 
-    def rt_distribution(self, dataframe):
+    def rt_distrib
+    ution(self, dataframe):
         #plots distribution of reaction times
 
         sns.distplot(dataframe['rt'])
