@@ -125,8 +125,7 @@ class PilotSentences(Utils):
                     dataframe with modified `full_sentence` col
             """
             samples = dataframe[columns].sample(frac=self.frac, replace=False, random_state=2)
-            # samples = dataframe.sample(frac=self.frac, replace=False, random_state=42)
-            sampidx = samples.index # samples.index.levels[1]
+            sampidx = samples.index
             dataframe["sampled"] = dataframe.index.isin(sampidx)
 
             dataframe["last_word"] = dataframe.apply(lambda x: x["random_word"] if x["sampled"] else x["target_word"], axis=1)
@@ -223,7 +222,7 @@ pilot.make_online_spreadsheet()
 os.chdir(os.path.join(Defaults.TARGET_DIR, "gorilla_versions"))
 
 df = pd.read_csv('cort_language_gorilla_experiment_v4.csv')
-
 print(df.groupby(['block_num', 'CoRT_descript',  'cloze_descript', 'sampled']).count())
+
 
  

@@ -284,6 +284,11 @@ class CortScaling:
             df_out = pd.concat([dataframe, sent_df], axis=1)
             return df_out
 
+        def _separate_sentence(dataframe):
+            dataframe['full_sentence'] = dataframe['full_sentence'].str.replace(" ", "|").str.strip('|')
+
+            return dataframe
+
         def _generate_random_word(dataframe):
             #generate random word at end
             dataframe['target_word'] = dataframe['full_sentence'].apply(lambda x: x.split(" ")[-1]).to_list()
@@ -307,8 +312,6 @@ class CortScaling:
         # add `target_word` and `random_word` cols 
         df_grouped = _generate_random_word(dataframe=df_grouped)
 
-
-
         # drop last word from full sentence
         df_grouped['full_sentence'] = df_grouped['full_sentence'].apply(lambda x: ' '.join(x.split(' ')[:-1]))
 
@@ -316,8 +319,7 @@ class CortScaling:
         if split_sentence:
             df_out = _split_sentence(dataframe=df_grouped)
         else:
-            df_out = df_grouped
-            df_out['full_sentence'] = df_grouped['full_sentence'].str.replace(" ", "|")
+            df_out = _separate_sentence(df_grouped)
 
         # filter based on word count
         df_out = _count_filter_words(dataframe=df_out)

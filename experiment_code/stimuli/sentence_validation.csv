@@ -10,7 +10,7 @@ A|gas|lamp|is|always|a|good|source|of,0.89,peele,1.75,0.9574271077563381,strong 
 A|good|combination|of|flavors|can|be|sweet|and,0.51,peele,1.0,0.0,strong non-CoRT,sour,steak,9,medium cloze
 A|good|way|to|exercise|is|to|ride|a,0.9,block_baldwin,3.0,1.4142135623730951,ambiguous,bike,wall,9,high cloze
 "A|hasty|person,|Andre|was|known|for|his|brisk",0.38,peele,2.3333333333333335,1.505545305418162,ambiguous,walk,cough,9,low cloze
-A|large|stone|blocked|the|entrance|to|the|,0.36,block_baldwin,1.6666666666666667,1.0327955589886446,strong non-CoRT,cave,back,9,low cloze
+A|large|stone|blocked|the|entrance|to|the,0.36,block_baldwin,1.6666666666666667,1.0327955589886446,strong non-CoRT,cave,back,8,low cloze
 "A|natural|leader,|Eve|was|a|great|hospital",0.31,peele,1.8,1.7888543819998317,strong non-CoRT,administrator,tub,8,low cloze
 A|nearby|woman|sprayed|the|robber|with,0.8,peele,4.0,0.7071067811865476,strong CoRT,mace,budge,7,high cloze
 A|pirate's|favorite|alcoholic|drink|is|aged,0.57,peele,1.75,0.9574271077563381,strong non-CoRT,rum,late,7,medium cloze
@@ -64,7 +64,7 @@ After|driving|for|hours|Kevin|rested|at|the|next,0.79,block_baldwin,3.7142857142
 After|each|day|the|woman|enjoyed|her|glass|of,0.9,peele,3.2,0.8366600265340756,ambiguous,wine,prepare,9,high cloze
 "After|eating|the|peach,|the|child|threw|out|the",0.79,peele,4.0,1.224744871391589,strong CoRT,pit,milk,9,high cloze
 "After|eating,|it|is|normal|for|babies|to|sometimes",0.55,peele,1.75,0.9574271077563381,strong non-CoRT,burp,walls,9,medium cloze
-After|every|meal|it’s|good|to|brush|your|,0.94,block_baldwin,2.4285714285714284,1.1338934190276817,ambiguous,teeth,id,9,high cloze
+After|every|meal|it’s|good|to|brush|your,0.94,block_baldwin,2.4285714285714284,1.1338934190276817,ambiguous,teeth,id,8,high cloze
 After|failing|he|realized|he|needed|a|new,0.18,block_baldwin,2.6666666666666665,1.0327955589886444,ambiguous,plan,apple,8,low cloze
 "After|filling|the|bowl|with|cereal,|Josh|added",0.87,peele,4.6,0.5477225575051662,strong CoRT,milk,eagle,8,high cloze
 "After|getting|hit|by|the|ball,|Tyler|started|to",0.71,peele,4.666666666666667,0.5163977794943223,strong CoRT,cry,monster,9,high cloze
@@ -144,7 +144,7 @@ After|touching|the|stove|the|child|burned|his,0.83,block_baldwin,3.8571428571428
 After|watching|some|baseball|games|she|became|a,0.8,peele,1.6666666666666667,0.816496580927726,strong non-CoRT,fan,roof,8,high cloze
 After|weeks|at|sea|the|bottle|washed|up|onto,0.83,peele,4.0,0.816496580927726,strong CoRT,shore,aim,9,high cloze
 "After|winning|a|gold|medal,|Tara|thanked|her",0.5,peele,2.5,1.2909944487358056,ambiguous,coach,line,8,low cloze
-"After|winning|the|carnival|game,|Tim|received|a|",0.82,block_baldwin,3.5714285714285716,1.5118578920369088,ambiguous,prize,board,9,high cloze
+"After|winning|the|carnival|game,|Tim|received|a",0.82,block_baldwin,3.5714285714285716,1.5118578920369088,ambiguous,prize,board,8,high cloze
 "After|winning|the|lottery,|Cole|was|excited|to|be",0.89,peele,3.4,1.51657508881031,ambiguous,rich,winner,9,high cloze
 After|years|of|feeling|lost|she|finally|found|her,0.32,peele,2.5,1.0,ambiguous,way,hug,9,low cloze
 Aidan|was|shocked|that|the|sturdy|building,0.46,peele,3.0,0.816496580927726,ambiguous,collapsed,bag,7,low cloze
@@ -168,6 +168,7 @@ All|the|professional|athlete|wanted|was|a|back,0.38,peele,2.0,1.0,strong non-CoR
 All|the|queen's|loyal|servants|responded|to|her|every,0.4,peele,2.2,1.3038404810405297,ambiguous,whim,cold,9,low cloze
 All|the|teacher|wanted|was|for|the|kids|to,0.42,peele,1.8,1.3038404810405297,strong non-CoRT,learn,selfcomplicated,9,low cloze
 Almost|everyone|at|the|movie|began|to,0.33,peele,3.0,1.8257418583505538,ambiguous,laugh,dogs,7,low cloze
+Although|Keith|bowled|well|he|did|not|have|the|highest,0.94,block_baldwin,2.0,1.1547005383792517,strong non-CoRT,score,limited,10,high cloze
 "Although|Mark|disagreed,|he|didn't|put|up|a",0.9,peele,2.3333333333333335,0.5773502691896258,ambiguous,fight,truck,8,high cloze
 "Although|beautiful,|French|is|a|difficult|language|to",0.7,peele,1.8,1.7888543819998317,strong non-CoRT,learn,gown,8,high cloze
 "Although|he|ordered|a|whole|rack,|Cooper|ate|one",0.68,peele,2.75,1.2583057392117916,ambiguous,rib,wait,9,medium cloze
@@ -175,13 +176,14 @@ Almost|everyone|at|the|movie|began|to,0.33,peele,3.0,1.8257418583505538,ambiguou
 "Although|he|was|hungry,|Pablo|couldn't|decide|where|to",0.83,peele,2.25,0.49999999999999994,ambiguous,eat,carry,9,high cloze
 "Although|she|tried,|the|gardener|couldn't|make|the|crows",0.75,peele,3.1666666666666665,1.1690451944500122,ambiguous,leave,administrator,9,high cloze
 "Although|she|was|clumsy,|Ellen|tried|hard|not|to",0.59,peele,2.8,0.8366600265340756,ambiguous,fall,mate,9,medium cloze
-Although|she|was|not|guilty|she|took|the|,0.47,block_baldwin,3.0,1.2649110640673518,ambiguous,blame,roar,9,low cloze
+Although|she|was|not|guilty|she|took|the,0.47,block_baldwin,3.0,1.2649110640673518,ambiguous,blame,roar,8,low cloze
 "Although|some|knives|were|sharp,|others|were|very",0.98,peele,2.0,1.4142135623730951,strong non-CoRT,dull,reach,8,high cloze
 "Although|they|had|met|before,|Lee|couldn't|remember|his",0.95,peele,2.0,1.4142135623730951,strong non-CoRT,name,fate,9,high cloze
 "Always|full|of|energy,|Wilson|never|seemed|to",0.51,peele,1.2,0.4472135954999579,strong non-CoRT,tire,head,8,medium cloze
 "Always|stoic|and|serious,|Peter|was|not|one|to",0.59,peele,2.75,0.9574271077563381,ambiguous,joke,pee,9,medium cloze
 Amber|missed|the|bus|even|though|she|yelled,0.56,peele,3.6666666666666665,0.5773502691896258,ambiguous,stop,tire,8,medium cloze
 Amber|went|to|the|dealership|to|purchase|a|new,0.9,block_baldwin,3.2857142857142856,1.2535663410560174,ambiguous,car,address,9,high cloze
+American|Presidents|are|limited|to|serving|a|period|of|eight,0.84,block_baldwin,1.1428571428571428,0.3779644730092272,strong non-CoRT,years,rub,10,high cloze
 "Among|other|things,|vegetarians|do|not|eat",0.7,peele,1.0,0.0,strong non-CoRT,meat,cold,7,high cloze
 Amy|said|the|crowd|outside|had|turned|into|a,0.89,peele,2.75,0.9574271077563381,ambiguous,mob,latch,9,high cloze
 "An|almond|is|a|type|of|seed,|not|a",0.87,peele,1.5,1.0,strong non-CoRT,nut,plan,9,high cloze
@@ -226,8 +228,9 @@ At|Jessie’s|birthday|party|they|ate|a|delicious,0.85,block_baldwin,3.714285714
 At|almost|every|local|bar|Frank|has|a,0.39,peele,2.0,1.0,strong non-CoRT,tab,man,8,low cloze
 At|around,0.58,peele,1.6666666666666667,1.0327955589886446,strong non-CoRT,walk,couch,2,medium cloze
 "At|breakfast,|her|kids|really|love|to|drink",0.58,peele,3.2,0.8366600265340756,ambiguous,milk,walk,8,medium cloze
-At|dinner|he|cut|his|food|with|a|,0.92,block_baldwin,4.0,1.5275252316519468,strong CoRT,knife,half,9,high cloze
+At|dinner|he|cut|his|food|with|a,0.92,block_baldwin,4.0,1.5275252316519468,strong CoRT,knife,half,8,high cloze
 At|dinner|the|rolls|were|her|favorite|thing|to,0.91,peele,2.25,0.9574271077563381,ambiguous,eat,mutt,9,high cloze
+"At|first|the|woman|refused,|but|she|changed|her",0.93,block_baldwin,2.7142857142857144,1.7043362064926932,ambiguous,mind,weight,9,high cloze
 "At|halftime,|the|team|received|a|speech|from|the",0.85,peele,2.25,1.8929694486000912,ambiguous,coach,rug,9,high cloze
 "At|home,|taking|out|the|trash|was|Justin's",0.44,peele,2.75,1.2583057392117916,ambiguous,job,bark,8,low cloze
 At|last|the|time|for|action|had,0.84,block_baldwin,2.0,1.1547005383792515,strong non-CoRT,come,mean,7,high cloze
@@ -291,7 +294,7 @@ Before|practice|he|decided|to|eat|a|quick,0.71,block_baldwin,3.5,1.3784048752090
 Before|the|fight|the|boxer|laced|up|his,0.61,block_baldwin,3.8333333333333335,1.4719601443879744,ambiguous,gloves,home,8,medium cloze
 "Before|the|gala,|Katie|couldn't|decide|what|to",0.96,peele,1.75,0.9574271077563381,strong non-CoRT,wear,leak,8,high cloze
 "Before|they're|even|one|year|old,|babies|usually",0.33,peele,3.5,0.5773502691896257,ambiguous,crawl,theme,8,low cloze
-Before|work|Randy|put|on|a|jacket|and|,0.48,block_baldwin,3.6666666666666665,1.3662601021279464,ambiguous,hat,gang,9,low cloze
+Before|work|Randy|put|on|a|jacket|and,0.48,block_baldwin,3.6666666666666665,1.3662601021279464,ambiguous,hat,gang,8,low cloze
 "Before|work,|the|officer|had|to|remember|his",0.35,peele,2.5,1.2909944487358056,ambiguous,gun,neck,8,low cloze
 Before|you|take|a|bath|you|should|clean|the,0.86,peele,2.25,1.5,ambiguous,tub,fin,9,high cloze
 Being|a|father|and|a|businessman|made|his|role,0.31,peele,1.0,0.0,strong non-CoRT,difficult,zoo,9,low cloze
@@ -440,7 +443,7 @@ Due|to|his|excellent|work|he|received|high,0.56,block_baldwin,1.8333333333333333
 "Due|to|the|hot|summer|day,|Mia|bought|a",0.34,peele,3.5,0.8366600265340756,ambiguous,fan,hungry,9,low cloze
 "Due|to|the|leaky|bottle,|syrup|slowly|began|to",0.34,peele,3.4,0.8944271909999159,ambiguous,drip,alarm,9,low cloze
 Due|to|the|storm|the|Coast|Guard|called|off|the,0.68,block_baldwin,3.5,0.8366600265340756,ambiguous,search,shave,10,medium cloze
-During|autumn|the|air|is|crisp|and|,0.35,block_baldwin,1.6666666666666667,1.632993161855452,strong non-CoRT,cold,steal,8,low cloze
+During|autumn|the|air|is|crisp|and,0.35,block_baldwin,1.6666666666666667,1.632993161855452,strong non-CoRT,cold,steal,7,low cloze
 "During|class,|the|teacher|discovered|the|boy|could|not",0.82,block_baldwin,2.2857142857142856,1.1126972805283737,ambiguous,read,pig,9,high cloze
 "During|happy|hour,|the|employees|visited|the",0.88,peele,3.25,0.9574271077563381,ambiguous,bar,head,7,high cloze
 "During|her|allergic|reaction,|Anne|noticed|she|had|a",0.67,peele,3.0,1.1547005383792515,ambiguous,rash,loans,9,medium cloze
@@ -508,7 +511,7 @@ Even|the|mother's|singing|couldn't|calm|the|screaming,0.75,peele,3.8,1.303840481
 "Even|though|Grace|didn't|have|to|pay,|she",0.56,peele,3.0,1.224744871391589,ambiguous,did,peach,8,medium cloze
 Even|though|it|was|wet|they|tried|lighting|the,0.31,peele,3.6,1.6733200530681511,ambiguous,fire,hug,9,low cloze
 "Every|Saturday|morning,|Abby|goes|on|a|light",0.41,peele,2.3333333333333335,1.505545305418162,ambiguous,run,nail,8,low cloze
-Every|Sunday|the|family|goes|to|,0.86,block_baldwin,3.4285714285714284,1.2724180205607034,ambiguous,church,knife,7,high cloze
+Every|Sunday|the|family|goes|to,0.86,block_baldwin,3.4285714285714284,1.2724180205607034,ambiguous,church,knife,6,high cloze
 Every|autumn|leaves|fall|from|the,0.92,block_baldwin,3.7142857142857144,1.3801311186847083,ambiguous,trees,swim,6,high cloze
 Every|day|he|poured|his|drink|into|the|same,0.48,peele,3.0,0.816496580927726,ambiguous,glass,soft,9,low cloze
 "Every|day,|the|family|worked|in|their|vegetable",0.88,peele,2.5,1.7320508075688772,ambiguous,garden,land,8,high cloze
@@ -539,7 +542,7 @@ Everyone|was|shocked|when|the|couple|broke|up|so,0.39,peele,2.6,1.34164078649987
 Everyone|who|knew|him|said|he|had|a|big,0.49,peele,1.5,0.5773502691896257,strong non-CoRT,heart,growl,9,low cloze
 "Excited|for|his|birthday|presents,|the|boy|could|barely",0.48,peele,3.4,0.8944271909999159,ambiguous,wait,jig,9,low cloze
 "Exiting|the|pool,|the|children|were|so|cold|they",0.87,peele,4.4,0.5477225575051661,strong CoRT,shivered,hurt,9,high cloze
-Expecting|Jeff’s|call|she|waited|for|the|phone|to|,0.95,block_baldwin,2.7142857142857144,1.2535663410560174,ambiguous,ring,bag,10,high cloze
+Expecting|Jeff’s|call|she|waited|for|the|phone|to,0.95,block_baldwin,2.7142857142857144,1.2535663410560174,ambiguous,ring,bag,9,high cloze
 Experts|could|not|give|Amy|the|answers|she,0.58,peele,1.2,0.4472135954999579,strong non-CoRT,wanted,stain,8,medium cloze
 Ezra|says|he's|fit|but|he|can't|run|a,0.8,peele,2.25,1.2583057392117916,ambiguous,mile,shift,9,high cloze
 Father|carved|the|turkey|with|a,0.95,block_baldwin,4.285714285714286,1.4960264830861911,strong CoRT,knife,teach,6,high cloze
@@ -557,7 +560,7 @@ For|breakfast|Jim|wanted|bacon|and,0.91,block_baldwin,1.4285714285714286,0.78679
 For|breakfast|he|had|eggs|and|a|sweet|buttered,0.43,peele,2.2,0.447213595499958,ambiguous,roll,leave,9,low cloze
 For|her|school|dance|Becky|needed|a|new,0.77,block_baldwin,2.0,1.1547005383792515,strong non-CoRT,dress,ten,8,high cloze
 "For|her|wedding,|Linda|chose|a|flowing",0.59,peele,2.5,1.0,ambiguous,gown,ball,7,medium cloze
-For|his|birthday|Jan|baked|a|,0.92,block_baldwin,3.2857142857142856,1.1126972805283735,ambiguous,cake,highbeef,7,high cloze
+For|his|birthday|Jan|baked|a,0.92,block_baldwin,3.2857142857142856,1.1126972805283735,ambiguous,cake,highbeef,6,high cloze
 "For|his|calligraphy,|Jordan|looked|for|a|special",0.83,peele,2.25,0.9574271077563381,ambiguous,pen,fit,8,high cloze
 For|his|date|Tom|bought|a|long|stemmed,0.95,block_baldwin,2.5714285714285716,1.5118578920369088,ambiguous,rose,contact,8,high cloze
 "For|his|grandfather's|funeral,|Oscar|composed|a",0.54,peele,3.0,0.816496580927726,ambiguous,song,panic,7,medium cloze
@@ -593,7 +596,7 @@ Gavin|was|frustrated|when|he|got|wine|on|his,0.64,peele,3.6666666666666665,0.577
 George|asked|whether|or|not|the|artifact|was,0.58,peele,3.0,0.816496580927726,ambiguous,real,wake,8,medium cloze
 George|could|not|believe|his|son|stole|a,0.41,block_baldwin,2.0,1.2649110640673518,strong non-CoRT,car,loud,8,low cloze
 "George|felt|superior|to|Kathy,|even|though|she's|his",0.51,peele,2.4,1.51657508881031,ambiguous,boss,wait,9,medium cloze
-George|must|keep|his|pet|on|a|,0.9,block_baldwin,1.7142857142857142,0.7559289460184545,strong non-CoRT,leash,league,8,high cloze
+George|must|keep|his|pet|on|a,0.9,block_baldwin,1.7142857142857142,0.7559289460184545,strong non-CoRT,leash,league,7,high cloze
 George|sprinted|out|the|door|because|he|was|in|a,0.87,peele,4.0,0.816496580927726,strong CoRT,hurry,bump,10,high cloze
 Gigi|fell|yesterday|and|she|broke|a,0.31,peele,4.0,1.224744871391589,strong CoRT,leg,pitcher,7,low cloze
 Glasses|greatly|improved|Mrs.|Gibb’s,0.75,block_baldwin,2.0,1.0954451150103321,strong non-CoRT,sight,cup,5,high cloze
@@ -640,6 +643,7 @@ He|had|plenty|of|power|at|the|school|as,0.68,peele,2.0,1.4142135623730951,strong
 He|had|trouble|getting|the|bike|onto|the,0.34,peele,3.4,0.8944271909999159,ambiguous,rack,rut,8,low cloze
 He|hated|bees|and|feared|encountering|a,0.43,peele,3.0,1.7320508075688772,ambiguous,hive,kit,7,low cloze
 He|heard|a|noise|at|midnight|and|grabbed|his,0.67,peele,4.75,0.4999999999999999,strong CoRT,gun,nose,9,medium cloze
+He|hoped|his|grumpy|teen|was|just|going|through|a,0.77,block_baldwin,1.2857142857142858,0.4879500364742666,strong non-CoRT,phase,hoof,10,high cloze
 He|knew|Agatha|was|ill|when|he|heard|her,0.6,peele,3.0,1.2247448713915892,ambiguous,cough,school,9,medium cloze
 He|knew|about|the|prank|they|were|trying|to,0.8,peele,1.4,0.5477225575051661,strong non-CoRT,pull,cry,9,high cloze
 He|lay|down|and|went|to,0.76,block_baldwin,4.166666666666667,0.752772652709081,strong CoRT,sleep,shore,6,high cloze
@@ -656,7 +660,7 @@ He|thought|three|dogs|wasn't|enough|so|he|got,0.5,peele,2.4,1.6733200530681511,a
 He|told|his|son|it|wasn't|a|job|for,0.44,peele,2.2,1.3038404810405297,ambiguous,him,dearly,9,low cloze
 He|took|the|bill|although|I|offered|to,0.88,block_baldwin,3.0,1.2909944487358056,ambiguous,pay,come,8,high cloze
 He|tried|to|read|but|couldn't|do|it|without,0.66,peele,2.25,1.5,ambiguous,glasses,onion,9,medium cloze
-He|turned|the|page|of|his|favorite|,0.9,block_baldwin,4.0,1.5275252316519465,strong CoRT,book,ghost,8,high cloze
+He|turned|the|page|of|his|favorite,0.9,block_baldwin,4.0,1.5275252316519465,strong CoRT,book,ghost,7,high cloze
 He|turned|to|channel|13|to|watch|the|daily,0.94,block_baldwin,3.5714285714285716,1.3972762620115438,ambiguous,news,shell,9,high cloze
 He|turned|to|see|the|dog|charging|like|a,0.83,peele,4.4,0.5477225575051662,strong CoRT,bull,pad,9,high cloze
 He|used|his|skateboard|to|grind|along|the,0.38,peele,4.5,0.5773502691896257,strong CoRT,rails,kill,8,low cloze
@@ -695,13 +699,13 @@ Her|favorite|place|to|snorkel|was|the|secret,0.6,peele,3.2,1.7888543819998317,am
 Her|friend|said|the|story|was|nothing|but,0.51,peele,1.75,0.9574271077563381,strong non-CoRT,lies,bug,8,medium cloze
 Her|grandfather|was|a|criminal|who|would,0.48,peele,1.4,0.8944271909999159,strong non-CoRT,steal,there,7,low cloze
 Her|grandmother|told|her|she|was|sweet|as|a,0.35,peele,2.4,1.5165750888103102,ambiguous,pie,sun,9,low cloze
-Her|job|was|easy|most|of|the|,0.94,block_baldwin,1.7142857142857142,1.4960264830861913,strong non-CoRT,time,cat,8,high cloze
+Her|job|was|easy|most|of|the,0.94,block_baldwin,1.7142857142857142,1.4960264830861913,strong non-CoRT,time,cat,7,high cloze
 Her|left|hand|was|freezing|after|she|lost|her,0.8,peele,4.4,0.5477225575051661,strong CoRT,glove,ropes,9,high cloze
 Her|new|shoes|were|the|wrong,0.91,block_baldwin,1.4285714285714286,1.1338934190276817,strong non-CoRT,size,manure,6,high cloze
 Her|parents|were|dismayed|she|had|pierced|her,0.46,peele,3.25,0.9574271077563381,ambiguous,nose,cake,8,low cloze
 His|aunt|always|said|he|was|strong|like|a,0.4,peele,2.6,1.3416407864998738,ambiguous,bull,beer,9,low cloze
 His|aunt|would|not|come|because|his|house|is,0.32,peele,3.0,1.4142135623730951,ambiguous,messy,kiss,9,low cloze
-His|boss|refused|to|give|him|a|,0.87,block_baldwin,1.8571428571428572,0.6900655593423541,strong non-CoRT,raise,test,8,high cloze
+His|boss|refused|to|give|him|a,0.87,block_baldwin,1.8571428571428572,0.6900655593423541,strong non-CoRT,raise,test,7,high cloze
 His|brand|new|soccer|ball|had|landed|in|the,0.34,peele,4.0,1.7320508075688772,strong CoRT,mud,drip,9,low cloze
 His|car|is|huge|so|it's|too|heavy|to,0.44,peele,2.0,1.224744871391589,strong non-CoRT,push,cold,9,low cloze
 His|dad|already|set|multiple|traps|for|the,0.43,peele,3.6,1.51657508881031,ambiguous,mouse,tea,8,low cloze
@@ -709,7 +713,7 @@ His|date|wouldn't|go|to|prom|in|her|sister's,0.62,peele,2.0,0.816496580927726,st
 His|dirty|car|sparkled|after|a|wash|and,0.73,block_baldwin,2.5,1.224744871391589,ambiguous,wax,do,8,high cloze
 His|favorite|place|to|relax|is|on|the,0.41,peele,1.4,0.5477225575051662,strong non-CoRT,beach,fin,8,low cloze
 His|grandmother|reminded|him|to|use|plenty|of,0.42,peele,2.4,1.3416407864998738,ambiguous,soap,smile,8,low cloze
-His|job|was|to|keep|the|sidewalk|,0.85,block_baldwin,2.2857142857142856,1.4960264830861911,ambiguous,clean,can,8,high cloze
+His|job|was|to|keep|the|sidewalk,0.85,block_baldwin,2.2857142857142856,1.4960264830861911,ambiguous,clean,can,7,high cloze
 His|leaving|home|amazed|all|his,0.69,block_baldwin,2.3333333333333335,0.816496580927726,ambiguous,friends,clean,6,medium cloze
 His|mother|cautioned|him|about|letting|the|bananas,0.38,peele,1.5,0.5773502691896257,strong non-CoRT,rot,date,8,low cloze
 His|mother|knew|what|the|baby|needed|was|a,0.32,peele,2.75,1.707825127659933,ambiguous,bottle,bang,9,low cloze
@@ -793,6 +797,7 @@ In|these|woods|there|are|no|longer|animals|to,0.59,peele,2.75,1.5,ambiguous,hunt
 "In|woodshop,|Alex|smoothed|the|baseball|bat|with|the",0.32,peele,4.75,0.5,strong CoRT,sander,mail,9,low cloze
 Incredibly|poor|food|service|is|my|pet,0.96,peele,1.4,0.8944271909999159,strong non-CoRT,peeve,talk,7,high cloze
 Inflation|caused|the|cost|of|living|to,0.68,peele,2.25,1.2583057392117916,ambiguous,raise,brush,7,medium cloze
+Instead|of|a|full|Halloween|costume|Bill|just|wore|a,0.81,block_baldwin,2.7142857142857144,1.4960264830861911,ambiguous,mask,seasoning,10,high cloze
 "Instead|of|a|purebred|dog,|John|chose|a",0.89,peele,2.0,1.7320508075688772,strong non-CoRT,mutt,shape,8,high cloze
 "Instead|of|buying|a|new|phone,|Shannon|replaced|the",0.36,peele,4.25,0.5,strong CoRT,battery,fool,9,low cloze
 Instead|of|choosing|one|dog|Mark|adopted,0.59,peele,2.6,0.5477225575051661,ambiguous,two,wax,7,medium cloze
@@ -824,10 +829,10 @@ It|was|so|sunny|Kevin|needed|a,0.71,peele,2.0,1.1547005383792515,strong non-CoRT
 It|was|tiring|to|move|into|the|new,0.61,peele,3.0,1.8708286933869707,ambiguous,house,snow,8,medium cloze
 It|was|too|windy|so|Jen|reeled|in|her,0.45,peele,4.75,0.5,strong CoRT,kite,sin,9,low cloze
 It|was|tragic|when|whales|were|found|on|the,0.84,peele,3.8,1.3038404810405297,ambiguous,beach,quench,9,high cloze
-It|was|windy|enough|to|fly|a|,0.94,block_baldwin,3.142857142857143,1.4638501094227998,ambiguous,kite,late,8,high cloze
+It|was|windy|enough|to|fly|a,0.94,block_baldwin,3.142857142857143,1.4638501094227998,ambiguous,kite,late,7,high cloze
 It's|dangerous|when|cars|get|stuck|on|a|train,0.98,peele,2.6,1.6733200530681511,ambiguous,track,small,9,high cloze
 It's|pleasant|to|watch|the|sunset|from|the,0.36,peele,3.2,2.04939015319192,ambiguous,beach,style,8,low cloze
-It’s|hard|to|admit|when|one|is|,0.78,block_baldwin,2.0,1.4142135623730951,strong non-CoRT,wrong,year,8,high cloze
+It’s|hard|to|admit|when|one|is,0.78,block_baldwin,2.0,1.4142135623730951,strong non-CoRT,wrong,year,7,high cloze
 Ivan|did|not|know|the|time|since|his|watch,0.76,block_baldwin,1.6666666666666667,0.816496580927726,strong non-CoRT,broke,contract,9,high cloze
 Jack|bet|all|he|had|on|the|last,0.32,block_baldwin,2.8333333333333335,1.1690451944500122,ambiguous,game,mind,8,low cloze
 Jack|couldn't|find|Jill|even|though|she|was,0.33,peele,3.0,1.224744871391589,ambiguous,there,book,8,low cloze
@@ -875,14 +880,14 @@ Jessie|ran|the|race|at|a|slower,0.92,block_baldwin,3.857142857142857,1.463850109
 Jessie|saw|the|kid|trip|and|tried|not|to,0.84,peele,3.75,0.9574271077563381,ambiguous,laugh,beach,9,high cloze
 Jill|cried|and|said|her|life|had|become|a,0.4,peele,4.0,0.7071067811865475,strong CoRT,mess,class,9,low cloze
 Jill|is|frustrated|by|people|who|are|always,0.73,peele,1.75,0.5,strong non-CoRT,late,lock,8,high cloze
-Jill|looked|back|through|the|open|,0.73,block_baldwin,3.6666666666666665,1.505545305418162,ambiguous,door,tail,7,high cloze
+Jill|looked|back|through|the|open,0.73,block_baldwin,3.6666666666666665,1.505545305418162,ambiguous,door,tail,6,high cloze
 Jim|convinced|her|that|it|was|a|bad|prank|to,0.43,peele,1.75,0.5,strong non-CoRT,pull,vase,10,low cloze
 Jim|could|tell|Amy|was|sick|because|she|sounded,0.35,block_baldwin,2.5,0.8366600265340756,ambiguous,hoarse,rest,9,low cloze
 Jim|felt|guilty|after|he|committed|a,0.79,peele,2.4,1.9493588689617927,ambiguous,crime,loss,7,high cloze
-Jim|felt|relaxed|when|he|played|a|round|of|,0.59,block_baldwin,2.8333333333333335,1.1690451944500122,ambiguous,golf,fire,10,medium cloze
+Jim|felt|relaxed|when|he|played|a|round|of,0.59,block_baldwin,2.8333333333333335,1.1690451944500122,ambiguous,golf,fire,9,medium cloze
 Jim|prefers|funny|movies|that|make|him,0.96,peele,2.25,1.2583057392117916,ambiguous,laugh,phase,7,high cloze
 Jo|can|never|decide|what|food|to,0.62,peele,1.5,0.5773502691896257,strong non-CoRT,eat,sheath,7,medium cloze
-Joan|fed|her|baby|some|warm|,0.88,block_baldwin,4.0,1.4142135623730951,strong CoRT,milk,mace,7,high cloze
+Joan|fed|her|baby|some|warm,0.88,block_baldwin,4.0,1.4142135623730951,strong CoRT,milk,mace,6,high cloze
 Joan|thought|the|antique|sword|was|dangerous|without|a,0.53,peele,3.0,1.8257418583505538,ambiguous,sheath,nose,9,medium cloze
 Joe|did|not|like|his|outfit|and|decided|to,0.96,block_baldwin,3.2857142857142856,1.3801311186847085,ambiguous,change,taught,9,high cloze
 Joe|liked|the|foreign|city|but|didn't|want|to,0.34,peele,2.0,0.6324555320336759,strong non-CoRT,stay,thief,9,low cloze
@@ -890,7 +895,7 @@ Joe|traveled|freely|between|the|countries|because|his|citizenship|was,0.62,peele
 Joe|was|frustrated|because|his|jacket|would|not,0.4,peele,2.25,1.8929694486000912,ambiguous,fit,crowd,8,low cloze
 "John|felt|sorry,|but|it|was|not|his",0.91,block_baldwin,1.7142857142857142,1.4960264830861911,strong non-CoRT,fault,break,8,high cloze
 John|swept|the|floor|with|a,0.9,block_baldwin,4.142857142857143,1.5735915849388864,strong CoRT,broom,cheer,6,high cloze
-John|took|his|dog|out|for|a|,0.9,block_baldwin,3.5714285714285716,1.1338934190276817,ambiguous,walk,swat,8,high cloze
+John|took|his|dog|out|for|a,0.9,block_baldwin,3.5714285714285716,1.1338934190276817,ambiguous,walk,swat,7,high cloze
 John|was|scared|when|he|accidentally|broke|the,0.36,peele,2.25,1.2583057392117916,ambiguous,vase,chives,8,low cloze
 Jonah|went|to|the|beach|and|found|a|big,0.54,peele,3.0,1.1547005383792515,ambiguous,shell,top,9,medium cloze
 Jordan|learned|a|lot|about|cars|from|his,0.45,peele,1.3333333333333333,0.5773502691896258,strong non-CoRT,dad,scramble,8,low cloze
@@ -930,7 +935,7 @@ Ken's|devout|grandmother|chided|him|for|skipping,0.53,peele,2.25,1.8929694486000
 Kennedy|told|her|mom|she|felt|stuck|in|a,0.87,peele,2.0,1.0,strong non-CoRT,rut,dive,9,high cloze
 Kevin|frowned|when|he|awoke|and|the|light|was,0.55,peele,4.6,0.5477225575051662,strong CoRT,on,correct,9,medium cloze
 Kids|don't|like|that|particular|fruit|because|it's,0.44,peele,1.3333333333333333,0.5163977794943223,strong non-CoRT,sour,fullcub,8,low cloze
-Kim|wanted|to|give|the|workout|class|a|,0.3,block_baldwin,2.1666666666666665,1.602081978759722,ambiguous,try,sin,9,low cloze
+Kim|wanted|to|give|the|workout|class|a,0.3,block_baldwin,2.1666666666666665,1.602081978759722,ambiguous,try,sin,8,low cloze
 Kirk's|strict|mother|refused|his|request|to|adopt|a,0.31,peele,3.25,1.2583057392117916,ambiguous,dog,shirt,9,low cloze
 Kristen|secured|the|two|fabrics|with|a|small,0.52,peele,4.2,1.3038404810405297,strong CoRT,pin,hat,8,medium cloze
 Kristin|claimed|to|be|the|famous|actor's|biggest,0.96,peele,1.6666666666666667,1.2110601416389966,strong non-CoRT,fan,speed,8,high cloze
@@ -1036,7 +1041,7 @@ Most|of|the|college|students|wore|clothing|made|of,0.54,peele,2.5,1.732050807568
 Most|of|the|young|sharks|took|shelter|in|the,0.36,peele,3.0,1.4142135623730951,ambiguous,cove,nap,9,low cloze
 "Most|people,|when|they|eat|fruit,|don't|eat|the",0.31,peele,1.6,0.5477225575051662,strong non-CoRT,seeds,run,9,low cloze
 Most|shark|attacks|occur|very|close|to,0.74,block_baldwin,1.6666666666666667,1.0327955589886444,strong non-CoRT,shore,core,7,high cloze
-Most|students|prefer|to|work|during|the|,0.64,block_baldwin,2.5,1.0488088481701516,ambiguous,day,shoes,8,medium cloze
+Most|students|prefer|to|work|during|the,0.64,block_baldwin,2.5,1.0488088481701516,ambiguous,day,shoes,7,medium cloze
 Mother's|beautiful|ring|was|made|of|real,0.53,peele,2.5,1.2909944487358056,ambiguous,gold,suffer,7,medium cloze
 Mr.|Hall|hoped|that|the|appointment|would|be,0.5,block_baldwin,2.1666666666666665,1.4719601443879746,ambiguous,quick,cry,8,low cloze
 My|favorite|part|of|spring|is|when|the|flowers,0.91,block_baldwin,2.857142857142857,1.2149857925879117,ambiguous,bloom,bark,9,high cloze
@@ -1201,7 +1206,7 @@ Sara|and|Tom|were|brought|together|by,0.41,peele,2.0,0.816496580927726,strong no
 Sara|couldn't|wait|for|her|trip|to|the,0.31,peele,1.75,0.9574271077563382,strong non-CoRT,zoo,lease,8,low cloze
 Sara|made|her|bed|because|her|mom|said|she,0.51,peele,3.5,0.5773502691896257,ambiguous,should,knot,9,medium cloze
 Sarah|saw|animals|from|around|the|world|at|the,0.92,block_baldwin,2.142857142857143,1.0690449676496976,ambiguous,zoo,kite,9,high cloze
-Sarah|spent|all|summer|lounging|at|the|,0.5,block_baldwin,2.6666666666666665,1.3662601021279464,ambiguous,pool,hit,8,low cloze
+Sarah|spent|all|summer|lounging|at|the,0.5,block_baldwin,2.6666666666666665,1.3662601021279464,ambiguous,pool,hit,7,low cloze
 Sarah|threw|the|dirty|towel|in|the,0.32,peele,3.5,1.0,ambiguous,hamper,family,7,low cloze
 Sarah|won't|swim|if|the|water|is|too,0.72,peele,3.4,0.8944271909999159,ambiguous,cold,fertilizer,8,high cloze
 Sarah's|eye|stopped|tearing|up|after|she|removed|the,0.42,peele,3.5,1.2909944487358056,ambiguous,contact,sore,9,low cloze
@@ -1224,12 +1229,12 @@ She|comforted|the|woman|and|said|help|would|come,0.81,peele,3.2,1.30384048104052
 She|could|not|buy|the|shirt|because|it|did|not,0.94,block_baldwin,2.2857142857142856,1.3801311186847085,ambiguous,fit,mutt,10,high cloze
 She|could|not|drink|the|coffee|because|it|was|too,0.91,block_baldwin,3.5714285714285716,1.1338934190276817,ambiguous,hot,pile,10,high cloze
 She|couldn't|fall|asleep|so|she|took|a,0.67,peele,2.75,0.9574271077563381,ambiguous,pill,has,8,medium cloze
-She|did|not|have|the|right|key|for|the|,0.44,block_baldwin,1.1666666666666667,0.408248290463863,strong non-CoRT,lock,blood,10,low cloze
+She|did|not|have|the|right|key|for|the,0.44,block_baldwin,1.1666666666666667,0.408248290463863,strong non-CoRT,lock,blood,9,low cloze
 "She|didn't|give|him|a|long|kiss,|just|a",0.87,peele,4.0,0.0,strong CoRT,peck,water,9,high cloze
 She|didn’t|have|her|watch|so|she|asked|for|the,0.97,block_baldwin,3.142857142857143,1.0690449676496976,ambiguous,time,dim,10,high cloze
 She|enjoyed|studying|in|the|library|because|it|was,0.73,block_baldwin,2.5,1.760681686165901,ambiguous,quiet,scam,9,high cloze
 She|feared|she|would|administer|too|large|a,0.76,peele,2.2,1.0954451150103324,ambiguous,dose,bee,8,high cloze
-She|followed|the|recipe|correctly|to|cook|the|,0.56,block_baldwin,3.0,1.4142135623730951,ambiguous,meal,mud,9,medium cloze
+She|followed|the|recipe|correctly|to|cook|the,0.56,block_baldwin,3.0,1.4142135623730951,ambiguous,meal,mud,8,medium cloze
 She|gave|him|a|CD|of|songs|he|would,0.62,peele,3.3333333333333335,1.3662601021279464,ambiguous,like,wanted,9,medium cloze
 She|graduated|at|the|top|of|her,0.95,block_baldwin,1.5714285714285714,0.7867957924694432,strong non-CoRT,class,shelf,7,high cloze
 She|grew|up|with|five|brothers|so|she's|pretty,0.6,peele,2.8,1.3038404810405297,ambiguous,tough,bar,9,medium cloze
@@ -1244,7 +1249,7 @@ She|loved|horror|flicks|because|they|gave|her|a|good,0.69,block_baldwin,2.0,1.54
 She|loved|ice|cream|when|she|was|a|tiny,0.54,peele,1.2,0.4472135954999579,strong non-CoRT,girl,has,9,medium cloze
 She|loved|playing|the|guitar|so|she|joined|the,0.93,block_baldwin,2.5714285714285716,1.2724180205607034,ambiguous,band,coop,9,high cloze
 She|made|herself|a|sandwich|and|chips|for,0.9,block_baldwin,4.142857142857143,1.2149857925879117,strong CoRT,lunch,smell,8,high cloze
-She|married|just|for|money|and|not|for|,0.92,block_baldwin,2.2857142857142856,1.4960264830861913,ambiguous,love,tire,9,high cloze
+She|married|just|for|money|and|not|for,0.92,block_baldwin,2.2857142857142856,1.4960264830861913,ambiguous,love,tire,8,high cloze
 She|never|recovered|because|there|was|damage|to|a|nerves,0.42,peele,2.5,1.2909944487358054,ambiguous,,day,10,low cloze
 She|only|hosted|the|event|to|save,0.56,peele,1.1666666666666667,0.408248290463863,strong non-CoRT,money,leg,7,medium cloze
 She|plays|it|often|because|it's|her|favorite,0.5,peele,2.25,0.9574271077563382,ambiguous,song,finished,8,low cloze
@@ -1264,7 +1269,7 @@ She|was|sad|to|see|that|the|parrot|was,0.56,peele,2.25,1.8929694486000912,ambigu
 She|washed|the|dirty|dishes|in|the,0.92,block_baldwin,4.0,1.4142135623730951,strong CoRT,sink,batch,7,high cloze
 She|wasn't|certain|she'd|find|him|but|she|would,0.81,peele,1.5,0.5773502691896257,strong non-CoRT,try,size,9,high cloze
 She|went|to|bed|because|she|was,0.72,block_baldwin,4.166666666666667,0.408248290463863,strong CoRT,tired,college,7,high cloze
-She|went|to|the|bakery|for|a|loaf|of|,0.98,block_baldwin,3.2857142857142856,1.1126972805283735,ambiguous,bread,ham,10,high cloze
+She|went|to|the|bakery|for|a|loaf|of,0.98,block_baldwin,3.2857142857142856,1.1126972805283735,ambiguous,bread,ham,9,high cloze
 She|went|to|the|beauty|parlor|to|perm|her,0.96,block_baldwin,3.4285714285714284,1.2724180205607034,ambiguous,hair,top,9,high cloze
 She|went|to|the|post|office|to|collect|her,0.86,block_baldwin,3.4285714285714284,1.3972762620115438,ambiguous,mail,good,9,high cloze
 She|went|to|the|salon|to|color|her,0.93,block_baldwin,3.142857142857143,1.0690449676496974,ambiguous,hair,disaster,8,high cloze
@@ -1317,7 +1322,7 @@ Strumming|a|guitar|is|easier|with|a|small,0.84,peele,3.0,1.4142135623730951,ambi
 Students|were|outraged|over|the|administration's|new,0.46,peele,3.5,1.9148542155126764,ambiguous,rules,soil,7,low cloze
 Success|if|often|just|a|matter|of|hard,0.93,block_baldwin,1.4285714285714286,1.1338934190276817,strong non-CoRT,work,fake,8,high cloze
 Summer|vacation|is|a|time|to|lounge|around|and,0.62,peele,1.5,0.5477225575051661,strong non-CoRT,relax,tab,9,medium cloze
-Surfers|are|scared|of|getting|bitten|by|a|,0.92,block_baldwin,2.0,1.0,strong non-CoRT,shark,meal,9,high cloze
+Surfers|are|scared|of|getting|bitten|by|a,0.92,block_baldwin,2.0,1.0,strong non-CoRT,shark,meal,8,high cloze
 Susan|bought|a|dress|so|now|she|just|needed|new,0.88,block_baldwin,2.0,0.816496580927726,strong non-CoRT,shoes,fed,10,high cloze
 "Susan|declined|the|gift,|claiming|it|was|too",0.79,peele,2.8333333333333335,1.1690451944500122,ambiguous,expensive,run,8,high cloze
 Suzy|saw|a|sign|that|said|babysitter|for,0.88,peele,1.75,1.5,strong non-CoRT,hire,soap,8,high cloze
@@ -1362,7 +1367,7 @@ The|announcer|on|the|radio|told|the|breaking,0.92,block_baldwin,3.0,1.2909944487
 The|announcer|said|it|would|be|a|very|close,0.31,peele,2.6,1.51657508881031,ambiguous,game,laughter,9,low cloze
 The|apples|on|the|tree|were|too|high|to,0.65,peele,3.4,1.51657508881031,ambiguous,reach,whistle,9,medium cloze
 The|aquarium|in|the|child's|room|housed|his|pet,0.39,peele,2.25,0.957427107756338,ambiguous,fish,steal,9,low cloze
-The|archaeologist|knew|he|had|made|an|exciting|,0.71,block_baldwin,2.3333333333333335,1.505545305418162,ambiguous,find,hole,9,high cloze
+The|archaeologist|knew|he|had|made|an|exciting,0.71,block_baldwin,2.3333333333333335,1.505545305418162,ambiguous,find,hole,8,high cloze
 The|archer|swore|that|this|time|he|wouldn't,0.83,peele,2.6,1.3416407864998738,ambiguous,miss,pole,8,high cloze
 The|aroma|of|sugar|cookies|filled|the,0.45,peele,2.0,1.224744871391589,strong non-CoRT,air,deck,7,low cloze
 The|artist|loved|his|painting|and|knew|it|was,0.37,peele,1.6666666666666667,0.816496580927726,strong non-CoRT,good,nets,9,low cloze
@@ -1380,7 +1385,7 @@ The|baby|animal's|body|was|covered|in,0.34,peele,2.6,1.816590212458495,ambiguous
 The|baby|bird|was|ready|to|learn|to,0.91,block_baldwin,2.0,0.5773502691896257,strong non-CoRT,fly,roach,8,high cloze
 The|baby|birds|were|ready|to|leave|the,0.94,block_baldwin,2.142857142857143,1.0690449676496976,ambiguous,nest,cook,8,high cloze
 The|baby|grabbed|the|bottle|and|started|to,0.58,peele,3.75,1.2583057392117916,ambiguous,drink,break,8,medium cloze
-The|baby|must|be|fed|after|his|afternoon|,0.85,block_baldwin,2.5714285714285716,1.1338934190276817,ambiguous,nap,soup,9,high cloze
+The|baby|must|be|fed|after|his|afternoon,0.85,block_baldwin,2.5714285714285716,1.1338934190276817,ambiguous,nap,soup,8,high cloze
 The|baby|played|with|his|rubber|duck|in|the,0.46,peele,3.0,1.8257418583505538,ambiguous,tub,medicine,9,low cloze
 The|baby|started|to|cry|because|it|had|to,0.42,peele,3.75,1.2583057392117916,ambiguous,eat,tag,9,low cloze
 The|baby|was|cranky|when|she|didn't,0.42,peele,3.5,1.2909944487358056,ambiguous,eat,urine,7,low cloze
@@ -1407,7 +1412,7 @@ The|best|way|to|travel|at|sea|is|to,0.43,peele,1.5,0.5773502691896257,strong non
 The|big|friendly|dog|wetted|her|face|with|his,0.7,peele,4.5,0.5773502691896257,strong CoRT,tongue,lure,9,high cloze
 The|bigger|ship|had|a|smaller|boat|in,0.76,peele,2.2,0.8366600265340756,ambiguous,tow,rob,8,high cloze
 "The|biker|fell|on|his|head,|damaging|his|frontal",0.93,peele,3.6,0.5477225575051661,ambiguous,lobe,boo,9,high cloze
-The|bill|was|due|at|the|end|of|the|,0.76,block_baldwin,1.5714285714285714,0.7867957924694432,strong non-CoRT,month,match,10,high cloze
+The|bill|was|due|at|the|end|of|the,0.76,block_baldwin,1.5714285714285714,0.7867957924694432,strong non-CoRT,month,match,9,high cloze
 The|bird|was|so|startled|it|fell|from|its,0.62,peele,4.5,1.0,strong CoRT,nest,tell,9,medium cloze
 The|birthday|card|was|funny|and|made|me,0.93,block_baldwin,3.0,1.2909944487358056,ambiguous,laugh,ghost,8,high cloze
 The|bite|was|so|painful|she|began|to,0.77,peele,4.166666666666667,1.1690451944500122,strong CoRT,cry,ghost,8,high cloze
@@ -1419,7 +1424,7 @@ The|boat|passed|easily|under|the,0.89,block_baldwin,4.0,1.4142135623730951,stron
 The|boat|sailed|faster|after|tightly|pulling|in|the,0.5,peele,4.75,0.5,strong CoRT,sail,fall,9,low cloze
 The|body|builder's|arm|muscles|were|extremely,0.4,peele,1.6,0.5477225575051662,strong non-CoRT,large,fire,7,low cloze
 The|book|shelf|was|two|feet|long|and|three|feet,0.74,peele,1.5,1.0,strong non-CoRT,wide,stop,10,high cloze
-The|book|was|a|steal|at|such|a|low|,0.89,block_baldwin,1.1428571428571428,0.3779644730092272,strong non-CoRT,price,vomit,10,high cloze
+The|book|was|a|steal|at|such|a|low,0.89,block_baldwin,1.1428571428571428,0.3779644730092272,strong non-CoRT,price,vomit,9,high cloze
 The|boss|kept|his|employees|on|a|short,0.93,peele,1.4,0.5477225575051662,strong non-CoRT,leash,sign,8,high cloze
 The|bottle|was|heavy|and|made|it|hard|to,0.31,peele,2.3333333333333335,1.2110601416389968,ambiguous,carry,sour,9,low cloze
 The|bouquet|of|flowers|was|pretty|and|smelled,0.56,block_baldwin,2.1666666666666665,1.834847859269718,ambiguous,nice,eat,8,medium cloze
@@ -1431,7 +1436,7 @@ The|boy|asked|his|teacher|for|extra,0.36,block_baldwin,3.3333333333333335,0.8164
 The|boy|cried|when|he|hurt|his|knee|after|the,0.71,peele,4.8,0.4472135954999579,strong CoRT,fall,steal,10,high cloze
 The|boy|said|the|babysitter|had|been,0.48,peele,2.25,0.957427107756338,ambiguous,mean,treat,7,low cloze
 The|boy|screamed|after|he|was|stung|by|a,0.81,peele,4.2,0.8366600265340756,strong CoRT,bee,cheer,9,high cloze
-The|boy|stole|a|pencil|because|of|a|,0.34,block_baldwin,4.0,0.8944271909999159,strong CoRT,test,clothes,9,low cloze
+The|boy|stole|a|pencil|because|of|a,0.34,block_baldwin,4.0,0.8944271909999159,strong CoRT,test,clothes,8,low cloze
 The|boy|unwrapped|the|lollipop|and|started|to,0.63,peele,4.0,1.1547005383792515,strong CoRT,lick,score,8,medium cloze
 The|boy|was|nervous|to|ask|Lily|for|a,0.73,peele,1.75,0.9574271077563381,strong non-CoRT,date,tip,9,high cloze
 The|boy|won|the|chess|competition|by|using|his,0.36,peele,1.75,0.9574271077563381,strong non-CoRT,brain,fence,9,low cloze
@@ -1571,7 +1576,7 @@ The|dealer|shuffled|and|cut|the,0.71,block_baldwin,4.333333333333333,1.632993161
 The|deer|ran|out|of|the|woods|and|across|the,0.67,block_baldwin,4.166666666666667,1.602081978759722,strong CoRT,road,due,10,medium cloze
 The|dehydrated|athlete|grabbed|water|and|began|to,0.81,peele,3.6666666666666665,1.5275252316519468,ambiguous,drink,famous,8,high cloze
 The|delicious|bacon|came|from|the|farmer's|favorite,0.7,peele,3.5,1.9148542155126762,ambiguous,pig,notch,8,high cloze
-The|dentist|recommends|brushing|your|teeth|twice|a|,0.98,block_baldwin,3.142857142857143,0.8997354108424375,ambiguous,day,sale,9,high cloze
+The|dentist|recommends|brushing|your|teeth|twice|a,0.98,block_baldwin,3.142857142857143,0.8997354108424375,ambiguous,day,sale,8,high cloze
 The|dentist|said|Matt|needed|to|care|for|his,0.72,peele,3.0,0.816496580927726,ambiguous,teeth,please,9,high cloze
 The|designer|couldn't|decide|which|picture|to,0.33,peele,1.5,1.0,strong non-CoRT,use,grow,7,low cloze
 The|designer|didn't|think|the|model's|pants|matched|the,0.38,peele,2.25,0.5,ambiguous,shirt,whine,9,low cloze
@@ -1592,7 +1597,7 @@ The|doctor|informed|her|he|had|found|a,0.5,peele,2.6,1.51657508881031,ambiguous,
 The|doctor|thought|Karl|was|sick|due|to|a,0.42,peele,2.75,1.707825127659933,ambiguous,virus,message,9,low cloze
 The|doctor|was|alarmed|by|the|patient's|heart,0.35,peele,2.75,0.9574271077563382,ambiguous,rate,stairs,8,low cloze
 The|doctor’s|suitcase|was|worn|and|obviously|very,0.89,block_baldwin,1.7142857142857142,1.4960264830861913,strong non-CoRT,old,verb,8,high cloze
-The|dog|chased|our|cat|up|the|,0.43,block_baldwin,4.166666666666667,1.602081978759722,strong CoRT,tree,noise,8,low cloze
+The|dog|chased|our|cat|up|the,0.43,block_baldwin,4.166666666666667,1.602081978759722,strong CoRT,tree,noise,7,low cloze
 The|dog|napped|on|the|carpet|because|it|was,0.38,peele,3.2,1.0954451150103321,ambiguous,tired,desk,9,low cloze
 The|dog|ran|inside|just|before|it|started|to,0.82,peele,4.2,0.8366600265340756,strong CoRT,rain,bake,9,high cloze
 The|dog|was|adorable|even|though|he|was|a,0.58,peele,2.5,1.7320508075688772,ambiguous,mutt,men,9,medium cloze
@@ -1719,7 +1724,7 @@ The|girl|had|yellow|eyes|like|those|of|a,0.44,peele,3.4,1.51657508881031,ambiguo
 The|girl|knew|a|lot|for|her,0.8,block_baldwin,1.2857142857142858,0.4879500364742666,strong non-CoRT,age,dry,7,high cloze
 The|girl|said|she|was|sad|and|needed|a,0.62,peele,2.5,1.9148542155126764,ambiguous,hug,rip,9,medium cloze
 The|girl|was|embarrassed|and|tried|to|hide|her,0.43,peele,3.6,0.5477225575051662,ambiguous,face,wrath,9,low cloze
-The|girl|was|upset|after|hearing|her|parents|,0.49,block_baldwin,2.5,0.8366600265340756,ambiguous,fight,can,9,low cloze
+The|girl|was|upset|after|hearing|her|parents,0.49,block_baldwin,2.5,0.8366600265340756,ambiguous,fight,can,8,low cloze
 The|girl|who|lost|cried|that|the|competition|wasn't,0.95,peele,3.0,0.7071067811865476,ambiguous,fair,voice,9,high cloze
 The|girl|wore|the|handmade|sweater|that|her|grandma,0.51,peele,2.6,1.140175425099138,ambiguous,made,store,9,medium cloze
 The|girl's|mother|was|upset|she|played|in|the,0.31,peele,3.0,1.224744871391589,ambiguous,mud,void,9,low cloze
@@ -1737,7 +1742,7 @@ The|group's|mistakes|made|the|entire|heist|a,0.34,peele,2.0,0.7071067811865476,s
 The|guard|told|them|to|wait|patiently|by|the,0.57,peele,2.5,1.0488088481701516,ambiguous,door,hot,9,medium cloze
 The|guests|shouted|to|hear|each|other|over|the,0.36,peele,2.5,1.0,ambiguous,music,dog,9,low cloze
 The|guilty|children|fled|to|avoid|their|mother's,0.59,peele,4.25,0.5,strong CoRT,wrath,joke,8,medium cloze
-The|gym|class|knew|the|rope|would|be|a|,0.26,block_baldwin,1.1666666666666667,0.408248290463863,strong non-CoRT,task,dollar,10,low cloze
+The|gym|class|knew|the|rope|would|be|a,0.26,block_baldwin,1.1666666666666667,0.408248290463863,strong non-CoRT,task,dollar,9,low cloze
 The|harsh|old|principal|was|known|for|being,0.34,peele,3.0,1.632993161855452,ambiguous,mean,brown,8,low cloze
 The,0.52,peele,1.4,0.8944271909999159,strong non-CoRT,healthorganic,dad,1,medium cloze
 "The|healthy|salad|came|with|bitter,|leafy",0.33,peele,3.0,1.632993161855452,ambiguous,greens,salt,7,low cloze
@@ -1769,7 +1774,7 @@ The|hungry|owl|searched|the|field|for|its,0.47,block_baldwin,4.0,1.0954451150103
 The|hunter|took|the|antlers|from|the|dead,0.71,peele,4.0,0.7071067811865476,strong CoRT,deer,choke,8,high cloze
 The|hunter's|animal|trap|was|powerful|enough|to,0.66,peele,2.8,1.7888543819998317,ambiguous,kill,mud,8,medium cloze
 The|hurricane|that|hit|the|harbor|destroyed|the|man's,0.51,peele,4.0,0.816496580927726,strong CoRT,boat,coil,9,medium cloze
-The|husband|saved|his|wife|a|,0.37,block_baldwin,2.6666666666666665,1.0327955589886446,ambiguous,seat,wag,7,low cloze
+The|husband|saved|his|wife|a,0.37,block_baldwin,2.6666666666666665,1.0327955589886446,ambiguous,seat,wag,6,low cloze
 The|husband|set|multiple|traps|to|catch|the|pesky,0.42,peele,3.6,1.1401754250991378,ambiguous,mouse,gold,9,low cloze
 The|ice|cream|cone|had|a|hard|chocolate,0.46,peele,1.8,1.3038404810405297,strong non-CoRT,shell,splash,8,low cloze
 The|ice|was|too|cold|to|even,0.47,peele,2.6,1.3416407864998738,ambiguous,touch,dare,7,low cloze
@@ -1788,7 +1793,7 @@ The|intricate|corn|maze|required|the|participants|to,0.4,peele,3.0,1.63299316185
 The|investor|made|a|profit|after|selling|his,0.54,peele,2.2,1.0954451150103321,ambiguous,stock,food,8,medium cloze
 The|jagged|iceberg|struck|the|large|ship's,0.63,peele,4.25,0.9574271077563382,strong CoRT,hull,learn,7,medium cloze
 The|janitor|accidentally|spilled|some|water|on|the,0.88,block_baldwin,4.142857142857143,1.4638501094227998,strong CoRT,floor,neat,8,high cloze
-The|janitor|cleaned|the|floor|with|his|bucket|and|,0.67,block_baldwin,4.333333333333333,0.5163977794943222,strong CoRT,mop,lit,10,medium cloze
+The|janitor|cleaned|the|floor|with|his|bucket|and,0.67,block_baldwin,4.333333333333333,0.5163977794943222,strong CoRT,mop,lit,9,medium cloze
 The|jewelry|in|the|unlocked|case|was|easy|to,0.68,peele,2.2,1.3038404810405297,ambiguous,steal,foul,9,medium cloze
 The|jury|found|him|innocent|and|set|him,0.85,block_baldwin,3.5714285714285716,1.1338934190276817,ambiguous,free,bee,8,high cloze
 The|key|to|a|great|burger|is|good|quality,0.55,peele,1.75,0.5,strong non-CoRT,meat,size,9,medium cloze
@@ -1848,8 +1853,8 @@ The|lonely|stallion|needed|the|company|of|a,0.68,peele,2.75,1.2583057392117916,a
 The|loss|of|her|fortune|drove|the|heiress,0.37,peele,2.5,1.2909944487358054,ambiguous,mad,pie,8,low cloze
 The|lotion|made|Annie|break|out|in|a,0.86,peele,2.8,1.3038404810405297,ambiguous,rash,gill,8,high cloze
 The|lucky|explorers|discovered|diamonds|in|the|dark,0.73,peele,3.8,0.8366600265340756,ambiguous,cave,moon,8,high cloze
-The|maid|dusted|the|books|on|the|,0.93,block_baldwin,4.142857142857143,1.5735915849388864,strong CoRT,shelf,days,8,high cloze
-The|maid|left|the|room|nice|and|,0.66,block_baldwin,3.1666666666666665,1.4719601443879746,ambiguous,clean,pension,8,medium cloze
+The|maid|dusted|the|books|on|the,0.93,block_baldwin,4.142857142857143,1.5735915849388864,strong CoRT,shelf,days,7,high cloze
+The|maid|left|the|room|nice|and,0.66,block_baldwin,3.1666666666666665,1.4719601443879746,ambiguous,clean,pension,7,medium cloze
 The|man|added|tonic|water|to|his|glass|of,0.55,peele,4.5,0.5773502691896257,strong CoRT,gin,sword,9,medium cloze
 The|man|bought|his|girlfriend|a|diamond,0.94,peele,2.5,1.2909944487358054,ambiguous,ring,kite,7,high cloze
 The|man|couldn't|understand|her|because|of|the,0.33,peele,2.4,0.8944271909999159,ambiguous,noise,fell,8,low cloze
@@ -1882,14 +1887,16 @@ The|mechanic|lifts|cars|using|a|car,0.59,peele,3.6,1.1401754250991378,ambiguous,
 The|medicine|didn't|work|so|he|needed|another,0.48,peele,3.0,1.0,ambiguous,dose,type,8,low cloze
 The|men|almost|fell|into|the|hole|they|had,0.95,peele,3.75,0.9574271077563381,ambiguous,dug,reef,9,high cloze
 The|men|of|the|family|went|out|to|hunt,0.63,peele,3.0,0.816496580927726,ambiguous,deer,baby,9,medium cloze
-The|men|preferred|to|play|basketball|here|at|,0.62,block_baldwin,3.0,1.4142135623730951,ambiguous,school,friend,9,medium cloze
+The|men|preferred|to|play|basketball|here|at,0.62,block_baldwin,3.0,1.4142135623730951,ambiguous,school,friend,8,medium cloze
 The|men|wanted|to|fish|but|they|had|no,0.5,peele,2.5,1.0,ambiguous,bait,hand,9,low cloze
-The|milk|sat|out|so|long|it|began|to|,0.49,block_baldwin,3.8333333333333335,0.752772652709081,ambiguous,spoil,nail,10,low cloze
+The|milk|sat|out|so|long|it|began|to,0.49,block_baldwin,3.8333333333333335,0.752772652709081,ambiguous,spoil,nail,9,low cloze
 The|milk|was|bad|so|Garrett|bought|a|new,0.32,peele,3.8,1.3038404810405297,ambiguous,carton,leg,9,low cloze
+The|miner|knew|he|struck|it|rich|when|he|discovered,0.81,block_baldwin,3.0,1.1547005383792515,ambiguous,gold,fit,10,high cloze
 The|minor|damage|to|their|car|was|from,0.63,peele,2.25,1.5,ambiguous,hail,rush,8,medium cloze
 The|monk|was|easily|recognized|due|to|wearing|a,0.68,peele,3.6,1.51657508881031,ambiguous,robe,place,9,medium cloze
 The|monument|was|the|largest|constructed|to,0.73,peele,1.5,0.5773502691896257,strong non-CoRT,date,god,7,high cloze
 The|mother|caressed|her|baby|in|an|attempt|to,0.5,peele,4.333333333333333,0.5163977794943224,strong CoRT,soothe,play,9,low cloze
+The|mother|did|not|want|the|food|to|go|to,0.67,block_baldwin,2.1666666666666665,1.4719601443879744,ambiguous,waste,lurch,10,medium cloze
 The|mother|had|included|each|child|in|her,0.77,peele,1.25,0.5,strong non-CoRT,will,soil,8,high cloze
 The|mother|sang|to|the|crying|baby|to,0.45,peele,3.0,1.8257418583505538,ambiguous,sleep,dim,8,low cloze
 "The|mother|was|against|swearing,|calling|it|a",0.85,peele,2.0,0.816496580927726,strong non-CoRT,sin,pill,8,high cloze
@@ -1900,7 +1907,7 @@ The|mother|went|to|the|preschool|to|pick|up|her,0.47,peele,2.8,1.483239697419132
 The|mother|worked|hard|to|teach|her|children|to,0.32,peele,2.3333333333333335,1.3662601021279464,ambiguous,read,watch,9,low cloze
 The|mountain|climbers|were|excited|when|they|reached|the,0.46,peele,3.25,1.707825127659933,ambiguous,top,calm,9,low cloze
 The|mountaineer|spotted|a|small|town|in|the|open,0.33,peele,2.8,1.0954451150103324,ambiguous,valley,steal,9,low cloze
-The|movers|put|the|sofa|on|the|bare|,0.85,block_baldwin,3.857142857142857,1.3451854182690985,ambiguous,floor,steal,9,high cloze
+The|movers|put|the|sofa|on|the|bare,0.85,block_baldwin,3.857142857142857,1.3451854182690985,ambiguous,floor,steal,8,high cloze
 The|movie|director|was|not|pleased|with|one,0.38,peele,2.75,0.9574271077563381,ambiguous,actor,perfect,8,low cloze
 The|movie|was|so|sad|it|made|the|audience,0.9,block_baldwin,3.7142857142857144,0.9511897312113419,ambiguous,cry,batch,9,high cloze
 The|museum|curator|placed|the|sculpture|back|in|its,0.52,peele,4.6,0.5477225575051663,strong CoRT,place,heal,9,medium cloze
@@ -1938,7 +1945,7 @@ The|once|firm|chocolate|pudding|had|turned|into,0.49,peele,4.25,0.95742710775633
 The|opponents|threw|balls|that|the|players|couldn't,0.69,peele,4.0,0.7071067811865476,strong CoRT,catch,nurse,8,medium cloze
 The|package|was|sent|through|the,0.95,block_baldwin,2.0,0.816496580927726,strong non-CoRT,mail,made,6,high cloze
 "The|pancake|batter|had|flour,|eggs,|butter,|and",0.47,peele,3.4,1.140175425099138,ambiguous,milk,girls,8,low cloze
-The|parents|pleaded|with|their|daughter|to|come|,0.81,block_baldwin,3.0,1.1547005383792515,ambiguous,home,hull,9,high cloze
+The|parents|pleaded|with|their|daughter|to|come,0.81,block_baldwin,3.0,1.1547005383792515,ambiguous,home,hull,8,high cloze
 The|parked|cars|were|damaged|by|the|violent,0.73,peele,3.0,1.4142135623730951,ambiguous,storm,tooth,8,high cloze
 The|passenger|kept|yelling|at|the|driver|to|turn,0.49,peele,4.0,0.7071067811865476,strong CoRT,left,find,9,low cloze
 The|passengers|feared|capsizing|when|the|ship|began|to,0.36,peele,4.2,0.8366600265340756,strong CoRT,rock,sit,9,low cloze
@@ -2080,7 +2087,7 @@ The|startled|swimmer|screamed|when|she|saw|the|shark,0.4,peele,5.0,0.0,strong Co
 The|state|park|was|popular|for|its|long,0.52,block_baldwin,1.0,0.0,strong non-CoRT,trails,tow,8,medium cloze
 The|state|prison|was|where|the|killer|was,0.34,block_baldwin,1.8333333333333333,1.6020819787597222,strong non-CoRT,held,deed,8,low cloze
 The|stench|of|the|dumpster|made|the|passerby,0.35,peele,4.5,0.5773502691896258,strong CoRT,gag,hive,8,low cloze
-The|stench|was|so|thick|Kathy|began|to|,0.23,block_baldwin,2.5,1.0488088481701514,ambiguous,gag,breach,9,low cloze
+The|stench|was|so|thick|Kathy|began|to,0.23,block_baldwin,2.5,1.0488088481701514,ambiguous,gag,breach,8,low cloze
 The|store|clerk|ended|up|being|an|unknowing,0.37,peele,1.6,0.8944271909999159,strong non-CoRT,accomplice,water,8,low cloze
 The|store|employees|knew|it|was|illegal|to,0.87,block_baldwin,1.7142857142857142,1.4960264830861913,strong non-CoRT,steal,pull,8,high cloze
 The|store|had|no|camera|and|was|easy|to,0.73,peele,2.25,1.2583057392117916,ambiguous,rob,school,9,high cloze
@@ -2183,7 +2190,7 @@ The|waitress|wiped|the|table|with|a|damp,0.76,peele,4.2,0.44721359549995787,stro
 The|washing|machine|destroyed|the|old|jacket's,0.34,peele,3.5,1.7320508075688772,ambiguous,lining,lunchsign,7,low cloze
 The|water|in|the|bag|had|begun|to,0.68,peele,3.4,1.140175425099138,ambiguous,leak,ghost,8,medium cloze
 The|waves|were|very|loud|as|they|hit|the,0.6,peele,3.0,1.8257418583505538,ambiguous,shore,soggy,9,medium cloze
-The|wealthy|child|attended|a|private|school||,0.91,block_baldwin,1.5714285714285714,1.1338934190276817,strong non-CoRT,,chalk,9,high cloze
+The|wealthy|child|attended|a|private|school,0.91,block_baldwin,1.5714285714285714,1.1338934190276817,strong non-CoRT,,chalk,7,high cloze
 The|weatherman|announced|that|the|day|would|have|heavy,0.73,peele,3.2,1.3038404810405297,ambiguous,rain,gun,9,high cloze
 "The|wedding|dress|was|too|small,|and|refused|to",0.38,peele,3.0,1.632993161855452,ambiguous,fit,air,9,low cloze
 The|weight|of|all|the|family's|shoes|broke|the,0.36,peele,4.5,1.0,strong CoRT,shelf,grades,9,low cloze
@@ -2221,7 +2228,7 @@ The|workout|was|so|hard|that|it|made|me,0.4,peele,3.4,1.3416407864998738,ambiguo
 The|world|would|be|a|more|peaceful|place|without,0.41,peele,2.0,1.4142135623730951,strong non-CoRT,war,wire,9,low cloze
 The|worried|mother|had|many|mouths|to,0.96,peele,2.8,1.3038404810405297,ambiguous,feed,pace,7,high cloze
 The|wound|on|Jeremy's|leg|began|to,0.42,peele,2.4,0.8944271909999159,ambiguous,heal,real,7,low cloze
-The|writer|was|finishing|his|final|,0.54,block_baldwin,2.8333333333333335,1.329160135825126,ambiguous,draft,doubt,7,medium cloze
+The|writer|was|finishing|his|final,0.54,block_baldwin,2.8333333333333335,1.329160135825126,ambiguous,draft,doubt,6,medium cloze
 The|writer|was|known|for|his|satire|and|sharp,0.82,peele,2.25,1.8929694486000914,ambiguous,wit,smile,9,high cloze
 The|young|boy|loved|listening|to|the|train,0.58,peele,2.75,1.5,ambiguous,whistle,leaves,8,medium cloze
 The|young|girl|told|her|mom|she|wanted|longer,0.69,peele,3.5,0.5773502691896257,ambiguous,hair,shower,9,medium cloze
@@ -2284,7 +2291,7 @@ They|waited|for|a|windy|day|to|use|their,0.86,peele,3.6666666666666665,0.5773502
 They|wanted|their|parents|to|come,0.73,block_baldwin,2.0,0.6324555320336759,strong non-CoRT,home,money,6,high cloze
 They|went|as|far|as|they,0.87,block_baldwin,2.7142857142857144,1.2535663410560174,ambiguous,could,will,6,high cloze
 They|went|to|the|billiard’s|club|for|a|round|of,0.74,block_baldwin,2.8333333333333335,0.4082482904638631,ambiguous,pool,skills,10,high cloze
-They|went|to|the|video|store|to|rent|a|,0.54,block_baldwin,3.3333333333333335,1.3662601021279464,ambiguous,movie,pencils,10,medium cloze
+They|went|to|the|video|store|to|rent|a,0.54,block_baldwin,3.3333333333333335,1.3662601021279464,ambiguous,movie,pencils,9,medium cloze
 They|were|pumped|to|see|their|favorite|band|play,0.37,peele,3.0,1.224744871391589,ambiguous,live,blank,9,low cloze
 They|were|startled|by|the|sudden,0.5,block_baldwin,4.0,1.0954451150103321,strong CoRT,noise,night,6,low cloze
 They|were|worried|because|the|timing|had|to|be,0.67,peele,1.6,0.5477225575051661,strong non-CoRT,perfect,slow,9,medium cloze
@@ -2310,7 +2317,7 @@ Tina|loved|dressing|up|in|her|mom's|old,0.54,peele,2.6,1.3416407864998738,ambigu
 "Tired|of|overgrown|branches,|Jackie|used|her|saw|to",0.34,peele,4.0,1.1547005383792515,strong CoRT,cut,seat,9,low cloze
 Titus|was|familiar|with|the|sound|of|cows|chewing,0.47,peele,2.75,2.0615528128088303,ambiguous,cud,watch,9,low cloze
 "To|George,|the|convincing|replica|sword|appeared",0.51,peele,3.25,2.0615528128088303,ambiguous,real,hung,7,medium cloze
-To|afford|a|new|car|Tim|got|a|,0.71,block_baldwin,1.8333333333333333,0.752772652709081,strong non-CoRT,loan,ball,9,high cloze
+To|afford|a|new|car|Tim|got|a,0.71,block_baldwin,1.8333333333333333,0.752772652709081,strong non-CoRT,loan,ball,8,high cloze
 "To|avoid|hitting|her|head,|she|had|to",0.85,peele,4.5,0.5773502691896257,strong CoRT,duck,deed,8,high cloze
 "To|avoid|waking|the|others,|only|one|candle|was",0.95,peele,3.0,1.5811388300841898,ambiguous,lit,dish,9,high cloze
 To|blow|off|steam|Adam|usually|goes|to|the,0.7,peele,2.5,1.7320508075688772,ambiguous,gym,eat,9,high cloze
@@ -2324,7 +2331,7 @@ To|cook|a|meal|you|will|surely|need|a,0.44,peele,1.75,0.9574271077563381,strong 
 "To|cool|down|the|room,|Sami|turned|on|the",0.78,peele,4.0,1.2649110640673518,strong CoRT,fan,race,9,high cloze
 "To|cool|himself|off,|Doug|sat|near|the",0.51,peele,3.8333333333333335,1.1690451944500122,ambiguous,fan,bit,8,medium cloze
 To|cross|the|small|stream|would|only|take|a,0.49,peele,2.5,1.2909944487358056,ambiguous,minute,church,9,low cloze
-To|cut|the|chicken|Sue|needed|a|,0.56,block_baldwin,2.5,1.0488088481701516,ambiguous,knife,date,8,medium cloze
+To|cut|the|chicken|Sue|needed|a,0.56,block_baldwin,2.5,1.0488088481701516,ambiguous,knife,date,7,medium cloze
 "To|declutter|her|closet,|Hannah|bought|a|shoe",0.5,peele,3.4,0.8944271909999159,ambiguous,rack,rose,8,low cloze
 To|do|her|journal|entry|Sarah|needed|a|good,0.56,peele,2.25,0.9574271077563381,ambiguous,pen,heart,9,medium cloze
 "To|enter|the|building,|you|must|show|your",0.38,peele,2.5,1.2909944487358054,ambiguous,id,latch,8,low cloze
@@ -2337,7 +2344,7 @@ To|get|chewing|gum|off|the|floor|she|needs|to,0.43,peele,4.25,0.9574271077563382
 To|get|rid|of|the|flood|water|they|needed|a,0.43,block_baldwin,2.3333333333333335,1.3662601021279464,ambiguous,pump,dull,10,low cloze
 To|get|the|garden|started|one|can|use,0.32,peele,1.8,0.4472135954999579,strong non-CoRT,seeds,due,8,low cloze
 To|grow|a|garden|you|must|first|plant,0.92,block_baldwin,2.7142857142857144,1.1126972805283735,ambiguous,seeds,progresscircle,8,high cloze
-To|guess|the|answer|she|needed|a|,0.57,block_baldwin,1.6666666666666667,0.5163977794943223,strong non-CoRT,hint,gin,8,medium cloze
+To|guess|the|answer|she|needed|a,0.57,block_baldwin,1.6666666666666667,0.5163977794943223,strong non-CoRT,hint,gin,7,medium cloze
 To|hang|the|picture|Ted|needed|a|hammer|and,0.96,block_baldwin,2.5714285714285716,1.2724180205607034,ambiguous,nail,room,9,high cloze
 "To|help|her|plants|grow,|Carly|used|a|new",0.76,peele,3.2,1.0954451150103321,ambiguous,fertilizer,hug,9,high cloze
 To|help|her|walk|around|the|girl|used|a,0.76,block_baldwin,3.6666666666666665,1.505545305418162,ambiguous,cane,hate,9,high cloze
@@ -2356,13 +2363,14 @@ To|make|the|pie|crust|Donnie|needed|eggs|and,0.72,block_baldwin,2.5,1.3784048752
 "To|maximize|profits,|the|companies|decided|to",0.37,peele,1.5,0.5773502691896257,strong non-CoRT,merge,hoarse,7,low cloze
 To|move|quickly|through|the|crowd|he|began|to,0.42,peele,4.333333333333333,0.5163977794943222,strong CoRT,run,safe,9,low cloze
 "To|navigate,|the|treasure|hunter|used|his",0.56,peele,3.5,1.7320508075688772,ambiguous,compass,bottle,7,medium cloze
-"To|pay|for|the|car,|Al|simply|wrote|a|",0.91,block_baldwin,3.4285714285714284,1.1338934190276817,ambiguous,check,rules,10,high cloze
+"To|pay|for|the|car,|Al|simply|wrote|a",0.91,block_baldwin,3.4285714285714284,1.1338934190276817,ambiguous,check,rules,9,high cloze
 To|pay|for|tuition|she|took|out|two|student,0.97,block_baldwin,2.2857142857142856,0.7559289460184544,ambiguous,loans,patio,9,high cloze
 "To|prepare|his|fields|for|planting,|Blake|began|to",0.38,peele,4.0,1.0,strong CoRT,plow,weave,9,low cloze
 "To|prevent|drifting,|Mark|secured|the|boat|with|the",0.49,peele,3.75,1.4999999999999998,ambiguous,anchor,calm,9,low cloze
+To|prevent|football|injury|all|players|must|wear|shoulder,0.96,block_baldwin,1.5714285714285714,0.9759000729485332,strong non-CoRT,pads,cry,9,high cloze
 "To|promote|sinus|health,|Pam|used|a|saline|nasal",0.66,peele,3.4,0.8944271909999159,ambiguous,spray,name,9,medium cloze
 To|promote|their|album|the|band|went|on,0.93,block_baldwin,3.0,1.2909944487358056,ambiguous,tour,speak,8,high cloze
-To|protect|his|family|he|hired|several|armed|,0.71,block_baldwin,3.5,1.0488088481701514,ambiguous,guards,mile,9,high cloze
+To|protect|his|family|he|hired|several|armed,0.71,block_baldwin,3.5,1.0488088481701514,ambiguous,guards,mile,8,high cloze
 "To|protect|the|babies'|ears,|the|mother|bought|a",0.43,peele,3.0,0.816496580927726,ambiguous,hat,raw,9,low cloze
 To|provide|for|his|family|the|young|man|would,0.68,peele,2.1666666666666665,1.1690451944500122,ambiguous,work,wrong,9,medium cloze
 "To|quickly|cure|a|bad|headache,|take|one",0.6,peele,2.0,0.816496580927726,strong non-CoRT,aspirin,mine,8,medium cloze
@@ -2391,7 +2399,7 @@ Tom|went|to|the|hardware|store|to|buy|a,0.59,peele,2.5,1.7320508075688772,ambigu
 Tom's|fall|resulted|in|a|broken|arm|and|cracked,0.78,peele,3.0,1.632993161855452,ambiguous,rib,hull,9,high cloze
 Tommy|was|angry|at|his|mom|and|started|to,0.45,peele,4.0,1.2649110640673518,strong CoRT,yell,dog,9,low cloze
 Tom’s|arrows|missed|the|target|due|to|his|poor,0.84,block_baldwin,3.5714285714285716,1.2724180205607034,ambiguous,aim,mud,9,high cloze
-Too|many|men|are|out|of|,0.26,block_baldwin,1.0,0.0,strong non-CoRT,work,fight,7,low cloze
+Too|many|men|are|out|of,0.26,block_baldwin,1.0,0.0,strong non-CoRT,work,fight,6,low cloze
 Trent|ignored|his|instructor's|request|not|to|wander,0.49,peele,2.8333333333333335,1.1690451944500122,ambiguous,off,messy,8,low cloze
 Troy|enjoyed|playing|with|his|dog|outside|on|the,0.43,peele,3.75,0.9574271077563381,ambiguous,lawn,year,9,low cloze
 "Trying|to|eat|healthier,|Ashley|started|eating|more",0.51,peele,2.4,1.949358868961793,ambiguous,vegetables,gig,8,medium cloze
@@ -2415,8 +2423,9 @@ Vince|was|offended|but|it|was|only|a,0.7,peele,2.5,0.5773502691896257,ambiguous,
 Violet|fixed|her|bike|by|replacing|her|broken,0.39,peele,4.0,0.7071067811865476,strong CoRT,chain,kite,8,low cloze
 Visitors|at|the|medieval|festival|drank|honey,0.35,peele,4.0,1.1547005383792515,strong CoRT,mead,ink,7,low cloze
 Wade|spotted|the|incoming|ball|and|was|able|to,0.36,peele,4.5,0.5773502691896257,strong CoRT,duck,track,9,low cloze
+Walking|through|the|dark|room|I|accidentally|stubbed|my,0.92,block_baldwin,4.285714285714286,1.4960264830861911,strong CoRT,toe,home,9,high cloze
 "Wanting|color|in|the|room,|he|bought|a|can|of",0.92,block_baldwin,3.142857142857143,1.2149857925879117,ambiguous,paint,awake,10,high cloze
-Water|and|sunshine|help|plants|,0.95,block_baldwin,2.142857142857143,1.6761634196950517,ambiguous,grow,mud,6,high cloze
+Water|and|sunshine|help|plants,0.95,block_baldwin,2.142857142857143,1.6761634196950517,ambiguous,grow,mud,5,high cloze
 "Wayne|lost|his|keys,|but|didn't|know|where|to",0.93,peele,2.8,1.3038404810405297,ambiguous,look,move,9,high cloze
 We|couldn’t|go|sailing|because|there|was|no,0.83,block_baldwin,2.5714285714285716,1.1338934190276817,ambiguous,wind,grave,8,high cloze
 We|sprayed|the|yard|to|keep|away|the,0.77,block_baldwin,3.7142857142857144,1.2535663410560174,ambiguous,bugs,chief,8,high cloze
@@ -2563,7 +2572,7 @@ With|no|road|between|the|islands|you'll|need|a,0.8,peele,2.5,1.2909944487358054,
 With|so|much|spare|energy|the|girl|needed|to,0.51,peele,2.3333333333333335,1.3662601021279464,ambiguous,run,tired,9,medium cloze
 "With|the|female|deer|was|her|mate,|a|large",0.72,peele,2.25,1.2583057392117916,ambiguous,buck,ball,9,high cloze
 Without|food|a|man|would|die|in|several,0.74,block_baldwin,2.0,1.0954451150103321,strong non-CoRT,days,bun,8,high cloze
-Without|her|sunglasses|the|sun|hurt|Erika’s|,0.96,block_baldwin,1.7142857142857142,1.1126972805283735,strong non-CoRT,eyes,dog,8,high cloze
+Without|her|sunglasses|the|sun|hurt|Erika’s,0.96,block_baldwin,1.7142857142857142,1.1126972805283735,strong non-CoRT,eyes,dog,7,high cloze
 Without|rain|the|garden’s|plants|will|not,0.88,block_baldwin,2.4285714285714284,1.1338934190276815,ambiguous,grow,fear,7,high cloze
 "Work|started|in|ten|minutes,|so|Jim|had|to",0.8,peele,4.0,0.816496580927726,strong CoRT,hurry,hell,9,high cloze
 Worship|began|after|the|monk|sounded|the,0.51,peele,4.6,0.547722557505166,strong CoRT,bell,tooth,7,medium cloze
