@@ -675,9 +675,15 @@ class EnglishPrescreen:
         df_all = pd.DataFrame()
         for version in versions: 
             fpath = os.path.join(Defaults.RAW_DIR, f"{task_name}_v{version}.csv")
+            
+            # if file doesn't exist, try to create it
+            if not os.path.isfile(fpath):
+                try:
+                    _create_file(task_name=task_name, version=version)
+                except:
+                    print(f'version {version} does not yet exist')
+            
             df = pd.read_csv(fpath)
-
-            # still need to add data from first 2 rounds, maybe if file doesn't exist = concat -- unsure how to do
 
             def _get_response_type():
                 response_type = "response_keyboard"
@@ -705,6 +711,23 @@ class EnglishPrescreen:
 
         return df_all
 
+    def _create_file(self, task_name, version):
+        # load spreadsheets for `task_name` and `version`
+        # concats sheets into one dataframe
+
+        os.chdir(Defaults.RAW_DIR)
+
+        files = glob.glob(f'*{task_name}_{version}*')
+
+        df_all = []
+        for file in files:
+            df = pd.read_csv(file)
+
+            df_all = pd.concat([df_all, df], axis=1)
+
+        out_path = os.path.join(Defaults.RAW, f"{task_name}_v{version}.csv")
+        df_all.to_csv(out_path) # writing out new file to path
+    
     def _cols_to_keep(self):
         """
         Returns: list of columns to keep for analysis
