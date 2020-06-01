@@ -630,16 +630,19 @@ class PilotSentences:
             pass
         return value
     
-    def _make_grouped_sentences_dataframe(self, dataframe, **kwargs):
+    def _make_grouped_sentences_dataframe(self, task_name = "cort_language", versions = [3], **kwargs):
         """ create dataframe with the sentences grouped (i.e. one row for each sentence) and columns for mean and std of correct column.
-            NOT incorporated in clean_data -- run that first.
 
-            kwargs argument: 
-                "correct min" = a decimal (0-1) of desired minimum percent of correct responses
-                    output: shortened dataframe only with rows (i.e. sentences) with a correct score below minimum desired.
+                Kwargs: 
+                    correct_min (int): a decimal (0-1) of desired minimum percent of correct responses
+                
+            Returns:
+                shortened dataframe only with rows (i.e. sentences) with a correct score below minimum desired.
             
             example input: _make_grouped_sentences_dataframe(df, correct_min = 0.5)
         """
+        # run clean data first
+        dataframe = self.clean_data(task_name=task_name, versions=versions, **kwargs)
 
         # group sentences and find mean and standard deviation for each
         df_by_sentence = dataframe.groupby(['full_sentence', 'cloze_probability', 'condition_name', 'CoRT_mean', 'CoRT_std', 'CoRT_descript','last_word','target_word','random_word']).agg({'correct': ['mean', 'std']}).reset_index()
