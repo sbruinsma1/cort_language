@@ -130,7 +130,6 @@ class PilotSentences(Utils):
             dataframe["answer"] = ~dataframe["sampled"]
 
             dataframe["last_word"] = dataframe.apply(lambda x: x["random_word"] if x["sampled"] else x["target_word"], axis=1)
-            dataframe["full_sentence"] = dataframe.apply(lambda x: "|".join(x["full_sentence"].split("|")[:-1] + [x["last_word"]]), axis=1)
             return dataframe
 
         def _get_condition(x):
