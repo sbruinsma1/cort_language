@@ -127,9 +127,10 @@ class PilotSentences(Utils):
             samples = dataframe[columns].sample(frac=self.frac, replace=False, random_state=2)
             sampidx = samples.index
             dataframe["sampled"] = dataframe.index.isin(sampidx)
+            dataframe["answer"] = ~dataframe["sampled"]
 
             dataframe["last_word"] = dataframe.apply(lambda x: x["random_word"] if x["sampled"] else x["target_word"], axis=1)
-            # dataframe["full_sentence"] = dataframe.apply(lambda x: "|".join(x["full_sentence"].split("|")[:-1] + [x["last_word"]]), axis=1)
+            dataframe["full_sentence"] = dataframe.apply(lambda x: "|".join(x["full_sentence"].split("|")[:-1] + [x["last_word"]]), axis=1)
             return dataframe
 
         def _get_condition(x):
@@ -208,6 +209,9 @@ class PilotSentences(Utils):
         # concat target files and add gorilla info
         df_all = self._add_gorilla_info(target_files)
 
+        # adds block randomization column 
+        df_all['randomise_blocks'] = df_all['block_num']
+
         # save out gorilla spreadsheet
         df_all.to_csv(out_name, header=True)
 
@@ -215,7 +219,8 @@ class PilotSentences(Utils):
         for target_file in set(target_files):
             os.remove(target_file)
 
-# run quick script
+# run quick script 
+# only need to type "import experiment_code.make_target_files" to create targetfile
 pilot = PilotSentences()
 pilot.make_online_spreadsheet()
 
