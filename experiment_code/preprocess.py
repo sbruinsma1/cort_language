@@ -433,33 +433,6 @@ class PilotSentencesV1:
 
         return df_by_sentence
 
-    def load_english_dataframe():
-        """ loads in cleaned dataframe of data from english prescreening if want to look at 
-            note: make below into automatized definition
-        """
-
-        # load in english data from gorilla
-        df1_english = pd.read_csv(os.path.join(Defaults.RAW_DIR, "prepilot_english_v1_sheet1.csv"))
-        df2_english = pd.read_csv(os.path.join(Defaults.RAW_DIR, "prepilot_english_v1_sheet2.csv"))
-        df3_english = pd.read_csv(os.path.join(Defaults.RAW_DIR, "prepilot_english_v2_sheet1.csv"))
-        df4_english = pd.read_csv(os.path.join(Defaults.RAW_DIR, "prepilot_english_v2_sheet2.csv"))
-
-        # merge task dataframes
-        df_english = df1_english.append([df2_english, df3_english, df4_english])
-
-        # filter dataframe to remove redundant cols
-        df_english_filtered = df_english.filter({'Experiment ID', 'Experiment Version', 'Participant Private ID', 'Spreadsheet Row', 'Zone Type', 'Reaction Time', 'Correct', 'Incorrect', 
-                                                'display', 'response', 'type', 'item'})
-
-        # rename some columns
-        df_english_filtered = df_english_filtered.rename({'Experiment ID':'experiment_ID', 'Experiment Version':'experiment_version', 'Participant Private ID':'participant_ID', 'Spreadsheet Row': 'sentence_num', 'Zone Type':'zone_type', 'Reaction Time':'reaction_time', 
-                                                        'Correct':'correct', 'Incorrect':'incorrect'}, axis=1)
-
-        # select desired rows
-        df_english_filtered = df_english_filtered.query('zone_type == "response_keyboard"')
-
-        return df_english_filtered
-
 class PilotSentences:
 
     def __init__(self):
@@ -630,21 +603,19 @@ class PilotSentences:
             pass
         return value
     
-    def _make_grouped_sentences_dataframe(self, dataframe, **kwargs):
+    def _make_grouped_sentences_dataframe(self, task_name = "cort_language", versions = [3], **kwargs):
         """ create dataframe with the sentences grouped (i.e. one row for each sentence) and columns for mean and std of correct column.
-            NOT incorporated in clean_data -- run that first.
 
-            Args;
-                dataframe (pandas datframe): output from clean_data
-
-            Kwargs: 
-                correct min (int) = a decimal (0-1) of desired minimum percent of correct responses
-            
+                Kwargs: 
+                    correct_min (int): a decimal (0-1) of desired minimum percent of correct responses
+                
             Returns:
                 shortened dataframe only with rows (i.e. sentences) with a correct score below minimum desired.
             
             example input: _make_grouped_sentences_dataframe(df, correct_min = 0.5)
         """
+        # run clean data first
+        dataframe = self.clean_data(task_name=task_name, versions=versions, **kwargs)
 
         #add in line to run clean data first 
         #dataframe = clean_data()
@@ -673,17 +644,22 @@ class EnglishPrescreen:
     def __init__(self):
         pass
 
-    def clean_data(self, task_name = "prepilot_english", versions = [3]):
+    def clean_data(self, task_name = "prepilot_english", versions = [1, 2, 3]):
         """
         cleans english preprocessing task data downloaded from gorilla. removes any rows that are not trials.
         """
         df_all = pd.DataFrame()
         for version in versions: 
             fpath = os.path.join(Defaults.RAW_DIR, f"{task_name}_v{version}.csv")
+            
+            # if file doesn't exist, try to create it
+            if not os.path.isfile(fpath):
+                try:
+                    self._create_file(task_name=task_name, version=version)
+                except:
+                    print(f'version {version} does not yet exist')
+            
             df = pd.read_csv(fpath)
-
-            # still need to add data from first 2 rounds, maybe if file doesn't exist = concat -- unsure how to do
-
 
             def _get_response_type():
                 response_type = "response_keyboard"
@@ -711,6 +687,23 @@ class EnglishPrescreen:
 
         return df_all
 
+    def _create_file(self, task_name, version):
+        """
+        load spreadsheets for `task_name` and `versions`
+        concats sheets into one dataframe
+        """
+        df_all = pd.DataFrame()
+
+        os.chdir(Defaults.RAW_DIR)
+        files = glob.glob(f'*{task_name}_v{version}*')
+
+        for file in files:
+            df = pd.read_csv(file)
+            df_all = pd.concat([df_all, df]) #axis=1
+
+        out_path = os.path.join(Defaults.RAW_DIR, f"{task_name}_v{version}.csv")
+        df_all.to_csv(out_path, header=True) # writing out new file to path'
+    
     def _cols_to_keep(self):
         """
         Returns: list of columns to keep for analysis
