@@ -18,7 +18,7 @@ class Utils():
             random_state = 2
         num_values = len(dataframe[column].unique())
         group_size = int(np.ceil(num_stim / num_values))
-        group_data = dataframe.groupby(column).apply(lambda x: x.sample(group_size)) # random_state=random_state, replace=False
+        group_data = dataframe.groupby(column).apply(lambda x: x.sample(group_size, random_state=random_state, replace=False))
         group_data = group_data.sample(num_stim, random_state=random_state, replace=False).reset_index(drop=True).sort_values(column)
         
         return group_data.reset_index(drop=True)
@@ -126,7 +126,7 @@ class Utils():
         # Return the updated dataframe 
         return df_result 
     
-    def _save_target_files(self, df_target, df_filtered):
+    def _save_target_files(self, df_target):
         """ saves out target files
             Args:
                 df_target (pandas dataframe)
@@ -134,10 +134,6 @@ class Utils():
             Returns:
                 modified pandas dataframes `df_target` and `df_filtered`
         """
-        # now remove those rows from the dataframe so that we're always sampling novel conditions etc
-        df_new = df_filtered.merge(df_target, how='left', indicator=True)
-        df_new = df_new[df_new['_merge'] == 'left_only'].drop('_merge', axis=1)
-
         start_time = np.round(np.arange(0, self.num_trials[self.block]*(self.trial_dur+self.iti_dur), self.trial_dur+self.iti_dur), 1)
         data = {"trial_dur":self.trial_dur, "iti_dur":self.iti_dur, "start_time":start_time, "hand": self.hand}
         
@@ -154,7 +150,3 @@ class Utils():
         df_target.to_csv(Defaults.TARGET_DIR / tf_name, index=None, header=True) # index=None
 
         print(f'saving out {tf_name}')
-        
-        df_filtered = df_new
-
-        return df_filtered, df_target

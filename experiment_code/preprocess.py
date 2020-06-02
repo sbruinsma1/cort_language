@@ -295,7 +295,7 @@ class CortScaling:
             """ generate random word at end
             """
             dataframe['target_word'] = dataframe['full_sentence'].apply(lambda x: x.split(" ")[-1]).to_list()
-            dataframe['random_word'] = dataframe['target_word'].sample(n=len(dataframe), random_state=2, replace=False).to_list()
+            dataframe['random_word'] = dataframe['target_word'].sample(n=len(dataframe), replace=False, random_state=2).to_list()
             
             return dataframe
         

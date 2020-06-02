@@ -87,6 +87,7 @@ class PilotSentences(Utils):
         self.resized = True
         self.test = False
         self.frac = .3
+        self.random_state = 2
         self.cort = ['strong non-CoRT', 'strong CoRT'] # options: 'strong non-CoRT', 'strong CoRT', 'ambiguous'
     
     def cort_language(self, num_stims=[12, 32, 32, 32, 32, 32, 32], **kwargs):
@@ -124,8 +125,8 @@ class PilotSentences(Utils):
                 Returns: 
                     dataframe with modified `full_sentence` col
             """
-            samples = dataframe[columns].sample(frac=self.frac, replace=False, random_state=2)
-            sampidx = samples.index
+            idx = dataframe.groupby(columns).apply(lambda x: x.sample(frac=self.frac, replace=False, random_state=self.random_state)).index
+            sampidx = idx.get_level_values(len(columns)) # get third level
             dataframe["sampled"] = dataframe.index.isin(sampidx)
             dataframe["answer"] = ~dataframe["sampled"]
 
@@ -152,23 +153,29 @@ class PilotSentences(Utils):
         # add condition column
         df_filtered['condition_name'] = df_filtered['cloze_descript'].apply(lambda x: _get_condition(x))
         
+        # set unique (reproducible) seed per target file
         seeds = np.arange(self.num_blocks)+1
         
         # create target files for each block
         for self.block, self.key in enumerate(self.block_design):
             # randomly sample so that conditions (easy and hard) are equally represented
-            self.random_state = seeds[self.block]
+            random_state = seeds[self.block]
 
             # filter the dataframe based on `block design`
             df_target, multiplier = _block_design(df_filtered)
 
             # group the dataframe according to `condition`
-            df_target = df_target.groupby(['CoRT_descript'], as_index=False).apply(lambda x: self._sample_evenly_from_col(dataframe=x, num_stim=num_stims[self.block]*multiplier, column='condition_name', random_state=self.random_state)).reset_index().drop({'level_0', 'level_1'}, axis=1) # so ugly -- fix!!
+            df_target = df_target.groupby(['CoRT_descript'], as_index=False).apply(lambda x: self._sample_evenly_from_col(dataframe=x, num_stim=num_stims[self.block]*multiplier, column='condition_name', random_state=random_state)).reset_index().drop({'level_0', 'level_1'}, axis=1) # so ugly -- fix!!
+
+            # remove `df_target` rows from the main dataframe so that we're always sampling from unique rows
+            df_filtered = df_filtered.merge(df_target, how='left', indicator=True)
+            df_filtered = df_filtered[df_filtered['_merge'] == 'left_only'].drop('_merge', axis=1)
 
             # add in manipulation: target/random words 70/30% of trials per block
             df_target = _add_random_word(dataframe=df_target, columns=['CoRT_descript', 'condition_name'])
 
-            df_filtered, _ = self._save_target_files(df_target, df_filtered)            
+            # save out target files
+            self._save_target_files(df_target)      
     
     def make_online_spreadsheet(self, num_stims=[12, 32, 32, 32, 32, 32, 32], version=4, **kwargs):
         """
@@ -227,6 +234,8 @@ os.chdir(os.path.join(Defaults.TARGET_DIR, "gorilla_versions"))
 
 df = pd.read_csv('cort_language_gorilla_experiment_v4.csv')
 print(df.groupby(['block_num', 'CoRT_descript',  'cloze_descript', 'sampled']).count())
+print(df.head())
+
 
 
  
