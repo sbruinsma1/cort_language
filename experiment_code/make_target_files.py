@@ -218,7 +218,7 @@ class PilotSentences(Utils):
         # adds block randomization column and sets block 0 to NaN 
         # we don't want to include this block in randomisation
         df_all['randomise_blocks'] = df_all['block_num']
-        df_all[df_all['randomise_blocks']==0] = float("NaN")
+        df_all['randomise_blocks'][df_all['randomise_blocks']==0] = float("NaN")
 
         # save out gorilla spreadsheet
         df_all.to_csv(out_name, header=True)
