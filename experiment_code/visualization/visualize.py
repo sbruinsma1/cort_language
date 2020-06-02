@@ -288,7 +288,7 @@ class CoRTLanguage:
 
         sns.set(rc={'figure.figsize':(20,10)})
 
-        sns.factorplot(x='block_num', y='Correct', hue='condition_name', data=dataframe.query('attempt==1 and trial_type=="meaningful"'))
+        sns.factorplot(x='block_num', y='correct', hue='condition_name', data=dataframe.query('attempt==1 and trial_type=="meaningful"'))
         plt.xlabel('Run', fontsize=20),
         plt.ylabel('% Correct', fontsize=20)
         plt.title('Accuracy across cloze conditions', fontsize=20);

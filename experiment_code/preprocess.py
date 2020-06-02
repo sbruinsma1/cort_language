@@ -433,33 +433,6 @@ class PilotSentencesV1:
 
         return df_by_sentence
 
-    def load_english_dataframe():
-        """ loads in cleaned dataframe of data from english prescreening if want to look at 
-            note: make below into automatized definition
-        """
-
-        # load in english data from gorilla
-        df1_english = pd.read_csv(os.path.join(Defaults.RAW_DIR, "prepilot_english_v1_sheet1.csv"))
-        df2_english = pd.read_csv(os.path.join(Defaults.RAW_DIR, "prepilot_english_v1_sheet2.csv"))
-        df3_english = pd.read_csv(os.path.join(Defaults.RAW_DIR, "prepilot_english_v2_sheet1.csv"))
-        df4_english = pd.read_csv(os.path.join(Defaults.RAW_DIR, "prepilot_english_v2_sheet2.csv"))
-
-        # merge task dataframes
-        df_english = df1_english.append([df2_english, df3_english, df4_english])
-
-        # filter dataframe to remove redundant cols
-        df_english_filtered = df_english.filter({'Experiment ID', 'Experiment Version', 'Participant Private ID', 'Spreadsheet Row', 'Zone Type', 'Reaction Time', 'Correct', 'Incorrect', 
-                                                'display', 'response', 'type', 'item'})
-
-        # rename some columns
-        df_english_filtered = df_english_filtered.rename({'Experiment ID':'experiment_ID', 'Experiment Version':'experiment_version', 'Participant Private ID':'participant_ID', 'Spreadsheet Row': 'sentence_num', 'Zone Type':'zone_type', 'Reaction Time':'reaction_time', 
-                                                        'Correct':'correct', 'Incorrect':'incorrect'}, axis=1)
-
-        # select desired rows
-        df_english_filtered = df_english_filtered.query('zone_type == "response_keyboard"')
-
-        return df_english_filtered
-
 class PilotSentences:
 
     def __init__(self):
@@ -644,6 +617,9 @@ class PilotSentences:
         # run clean data first
         dataframe = self.clean_data(task_name=task_name, versions=versions, **kwargs)
 
+        #add in line to run clean data first 
+        #dataframe = clean_data()
+
         # group sentences and find mean and standard deviation for each
         df_by_sentence = dataframe.groupby(['full_sentence', 'cloze_probability', 'condition_name', 'CoRT_mean', 'CoRT_std', 'CoRT_descript','last_word','target_word','random_word']).agg({'correct': ['mean', 'std']}).reset_index()
 
@@ -668,7 +644,7 @@ class EnglishPrescreen:
     def __init__(self):
         pass
 
-    def clean_data(self, task_name = "prepilot_english", versions = [3]):
+    def clean_data(self, task_name = "prepilot_english", versions = [1, 2, 3]):
         """
         cleans english preprocessing task data downloaded from gorilla. removes any rows that are not trials.
         """
@@ -679,7 +655,7 @@ class EnglishPrescreen:
             # if file doesn't exist, try to create it
             if not os.path.isfile(fpath):
                 try:
-                    _create_file(task_name=task_name, version=version)
+                    self._create_file(task_name=task_name, version=version)
                 except:
                     print(f'version {version} does not yet exist')
             
@@ -712,21 +688,21 @@ class EnglishPrescreen:
         return df_all
 
     def _create_file(self, task_name, version):
-        # load spreadsheets for `task_name` and `version`
-        # concats sheets into one dataframe
+        """
+        load spreadsheets for `task_name` and `versions`
+        concats sheets into one dataframe
+        """
+        df_all = pd.DataFrame()
 
         os.chdir(Defaults.RAW_DIR)
+        files = glob.glob(f'*{task_name}_v{version}*')
 
-        files = glob.glob(f'*{task_name}_{version}*')
-
-        df_all = []
         for file in files:
             df = pd.read_csv(file)
+            df_all = pd.concat([df_all, df]) #axis=1
 
-            df_all = pd.concat([df_all, df], axis=1)
-
-        out_path = os.path.join(Defaults.RAW, f"{task_name}_v{version}.csv")
-        df_all.to_csv(out_path) # writing out new file to path
+        out_path = os.path.join(Defaults.RAW_DIR, f"{task_name}_v{version}.csv")
+        df_all.to_csv(out_path, header=True) # writing out new file to path'
     
     def _cols_to_keep(self):
         """
