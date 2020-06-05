@@ -438,7 +438,7 @@ class PilotSentences:
     def __init__(self):
         pass
     
-    def clean_data(self, task_name = "cort_language", versions = [3], **kwargs):
+    def clean_data(self, task_name = "cort_language", versions = [4], **kwargs):
         """
         cleans data downloaded from gorilla. removes any rows that are not trials
         and remove bad subjs if they exist
@@ -598,21 +598,22 @@ class PilotSentences:
         elif version==3:
             value = "first round with even CoRT and cloze distributions"
         elif version==4:
-            value = " "
+            value = "made even distribution of cloze/CoRT across 70/30 in each block and randomized blocks"
         else:
             pass
         return value
     
-    def _make_grouped_sentences_dataframe(self, task_name = "cort_language", versions = [3], **kwargs):
-        """ create dataframe with the sentences grouped (i.e. one row for each sentence) and columns for mean and std of correct column.
+    def _make_grouped_sentences_dataframe(self, task_name = "cort_language", versions = [4], **kwargs):
+        """ 
+        *create dataframe with the sentences grouped (i.e. one row for each sentence) and columns for mean and std of correct column.
 
-                Kwargs: 
-                    correct_min (int): a decimal (0-1) of desired minimum percent of correct responses
+            Kwargs: 
+                correct_min (int): a decimal (0-1) of desired minimum percent of correct responses
                 
             Returns:
                 shortened dataframe only with rows (i.e. sentences) with a correct score below minimum desired.
             
-            example input: _make_grouped_sentences_dataframe(df, correct_min = 0.5)
+            example input: _make_grouped_sentences_dataframe(correct_min = 0.5)
         """
         # run clean data first
         dataframe = self.clean_data(task_name=task_name, versions=versions, **kwargs)
@@ -644,7 +645,7 @@ class EnglishPrescreen:
     def __init__(self):
         pass
 
-    def clean_data(self, task_name = "prepilot_english", versions = [1, 2, 3]):
+    def clean_data(self, task_name = "prepilot_english", versions = [4]):
         """
         cleans english preprocessing task data downloaded from gorilla. removes any rows that are not trials.
         """
@@ -671,7 +672,7 @@ class EnglishPrescreen:
             df = df[cols_to_keep]
 
             #rename columns that are not already renamed (i.e. 'zone_type' and 'rt')
-            df = df.rename({'Experiment ID':'experiment_ID', 'Experiment Version':'experiment_version', 'Participant Private ID':'participant_ID', 'Spreadsheet Row': 'sentence_num', 'Zone Type':'zone_type', 'Reaction Time':'rt', 
+            df = df.rename({'Experiment ID':'experiment_id', 'Experiment Version':'experiment_version', 'Participant Private ID':'participant_id', 'Spreadsheet Row': 'sentence_num', 'Zone Type':'zone_type', 'Reaction Time':'rt', 
                             'Correct':'correct', 'Incorrect':'incorrect'}, axis=1)
 
             # filter dataset to include trials and experimental blocks (i.e. not instructions)

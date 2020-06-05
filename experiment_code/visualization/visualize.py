@@ -197,7 +197,7 @@ class CoRTLanguage:
         # data cleaning stuff
         self.cutoff = 30
         self.task_name = "cort_language"
-        self.versions = [3]
+        self.versions = [4]
                                
     def load_dataframe(self):
         """ imports clean dataframe
@@ -209,18 +209,19 @@ class CoRTLanguage:
                             cutoff=self.cutoff)
         return df
     
-    def count_of_correct(self, dataframe):
-        """gives counts of correct (1.0) vs incorrect (0.0) responses
-        note: NA are counted as 0
+    def participant_accuracy(self, dataframe):
+        """ *gives frequency disribution of the percent correct per participant
         """
 
         plt.figure(figsize=(10,10));
-        sns.countplot(x='correct', data= dataframe);
-        plt.xlabel('incorrect vs correct', fontsize=20)
-        plt.ylabel('count', fontsize=20)
+        sns.barplot(x="participant_id", y="correct", data=dataframe)
+        plt.xlabel('participant', fontsize=20)
+        plt.ylabel('% correct', fontsize=20)
         plt.title('Number of correct answers', fontsize=20);
-        plt.xticks(fontsize=20)
         plt.yticks(fontsize=20);
+        
+        plt.show()
+
         print('Answers mean:', dataframe.correct.mean())
         #print('Percentage of correct vs incorrect',dataframe['correct'].value_counts(normalize=True) * 100)
 
@@ -240,6 +241,8 @@ class CoRTLanguage:
         plt.xticks(fontsize=20)
         plt.yticks(fontsize=20);
 
+        plt.show()
+
     def item_analysis(self, dataframe):
         """ plots the mean and std of correct answers for all sentences
         """
@@ -249,6 +252,7 @@ class CoRTLanguage:
         plt.xlabel('mean correct answers')
         plt.ylabel('std of correct answers')
         plt.title('item analysis of sentences')
+
         plt.show()
 
     def rt_distribution(self, dataframe):
@@ -263,11 +267,12 @@ class CoRTLanguage:
         plt.title('Distribution of reaction time', fontsize=20);
         plt.xticks(fontsize=20)
         plt.yticks(fontsize=20);
+
         plt.show()
         #print('RT mean:', dataframe.rt.mean())
  
     def run_rt_by_condition(self, dataframe):
-        """ plots reaction time across runs, categorized by easy vs hard cloze condition.
+        """ *plots reaction time across runs, categorized by easy vs hard cloze condition.
             does so only for meaningful and correct responses.
         """
 
@@ -282,7 +287,7 @@ class CoRTLanguage:
         plt.show()
 
     def run_accuracy_by_condition(self, dataframe):
-        """ plots reaction time across runs, categorized by easy vs hard cloze condition.
+        """ *plots reaction time across runs, categorized by easy vs hard cloze condition.
             does so only for meaningful and correct responses.
         """
 
@@ -317,7 +322,7 @@ class CoRTLanguage:
             plt.show()
 
     def run_rt_by_CoRT_versions(self, dataframe):
-        """ plots reaction time across runs, categorized by easy vs hard cloze condition, and across versions.
+        """ *plots reaction time across runs, categorized by easy vs hard cloze condition, and across versions.
             does so only for meaningful and correct responses.
         """
         sns.set(rc={'figure.figsize':(20,10)})
@@ -335,8 +340,8 @@ class CoRTLanguage:
 
             plt.show()
 
-    def run_rt_trialtype(self, dataframe):
-        """ plots reaction time across runs, categorized by meaningful and meaningless sentences, and across versions.
+    def run_rt_by_trialtype_versions(self, dataframe):
+        """ *plots reaction time across runs, categorized by meaningful and meaningless sentences, and across versions.
             does so only for correct responses.
         """
 
@@ -364,6 +369,7 @@ class CoRTLanguage:
         ax.set_xlabel('Run', fontsize=15),
         ax.set_ylabel('Reaction Time', fontsize=15)
         plt.subplots_adjust(left=0.125, right=0.9, bottom=0.1, top=0.9, wspace=0.3, hspace=0.2)
+
         plt.show()
 
     def cloze_distribution(self, dataframe):
@@ -412,7 +418,7 @@ class CoRTLanguage:
         plt.show()
 
     def distribution_cloze_by_run(self, dataframe):
-        """ plots kde plot of distribution of cloze probabilities across runs.
+        """ *plots kde plot of distribution of cloze probabilities across runs.
         """
         plt.figure(figsize=(10,10))
 
@@ -435,10 +441,11 @@ class CoRTLanguage:
         plt.legend(runs, fontsize=20)
         plt.xticks(fontsize=20)
         plt.yticks(fontsize=20)
+
         plt.show()
 
     def distribution_CoRT_by_run(self, dataframe):
-        """ plots kde plot of distribution of cloze probabilities across runs.
+        """ *plots kde plot of distribution of cloze probabilities across runs.
         """
         plt.figure(figsize=(10,10))
 
@@ -461,9 +468,12 @@ class CoRTLanguage:
         plt.legend(runs, fontsize=20)
         plt.xticks(fontsize=20)
         plt.yticks(fontsize=20)
+
         plt.show()
 
-    def describe_block_design(self, dataframe):
+    def describe_block_design_CoRT(self, dataframe):
+        """ plots counts of CoRT conditions for each block to ensure even distribution
+        """
 
         # sns.set(rc={'figure.figsize':(20,10)})
 
@@ -483,12 +493,34 @@ class CoRTLanguage:
 
         plt.show()
 
+    def describe_block_design_cloze(self, dataframe):
+        """ plots counts of cloze conditions for each block to ensure even distribution
+        """
+
+        # sns.set(rc={'figure.figsize':(20,10)})
+
+        fig = plt.figure(figsize=(10,10))
+
+        versions = dataframe['version'].unique()
+        version_descripts = dataframe['version_descript'].unique()
+
+        for i, version in enumerate(versions):
+
+            fig.add_subplot(1, len(versions), i+1)
+
+            sns.countplot(x='block_num', hue='condition_name', data=dataframe.query(f'version=={version} and trial_type=="meaningful"'))
+            plt.title(f'{version_descripts[i]}', fontsize=10)
+            plt.xlabel('block_design', fontsize=15)
+            plt.tick_params(axis = 'both', which = 'major', labelsize = 15)
+
+        plt.show()
+
 class EnglishVerif:
 
     def __init__(self):
         # data cleaning stuff
         self.task_name = "prepilot_english"
-        self.versions = [3]
+        self.versions = [4]
                                
     def load_dataframe(self):
         """ imports clean dataframe
@@ -511,21 +543,23 @@ class EnglishVerif:
         plt.title('Number of correct answers', fontsize=20);
         plt.xticks(fontsize=20)
         plt.yticks(fontsize=20);
+
         plt.show()
         
         print('Answers mean:', dataframe.correct.mean())
         #print('Percentage of correct vs incorrect',dataframe['correct'].value_counts(normalize=True) * 100)
 
     def participant_accuracy(self, dataframe):
-        """gives frequency disribution of the percent correct per participant
+        """*gives frequency disribution of the percent correct per participant
         """
 
         plt.figure(figsize=(10,10));
-        sns.barplot(x="participant_ID", y="correct", data=dataframe)
+        sns.barplot(x="participant_id", y="correct", data=dataframe)
         plt.xlabel('participant', fontsize=20)
         plt.ylabel('% correct', fontsize=20)
         plt.title('Number of correct answers', fontsize=20);
         plt.yticks(fontsize=20);
+
         plt.show()
 
     
