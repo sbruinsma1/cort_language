@@ -214,7 +214,7 @@ class CoRTLanguage:
         """
 
         plt.figure(figsize=(10,10));
-        sns.barplot(x="participant_id", y="correct", data=dataframe)
+        sns.barplot(x="participant_id", y="correct", data=dataframe.query('attempt==1 and trial_type=="meaningful"'))
         plt.xlabel('participant', fontsize=20)
         plt.ylabel('% correct', fontsize=20)
         plt.title('Number of correct answers', fontsize=20);
@@ -280,7 +280,22 @@ class CoRTLanguage:
 
         sns.factorplot(x='block_num', y='rt', hue='condition_name', data=dataframe.query('attempt==1 and correct==1 and trial_type=="meaningful"'))
         plt.xlabel('Run', fontsize=20),
-        plt.ylabel('RT', fontsize=20)
+        plt.ylabel('Reaction Time', fontsize=20)
+        plt.title('Reaction time across cloze conditions', fontsize=20);
+        plt.tick_params(axis = 'both', which = 'major', labelsize = 20)
+
+        plt.show()
+
+    def rt_by_condition(self, dataframe):
+        """ *plots reaction time across runs, categorized by easy vs hard cloze condition.
+            does so only for meaningful and correct responses.
+        """
+
+        sns.set(rc={'figure.figsize':(20,10)})
+
+        sns.factorplot(x='condition_name', y='rt', data=dataframe.query('attempt==1 and correct==1 and trial_type=="meaningful"'))
+        plt.xlabel('cloze condition', fontsize=20),
+        plt.ylabel('Reaction Time', fontsize=20)
         plt.title('Reaction time across cloze conditions', fontsize=20);
         plt.tick_params(axis = 'both', which = 'major', labelsize = 20)
 
@@ -294,6 +309,22 @@ class CoRTLanguage:
         sns.set(rc={'figure.figsize':(20,10)})
 
         sns.factorplot(x='block_num', y='correct', hue='condition_name', data=dataframe.query('attempt==1 and trial_type=="meaningful"'))
+        plt.xlabel('Run', fontsize=20),
+        plt.ylabel('% Correct', fontsize=20)
+        plt.title('Accuracy across cloze conditions', fontsize=20);
+        plt.tick_params(axis = 'both', which = 'major', labelsize = 20)
+        plt.ylim(bottom=.7, top=1.0)
+
+        plt.show()
+
+    def accuracy_by_condition(self, dataframe):
+        """ *plots reaction time across runs, categorized by easy vs hard cloze condition.
+            does so only for meaningful and correct responses.
+        """
+
+        sns.set(rc={'figure.figsize':(20,10)})
+
+        sns.factorplot(x='condition_name', y='correct', data=dataframe.query('attempt==1 and trial_type=="meaningful"'))
         plt.xlabel('Run', fontsize=20),
         plt.ylabel('% Correct', fontsize=20)
         plt.title('Accuracy across cloze conditions', fontsize=20);

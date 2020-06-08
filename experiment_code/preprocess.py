@@ -482,6 +482,9 @@ class PilotSentences:
             response_type = _get_response_type() # response_type is different across the task
             df = df.query(f'display=="trial" and block_num>0 and zone_type=="{response_type}"')
             df['rt'] = df['rt'].astype(float)  
+
+            # correct block_num to be sequential
+            df['block_num'] = self._correct_blocks(df)
             
             # filter out bad subjs based on specified cutoff
             if kwargs.get('cutoff'):
@@ -514,12 +517,23 @@ class PilotSentences:
 
         cols_to_keep = ['Local Date', 'Experiment ID', 'Experiment Version', 'Participant Public ID', 'Participant Private ID',
                         'Task Name', 'Task Version', 'Spreadsheet Name', 'Spreadsheet Row', 'Trial Number', 'Zone Type', 
-                        'Reaction Time', 'Response', 'Attempt', 'Correct', 'Incorrect', 'display', 'block_num']
+                        'Reaction Time', 'Response', 'Attempt', 'Correct', 'Incorrect', 'display', 'block_num', 'randomise_blocks']
 
         cols_to_keep.extend(['full_sentence', 'last_word', 'sampled','CoRT_descript', 'CoRT_mean','condition_name',
                             'CoRT_std','cloze_descript', 'cloze_probability', 'dataset', 'random_word', 'target_word', 'word_count'])
 
         return cols_to_keep
+
+    def _correct_blocks(self, dataframe):
+        """
+        fix 'block_nums' to be sequential distribution (i.e. 1-6, not randomized) 
+        Returns:
+            dataframe with corrected '
+        """
+        blocks = dataframe.groupby('participant_id').apply(lambda x: x.sort_values('block_num').block_num).values
+
+        return blocks
+
 
     def _remove_bad_subjs(self, dataframe, cutoff, colname='participant_id'):
         """

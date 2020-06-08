@@ -60,7 +60,6 @@ class CoRTScaling:
         breaks = np.cumsum(trials_before_break).astype(int)
         df_new.loc[breaks] = float("NaN")
         df_new.set_value(breaks, 'display', 'break')
-        df_new.set_value(breaks, 'ShowProgressBar', 1)
 
         # add new version as column
         for i, block in enumerate(trials_per_block[:-1]):
