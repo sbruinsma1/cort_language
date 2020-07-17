@@ -15,9 +15,9 @@ warnings.filterwarnings("ignore")
 # load in directories
 from experiment_code.constants import Defaults
 from experiment_code.targetfile_utils import Utils
-from experiment_code.preprocess import CortScaling
+from experiment_code.preprocess import CoRTScaling
 
-class CoRTScaling:
+class CoRTRating:
 
     def __init__(self):
         pass
@@ -107,7 +107,7 @@ class PilotSentences(Utils):
         # create if this file doesn't already exist
         fpath = os.path.join(Defaults.STIM_DIR, f'sentence_validation.csv')
         if not os.path.isfile(fpath):
-            cs = CortScaling() 
+            cs = CoRTScaling() 
             cs.sentence_selection()
         
         # read in stimulus dataframe
@@ -176,7 +176,7 @@ class PilotSentences(Utils):
             # save out target files
             self._save_target_files(df_target)      
     
-    def make_online_spreadsheet(self, num_stims=[12, 32, 32, 32, 32, 32, 32], version=4, **kwargs):
+    def make_online_spreadsheet(self, num_stims=[12, 32, 32, 32, 32, 32, 32], version=5, **kwargs):
         """
         load in target files that have already been made (or make them if they don't exist). 
         make gorilla-specific spreadsheet and save in `gorilla_versions`. the code will take ANY <task_name>
@@ -233,10 +233,6 @@ pilot.make_online_spreadsheet()
 
 os.chdir(os.path.join(Defaults.TARGET_DIR, "gorilla_versions"))
 
-df = pd.read_csv('cort_language_gorilla_experiment_v4.csv')
+df = pd.read_csv('cort_language_gorilla_experiment_v5.csv')
 print(df.groupby(['block_num', 'CoRT_descript',  'cloze_descript', 'sampled']).count())
-print(df.head())
-
-
-
- 
+#print(df.head())

@@ -197,7 +197,7 @@ class CoRTLanguage:
         # data cleaning stuff
         self.cutoff = 30
         self.task_name = "cort_language"
-        self.versions = [4]
+        self.versions = [7]
                                
     def load_dataframe(self):
         """ imports clean dataframe
@@ -205,7 +205,7 @@ class CoRTLanguage:
 
         pilot = PilotSentences()
         df = pilot.clean_data(task_name=self.task_name, 
-                            versions=self.versions, 
+                            versions=self.versions,
                             cutoff=self.cutoff)
         return df
     
@@ -234,7 +234,7 @@ class CoRTLanguage:
         #dataframe_version = dataframe.loc[dataframe['version'] == version] - if want by version
 
         plt.figure(figsize=(10,10));
-        sns.countplot(x='correct', hue='participant_id', data= dataframe);
+        sns.countplot(x='correct', hue='participant_id', data= dataframe.query('attempt==1 and trial_type=="meaningful"'));
         plt.xlabel('incorrect vs correct', fontsize=20)
         plt.ylabel('count', fontsize=20)
         plt.title('Number of correct answers per participant', fontsize=20);
@@ -270,36 +270,6 @@ class CoRTLanguage:
 
         plt.show()
         #print('RT mean:', dataframe.rt.mean())
- 
-    def run_rt_by_condition(self, dataframe):
-        """ *plots reaction time across runs, categorized by easy vs hard cloze condition.
-            does so only for meaningful and correct responses.
-        """
-
-        sns.set(rc={'figure.figsize':(20,10)})
-
-        sns.factorplot(x='block_num', y='rt', hue='condition_name', data=dataframe.query('attempt==1 and correct==1 and trial_type=="meaningful"'))
-        plt.xlabel('Run', fontsize=20),
-        plt.ylabel('Reaction Time', fontsize=20)
-        plt.title('Reaction time across cloze conditions', fontsize=20);
-        plt.tick_params(axis = 'both', which = 'major', labelsize = 20)
-
-        plt.show()
-
-    def rt_by_condition(self, dataframe):
-        """ *plots reaction time across runs, categorized by easy vs hard cloze condition.
-            does so only for meaningful and correct responses.
-        """
-
-        sns.set(rc={'figure.figsize':(20,10)})
-
-        sns.factorplot(x='condition_name', y='rt', data=dataframe.query('attempt==1 and correct==1 and trial_type=="meaningful"'))
-        plt.xlabel('cloze condition', fontsize=20),
-        plt.ylabel('Reaction Time', fontsize=20)
-        plt.title('Reaction time across cloze conditions', fontsize=20);
-        plt.tick_params(axis = 'both', which = 'major', labelsize = 20)
-
-        plt.show()
 
     def run_accuracy_by_condition(self, dataframe):
         """ *plots reaction time across runs, categorized by easy vs hard cloze condition.
@@ -332,44 +302,116 @@ class CoRTLanguage:
         plt.ylim(bottom=.7, top=1.0)
 
         plt.show()
+ 
+    def run_rt_by_condition(self, dataframe):
+        """ *plots reaction time across runs, categorized by easy vs hard cloze condition.
+            does so only for meaningful and correct responses.
+        """
+
+        sns.set(rc={'figure.figsize':(20,10)})
+
+        sns.factorplot(x='block_num', y='rt', hue='condition_name', data=dataframe.query('attempt==1 and correct==1 and trial_type=="meaningful"'))
+        plt.xlabel('Run', fontsize=20),
+        plt.ylabel('Reaction Time', fontsize=20)
+        plt.title('Reaction time across cloze conditions', fontsize=20);
+        plt.tick_params(axis = 'both', which = 'major', labelsize = 20)
+
+        plt.show()
+
+    def rt_by_condition(self, dataframe):
+        """ *plots reaction time across easy vs hard cloze condition.
+            does so only for meaningful and correct responses.
+        """
+
+        sns.set(rc={'figure.figsize':(20,10)})
+
+        sns.factorplot(x='condition_name', y='rt', data=dataframe.query('attempt==1 and correct==1 and trial_type=="meaningful"'))
+        plt.xlabel('cloze condition', fontsize=20),
+        plt.ylabel('Reaction Time', fontsize=20)
+        plt.title('Reaction time across cloze conditions', fontsize=20);
+        plt.tick_params(axis = 'both', which = 'major', labelsize = 20)
+
+        plt.show()
+
+    def run_rt_by_CoRT(self, dataframe):
+        """ *plots reaction time across runs, categorized by strong CoRT vs non-CoRT condition.
+            does so only for meaningful and correct responses.
+        """
+
+        sns.set(rc={'figure.figsize':(20,10)})
+
+        sns.factorplot(x='block_num', y='rt', hue='CoRT_descript', data=dataframe.query('attempt==1 and correct==1 and trial_type=="meaningful"'))
+        plt.xlabel('Run', fontsize=20),
+        plt.ylabel('Reaction Time', fontsize=20)
+        plt.title('Reaction time across CoRT conditions', fontsize=20);
+        plt.tick_params(axis = 'both', which = 'major', labelsize = 20)
+
+        plt.show()
+
+    def run_rt_by_trialtype(self, dataframe):
+        """ *plots reaction time across runs, categorized by meaningful and meaningless sentences.
+            does so only for meaningful and correct responses.
+        """
+
+        sns.set(rc={'figure.figsize':(20,10)})
+
+        sns.factorplot(x='block_num', y='rt', hue='trial_type', data=dataframe.query('attempt==1 and correct==1'))
+        plt.xlabel('Run', fontsize=20),
+        plt.ylabel('Reaction Time', fontsize=20)
+        plt.title('Reaction time across meaningful vs meaningless sentences', fontsize=20);
+        plt.tick_params(axis = 'both', which = 'major', labelsize = 20)
+
+        plt.show()
 
     def run_rt_by_conditions_versions(self, dataframe):
         """ plots reaction time across runs, categorized by easy vs hard cloze condition, and across versions.
             does so only for meaningful and correct responses.
         """
-        sns.set(rc={'figure.figsize':(20,10)})
+        #sns.set(rc={'figure.figsize':(20,10)})
+        fig = plt.figure(figsize=(10,10))
 
         versions = dataframe['version'].unique()
         version_descripts = dataframe['version_descript'].unique()
 
         for i, version in enumerate(versions):
 
-            sns.factorplot(x='block_num', y='rt', hue='condition_name', data=dataframe.query('attempt==1 and correct==1 and trial_type=="meaningful"'))
-            plt.xlabel('Run', fontsize=20)
-            plt.ylabel('Reaction Time', fontsize=20)
-            plt.title(f'{version_descripts[i]}', fontsize=20);
-            plt.tick_params(axis = 'both', which = 'major', labelsize = 20)
+            ax = fig.add_subplot(1, len(versions), i+1)
 
-            plt.show()
+            sns.lineplot(x='block_num', y='rt', hue='condition_name', data=dataframe.query(f'attempt==1 and correct==1 and trial_type=="meaningful" and version=={version}'),
+                ax=ax)
+            ax.set_xlabel('Run', fontsize=15)
+            ax.set_ylabel('Reaction Time', fontsize=15)
+            ax.set_title(f'{version_descripts[i]}', fontsize=15);
+            ax.tick_params(axis = 'both', which = 'major', labelsize = 15)
+
+        plt.subplots_adjust(left=0.125, right=0.9, bottom=0.1, top=0.9, wspace=0.3, hspace=0.2)
+
+        plt.show()
 
     def run_rt_by_CoRT_versions(self, dataframe):
-        """ *plots reaction time across runs, categorized by easy vs hard cloze condition, and across versions.
+        """ *plots reaction time across runs, categorized by strong CoRT vs strong non-CoRT condition, and across versions.
             does so only for meaningful and correct responses.
         """
-        sns.set(rc={'figure.figsize':(20,10)})
+        #sns.set(rc={'figure.figsize':(20,10)})
+        fig = plt.figure(figsize=(10,10))
 
         versions = dataframe['version'].unique()
         version_descripts = dataframe['version_descript'].unique()
 
         for i, version in enumerate(versions):
 
-            sns.factorplot(x='block_num', y='rt', hue='CoRT_descript', data=dataframe.query('attempt==1 and correct==1 and trial_type=="meaningful"'))
-            plt.xlabel('Run', fontsize=20)
-            plt.ylabel('Reaction Time', fontsize=20)
-            plt.title(f'{version_descripts[i]}', fontsize=20);
-            plt.tick_params(axis = 'both', which = 'major', labelsize = 20)
+            ax = fig.add_subplot(1, len(versions), i+1)
 
-            plt.show()
+            sns.lineplot(x='block_num', y='rt', hue='CoRT_descript', data=dataframe.query(f'attempt==1 and correct==1 and trial_type=="meaningful" and version=={version}'),
+                ax=ax)
+            ax.set_xlabel('Run', fontsize=15)
+            ax.set_ylabel('Reaction Time', fontsize=15)
+            ax.set_title(f'{version_descripts[i]}', fontsize=15);
+            ax.tick_params(axis = 'both', which = 'major', labelsize = 15)
+
+        plt.subplots_adjust(left=0.125, right=0.9, bottom=0.1, top=0.9, wspace=0.3, hspace=0.2)
+
+        plt.show()
 
     def run_rt_by_trialtype_versions(self, dataframe):
         """ *plots reaction time across runs, categorized by meaningful and meaningless sentences, and across versions.
@@ -461,10 +503,12 @@ class CoRTLanguage:
         # loop over versions
         for i, version in enumerate(versions):
 
+            df = dataframe.query(f'version=={version}')
+
             # loop over runs and plot distribution
             for run in runs:
 
-                sns.kdeplot(dataframe.loc[dataframe['block_num']==run]['cloze_probability'], shade=True)
+                sns.kdeplot(df.loc[df['block_num']==run]['cloze_probability'], shade=True)
                 
         # plot stuff        
         plt.title('distrubtion of cloze probabilities across runs')
@@ -481,17 +525,19 @@ class CoRTLanguage:
         plt.figure(figsize=(10,10))
 
         versions = dataframe['version'].unique()
-        runs = dataframe['block_num'].unique()
+        runs = dataframe['block_num'].unique() #or randomise_blocks?
 
         #dataframe = dataframe.query('CoRT_descript=="strong CoRT"')
 
         # loop over versions
         for i, version in enumerate(versions):
 
+            df = dataframe.query(f'version=={version}')
+
             # loop over runs and plot distribution
             for run in runs:
 
-                sns.kdeplot(dataframe.loc[dataframe['block_num']==run]['CoRT_mean'], shade=True)
+                sns.kdeplot(df.loc[df['block_num']==run]['CoRT_mean'], shade=True)
                 
         # plot stuff        
         plt.title('distrubtion of CoRT scores across runs')
@@ -551,7 +597,7 @@ class EnglishVerif:
     def __init__(self):
         # data cleaning stuff
         self.task_name = "prepilot_english"
-        self.versions = [4]
+        self.versions = [6]
                                
     def load_dataframe(self):
         """ imports clean dataframe

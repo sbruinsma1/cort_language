@@ -17,13 +17,13 @@ warnings.filterwarnings("ignore")
 from experiment_code.constants import Defaults
 from experiment_code import preprocess
 
-class CortScaling:
+class CoRTScaling:
 
     def __init__(self):
         self.task_name = "cort_language"
         self.cort_cutoff = [2, 4] # non-cort should have minimum score of <2 and cort should have minimum score of 4>
         self.wordcount_cutoff = 10 # sentences should not be longer than 10 words
-        self.cloze_cutoff = [.5, .7] # low cloze <= .5 and high cloze =<.7
+        self.cloze_cutoff = [.5, .8] # low cloze <= .5 and high cloze >=.8
 
     def _preprocess_peele(self, filename="peele_cort_scaling_v3.csv", **kwargs):
         """ loads in data downloaded from gorilla and does some cleaning: filtering, renaming etc
@@ -108,7 +108,7 @@ class CortScaling:
         """ loads in data downloaded from individual subjects, concatenates it, and does some cleaning: filtering, renaming etc
             returns preprocessed dataframe
             Args: 
-                filename (str): default is "participant_info.csv"
+                filename (str): default is "block_baldwin_participant_info.csv"
                 
                 Kwargs: 
                     cloze_filename (str): option to add in cloze probabilities, give path to filename. one option is "Block_Baldwin_2010.csv"
@@ -257,10 +257,10 @@ class CortScaling:
             df_grouped.columns = df_grouped.columns.str.strip('_')
 
             #select for sentences with a CoRT score of greater than 4 or less than 2
-            # df_grouped = df_grouped[((df_grouped['CoRT_mean'] > self.cort_cutoff[1]) | (df_grouped['CoRT_mean'] < self.cort_cutoff[0]))]
+            #df_grouped = df_grouped[((df_grouped['CoRT_mean'] > self.cort_cutoff[1]) | (df_grouped['CoRT_mean'] < self.cort_cutoff[0]))]
 
             #select for n number of these sentences with the lowest standard deviation
-            # df_grouped = df_grouped.nsmallest(num_sentences, 'CoRT_std').reset_index()
+            #df_grouped = df_grouped.nsmallest(num_sentences, 'CoRT_std').reset_index()
 
             # add categorical column for CoRT vs. non-CoRT
             df_grouped['CoRT_descript'] = df_grouped['CoRT_mean'].apply(lambda x: _describe_cort(x))
@@ -268,9 +268,9 @@ class CortScaling:
             return df_grouped
         
         def _describe_cort(x):
-            if x<=self.cort_cutoff[0]:
+            if x <= self.cort_cutoff[0]:
                 value = 'strong non-CoRT'
-            elif x>=self.cort_cutoff[1]:
+            elif x >= self.cort_cutoff[1]:
                 value = 'strong CoRT'
             else:
                 value = 'ambiguous'
@@ -330,10 +330,16 @@ class CortScaling:
         # describe cloze
         df_out['cloze_descript'] = df_out['cloze_probability'].apply(lambda x: _describe_cloze(x))
 
+        # drop med cloze columns - use just for testing parameters on sentences
+        #df_out = df_out[df_out.cloze_descript != 'medium cloze']  
+
+        # drop ambig cort columns - use just for testing parameters on sentences
+        #df_out = df_out[df_out.CoRT_descript != 'ambiguous']
+
         # save out stimulus set
         df_out.to_csv(outname, header=True, index=False)
 
-        print('stimulus file successfully saved out!')
+        print(f'stimulus file successfully saved out with {len(df_out)}')
 
         return df_out
 
@@ -438,7 +444,7 @@ class PilotSentences:
     def __init__(self):
         pass
     
-    def clean_data(self, task_name = "cort_language", versions = [4], **kwargs):
+    def clean_data(self, task_name = "cort_language", versions = [7], **kwargs):
         """
         cleans data downloaded from gorilla. removes any rows that are not trials
         and remove bad subjs if they exist
@@ -532,6 +538,10 @@ class PilotSentences:
         """
         blocks = dataframe.groupby('participant_id').apply(lambda x: x.sort_values('block_num').block_num).values
 
+        # when  only one `participant_id` returns list within a list
+        if len(dataframe['participant_id'].unique())==1:
+            blocks=  blocks[0]
+        
         return blocks
 
 
@@ -613,11 +623,17 @@ class PilotSentences:
             value = "first round with even CoRT and cloze distributions"
         elif version==4:
             value = "made even distribution of cloze/CoRT across 70/30 in each block and randomized blocks"
+        elif version==5:
+            value = "high cloze lower limit changed from 0.7 to 0.8"
+        elif version==6:
+            value = "perfected sentence database & remove progress bar"
+        elif version==7:
+            value = "JT's results"
         else:
-            pass
+            print(f'please update version description for {version}')
         return value
     
-    def _make_grouped_sentences_dataframe(self, task_name = "cort_language", versions = [4], **kwargs):
+    def _make_grouped_sentences_dataframe(self, task_name = "cort_language", versions = [6], **kwargs):
         """ 
         *create dataframe with the sentences grouped (i.e. one row for each sentence) and columns for mean and std of correct column.
 
@@ -636,7 +652,7 @@ class PilotSentences:
         #dataframe = clean_data()
 
         # group sentences and find mean and standard deviation for each
-        df_by_sentence = dataframe.groupby(['full_sentence', 'cloze_probability', 'condition_name', 'CoRT_mean', 'CoRT_std', 'CoRT_descript','last_word','target_word','random_word']).agg({'correct': ['mean', 'std']}).reset_index()
+        df_by_sentence = dataframe.groupby(['full_sentence', 'last_word','target_word','random_word', 'condition_name', 'CoRT_descript']).agg({'correct': ['mean', 'std']}).reset_index()
 
         # join multilevel columns
         df_by_sentence.columns = ["_".join(pair) for pair in df_by_sentence.columns]
@@ -659,7 +675,7 @@ class EnglishPrescreen:
     def __init__(self):
         pass
 
-    def clean_data(self, task_name = "prepilot_english", versions = [4]):
+    def clean_data(self, task_name = "prepilot_english", versions = [7]):
         """
         cleans english preprocessing task data downloaded from gorilla. removes any rows that are not trials.
         """

@@ -1,0 +1,13 @@
+full_sentence,cloze_probability,dataset,CoRT_mean,CoRT_std,CoRT_descript,target_word,random_word,word_count,cloze_descript,Unnamed: 0,display,break,index,condition_name,sampled,answer,last_word,hand,iti_dur,start_time,trial_dur,ShowProgressBar,block_num,iti_dur_ms,trial_dur_ms,randomise_blocks
+"After|swallowing|too|quickly,|Simon|began|to",0.82,peele,4.0,1.224744871391589,strong CoRT,choke,wit,7,high cloze,,,,,,,,,,,,,,,,,
+At|dinner|he|cut|his|food|with|a,0.92,block_baldwin,4.0,1.5275252316519468,strong CoRT,knife,half,8,high cloze,,,,,,,,,,,,,,,,,
+Charles|dunked|the|basketball|through|the,0.87,block_baldwin,4.428571428571429,1.5118578920369088,strong CoRT,hoop,will,6,high cloze,,,,,,,,,,,,,,,,,
+Delia|needed|her|keys|and|rummaged|around|in|her,0.8,peele,4.0,1.4142135623730951,strong CoRT,purse,tub,9,high cloze,,,,,,,,,,,,,,,,,
+Father|carved|the|turkey|with|a,0.95,block_baldwin,4.285714285714286,1.4960264830861911,strong CoRT,knife,teach,6,high cloze,,,,,,,,,,,,,,,,,
+James|was|running|late|so|he|kept|checking|his,0.98,peele,4.0,1.4142135623730951,strong CoRT,watch,prince,9,high cloze,,,,,,,,,,,,,,,,,
+Jane|fried|some|bacon|in|the,0.86,block_baldwin,4.142857142857143,1.4638501094227998,strong CoRT,pan,gag,6,high cloze,,,,,,,,,,,,,,,,,
+The|box|landed|on|the|ground|with|a|dull,0.85,peele,4.25,0.957427107756338,strong CoRT,thud,fell,9,high cloze,,,,,,,,,,,,,,,,,
+The|figure|skater|was|spinning|like|a,0.86,peele,4.0,1.4142135623730951,strong CoRT,top,thyme,7,high cloze,,,,,,,,,,,,,,,,,
+The|officer|barged|in|and|quickly|flashed|his,0.81,peele,4.75,0.5,strong CoRT,badge,shook,8,high cloze,,,,,,,,,,,,,,,,,
+The|thief|drove|around|looking|for|a|house|to,0.91,peele,4.0,0.8164965809277259,strong CoRT,rob,pet,9,high cloze,,,,,,,,,,,,,,,,,
+Tom|handed|the|librarian|the|overdue,0.83,block_baldwin,4.0,1.414213562373095,strong CoRT,book,for,6,high cloze,,,,,,,,,,,,,,,,,
