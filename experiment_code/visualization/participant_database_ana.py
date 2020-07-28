@@ -21,6 +21,7 @@ from experiment_code.constants import Defaults
 
 
 class AtaxiaAna:
+
     def __init__(self):
     # data cleaning stuff
         self.testing_summary = "Patient_Testing_Database_MERGED.csv"
@@ -30,6 +31,7 @@ class AtaxiaAna:
         return pd.read_csv(fpath)
     
     def _calculate_recent_experiment(self, date1, date2):
+        days_passed = float("NaN")
         try:
             if isinstance(date1, str) and isinstance(date2, str): #CHECK TYPE!
                 dt1 = dateutil.parser.parse(date1)
@@ -37,11 +39,9 @@ class AtaxiaAna:
 
                 delta = dt2 - dt1 
 
-                days_passed = abs(round(delta.days / 365))
-            else:
-                days_passed = float("NaN")
+                days_passed = abs(round(delta.days))
         except:
-            days_passed = float("NaN")
+            print("inputs should be in str format")
 
         return days_passed
 
@@ -50,7 +50,7 @@ class AtaxiaAna:
 
         dataframe = dataframe[dataframe['subj_id'].str.contains('AC', regex=False, case=False, na=False)]
 
-        dataframe['current_date'] = date.today()
+        dataframe['current_date'] = date.today().isoformat()
 
         dataframe['days_passed'] = dataframe.apply(lambda x: self._calculate_recent_experiment(x['current_date'], x['date_of_testing']), axis=1) 
 
