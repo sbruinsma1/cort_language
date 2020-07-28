@@ -8,7 +8,7 @@ class Defaults:
     STIM_DIR = BASE_DIR / "experiment_code" / "stimuli"
     TARGET_DIR = BASE_DIR / "experiment_code" / "target_files"
     RAW_DIR = BASE_DIR / "data" / "raw"
-
+    EXTERNAL_DIR = BASE_DIR / "data" /"external"
 
  # create folders if they don't already exist
     fpaths = [RAW_DIR, STIM_DIR, TARGET_DIR]

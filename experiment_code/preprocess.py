@@ -444,7 +444,7 @@ class PilotSentences:
     def __init__(self):
         pass
     
-    def clean_data(self, task_name = "cort_language", versions = [7], **kwargs):
+    def clean_data(self, task_name = "cort_language", versions = [8], **kwargs):
         """
         cleans data downloaded from gorilla. removes any rows that are not trials
         and remove bad subjs if they exist
@@ -629,11 +629,13 @@ class PilotSentences:
             value = "perfected sentence database & remove progress bar"
         elif version==7:
             value = "JT's results"
+        elif version==8:
+            value = "first experiment controls"
         else:
             print(f'please update version description for {version}')
         return value
     
-    def _make_grouped_sentences_dataframe(self, task_name = "cort_language", versions = [6], **kwargs):
+    def _make_grouped_sentences_dataframe(self, task_name = "cort_language", versions = [8], **kwargs):
         """ 
         *create dataframe with the sentences grouped (i.e. one row for each sentence) and columns for mean and std of correct column.
 

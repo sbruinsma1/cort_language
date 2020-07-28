@@ -197,7 +197,7 @@ class CoRTLanguage:
         # data cleaning stuff
         self.cutoff = 30
         self.task_name = "cort_language"
-        self.versions = [7]
+        self.versions = [8]
                                
     def load_dataframe(self):
         """ imports clean dataframe
@@ -329,6 +329,21 @@ class CoRTLanguage:
         plt.xlabel('cloze condition', fontsize=20),
         plt.ylabel('Reaction Time', fontsize=20)
         plt.title('Reaction time across cloze conditions', fontsize=20);
+        plt.tick_params(axis = 'both', which = 'major', labelsize = 20)
+
+        plt.show()
+
+    def rt_by_condition_and_cort(self, dataframe):
+        """ *plots reaction time across easy vs hard cloze condition, categorized by strong CoRT vs non-CoRT condition.
+            does so only for meaningful and correct responses.
+        """
+
+        sns.set(rc={'figure.figsize':(20,10)})
+
+        sns.factorplot(x='condition_name', y='rt', hue='CoRT_descript', data=dataframe.query('attempt==1 and correct==1 and trial_type=="meaningful"'))
+        plt.xlabel('cloze condition', fontsize=20),
+        plt.ylabel('Reaction Time', fontsize=20)
+        plt.title('Reaction time across cloze and CoRT conditions', fontsize=20);
         plt.tick_params(axis = 'both', which = 'major', labelsize = 20)
 
         plt.show()
@@ -597,7 +612,7 @@ class EnglishVerif:
     def __init__(self):
         # data cleaning stuff
         self.task_name = "prepilot_english"
-        self.versions = [6]
+        self.versions = [8]
                                
     def load_dataframe(self):
         """ imports clean dataframe
