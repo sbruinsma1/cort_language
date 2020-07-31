@@ -8,7 +8,6 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import re
 from pathlib import Path
-import datetime as dt
 import math
 import dateutil
 from datetime import date
@@ -24,7 +23,10 @@ class AtaxiaAna:
 
     def __init__(self):
     # data cleaning stuff
-        self.testing_summary = "Patient_Testing_Database_MERGED.csv"
+        self.testing_summary = "Patient_Testing_Database_MERGED.csv" #load in directly from drive if possible
+        self.eligibility_cutoff = [14, 40]
+        self.min_date = '06/01/2020'
+        self.exp_cutoff = 14.0
 
     def _load_dataframe(self):
         fpath = os.path.join(Defaults.EXTERNAL_DIR, self.testing_summary)
@@ -50,11 +52,36 @@ class AtaxiaAna:
 
         dataframe = dataframe[dataframe['subj_id'].str.contains('AC', regex=False, case=False, na=False)]
 
+        def _convert_date_iso(x):
+            value = None
+            try:
+                value = dateutil.parser.parse(x)
+            except:
+                print("inputs should be in str format")
+            return value   
+
         dataframe['current_date'] = date.today().isoformat()
+        dataframe['date_of_testing_iso'] = dataframe['date_of_testing'].apply(lambda x: _convert_date_iso(x))
 
         dataframe['days_passed'] = dataframe.apply(lambda x: self._calculate_recent_experiment(x['current_date'], x['date_of_testing']), axis=1) 
 
         return dataframe
+    
+    def subject_recent_experiment(self, eligible=True):
+        #load in dataframe
+        dataframe = self.preprocess_dataframe()
+
+        # filter dataframe for min date
+        dataframe = dataframe.query(f'date_of_testing_iso > "{self.min_date}"') 
+        
+        dataframe = dataframe.query(f'days_passed > {self.exp_cutoff}')
+
+        cols_to_keep = ['subj_id', 'exp_id', 'date_of_testing_iso', 'days_passed', 'current_date', 'group']
+
+        dataframe = dataframe[cols_to_keep]
+
+        return dataframe
+        
 
 class ControlAna:
     def __init__(self):

@@ -650,9 +650,6 @@ class PilotSentences:
         # run clean data first
         dataframe = self.clean_data(task_name=task_name, versions=versions, **kwargs)
 
-        #add in line to run clean data first 
-        #dataframe = clean_data()
-
         # group sentences and find mean and standard deviation for each
         df_by_sentence = dataframe.groupby(['full_sentence', 'last_word','target_word','random_word', 'condition_name', 'CoRT_descript']).agg({'correct': ['mean', 'std']}).reset_index()
 
