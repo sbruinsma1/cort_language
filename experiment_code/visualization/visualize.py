@@ -14,8 +14,7 @@ warnings.filterwarnings("ignore")
 
 # load in directories
 from experiment_code.constants import Defaults
-from experiment_code.preprocess import PilotSentences
-from experiment_code.preprocess import EnglishPrescreen
+from experiment_code.preprocess import PilotSentences, ExpSentences, EnglishPrescreen
 
 class CoRTSentenceSelection:
     
@@ -191,20 +190,24 @@ class CoRTSentenceSelection:
         plt.title('item analysis of sentences')
         plt.show()
 
-class CoRTLanguage:
+class PilotCoRTLang:
     
     def __init__(self):
         # data cleaning stuff
         self.cutoff = 30
         self.task_name = "cort_language"
-        self.versions = [8]
+        self.task_type = "pilot"
+        self.versions = [6]
                                
     def load_dataframe(self):
         """ imports clean dataframe
         """
+        if self.task_type == "pilot":
+            task_class = PilotSentences()
+        elif self.task_type == "experiment":
+            task_class = ExpSentences()
 
-        pilot = PilotSentences()
-        df = pilot.clean_data(task_name=self.task_name, 
+        df = task_class.clean_data(task_name=self.task_name, 
                             versions=self.versions,
                             cutoff=self.cutoff)
         return df
@@ -278,7 +281,7 @@ class CoRTLanguage:
 
         sns.set(rc={'figure.figsize':(20,10)})
 
-        sns.factorplot(x='block_num', y='correct', hue='condition_name', data=dataframe.query('attempt==1 and trial_type=="meaningful"'))
+        sns.factorplot(x='block_num', y='correct', hue='group_condition_name', data=dataframe.query('attempt==1 and trial_type=="meaningful"'))
         plt.xlabel('Run', fontsize=20),
         plt.ylabel('% Correct', fontsize=20)
         plt.title('Accuracy across cloze conditions', fontsize=20);
@@ -310,7 +313,7 @@ class CoRTLanguage:
 
         sns.set(rc={'figure.figsize':(20,10)})
 
-        sns.factorplot(x='block_num', y='rt', hue='condition_name', data=dataframe.query('attempt==1 and correct==1 and trial_type=="meaningful"'))
+        sns.factorplot(x='block_num', y='rt', hue='group_condition_name', data=dataframe.query('attempt==1 and correct==1 and trial_type=="meaningful"'))
         plt.xlabel('Run', fontsize=20),
         plt.ylabel('Reaction Time', fontsize=20)
         plt.title('Reaction time across cloze conditions', fontsize=20);
@@ -340,7 +343,7 @@ class CoRTLanguage:
 
         sns.set(rc={'figure.figsize':(20,10)})
 
-        sns.factorplot(x='condition_name', y='rt', hue='CoRT_descript', data=dataframe.query('attempt==1 and correct==1 and trial_type=="meaningful"'))
+        sns.factorplot(x='condition_name', y='rt', hue='group_CoRT_condition', data=dataframe.query('attempt==1 and correct==1 and trial_type=="meaningful"'))
         plt.xlabel('cloze condition', fontsize=20),
         plt.ylabel('Reaction Time', fontsize=20)
         plt.title('Reaction time across cloze and CoRT conditions', fontsize=20);
@@ -355,7 +358,7 @@ class CoRTLanguage:
 
         sns.set(rc={'figure.figsize':(20,10)})
 
-        sns.factorplot(x='block_num', y='rt', hue='CoRT_descript', data=dataframe.query('attempt==1 and correct==1 and trial_type=="meaningful"'))
+        sns.factorplot(x='block_num', y='rt', hue='group_CoRT_condition', data=dataframe.query('attempt==1 and correct==1 and trial_type=="meaningful"'))
         plt.xlabel('Run', fontsize=20),
         plt.ylabel('Reaction Time', fontsize=20)
         plt.title('Reaction time across CoRT conditions', fontsize=20);
@@ -370,7 +373,7 @@ class CoRTLanguage:
 
         sns.set(rc={'figure.figsize':(20,10)})
 
-        sns.factorplot(x='block_num', y='rt', hue='trial_type', data=dataframe.query('attempt==1 and correct==1'))
+        sns.factorplot(x='block_num', y='rt', hue='group_trial_type', data=dataframe.query('attempt==1 and correct==1'))
         plt.xlabel('Run', fontsize=20),
         plt.ylabel('Reaction Time', fontsize=20)
         plt.title('Reaction time across meaningful vs meaningless sentences', fontsize=20);
@@ -607,12 +610,252 @@ class CoRTLanguage:
 
         plt.show()
 
+class CoRTLanguageExp:
+    def __init__(self):
+        # data cleaning stuff
+        self.cutoff = 30
+        self.task_name = "cort_language"
+        self.task_type = "experiment"
+        self.versions = [10]
+                               
+    def load_dataframe(self):
+        """ imports clean dataframe
+        """
+        if self.task_type == "pilot":
+            task_class = PilotSentences()
+        elif self.task_type == "experiment":
+            task_class = ExpSentences()
+
+        df = task_class.clean_data(task_name=self.task_name, 
+                            versions=self.versions,
+                            cutoff=self.cutoff)
+        return df
+    
+    def participant_accuracy(self, dataframe):
+        """ *gives frequency disribution of the percent correct per participant
+        """
+
+        plt.figure(figsize=(10,10));
+        sns.barplot(x="participant_id", y="correct", hue= 'trial_type', data=dataframe)
+        plt.xlabel('participant', fontsize=20)
+        plt.ylabel('% correct', fontsize=20)
+        plt.title('Number of correct answers', fontsize=20);
+        plt.yticks(fontsize=20);
+        
+        plt.show()
+
+        print('Answers mean:', dataframe.correct.mean())
+        #print('Percentage of correct vs incorrect',dataframe['correct'].value_counts(normalize=True) * 100)
+
+    def count_of_correct_per_participant(self, dataframe):
+        """ gives counts of correct (1.0) vs incorrect (0.0) responses for each participant
+        note: NA are counted as 0
+        """
+
+        dataframe.participant_id.unique()
+        #dataframe_version = dataframe.loc[dataframe['version'] == version] - if want by version
+
+        plt.figure(figsize=(10,10));
+        sns.countplot(x='correct', hue='participant_id', data=dataframe);
+        plt.xlabel('incorrect vs correct', fontsize=20)
+        plt.ylabel('count', fontsize=20)
+        plt.title('Number of correct answers per participant', fontsize=20);
+        plt.xticks(fontsize=20)
+        plt.yticks(fontsize=20);
+
+        plt.show()
+
+    def run_accuracy_by_condition(self, dataframe):
+        """ *plots reaction time across runs, categorized by easy vs hard cloze condition, and for each group.
+            does so only for meaningful and correct responses.
+        """
+
+        sns.set(rc={'figure.figsize':(20,10)})
+
+        dataframe['group_condition_name'] = dataframe['group'] + " " + dataframe['condition_name']
+
+        sns.factorplot(x='block_num', y='correct', hue='group_condition_name', data=dataframe.query('attempt==1 and trial_type=="meaningful"'))
+        plt.xlabel('Run', fontsize=20),
+        plt.ylabel('% Correct', fontsize=20)
+        plt.title('Accuracy across cloze conditions', fontsize=20);
+        plt.tick_params(axis = 'both', which = 'major', labelsize = 20)
+        plt.ylim(bottom=.7, top=1.0)
+
+        plt.show()
+
+    def accuracy_by_condition(self, dataframe):
+        """ *plots reaction time across runs, categorized by easy vs hard cloze condition.
+            does so only for meaningful and correct responses.
+        """
+
+        sns.set(rc={'figure.figsize':(20,10)})
+
+        sns.factorplot(x='condition_name', y='correct', data=dataframe.query('attempt==1 and trial_type=="meaningful"'))
+        plt.xlabel('Run', fontsize=20),
+        plt.ylabel('% Correct', fontsize=20)
+        plt.title('Accuracy across cloze conditions', fontsize=20);
+        plt.tick_params(axis = 'both', which = 'major', labelsize = 20)
+        plt.ylim(bottom=.7, top=1.0)
+
+        plt.show()
+ 
+    def run_rt_by_condition(self, dataframe):
+        """ *plots reaction time across runs, categorized by easy vs hard cloze condition, and for each group.
+            does so only for meaningful and correct responses.
+        """
+
+        sns.set(rc={'figure.figsize':(20,10)})
+
+        dataframe['group_condition_name'] = dataframe['group'] + " " + dataframe['condition_name']
+
+        sns.factorplot(x='block_num', y='rt', hue='group_condition_name', data=dataframe.query('correct==1 and trial_type=="meaningful"'))
+        plt.xlabel('Run', fontsize=20),
+        plt.ylabel('Reaction Time', fontsize=20)
+        plt.title('Reaction time across cloze conditions', fontsize=20);
+        plt.tick_params(axis = 'both', which = 'major', labelsize = 20)
+
+        plt.show()
+
+    def rt_by_condition(self, dataframe):
+        """ *plots reaction time across easy vs hard cloze condition.
+            does so only for meaningful and correct responses.
+        """
+
+        sns.set(rc={'figure.figsize':(20,10)})
+
+        sns.factorplot(x='condition_name', y='rt', data=dataframe.query('attempt==1 and correct==1 and trial_type=="meaningful"'))
+        plt.xlabel('cloze condition', fontsize=20),
+        plt.ylabel('Reaction Time', fontsize=20)
+        plt.title('Reaction time across cloze conditions', fontsize=20);
+        plt.tick_params(axis = 'both', which = 'major', labelsize = 20)
+
+        plt.show()
+
+    def run_rt_by_cort(self, dataframe):
+        """ *plots reaction time across runs, categorized by strong CoRT vs non-CoRT condition, and for each group.
+            does so only for meaningful and correct responses.
+        """
+
+        sns.set(rc={'figure.figsize':(20,10)})
+
+        dataframe['group_CoRT_condition'] = dataframe['group'] + " " + dataframe['CoRT_descript']
+
+        sns.factorplot(x='block_num', y='rt', hue='group_CoRT_condition', data=dataframe.query('attempt==1 and correct==1 and trial_type=="meaningful"'))
+        plt.xlabel('Run', fontsize=20),
+        plt.ylabel('Reaction Time', fontsize=20)
+        plt.title('Reaction time across CoRT conditions', fontsize=20);
+        plt.tick_params(axis = 'both', which = 'major', labelsize = 20)
+
+        plt.show()
+
+    def rt_by_condition_and_cort(self, dataframe):
+        """ *plots reaction time across easy vs hard cloze condition, categorized by strong CoRT vs non-CoRT condition, and for each group.
+            does so only for meaningful and correct responses.
+        """
+
+        sns.set(rc={'figure.figsize':(20,10)})
+
+        dataframe['group_CoRT_condition'] = dataframe['group'] + " " + dataframe['CoRT_descript']
+
+        sns.factorplot(x='condition_name', y='rt', hue='group_CoRT_condition', data=dataframe.query('attempt==1 and correct==1 and trial_type=="meaningful"'))
+        plt.xlabel('cloze condition', fontsize=20),
+        plt.ylabel('Reaction Time', fontsize=20)
+        plt.title('Reaction time across cloze and CoRT conditions', fontsize=20);
+        plt.tick_params(axis = 'both', which = 'major', labelsize = 20)
+
+        plt.show()
+
+    def run_rt_by_trialtype(self, dataframe):
+        """ *plots reaction time across runs, categorized by meaningful and meaningless sentences, and for each group.
+            does so only for meaningful and correct responses.
+        """
+
+        sns.set(rc={'figure.figsize':(20,10)})
+
+        dataframe['group_trial_type'] = dataframe['group'] + " " + dataframe['trial_type']
+
+        sns.factorplot(x='block_num', y='rt', hue='group_trial_type', data=dataframe.query('attempt==1 and correct==1'))
+        plt.xlabel('Run', fontsize=20),
+        plt.ylabel('Reaction Time', fontsize=20)
+        plt.title('Reaction time across meaningful vs meaningless sentences', fontsize=20);
+        plt.tick_params(axis = 'both', which = 'major', labelsize = 20)
+
+        plt.show()
+
+    def rt_by_cort_and_cause_effect(self, dataframe):
+        sns.set(rc={'figure.figsize':(20,10)})
+
+        dataframe['group_CoRT_condition'] = dataframe['group'] + " " + dataframe['CoRT_descript']
+
+        sns.factorplot(x='cause_effect', y='rt', hue='group_CoRT_condition', data=dataframe.query('attempt==1 and correct==1 and trial_type=="meaningful"'))
+        plt.xlabel('cause and effect', fontsize=20),
+        plt.ylabel('Reaction Time', fontsize=20)
+        plt.title('Reaction time across cause/effect and CoRT conditions', fontsize=20);
+        plt.tick_params(axis = 'both', which = 'major', labelsize = 20)
+
+        plt.show()
+
+    def rt_by_cort_and_verb(self, dataframe):
+        "*"
+        sns.set(rc={'figure.figsize':(20,10)})
+
+        dataframe['group_CoRT_condition'] = dataframe['group'] + " " + dataframe['CoRT_descript']
+
+        sns.factorplot(x='dynamic_verb', y='rt', hue='group_CoRT_condition', data=dataframe.query('attempt==1 and correct==1 and trial_type=="meaningful"'))
+        plt.xlabel('dynamic verb', fontsize=20),
+        plt.ylabel('Reaction Time', fontsize=20)
+        plt.title('Reaction time across dynamic verb and CoRT conditions', fontsize=20);
+        plt.tick_params(axis = 'both', which = 'major', labelsize = 20)
+
+        plt.show()
+
+    def rt_by_cort_and_orientation(self, dataframe):
+        "*"
+        sns.set(rc={'figure.figsize':(20,10)})
+
+        dataframe['group_CoRT_condition'] = dataframe['group'] + " " + dataframe['CoRT_descript']
+
+        sns.factorplot(x='orientation', y='rt', hue='group_CoRT_condition', data=dataframe.query('attempt==1 and correct==1 and trial_type=="meaningful"'))
+        plt.xlabel('orientation', fontsize=20),
+        plt.ylabel('Reaction Time', fontsize=20)
+        plt.title('Reaction time across orientation and CoRT conditions', fontsize=20);
+        plt.tick_params(axis = 'both', which = 'major', labelsize = 20)
+
+        plt.show()
+
+    def rt_by_cort_and_negative(self, dataframe):
+        sns.set(rc={'figure.figsize':(20,10)})
+
+        dataframe['group_CoRT_condition'] = dataframe['group'] + " " + dataframe['CoRT_descript']
+
+        sns.factorplot(x='negative', y='rt', hue='group_CoRT_condition', data=dataframe.query('attempt==1 and correct==1 and trial_type=="meaningful"'))
+        plt.xlabel('negation', fontsize=20),
+        plt.ylabel('Reaction Time', fontsize=20)
+        plt.title('Reaction time across negation and CoRT conditions', fontsize=20);
+        plt.tick_params(axis = 'both', which = 'major', labelsize = 20)
+
+        plt.show()
+
+    def rt_by_cort_and_tense(self, dataframe):
+        sns.set(rc={'figure.figsize':(20,10)})
+
+        dataframe['group_CoRT_condition'] = dataframe['group'] + " " + dataframe['CoRT_descript']
+
+        sns.factorplot(x='tense', y='rt', hue='group_CoRT_condition', data=dataframe.query('attempt==1 and correct==1 and trial_type=="meaningful"'))
+        plt.xlabel('verb tense', fontsize=20),
+        plt.ylabel('Reaction Time', fontsize=20)
+        plt.title('Reaction time across verb tense and CoRT conditions', fontsize=20);
+        plt.tick_params(axis = 'both', which = 'major', labelsize = 20)
+
+        plt.show()
+        
+
 class EnglishVerif:
 
     def __init__(self):
         # data cleaning stuff
         self.task_name = "prepilot_english"
-        self.versions = [8]
+        self.versions = [10]
                                
     def load_dataframe(self):
         """ imports clean dataframe

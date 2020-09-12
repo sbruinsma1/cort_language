@@ -444,7 +444,7 @@ class PilotSentences:
     def __init__(self):
         pass
     
-    def clean_data(self, task_name = "cort_language", versions = [8], **kwargs):
+    def clean_data(self, task_name = "cort_language", versions = [10], **kwargs):
         """
         cleans data downloaded from gorilla. removes any rows that are not trials
         and remove bad subjs if they exist
@@ -620,22 +620,19 @@ class PilotSentences:
         elif version==2:
             value = " "
         elif version==3:
-            value = "first round with even CoRT and cloze distributions"
+            value = "first round with even CoRT and cloze distributions (pilot)"
         elif version==4:
-            value = "made even distribution of cloze/CoRT across 70/30 in each block and randomized blocks"
+            value = "made even distribution of cloze/CoRT across 70/30 in each block and randomized blocks (pilot)"
         elif version==5:
-            value = "high cloze lower limit changed from 0.7 to 0.8"
+            value = "high cloze lower limit changed from 0.7 to 0.8 (pilot)"
         elif version==6:
-            value = "perfected sentence database & remove progress bar"
-        elif version==7:
-            value = "JT's results"
-        elif version==8:
-            value = "first experiment controls"
+            value = "perfected sentence database & remove progress bar (pilot)"
         else:
             print(f'please update version description for {version}')
+
         return value
     
-    def _make_grouped_sentences_dataframe(self, task_name = "cort_language", versions = [8], **kwargs):
+    def _make_grouped_sentences_dataframe(self, task_name = "cort_language", versions = [10], **kwargs):
         """ 
         *create dataframe with the sentences grouped (i.e. one row for each sentence) and columns for mean and std of correct column.
 
@@ -669,12 +666,203 @@ class PilotSentences:
 
         return df_by_sentence
 
+class ExpSentences:
+
+    def __init__(self):
+        pass
+    
+    def clean_data(self, task_name = "cort_language", versions = [10], **kwargs):
+        """
+        cleans data downloaded from gorilla. removes any rows that are not trials
+        and remove bad subjs if they exist
+        (optional):
+            cutoff (int): cutoff threshold for minutes spent on task. assumes 'Participant Private ID' is the col name for participant id
+        """
+        df_all = pd.DataFrame()
+        for version in versions: 
+            fpath = os.path.join(Defaults.RAW_DIR, f"{task_name}_gorilla_v{version}.csv")
+            df = pd.read_csv(fpath)
+
+            def _get_response_type():
+                response_type = "response_keyboard_single"
+                return response_type
+            
+            def _assign_trialtype(x):
+                if x==False:
+                    value = "meaningful"
+                elif x==True:
+                    value = "meaningless"
+                else:
+                    value = x
+                return value
+
+            def _rename_cols(dataframe):
+                """rename some columns for analysis
+                """
+                return dataframe.rename({'Local Date':'local_date','Experiment ID':'experiment_id', 'Experiment Version':'experiment_version', 'Participant Public ID':'participant_public_id', 'Participant Private ID':'participant_id', 
+                            'Task Name':'task_name', 'Task Version':'task_version', 'Spreadsheet Name':'spreadsheet_version', 'Spreadsheet Row': 'spreadsheet_row', 'Trial Number': 'sentence_num', 'Zone Type':'zone_type', 
+                            'Reaction Time':'rt', 'Response':'response', 'Attempt':'attempt', 'Correct':'correct', 'Incorrect':'incorrect'}, axis=1)
+
+            # determine which cols to keep depending on task
+            cols_to_keep = self._cols_to_keep()
+
+            df = df[cols_to_keep]
+
+            #rename some columns for analysis
+            df = _rename_cols(df)
+
+            # filter dataset to include trials and experimental blocks (i.e. not instructions)
+            response_type = _get_response_type() # response_type is different across the task
+            df = df.query(f'display=="trial" and block_num>0 and zone_type=="{response_type}"')
+            df['rt'] = df['rt'].astype(float)  
+
+            # correct block_num to be sequential
+            df['block_num'] = self._correct_blocks(df)
+            
+            # filter out bad subjs based on specified cutoff
+            if kwargs.get('cutoff'):
+                cutoff = kwargs['cutoff']
+                df = self._remove_bad_subjs(df, cutoff)
+
+            # get meaningful assesment
+            df['trial_type'] = df['sampled'].apply(lambda x: _assign_trialtype(x))
+
+            # get version
+            df["version"] = version
+
+            # get condition name (make sure it's just characters)
+            df['condition_name'] = df['condition_name'].str.extract('([a-zA-Z]*)')
+
+            # get version description
+            df["version_descript"] = df["version"].apply(lambda x: self._get_version_description(x))
+
+            # concat versions if there are more than one
+            df_all = pd.concat([df_all, df])
+
+        return df_all
+
+    def _cols_to_keep(self):
+        """ cols to keep - different for each task
+            also renames some columns for analysis
+            Returns: 
+                list of cols to keep for analysis 
+        """
+
+        cols_to_keep = ['Local Date', 'Experiment ID', 'Experiment Version', 'Participant Public ID', 'Participant Private ID',
+                        'Task Name', 'Task Version', 'Spreadsheet Name', 'Spreadsheet Row', 'Trial Number', 'Zone Type', 
+                        'Reaction Time', 'Response', 'Attempt', 'Correct', 'Incorrect', 'display', 'block_num', 'randomise_blocks']
+
+        cols_to_keep.extend(['full_sentence', 'last_word', 'sampled','CoRT_descript', 'CoRT_mean','condition_name',
+                            'CoRT_std','cloze_descript', 'cloze_probability', 'dataset', 'random_word', 'target_word', 'word_count', 'group'])
+
+        #add columns for covariate analysis
+        cols_to_keep.extend(['cause_effect', 'dynamic_verb', 'orientation', 'negative', 'tense', 'spelling_modified'])
+
+        return cols_to_keep
+
+    def _correct_blocks(self, dataframe):
+        """
+        fix 'block_nums' to be sequential distribution (i.e. 1-6, not randomized) 
+        Returns:
+            dataframe with corrected '
+        """
+        blocks = dataframe.groupby('participant_id').apply(lambda x: x.sort_values('block_num').block_num).values
+
+        # when  only one `participant_id` returns list within a list
+        if len(dataframe['participant_id'].unique())==1:
+            blocks=  blocks[0]
+        
+        return blocks
+
+
+    def _remove_bad_subjs(self, dataframe, cutoff, colname='participant_id'):
+        """
+        filters out bad subjs if they spent too little time on task
+            Args:
+            elapsed_time (dict): dictionary of participant ids and elapsed time
+            Returns:
+            new dataframe with only good subjs
+        """
+        
+        # return elapsed time for all participants
+        elapsed_time = self._get_elapsed_time_all_participants(dataframe, cutoff, colname)
+                
+        def _filter_subjs(x, elapsed_time, cutoff):
+            """
+            return boolean value for subjects to keep
+            """
+            if elapsed_time[x]>cutoff:
+                value = True
+            else:
+                value = False
+            return value
+        
+        dataframe['good_subjs'] = dataframe[colname].apply(lambda x: _filter_subjs(x, elapsed_time, cutoff))
+        
+        return dataframe
+
+    def _get_elapsed_time_all_participants(self, dataframe, cutoff, colname):
+        """
+        returns a dictionary of participant ids and time spent on task
+        used to filter out bad subjects
+            Args:
+            dataframe (dataframe): results dataframe
+            cutoff (int): min number of minutes that participant must stay on task
+            colname (str): column in dataset that refers to participant id
+        """
+        dict = {}
+        participant_ids = dataframe[colname].unique()
+        for participant_id in participant_ids: 
+            date1 = dataframe.loc[dataframe[colname]==participant_id]['local_date'].iloc[0]
+            date2 = dataframe.loc[dataframe[colname]==participant_id]['local_date'].iloc[-1]
+
+            diff_min = self._time_spent_on_task(date1, date2)
+
+            dict.update({participant_id:diff_min})
+
+        return dict
+
+    def _time_spent_on_task(self, date1, date2):
+        """
+        calculate how long each participant spent on the task
+        Args:
+            date1 (str): format: date/month/year hour:minute:second
+            date2 (str): format: date/month/year hour:minute:second
+        """
+        datetimeformat = '%d/%m/%Y %H:%M:%S'
+
+        diff_secs = dt.datetime.strptime(date2, datetimeformat)\
+            - dt.datetime.strptime(date1, datetimeformat)
+
+        diff_min = np.round(diff_secs.seconds/60)
+        
+        return diff_min
+
+    def _get_version_description(self, version):
+        """ assign description to `version` for `self.task_name`
+            Args:
+                version (int): get version from `gorilla` csv 
+            Returns: 
+                return description for `version` for `self.task_name`
+        """
+        if version==7:
+            value = "control only (experiment)"
+        elif version==8:
+            value = "1 patient - gorilla version 6 (experiment)"
+        elif version==9:
+            value = "patients only and slight sentence fixes - gorilla version 7 (experiment)"
+        elif version==10:
+            value = "CONCAT OF 7-9. Shortened to 5 runs (experiment)" 
+        else:
+            print(f'please update version description for {version}')
+        return value
+
 class EnglishPrescreen:
 
     def __init__(self):
         pass
 
-    def clean_data(self, task_name = "prepilot_english", versions = [7]):
+    def clean_data(self, task_name = "prepilot_english", versions = [10]):
         """
         cleans english preprocessing task data downloaded from gorilla. removes any rows that are not trials.
         """

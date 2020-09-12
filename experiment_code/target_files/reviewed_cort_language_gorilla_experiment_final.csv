@@ -320,7 +320,7 @@
 32,The|maid|dusted|the|books|on|the,shelf,TRUE,strong CoRT,high cloze,5,no,yes,person,no,past,no,trial,,32,0.93,block_baldwin,4.142857143,1.573591585,shelf,days,7,easy,FALSE,right,0.5,45,7,1,500,7000,5
 33,Being|a|father|and|a|businessman|made|his|role,difficult,TRUE,strong non-CoRT,low cloze,5,no,yes,person,no,past,no,trial,,33,0.31,peele,1,0,difficult,zoo,9,hard,FALSE,right,0.5,412.5,7,1,500,7000,5
 34,The|boys|ran|to|the|car|carrying|their,bags,TRUE,strong CoRT,low cloze,5,no,yes,group,no,past,no,trial,,34,0.34,peele,4,1.154700538,bags,ignition,8,hard,FALSE,right,0.5,180,7,1,500,7000,5
-35,"After|saying|goodbye,|Tim|gave|his|wife|a|quick",shave,FALSE,strong CoRT,high cloze,5,yes,yes,person,no,past,no,trial,,35,0.84,peele,4.75,0.5,kiss,shave,9,easy,TRUE,right,0.5,37.5,7,1,500,7000,5
+35,"After|saying|goodbye,|Tim|gave|his|wife|a|quick",hill,FALSE,strong CoRT,high cloze,5,yes,yes,person,no,past,no,trial,,35,0.84,peele,4.75,0.5,kiss,hill,9,easy,TRUE,right,0.5,37.5,7,1,500,7000,5
 36,Lily|had|disliked|him|from|the|moment|they,met,TRUE,strong non-CoRT,high cloze,5,no,no,person,no,past,no,trial,,36,0.99,peele,1.75,0.9574271078,met,curse,8,easy,FALSE,right,0.5,315,7,1,500,7000,5
 37,The|man|liked|to|play|his|music|too,loud,TRUE,strong non-CoRT,high cloze,5,no,yes,person,no,past,no,trial,,37,0.84,block_baldwin,2,1,loud,joke,8,easy,FALSE,right,0.5,247.5,7,1,500,7000,5
 38,A|Dalmatian|dog|is|recognized|by|its|black|and|white,fate,FALSE,strong non-CoRT,high cloze,5,no,yes,animal,no,present,no,trial,,38,0.84,block_baldwin,1.166666667,0.4082482905,spots,fate,10,easy,TRUE,right,0.5,307.5,7,1,500,7000,5
