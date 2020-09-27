@@ -16,7 +16,7 @@ warnings.filterwarnings("ignore")
 # load in directories
 from experiment_code.constants import Defaults
 
-def merge_versions(versions = [7, 8, 9]):
+def merge_versions(versions = [7, 8, 9, 11]):
 
     tasks = ["cort_language_gorilla", "prepilot_english"]
 
@@ -24,6 +24,7 @@ def merge_versions(versions = [7, 8, 9]):
     version_descript = {7: 'control',
                         8: 'patient',
                         9: 'patient',
+                        11: 'control'
                         }
 
     for task in tasks: 

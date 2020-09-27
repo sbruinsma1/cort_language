@@ -18,22 +18,26 @@ warnings.filterwarnings("ignore")
 # load in directories
 from experiment_code.constants import Defaults
 
+#maybe combine ataxia and control
 
 class AtaxiaAna:
 
     def __init__(self):
     # data cleaning stuff
         self.testing_summary = "Patient_Testing_Database_MERGED.csv" 
+        self.used_participants = "Old_Gorilla_Participants.csv"
+        self.old_used_participants = "Gorilla_Paricipants.csv"
         self.eligibility_cutoff = [14, 40] #change upper bound and incorp deleting used participants
         self.min_date = '07/01/2020'
         self.exp_cutoff = 14.0
-        #self.exp_name = 'Sequence Preparation Motor'
+        self.exp_name = 'Sequence Preparation Motor'
+        self.group_name = 'AC'
 
     def _load_dataframe(self):
         fpath = os.path.join(Defaults.EXTERNAL_DIR, self.testing_summary)
         return pd.read_csv(fpath)
     
-    def _calculate_recent_experiment(self, date1, date2):
+    def _calculate_date_difference(self, date1, date2): #_calculate_recent_experiment
         days_passed = float("NaN")
         try:
             if isinstance(date1, str) and isinstance(date2, str): #CHECK TYPE!
@@ -44,31 +48,42 @@ class AtaxiaAna:
 
                 days_passed = abs(round(delta.days))
         except:
-            print("inputs should be in str format")
-
+            pass
         return days_passed
 
     def preprocess_dataframe(self):
         dataframe = self._load_dataframe()
 
-        dataframe = dataframe[dataframe['subj_id'].str.contains('AC', regex=False, case=False, na=False)]
+        dataframe = dataframe[dataframe['subj_id'].str.contains(self.group_name, regex=False, case=False, na=False)]
 
         def _convert_date_iso(x):
             value = None
             try:
                 value = dateutil.parser.parse(x)
             except:
-                print("inputs should be in str format")
+                pass
             return value   
 
         dataframe['current_date'] = date.today().isoformat()
         dataframe['date_of_testing_iso'] = dataframe['date_of_testing'].apply(lambda x: _convert_date_iso(x))
+        dataframe['dob_iso'] = dataframe['dob'].apply(lambda x: _convert_date_iso(x))
 
-        dataframe['days_passed'] = dataframe.apply(lambda x: self._calculate_recent_experiment(x['current_date'], x['date_of_testing']), axis=1) 
+        dataframe['days_passed'] = dataframe.apply(lambda x: self._calculate_date_difference(x['current_date'], x['date_of_testing']), axis=1) 
+        dataframe['age'] = dataframe.apply(lambda x: self._calculate_date_difference(x['current_date'], x['dob']), axis=1)/365
 
         return dataframe
+
+    def _load_used_participants_dataframes(self):
+        fpath1 = os.path.join(Defaults.EXTERNAL_DIR, self.old_used_participants)
+        dataframe_old = pd.read_csv(fpath1)
+
+        fpath2 = os.path.join(Defaults.EXTERNAL_DIR, self.used_participants)
+        dataframe_new = pd.read_csv(fpath2)
+
+        return pd.concat([dataframe_old, dataframe_new])
+        
     
-    def subject_recent_experiment(self, eligible=True):
+    def _subject_recent_experiment(self, eligible=True):
         #load in dataframe
         dataframe = self.preprocess_dataframe()
 
@@ -77,33 +92,56 @@ class AtaxiaAna:
         
         dataframe = dataframe.query(f'days_passed > {self.exp_cutoff}')
 
-        cols_to_keep = ['subj_id', 'exp_id', 'date_of_testing_iso', 'days_passed', 'current_date', 'group']
-
+        cols_to_keep = ['subj_id', 'exp_id', 'date_of_testing_iso', 'days_passed', 'current_date', 'group', 'age', 'years_of_education']
         dataframe = dataframe[cols_to_keep]
 
         return dataframe
 
-    #def total_experiments(self):
+    def available_participants(self):
         #load in dataframe
-        #dataframe = self.preprocess_dataframe()
+        dataframe = self._subject_recent_experiment()
+        participants_dataframe = self._load_used_participants_dataframes()
+
+        #create list of contacted participants
+        contacted_participants = participants_dataframe['subj_id'].tolist()
+
+        #remove contacted from available participants
+        dataframe = dataframe[~dataframe['subj_id'].isin(contacted_participants)]
+
+        if dataframe.empty==False:
+            print(f'Congrats, you have {len(dataframe)} new available {self.group_name} participants!')
+        if dataframe.empty==True:
+            print(f'You have already contacted all available {self.group_name} participants.')
+
+        return dataframe
+
+    def total_experiments(self):
+        #load in dataframe
+        dataframe = self.preprocess_dataframe()
 
         #filter dataframe for specific experiment
-        #dataframe = dataframe.query('exp_id == "Sequence Preparation Motor"') - CAN'T PROCESS NAME
+        dataframe = dataframe.query('exp_id == "Sequence Preparation Motor"') 
 
-        #return len(dataframe)
+        return print(f'{self.exp_name} experiment has tested {len(dataframe)} {self.group_name} participants')
 
 class ControlAna:
+
     def __init__(self):
     # data cleaning stuff
-        self.testing_summary = "Patient_Testing_Database_MERGED.csv"
-        self.min_date = '07/01/2020' #is Will still testing controls?
+        self.testing_summary = "Patient_Testing_Database_MERGED.csv" 
+        self.used_participants = "Old_Gorilla_Participants.csv"
+        self.old_used_participants = "Gorilla_Paricipants.csv"
+        self.eligibility_cutoff = [14, 40] #change upper bound and incorp deleting used participants
+        self.min_date = '07/01/2020'
         self.exp_cutoff = 14.0
+        self.exp_name = 'Sequence Preparation Motor'
+        self.group_name = 'OC'
 
     def _load_dataframe(self):
         fpath = os.path.join(Defaults.EXTERNAL_DIR, self.testing_summary)
         return pd.read_csv(fpath)
     
-    def _calculate_recent_experiment(self, date1, date2):
+    def _calculate_date_difference(self, date1, date2): #_calculate_recent_experiment
         days_passed = float("NaN")
         try:
             if isinstance(date1, str) and isinstance(date2, str): #CHECK TYPE!
@@ -114,31 +152,42 @@ class ControlAna:
 
                 days_passed = abs(round(delta.days))
         except:
-            print("inputs should be in str format")
-
+            pass
         return days_passed
 
     def preprocess_dataframe(self):
         dataframe = self._load_dataframe()
 
-        dataframe = dataframe[dataframe['subj_id'].str.contains('OC', regex=False, case=False, na=False)]
+        dataframe = dataframe[dataframe['subj_id'].str.contains(self.group_name, regex=False, case=False, na=False)]
 
         def _convert_date_iso(x):
             value = None
             try:
                 value = dateutil.parser.parse(x)
             except:
-                print("inputs should be in str format")
+                pass
             return value   
 
         dataframe['current_date'] = date.today().isoformat()
         dataframe['date_of_testing_iso'] = dataframe['date_of_testing'].apply(lambda x: _convert_date_iso(x))
+        dataframe['dob_iso'] = dataframe['dob'].apply(lambda x: _convert_date_iso(x))
 
-        dataframe['days_passed'] = dataframe.apply(lambda x: self._calculate_recent_experiment(x['current_date'], x['date_of_testing']), axis=1) 
+        dataframe['days_passed'] = dataframe.apply(lambda x: self._calculate_date_difference(x['current_date'], x['date_of_testing']), axis=1) 
+        dataframe['age'] = dataframe.apply(lambda x: self._calculate_date_difference(x['current_date'], x['dob']), axis=1)/365
 
         return dataframe
+
+    def _load_used_participants_dataframes(self):
+        fpath1 = os.path.join(Defaults.EXTERNAL_DIR, self.old_used_participants)
+        dataframe_old = pd.read_csv(fpath1)
+
+        fpath2 = os.path.join(Defaults.EXTERNAL_DIR, self.used_participants)
+        dataframe_new = pd.read_csv(fpath2)
+
+        return pd.concat([dataframe_old, dataframe_new])
+        
     
-    def subject_recent_experiment(self, eligible=True):
+    def _subject_recent_experiment(self, eligible=True):
         #load in dataframe
         dataframe = self.preprocess_dataframe()
 
@@ -147,17 +196,35 @@ class ControlAna:
         
         dataframe = dataframe.query(f'days_passed > {self.exp_cutoff}')
 
-        cols_to_keep = ['subj_id', 'exp_id', 'date_of_testing_iso', 'days_passed', 'current_date', 'group']
-
+        cols_to_keep = ['subj_id', 'exp_id', 'date_of_testing_iso', 'days_passed', 'current_date', 'group', 'age', 'years_of_education']
         dataframe = dataframe[cols_to_keep]
-
-        #set structer criteria if more available?
-
-        #control for YOE (breakdown for patients) and age
 
         return dataframe
 
-        #check if neuropsych
+    def available_participants(self):
+        #load in dataframe
+        dataframe = self._subject_recent_experiment()
+        participants_dataframe = self._load_used_participants_dataframes()
 
-        #delete online_neuropsych
+        #create list of contacted participants
+        contacted_participants = participants_dataframe['subj_id'].tolist()
+
+        #remove contacted from available participants
+        dataframe = dataframe[~dataframe['subj_id'].isin(contacted_participants)]
+
+        if dataframe.empty==False:
+            print(f'Congrats, you have {len(dataframe)} new available {self.group_name} participants!')
+        if dataframe.empty==True:
+            print(f'You have already contacted all available {self.group_name} participants.')
+
+        return dataframe
+
+    def total_experiments(self):
+        #load in dataframe
+        dataframe = self.preprocess_dataframe()
+
+        #filter dataframe for specific experiment
+        dataframe = dataframe.query('exp_id == "Sequence Preparation Motor"') 
+
+        return print(f'{self.exp_name} experiment has tested {len(dataframe)} {self.group_name} participants')
 

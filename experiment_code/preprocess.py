@@ -9,6 +9,7 @@ import seaborn as sns
 import re
 from pathlib import Path
 import datetime as dt
+from collections import defaultdict
 
 import warnings
 warnings.filterwarnings("ignore")
@@ -671,12 +672,18 @@ class ExpSentences:
     def __init__(self):
         pass
     
-    def clean_data(self, task_name = "cort_language", versions = [10], **kwargs):
+    def clean_data(self, task_name = "cort_language", versions = [12], bad_subjs = [8]):
         """
         cleans data downloaded from gorilla. removes any rows that are not trials
         and remove bad subjs if they exist
-        (optional):
-            cutoff (int): cutoff threshold for minutes spent on task. assumes 'Participant Private ID' is the col name for participant id
+        Args:
+            task_name (str): default is "cort_language" (for choosing data)
+                
+                Kwargs: 
+                    bad_subjs (list): list of id(s) of bad subj(s). on gorilla, id is given by `participant_id`.
+
+            Returns:
+                dataframe
         """
         df_all = pd.DataFrame()
         for version in versions: 
@@ -718,11 +725,15 @@ class ExpSentences:
 
             # correct block_num to be sequential
             df['block_num'] = self._correct_blocks(df)
-            
-            # filter out bad subjs based on specified cutoff
-            if kwargs.get('cutoff'):
-                cutoff = kwargs['cutoff']
-                df = self._remove_bad_subjs(df, cutoff)
+
+            #correct participant ids (1-n)
+            df = self._relabel_part_id(df)
+
+            # filter out bad subjs based on id
+            df = self._remove_bad_subjs(df, bad_subjs=bad_subjs)
+            #if kwargs.get('bad_subjs'):
+                #bad_subjs = kwargs['bad_subjs']
+                #df = self._remove_bad_subjs(df, bad_subjs=bad_subjs)
 
             # get meaningful assesment
             df['trial_type'] = df['sampled'].apply(lambda x: _assign_trialtype(x))
@@ -774,32 +785,28 @@ class ExpSentences:
         
         return blocks
 
+    def _relabel_part_id(self, dataframe):
+        # get all values of participant id
+        old_id = dataframe['participant_id'].values
 
-    def _remove_bad_subjs(self, dataframe, cutoff, colname='participant_id'):
-        """
-        filters out bad subjs if they spent too little time on task
-            Args:
-            elapsed_time (dict): dictionary of participant ids and elapsed time
-            Returns:
-            new dataframe with only good subjs
-        """
-        
-        # return elapsed time for all participants
-        elapsed_time = self._get_elapsed_time_all_participants(dataframe, cutoff, colname)
-                
-        def _filter_subjs(x, elapsed_time, cutoff):
-            """
-            return boolean value for subjects to keep
-            """
-            if elapsed_time[x]>cutoff:
-                value = True
-            else:
-                value = False
-            return value
-        
-        dataframe['good_subjs'] = dataframe[colname].apply(lambda x: _filter_subjs(x, elapsed_time, cutoff))
-        
+        # get new values of participant id
+        temp = defaultdict(lambda: len(temp))
+        res = [temp[ele] for ele in old_id]
+
+        # assign new participant id to dataframe
+        dataframe['participant_id'] = np.array(res) + 1
+    
         return dataframe
+
+    def _remove_bad_subjs(self, dataframe, bad_subjs):
+        """ removes bad subj from dataframe and returns filtered dataframe
+            Args:
+                dataframe
+                bad_subjs (list): list of ids given by `Participant_Private_ID` of gorilla spreadsheet
+            Returns:
+                dataframe with bad subj(s) removed
+        """
+        return dataframe[~dataframe['participant_id'].isin(bad_subjs)]
 
     def _get_elapsed_time_all_participants(self, dataframe, cutoff, colname):
         """
@@ -853,6 +860,10 @@ class ExpSentences:
             value = "patients only and slight sentence fixes - gorilla version 7 (experiment)"
         elif version==10:
             value = "CONCAT OF 7-9. Shortened to 5 runs (experiment)" 
+        elif version==11:
+            value = "added keyboard reminder. patient + control data combined" 
+        elif version==12:
+            value = "concat of 10 & 11"
         else:
             print(f'please update version description for {version}')
         return value
@@ -862,7 +873,7 @@ class EnglishPrescreen:
     def __init__(self):
         pass
 
-    def clean_data(self, task_name = "prepilot_english", versions = [10]):
+    def clean_data(self, task_name = "prepilot_english", versions = [12]):
         """
         cleans english preprocessing task data downloaded from gorilla. removes any rows that are not trials.
         """
