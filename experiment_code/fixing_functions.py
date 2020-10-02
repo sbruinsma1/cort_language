@@ -16,15 +16,14 @@ warnings.filterwarnings("ignore")
 # load in directories
 from experiment_code.constants import Defaults
 
-def merge_versions(versions = [7, 8, 9, 11]):
+def merge_versions(versions = [7, 8, 9]):
 
     tasks = ["cort_language_gorilla", "prepilot_english"]
 
     # THIS IS JUST TEMPORARY
     version_descript = {7: 'control',
                         8: 'patient',
-                        9: 'patient',
-                        11: 'control'
+                        9: 'patient'
                         }
 
     for task in tasks: 
@@ -34,7 +33,7 @@ def merge_versions(versions = [7, 8, 9, 11]):
         for version in versions: 
             fpath = os.path.join(Defaults.RAW_DIR, f"{task}_v{version}.csv") 
             df = pd.read_csv(fpath)
-            df['group'] = version_descript[version]
+            df['Participant Starting Group'] = version_descript[version]
             
             df_all = pd.concat([df_all, df])
 
@@ -44,3 +43,4 @@ def merge_versions(versions = [7, 8, 9, 11]):
 
 # run code
 merge_versions()
+print(f"Your merged dataset has been successfully created")

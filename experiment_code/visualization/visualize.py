@@ -614,7 +614,8 @@ class CoRTLanguageExp:
         # data cleaning stuff
         self.task_name = "cort_language"
         self.task_type = "experiment"
-        self.versions = [12]
+        self.versions = [10,11]
+        self.bad_subjs = [8]
                                
     def load_dataframe(self):
         """ imports clean dataframe
@@ -625,7 +626,8 @@ class CoRTLanguageExp:
             task_class = ExpSentences()
 
         df = task_class.clean_data(task_name=self.task_name, 
-                            versions=self.versions)
+                            versions=self.versions,
+                            bad_subjs=self.bad_subjs)
 
         #get group with cloze condition 
         df['group_condition_name'] = df['group'] + " " + df['condition_name']
@@ -688,14 +690,14 @@ class CoRTLanguageExp:
 
         plt.show()
 
-    def accuracy_by_condition(self, dataframe):
+    def accuracy_by_condition(self, dataframe, hue=None):
         """ *plots reaction time across runs, categorized by easy vs hard cloze condition.
             does so only for meaningful and correct responses.
         """
 
         sns.set(rc={'figure.figsize':(20,10)})
 
-        sns.factorplot(x='condition_name', y='correct', data=dataframe.query('attempt==1 and trial_type=="meaningful"'))
+        sns.factorplot(x='condition_name', y='correct', hue=hue, data=dataframe.query('attempt==1 and trial_type=="meaningful"'))
         plt.xlabel('Run', fontsize=20),
         plt.ylabel('% Correct', fontsize=20)
         plt.title('Accuracy across cloze conditions', fontsize=20);
@@ -748,9 +750,40 @@ class CoRTLanguageExp:
 
         plt.show()
 
+    #EXTRA FUNCS
 
+    def run_accuracy_meaning(self, dataframe):
+        """ *plots reaction time across runs, categorized by easy vs hard cloze condition, and for each group.
+            does so only for meaningful and correct responses.
+        """
 
-    #sort accuracy/NA problem
+        sns.set(rc={'figure.figsize':(20,10)})
+
+        sns.factorplot(x='block_num', y='correct', hue="group_trial_type", data=dataframe)
+        plt.xlabel('Run', fontsize=20),
+        plt.ylabel('% Correct', fontsize=20)
+        plt.title(f'Accuracy across runs', fontsize=20);
+        plt.tick_params(axis = 'both', which = 'major', labelsize = 20)
+        plt.ylim(bottom=.7, top=1.0)
+
+        plt.show()
+
+    def run_rt_meaning(self, dataframe):
+        """ *plots reaction time across runs, categorized by easy vs hard cloze condition, and for each group.
+            does so only for meaningful and correct responses.
+        """
+
+        sns.set(rc={'figure.figsize':(20,10)})
+
+        sns.factorplot(x='block_num', y='rt', hue="group_trial_type", data=dataframe.query('correct==1'))
+        plt.xlabel('Run', fontsize=20),
+        plt.ylabel('Reaction Time', fontsize=20)
+        plt.title('Reaction time across runs', fontsize=20);
+        plt.tick_params(axis = 'both', which = 'major', labelsize = 20)
+
+        plt.show()
+
+    #WORKING FUNCS
 
     def average_rt_across_conditions(self, dataframe):
 
@@ -800,14 +833,12 @@ class CoRTLanguageExp:
 
     #eventually: regression model to see how variables explain RT variance (psypy)
 
-
-
 class EnglishVerif:
 
     def __init__(self):
         # data cleaning stuff
         self.task_name = "prepilot_english"
-        self.versions = [12]
+        self.versions = [10,11]
                                
     def load_dataframe(self):
         """ imports clean dataframe

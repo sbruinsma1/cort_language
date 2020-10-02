@@ -672,7 +672,7 @@ class ExpSentences:
     def __init__(self):
         pass
     
-    def clean_data(self, task_name = "cort_language", versions = [12], bad_subjs = [8]):
+    def clean_data(self, task_name = "cort_language", versions = [10,11], bad_subjs = [8]):
         """
         cleans data downloaded from gorilla. removes any rows that are not trials
         and remove bad subjs if they exist
@@ -707,8 +707,8 @@ class ExpSentences:
                 """rename some columns for analysis
                 """
                 return dataframe.rename({'Local Date':'local_date','Experiment ID':'experiment_id', 'Experiment Version':'experiment_version', 'Participant Public ID':'participant_public_id', 'Participant Private ID':'participant_id', 
-                            'Task Name':'task_name', 'Task Version':'task_version', 'Spreadsheet Name':'spreadsheet_version', 'Spreadsheet Row': 'spreadsheet_row', 'Trial Number': 'sentence_num', 'Zone Type':'zone_type', 
-                            'Reaction Time':'rt', 'Response':'response', 'Attempt':'attempt', 'Correct':'correct', 'Incorrect':'incorrect'}, axis=1)
+                            'Task Name':'task_name', 'Task Version':'task_version', 'Spreadsheet Name':'spreadsheet_version', 'Spreadsheet Row': 'spreadsheet_row', 'Trial Number':'sentence_num', 'Zone Type':'zone_type', 
+                            'Reaction Time':'rt', 'Response':'response', 'Attempt':'attempt', 'Correct':'correct', 'Incorrect':'incorrect', 'Participant Starting Group':'group'}, axis=1)
 
             # determine which cols to keep depending on task
             cols_to_keep = self._cols_to_keep()
@@ -719,21 +719,13 @@ class ExpSentences:
             df = _rename_cols(df)
 
             # filter dataset to include trials and experimental blocks (i.e. not instructions)
-            response_type = _get_response_type() # response_type is different across the task
-            df = df.query(f'display=="trial" and block_num>0 and zone_type=="{response_type}"')
+            #response_type = _get_response_type() - response_type is different across the task
+            #df = df.query(f'display=="trial" and block_num>0 and zone_type=="{response_type}"')
+            df = df.query(f'display=="trial" and block_num>0 and zone_type in ["response_keyboard_single", "timelimit_screen"]')
             df['rt'] = df['rt'].astype(float)  
 
-            # correct block_num to be sequential
-            df['block_num'] = self._correct_blocks(df)
-
-            #correct participant ids (1-n)
-            df = self._relabel_part_id(df)
-
-            # filter out bad subjs based on id
-            df = self._remove_bad_subjs(df, bad_subjs=bad_subjs)
-            #if kwargs.get('bad_subjs'):
-                #bad_subjs = kwargs['bad_subjs']
-                #df = self._remove_bad_subjs(df, bad_subjs=bad_subjs)
+            # correct block_num to be sequential 
+            df['block_num'] = self._correct_blocks(df) 
 
             # get meaningful assesment
             df['trial_type'] = df['sampled'].apply(lambda x: _assign_trialtype(x))
@@ -750,6 +742,12 @@ class ExpSentences:
             # concat versions if there are more than one
             df_all = pd.concat([df_all, df])
 
+            #correct participant ids (1-n)
+            df_all = self._relabel_part_id(df_all)
+
+            # filter out bad subjs based on id
+            df_all = self._remove_bad_subjs(df_all, bad_subjs=bad_subjs)
+
         return df_all
 
     def _cols_to_keep(self):
@@ -764,7 +762,7 @@ class ExpSentences:
                         'Reaction Time', 'Response', 'Attempt', 'Correct', 'Incorrect', 'display', 'block_num', 'randomise_blocks']
 
         cols_to_keep.extend(['full_sentence', 'last_word', 'sampled','CoRT_descript', 'CoRT_mean','condition_name',
-                            'CoRT_std','cloze_descript', 'cloze_probability', 'dataset', 'random_word', 'target_word', 'word_count', 'group'])
+                            'CoRT_std','cloze_descript', 'cloze_probability', 'dataset', 'random_word', 'target_word', 'word_count', 'Participant Starting Group'])
 
         #add columns for covariate analysis
         cols_to_keep.extend(['cause_effect', 'dynamic_verb', 'orientation', 'negative', 'tense', 'spelling_modified'])
@@ -861,9 +859,7 @@ class ExpSentences:
         elif version==10:
             value = "CONCAT OF 7-9. Shortened to 5 runs (experiment)" 
         elif version==11:
-            value = "added keyboard reminder. patient + control data combined" 
-        elif version==12:
-            value = "concat of 10 & 11"
+            value = "added keyboard reminder. patient + control exp combined (automatic 'group')" 
         else:
             print(f'please update version description for {version}')
         return value
@@ -873,7 +869,7 @@ class EnglishPrescreen:
     def __init__(self):
         pass
 
-    def clean_data(self, task_name = "prepilot_english", versions = [12]):
+    def clean_data(self, task_name = "prepilot_english", versions = [10,11]):
         """
         cleans english preprocessing task data downloaded from gorilla. removes any rows that are not trials.
         """
@@ -914,6 +910,9 @@ class EnglishPrescreen:
             # concat versions if there are more than one
             df_all = pd.concat([df_all, df])
 
+            #correct participant ids (1-n)
+            df_all = self._relabel_part_id(df_all)
+
         return df_all
 
     def _create_file(self, task_name, version):
@@ -941,5 +940,18 @@ class EnglishPrescreen:
                         'display', 'response', 'type', 'item']
 
         return cols_to_keep
+
+    def _relabel_part_id(self, dataframe):
+        # get all values of participant id
+        old_id = dataframe['participant_id'].values
+
+        # get new values of participant id
+        temp = defaultdict(lambda: len(temp))
+        res = [temp[ele] for ele in old_id]
+
+        # assign new participant id to dataframe
+        dataframe['participant_id'] = np.array(res) + 1
+    
+        return dataframe
 
         

@@ -27,17 +27,17 @@ class AtaxiaAna:
         self.testing_summary = "Patient_Testing_Database_MERGED.csv" 
         self.used_participants = "Old_Gorilla_Participants.csv"
         self.old_used_participants = "Gorilla_Paricipants.csv"
-        self.eligibility_cutoff = [14, 40] #change upper bound and incorp deleting used participants
+        self.eligibility_cutoff = [14, 40] #change upper bound 
         self.min_date = '07/01/2020'
         self.exp_cutoff = 14.0
-        self.exp_name = 'Sequence Preparation Motor'
+        self.exp_name = "Sequence Preparation Motor" #NOT work with spaces for ana/query
         self.group_name = 'AC'
 
     def _load_dataframe(self):
         fpath = os.path.join(Defaults.EXTERNAL_DIR, self.testing_summary)
         return pd.read_csv(fpath)
     
-    def _calculate_date_difference(self, date1, date2): #_calculate_recent_experiment
+    def _calculate_date_difference(self, date1, date2): 
         days_passed = float("NaN")
         try:
             if isinstance(date1, str) and isinstance(date2, str): #CHECK TYPE!
@@ -108,6 +108,10 @@ class AtaxiaAna:
         #remove contacted from available participants
         dataframe = dataframe[~dataframe['subj_id'].isin(contacted_participants)]
 
+        #filter dataframe for specific experiment
+        dataframe = dataframe.query('exp_id == "Sequence Preparation Motor"')
+        #dataframe = dataframe.query(f'exp_id == {self.exp_name}')  - FIRST need to convert name format
+
         if dataframe.empty==False:
             print(f'Congrats, you have {len(dataframe)} new available {self.group_name} participants!')
         if dataframe.empty==True:
@@ -120,7 +124,8 @@ class AtaxiaAna:
         dataframe = self.preprocess_dataframe()
 
         #filter dataframe for specific experiment
-        dataframe = dataframe.query('exp_id == "Sequence Preparation Motor"') 
+        dataframe = dataframe.query('exp_id == "Sequence Preparation Motor"')
+        #dataframe = dataframe.query(f'exp_id == {self.exp_name}')
 
         return print(f'{self.exp_name} experiment has tested {len(dataframe)} {self.group_name} participants')
 
@@ -131,17 +136,17 @@ class ControlAna:
         self.testing_summary = "Patient_Testing_Database_MERGED.csv" 
         self.used_participants = "Old_Gorilla_Participants.csv"
         self.old_used_participants = "Gorilla_Paricipants.csv"
-        self.eligibility_cutoff = [14, 40] #change upper bound and incorp deleting used participants
+        self.eligibility_cutoff = [14, 40] #change upper bound 
         self.min_date = '07/01/2020'
         self.exp_cutoff = 14.0
-        self.exp_name = 'Sequence Preparation Motor'
+        self.exp_name = 'Sequence Preparation Motor' #NOT work with spaces for ana/query
         self.group_name = 'OC'
 
     def _load_dataframe(self):
         fpath = os.path.join(Defaults.EXTERNAL_DIR, self.testing_summary)
         return pd.read_csv(fpath)
     
-    def _calculate_date_difference(self, date1, date2): #_calculate_recent_experiment
+    def _calculate_date_difference(self, date1, date2): 
         days_passed = float("NaN")
         try:
             if isinstance(date1, str) and isinstance(date2, str): #CHECK TYPE!
@@ -212,6 +217,10 @@ class ControlAna:
         #remove contacted from available participants
         dataframe = dataframe[~dataframe['subj_id'].isin(contacted_participants)]
 
+        #filter dataframe for specific experiment
+        dataframe = dataframe.query('exp_id == "Sequence Preparation Motor"')
+        #dataframe = dataframe.query(f'exp_id == {self.exp_name}')
+
         if dataframe.empty==False:
             print(f'Congrats, you have {len(dataframe)} new available {self.group_name} participants!')
         if dataframe.empty==True:
@@ -224,7 +233,8 @@ class ControlAna:
         dataframe = self.preprocess_dataframe()
 
         #filter dataframe for specific experiment
-        dataframe = dataframe.query('exp_id == "Sequence Preparation Motor"') 
+        dataframe = dataframe.query('exp_id == "Sequence Preparation Motor"')
+        #dataframe = dataframe.query(f'exp_id == {self.exp_name}')
 
         return print(f'{self.exp_name} experiment has tested {len(dataframe)} {self.group_name} participants')
 
