@@ -672,7 +672,7 @@ class ExpSentences:
     def __init__(self):
         pass
     
-    def clean_data(self, task_name = "cort_language", versions = [10,11], bad_subjs = [8]):
+    def clean_data(self, task_name = "cort_language", versions = [10,11], bad_subjs = [6, 8, 10, 16]):
         """
         cleans data downloaded from gorilla. removes any rows that are not trials
         and remove bad subjs if they exist

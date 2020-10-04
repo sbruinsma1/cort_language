@@ -32,6 +32,8 @@ class AtaxiaAna:
         self.exp_cutoff = 14.0
         self.exp_name = "Sequence Preparation Motor" #NOT work with spaces for ana/query
         self.group_name = 'AC'
+        self.age_range = []
+        self.yoe_range = []
 
     def _load_dataframe(self):
         fpath = os.path.join(Defaults.EXTERNAL_DIR, self.testing_summary)
@@ -107,6 +109,12 @@ class AtaxiaAna:
 
         #remove contacted from available participants
         dataframe = dataframe[~dataframe['subj_id'].isin(contacted_participants)]
+
+        #create list of ineligible participants
+        ineligible_participants = []
+
+        #remove ineligible from available participants
+        dataframe = dataframe[~dataframe['subj_id'].isin(ineligible_participants)]
 
         #filter dataframe for specific experiment
         dataframe = dataframe.query('exp_id == "Sequence Preparation Motor"')
@@ -141,6 +149,8 @@ class ControlAna:
         self.exp_cutoff = 14.0
         self.exp_name = 'Sequence Preparation Motor' #NOT work with spaces for ana/query
         self.group_name = 'OC'
+        self.age_range = []
+        self.yoe_range = []
 
     def _load_dataframe(self):
         fpath = os.path.join(Defaults.EXTERNAL_DIR, self.testing_summary)
@@ -216,6 +226,12 @@ class ControlAna:
 
         #remove contacted from available participants
         dataframe = dataframe[~dataframe['subj_id'].isin(contacted_participants)]
+
+        #create list of ineligible participants
+        ineligible_participants = []
+
+        #remove ineligible from available participants
+        dataframe = dataframe[~dataframe['subj_id'].isin(ineligible_participants)]
 
         #filter dataframe for specific experiment
         dataframe = dataframe.query('exp_id == "Sequence Preparation Motor"')

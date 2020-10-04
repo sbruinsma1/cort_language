@@ -610,12 +610,15 @@ class PilotCoRTLang:
         plt.show()
 
 class CoRTLanguageExp:
-    def __init__(self):
+    def __init__(self, task_name='cort_language', 
+                task_type='experiment',
+                versions=[10, 11],
+                bad_subjs=[6,8,10,16]):
         # data cleaning stuff
-        self.task_name = "cort_language"
-        self.task_type = "experiment"
-        self.versions = [10,11]
-        self.bad_subjs = [8]
+        self.task_name = task_name
+        self.task_type = task_type
+        self.versions = versions
+        self.bad_subjs = bad_subjs
                                
     def load_dataframe(self):
         """ imports clean dataframe
