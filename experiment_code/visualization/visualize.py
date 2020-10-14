@@ -613,7 +613,7 @@ class CoRTLanguageExp:
     def __init__(self, task_name='cort_language', 
                 task_type='experiment',
                 versions=[10,11,12],
-                bad_subjs=[6,8,10,16]):
+                bad_subjs=['sAI', 'sLA', 'sDH']):
         # data cleaning stuff
         self.task_name = task_name
         self.task_type = task_type
@@ -646,6 +646,8 @@ class CoRTLanguageExp:
     def participant_accuracy(self, dataframe, hue=None):
         """ *gives frequency disribution of the percent correct per participant
         """
+        #note: want additional legend for group of subject
+        #important to first make correct repeated subj_ids
 
         plt.figure(figsize=(10,10));
         sns.barplot(x="participant_id", y="correct", hue=hue, data=dataframe)

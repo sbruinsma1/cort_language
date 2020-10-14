@@ -36,6 +36,13 @@ class MyParticipants:
 
             df_all = pd.concat([df_all, df])
 
+        #query for participated (not include contacted)
+        df_all = df_all.query('participated=="yes"')
+        
+        #drop subjects who were dropped from experiment
+        dropped = ['sAI', 'sLA', 'sDH']
+        df_all = df_all[~df_all.public_id.isin(dropped)] 
+
         return df_all
 
     #ERROR WITH BELOW: cannot astype a datetimelike from [datetime64[ns]] to [float64] -- although df contains values
