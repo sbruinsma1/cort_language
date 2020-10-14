@@ -44,3 +44,6 @@ def merge_versions(versions = [7, 8, 9]):
 # run code
 merge_versions()
 print(f"Your merged dataset has been successfully created")
+
+
+#QUERY FOR PARTICIPANT WITH 2 CONDITIONS AND REPLACE NAME

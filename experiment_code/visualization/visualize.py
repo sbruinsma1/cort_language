@@ -612,7 +612,7 @@ class PilotCoRTLang:
 class CoRTLanguageExp:
     def __init__(self, task_name='cort_language', 
                 task_type='experiment',
-                versions=[10, 11],
+                versions=[10,11,12],
                 bad_subjs=[6,8,10,16]):
         # data cleaning stuff
         self.task_name = task_name
@@ -687,7 +687,7 @@ class CoRTLanguageExp:
         sns.factorplot(x='block_num', y='correct', hue=hue, data=dataframe.query('trial_type=="meaningful"'))
         plt.xlabel('Run', fontsize=20),
         plt.ylabel('% Correct', fontsize=20)
-        plt.title(f'Accuracy across runs', fontsize=20);
+        plt.title('Accuracy across runs', fontsize=20);
         plt.tick_params(axis = 'both', which = 'major', labelsize = 20)
         plt.ylim(bottom=.7, top=1.0)
 
@@ -703,7 +703,7 @@ class CoRTLanguageExp:
         sns.factorplot(x='condition_name', y='correct', hue=hue, data=dataframe.query('attempt==1 and trial_type=="meaningful"'))
         plt.xlabel('Run', fontsize=20),
         plt.ylabel('% Correct', fontsize=20)
-        plt.title('Accuracy across cloze conditions', fontsize=20);
+        plt.title('Accuracy across conditions', fontsize=20);
         plt.tick_params(axis = 'both', which = 'major', labelsize = 20)
         plt.ylim(bottom=.7, top=1.0)
 
@@ -716,7 +716,7 @@ class CoRTLanguageExp:
 
         sns.set(rc={'figure.figsize':(20,10)})
 
-        sns.factorplot(x='block_num', y='rt', hue=hue, data=dataframe.query('trial_type=="meaningful"'))
+        sns.factorplot(x='block_num', y='rt', hue=hue, data=dataframe.query('correct==1 and trial_type=="meaningful"'))
         plt.xlabel('Run', fontsize=20),
         plt.ylabel('Reaction Time', fontsize=20)
         plt.title('Reaction time across runs', fontsize=20);
@@ -743,6 +743,8 @@ class CoRTLanguageExp:
     
     def rt_by_covariate(self, dataframe, x=None):
 
+        #MAYBE look @ covariates independently
+
         sns.set(rc={'figure.figsize':(20,10)})
 
         sns.factorplot(x=x, y='rt', hue='group_CoRT_condition', data=dataframe.query('correct==1 and trial_type=="meaningful"'))
@@ -753,11 +755,11 @@ class CoRTLanguageExp:
 
         plt.show()
 
-    #EXTRA FUNCS
+    #EXTRA FUNCS - due to query of dataframe in above
 
     def run_accuracy_meaning(self, dataframe):
-        """ *plots reaction time across runs, categorized by easy vs hard cloze condition, and for each group.
-            does so only for meaningful and correct responses.
+        """ plots accuracy across runs, categorized by easy vs hard cloze condition, and for each group.
+            does so only for all responses.
         """
 
         sns.set(rc={'figure.figsize':(20,10)})
@@ -788,15 +790,16 @@ class CoRTLanguageExp:
 
     #WORKING FUNCS
 
-    def average_rt_across_conditions(self, dataframe):
-
-        #plot slopes of RT across cloze instead? (see prelim notebook code) 
-        #rate of change: slope & interaction (plot showing slope as corr of intercept)
-        #plot mean w/ y=mx+b or scipy/pyplot (or ANOVA 2x2x5)
+    def average_rt(self, dataframe, x = None):
+        """plot slope of RT across blocks for  (e.g. cloze)
+        """
         sns.set(rc={'figure.figsize':(20,10)})
 
-        sns.catplot(x="condition_name", y="rt", hue='group', kind="box", data=dataframe.query('correct==1 and trial_type=="meaningful"'))
-        plt.xlabel('Cloze Condition', fontsize=20),
+        #note: still need to add grouping by subject first (problem with indexing)
+        #grouped_df['rt_slope'] = df.groupby(['participant_id', 'block_num']).apply(lambda x: x['rt'].iloc[0] - x['rt'].iloc[4]/x['block_num'])grouped_df.array
+
+        sns.catplot(x=x, y="rt", hue='group', kind="box", data=dataframe.query('correct==1 and trial_type=="meaningful"'))
+        plt.xlabel(f'{x}', fontsize=20),
         plt.ylabel('Reaction Time', fontsize=20)
         plt.title('Average reaction time between cloze conditions', fontsize=20);
         plt.tick_params(axis = 'both', which = 'major', labelsize = 15)
@@ -804,36 +807,84 @@ class CoRTLanguageExp:
 
         plt.show()
 
-    def item_ana_rt(self, dataframe):
-        #item/trial/granular ana (plotting RT & look @ error)
-        #how to do hue?
+    #note: want to combine 2 functions below (and overlap results in one plot)
+    #but can't use hue due to creation of seperate columns for groups with pivot
+
+    def trial_ana_rt_control(self, dataframe):
+        """granular analysis of RT for sentences (plotting RT & look @ error) for controls
+        """
         sns.set(rc={'figure.figsize':(20,10)})
 
-        sns.scatterplot(x = dataframe.groupby('spreadsheet_row')['rt'].mean(), y = dataframe.groupby('spreadsheet_row')['rt'].std())
+        #create pivot table to see mean/sd differences in groups
+        dataframe = dataframe.query('correct==1 and trial_type=="meaningful"')
+        grouped_table = pd.pivot_table(dataframe, values=['rt'], index=['spreadsheet_row'], columns=['group'],
+                                        aggfunc= {np.mean, np.std}).reset_index()
+        # join multilevel columns
+        grouped_table.columns = ["_".join(pair) for pair in grouped_table.columns]
+        grouped_table.columns = grouped_table.columns.str.strip('_')
+
+        #note: can make index full_sentence to see item ana instead
+
+        sns.scatterplot(x="rt_mean_control", y="rt_std_control", data=grouped_table)
         plt.xlabel('mean rt', fontsize=20)
         plt.ylabel('std of rt', fontsize=20)
-        plt.title('item analysis of rt', fontsize=20)
+        plt.title('item analysis of rt for controls', fontsize=20)
         plt.tick_params(axis = 'both', which = 'major', labelsize = 15);
 
         plt.show()
 
-    def rt_cont_cloze(self, dataframe):
-        #continuous variable of cloze (scatter 4 each participant)
-        #make for each participant (see prelim notebook code)
+    def trial_ana_rt_patient(self, dataframe):
+        """granular analysis of RT for sentences (plotting RT & look @ error) for patients
+        """
         sns.set(rc={'figure.figsize':(20,10)})
 
-        sns.scatterplot(x = dataframe.groupby('spreadsheet_row')['cloze_probability'].mean(), y = dataframe.groupby('spreadsheet_row')['rt'].mean())
-        plt.xlabel('mean cloze probability', fontsize=20)
-        plt.ylabel('mean rt', fontsize=20)
-        plt.title('', fontsize=20)
+        #create pivot table to see mean/sd differences in groups
+        dataframe = dataframe.query('correct==1 and trial_type=="meaningful"')
+        grouped_table = pd.pivot_table(dataframe, values=['rt'], index=['spreadsheet_row'], columns=['group'],
+                                        aggfunc= {np.mean, np.std}).reset_index()
+        # join multilevel columns
+        grouped_table.columns = ["_".join(pair) for pair in grouped_table.columns]
+        grouped_table.columns = grouped_table.columns.str.strip('_')
+
+        sns.scatterplot(x="rt_mean_patient", y="rt_std_patient", data=grouped_table)
+        plt.xlabel('mean rt', fontsize=20)
+        plt.ylabel('std of rt', fontsize=20)
+        plt.title('item analysis of rt for patients', fontsize=20)
         plt.tick_params(axis = 'both', which = 'major', labelsize = 15);
 
         plt.show()
 
-    #look @ animal sentences (not necessarily ana)
 
-    #MAYBE look @ covariates independently
+    def rt_cont_cloze_control(self, dataframe):
+        """rt for continuous variable of cloze -- scatter 4 each participant
+        """
+        #DEFINITELY NEEDS WORK
+        sns.set(rc={'figure.figsize':(20,10)})
 
+        fig = plt.figure(figsize=(10,10))
+
+        participants = df['participant_id'].unique()
+
+        for i, participant in enumerate(participants):
+            
+            fig.add_subplot(1, len(participants), i+1)
+
+            sns.scatterplot(x="cloze_probability", y="rt", data=df)
+            plt.xlabel('mean rt', fontsize=20)
+            plt.ylabel('std of rt', fontsize=20)
+            plt.title('item analysis of rt for controls', fontsize=20)
+            plt.tick_params(axis = 'both', which = 'major', labelsize = 15);
+
+        plt.show()
+
+        #create pivot table 
+        dataframe = dataframe.query('correct==1 and trial_type=="meaningful"')
+        grouped_table = pd.pivot_table(dataframe, values=['rt', 'cloze'], index=['spreadsheet_row','participant_id'], columns=['group'],
+                                        aggfunc= {np.mean, np.std}).reset_index()
+        # join multilevel columns
+        grouped_table.columns = ["_".join(pair) for pair in grouped_table.columns]
+        grouped_table.columns = grouped_table.columns.str.strip('_')
+    
     #eventually: regression model to see how variables explain RT variance (psypy)
 
 class EnglishVerif:
@@ -841,7 +892,7 @@ class EnglishVerif:
     def __init__(self):
         # data cleaning stuff
         self.task_name = "prepilot_english"
-        self.versions = [10,11]
+        self.versions = [10,11,12]
                                
     def load_dataframe(self):
         """ imports clean dataframe

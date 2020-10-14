@@ -18,8 +18,6 @@ warnings.filterwarnings("ignore")
 # load in directories
 from experiment_code.constants import Defaults
 
-#maybe combine ataxia and control
-
 class AtaxiaAna:
 
     def __init__(self):
@@ -32,12 +30,40 @@ class AtaxiaAna:
         self.exp_cutoff = 14.0
         self.exp_name = "Sequence Preparation Motor" #NOT work with spaces for ana/query
         self.group_name = 'AC'
-        self.age_range = []
+        self.age_range = [] 
         self.yoe_range = []
 
     def _load_dataframe(self):
         fpath = os.path.join(Defaults.EXTERNAL_DIR, self.testing_summary)
         return pd.read_csv(fpath)
+
+    def _load_used_participants_dataframes(self):
+        """takes list of used participants and concats with merged database to 
+            give participant information 
+        """
+        full_dataframe = self.preprocess_dataframe()
+
+        fpath1 = os.path.join(Defaults.EXTERNAL_DIR, self.old_used_participants)
+        dataframe_old = pd.read_csv(fpath1)
+
+        fpath2 = os.path.join(Defaults.EXTERNAL_DIR, self.used_participants)
+        dataframe_new = pd.read_csv(fpath2)
+
+        #concat old and new version of exp (difference: patients/controls in same exp)
+        my_dataframe = pd.concat([dataframe_old, dataframe_new])
+
+        #only include AC
+        my_dataframe = my_dataframe[my_dataframe['subj_id'].str.contains(self.group_name, regex=False, case=False, na=False)]
+
+        #rename group column to match merged
+        my_dataframe['group'] = my_dataframe['group'].str.replace('patient','SCA')
+
+        #merge with merged database for participant info - 
+        dataframe = pd.merge(my_dataframe, full_dataframe, how = 'left', copy = False)
+
+        #add line so only shows 1 iterance of participant
+
+        return dataframe
     
     def _calculate_date_difference(self, date1, date2): 
         days_passed = float("NaN")
@@ -74,23 +100,14 @@ class AtaxiaAna:
         dataframe['age'] = dataframe.apply(lambda x: self._calculate_date_difference(x['current_date'], x['dob']), axis=1)/365
 
         return dataframe
-
-    def _load_used_participants_dataframes(self):
-        fpath1 = os.path.join(Defaults.EXTERNAL_DIR, self.old_used_participants)
-        dataframe_old = pd.read_csv(fpath1)
-
-        fpath2 = os.path.join(Defaults.EXTERNAL_DIR, self.used_participants)
-        dataframe_new = pd.read_csv(fpath2)
-
-        return pd.concat([dataframe_old, dataframe_new])
         
     
     def _subject_recent_experiment(self, eligible=True):
         #load in dataframe
         dataframe = self.preprocess_dataframe()
 
-        # filter dataframe for min date
-        dataframe = dataframe.query(f'date_of_testing_iso > "{self.min_date}"') 
+        # filter dataframe for min date 
+        #dataframe = dataframe.query(f'date_of_testing_iso > "{self.min_date}"') 
         
         dataframe = dataframe.query(f'days_passed > {self.exp_cutoff}')
 
@@ -111,19 +128,22 @@ class AtaxiaAna:
         dataframe = dataframe[~dataframe['subj_id'].isin(contacted_participants)]
 
         #create list of ineligible participants
-        ineligible_participants = []
+        #ineligible_participants = list
 
         #remove ineligible from available participants
-        dataframe = dataframe[~dataframe['subj_id'].isin(ineligible_participants)]
+        #dataframe = dataframe[~dataframe['subj_id'].isin(ineligible_participants)]
 
         #filter dataframe for specific experiment
-        dataframe = dataframe.query('exp_id == "Sequence Preparation Motor"')
+        #dataframe = dataframe.query('exp_id == "Sequence Preparation Motor"')
         #dataframe = dataframe.query(f'exp_id == {self.exp_name}')  - FIRST need to convert name format
 
         if dataframe.empty==False:
             print(f'Congrats, you have {len(dataframe)} new available {self.group_name} participants!')
         if dataframe.empty==True:
             print(f'You have already contacted all available {self.group_name} participants.')
+
+        pd.options.display.max_rows
+        pd.set_option('display.max_rows', None)
 
         return dataframe
 
@@ -155,6 +175,30 @@ class ControlAna:
     def _load_dataframe(self):
         fpath = os.path.join(Defaults.EXTERNAL_DIR, self.testing_summary)
         return pd.read_csv(fpath)
+
+    
+    def _load_used_participants_dataframes(self):
+        full_dataframe = self.preprocess_dataframe()
+
+        fpath1 = os.path.join(Defaults.EXTERNAL_DIR, self.old_used_participants)
+        dataframe_old = pd.read_csv(fpath1)
+
+        fpath2 = os.path.join(Defaults.EXTERNAL_DIR, self.used_participants)
+        dataframe_new = pd.read_csv(fpath2)
+
+        #concat old and new version of exp (difference: patients/controls in same exp)
+        my_dataframe = pd.concat([dataframe_old, dataframe_new])
+
+        #only include OC 
+        my_dataframe = my_dataframe[my_dataframe['subj_id'].str.contains(self.group_name, regex=False, case=False, na=False)]
+
+        #rename group column to match merged
+        my_dataframe['group'] = my_dataframe['group'].str.replace('control','OC')
+
+        #merge with merged database for participant info
+        dataframe = pd.merge(my_dataframe, full_dataframe, how = 'left')
+
+        return dataframe
     
     def _calculate_date_difference(self, date1, date2): 
         days_passed = float("NaN")
@@ -190,17 +234,7 @@ class ControlAna:
         dataframe['days_passed'] = dataframe.apply(lambda x: self._calculate_date_difference(x['current_date'], x['date_of_testing']), axis=1) 
         dataframe['age'] = dataframe.apply(lambda x: self._calculate_date_difference(x['current_date'], x['dob']), axis=1)/365
 
-        return dataframe
-
-    def _load_used_participants_dataframes(self):
-        fpath1 = os.path.join(Defaults.EXTERNAL_DIR, self.old_used_participants)
-        dataframe_old = pd.read_csv(fpath1)
-
-        fpath2 = os.path.join(Defaults.EXTERNAL_DIR, self.used_participants)
-        dataframe_new = pd.read_csv(fpath2)
-
-        return pd.concat([dataframe_old, dataframe_new])
-        
+        return dataframe 
     
     def _subject_recent_experiment(self, eligible=True):
         #load in dataframe
@@ -227,11 +261,11 @@ class ControlAna:
         #remove contacted from available participants
         dataframe = dataframe[~dataframe['subj_id'].isin(contacted_participants)]
 
-        #create list of ineligible participants
-        ineligible_participants = []
+        #create list of ineligible participants - not need now
+        #ineligible_participants = list
 
         #remove ineligible from available participants
-        dataframe = dataframe[~dataframe['subj_id'].isin(ineligible_participants)]
+        #dataframe = dataframe[~dataframe['subj_id'].isin(ineligible_participants)]
 
         #filter dataframe for specific experiment
         dataframe = dataframe.query('exp_id == "Sequence Preparation Motor"')

@@ -672,7 +672,7 @@ class ExpSentences:
     def __init__(self):
         pass
     
-    def clean_data(self, task_name = "cort_language", versions = [10,11], bad_subjs = [6, 8, 10, 16]):
+    def clean_data(self, task_name = "cort_language", versions = [10,11,12], bad_subjs = [6, 8, 10, 16]): 
         """
         cleans data downloaded from gorilla. removes any rows that are not trials
         and remove bad subjs if they exist
@@ -706,7 +706,7 @@ class ExpSentences:
             def _rename_cols(dataframe):
                 """rename some columns for analysis
                 """
-                return dataframe.rename({'Local Date':'local_date','Experiment ID':'experiment_id', 'Experiment Version':'experiment_version', 'Participant Public ID':'participant_public_id', 'Participant Private ID':'participant_id', 
+                return dataframe.rename({'Local Date':'local_date','Experiment ID':'experiment_id', 'Experiment Version':'experiment_version', 'Participant Public ID':'participant_id', 'Participant Private ID':'participant_private_id', 
                             'Task Name':'task_name', 'Task Version':'task_version', 'Spreadsheet Name':'spreadsheet_version', 'Spreadsheet Row': 'spreadsheet_row', 'Trial Number':'sentence_num', 'Zone Type':'zone_type', 
                             'Reaction Time':'rt', 'Response':'response', 'Attempt':'attempt', 'Correct':'correct', 'Incorrect':'incorrect', 'Participant Starting Group':'group'}, axis=1)
 
@@ -743,7 +743,14 @@ class ExpSentences:
             df_all = pd.concat([df_all, df])
 
             #correct participant ids (1-n)
-            df_all = self._relabel_part_id(df_all)
+            #df_all = self._relabel_part_id(df_all)
+
+            #ADD code to attach sequential number to subj_id repeats
+            #if overcomplicated, manually attach number to subj_id for cases
+            #cases: 
+                #3rd sAA -> sAA2
+                #2nd sEO -> sEO1
+            #df_all['participant_id'] = df_all['participant_id'].str.replace(" ", "|")
 
             # filter out bad subjs based on id
             df_all = self._remove_bad_subjs(df_all, bad_subjs=bad_subjs)
@@ -860,6 +867,8 @@ class ExpSentences:
             value = "CONCAT OF 7-9. Shortened to 5 runs (experiment)" 
         elif version==11:
             value = "added keyboard reminder. patient + control exp combined (automatic 'group')" 
+        elif version==12:
+            value = "same as 11"
         else:
             print(f'please update version description for {version}')
         return value
@@ -869,7 +878,7 @@ class EnglishPrescreen:
     def __init__(self):
         pass
 
-    def clean_data(self, task_name = "prepilot_english", versions = [10,11]):
+    def clean_data(self, task_name = "prepilot_english", versions = [10,11,12]):
         """
         cleans english preprocessing task data downloaded from gorilla. removes any rows that are not trials.
         """
