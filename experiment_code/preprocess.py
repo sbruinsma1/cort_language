@@ -751,6 +751,7 @@ class ExpSentences:
                 #3rd sAA -> sAA2
                 #2nd sEO -> sEO1
             #df_all['participant_id'] = df_all['participant_id'].str.replace(" ", "|")
+            #LOOK AT QUERYING FOR VERSION!
 
             # filter out bad subjs based on id
             df_all = self._remove_bad_subjs(df_all, bad_subjs=bad_subjs)

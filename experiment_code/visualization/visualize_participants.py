@@ -43,49 +43,93 @@ class MyParticipants:
         dropped = ['sAI', 'sLA', 'sDH']
         df_all = df_all[~df_all.public_id.isin(dropped)] 
 
+        #still need to make 1 row for each subject (if possible without deleting data)
+
         return df_all
 
-    #ERROR WITH BELOW: cannot astype a datetimelike from [datetime64[ns]] to [float64] -- although df contains values
-
     def yoe_dist(self, dataframe):
-        """ *plots kde plot of distribution of of years of education across groups.
+        """gives distplot of years of education, broken down by group
         """
+        sns.set(rc={'figure.figsize':(20,10)})
 
-        #drop odd cases to allow for visualization
+        #remove non-numerical cases
         dataframe = dataframe[dataframe.years_of_education != '13-16']
         dataframe = dataframe[dataframe.years_of_education != '20+']
 
-        dataframe['years_of_education'] = dataframe['years_of_education'].astype(float)
-
-        plt.figure(figsize=(10,10))
-
-        sns.kdeplot(data = dataframe, x = 'years_of_education', hue = 'group', shade=True)
-                      
-        plt.title(f'Distribution of YOE for {self.group} group', fontsize=20);
-        plt.xlabel('years of education', fontsize=20)
-        plt.legend(self.group, fontsize=20)
-        plt.xticks(fontsize=20)
-        plt.yticks(fontsize=20)
+        dist = sns.FacetGrid(dataframe, hue="group")
+        dist = dist.map(sns.distplot, "years_of_education", hist=False, rug=True)
+        plt.legend(self.group, fontsize=10)
+        plt.xlabel('Years of Education', fontsize=20)
+        plt.title(f'Distribution of years of education for participants', fontsize=20);
+        plt.xticks(fontsize=10)
+        plt.yticks(fontsize=10);
 
         plt.show()
 
     def age_dist(self, dataframe):
-        """ *plots kde plot of distribution of of years of education across groups.
+        """ gives distplot of age, broken down by group
         """
-        plt.figure(figsize=(10,10))
+        sns.set(rc={'figure.figsize':(20,10)})
 
-        sns.kdeplot(data = dataframe, x = 'age', hue = 'group', shade=True)
-                      
-        plt.title(f'Distribution of age for {self.group} group', fontsize=20);
-        plt.xlabel('age', fontsize=20)
-        plt.legend(self.group, fontsize=20)
+        dist = sns.FacetGrid(dataframe, hue="group")
+        dist = dist.map(sns.distplot, "age", hist=False, rug=True)
+        plt.legend(self.group, fontsize=10)           
+        plt.title(f'Distribution of age for participants', fontsize=20);
+        plt.xlabel('Age', fontsize=20)
+        plt.xticks(fontsize=10)
+        plt.yticks(fontsize=10)
+
+        plt.show()
+
+    def sex_count(self, dataframe):
+        """ gives countplot of gender, broken down by group
+        """
+        sns.set(rc={'figure.figsize':(20,10)})
+
+        sns.countplot(x='gender', hue='group', data= dataframe)         
+        plt.title(f'Distribution of sex for participants', fontsize=20)
+        plt.xlabel('Sex', fontsize=20)
         plt.xticks(fontsize=20)
         plt.yticks(fontsize=20)
 
         plt.show()
 
+    def moca_dist(self, dataframe):
+        """ gives distplot of MoCA scores, broken down by group
+        """
+        sns.set(rc={'figure.figsize':(20,10)})
+
+        dataframe['MOCA_total_score'] = np.where(dataframe['MOCA_total_score'] == '26/29', 26, dataframe['MOCA_total_score'])
+
+        dist = sns.FacetGrid(dataframe, hue="group")
+        dist = dist.map(sns.distplot, "MOCA_total_score", hist=False, rug=True)
+        plt.legend(self.group, fontsize=10)           
+        plt.title(f'Distribution of MoCA scores for participants', fontsize=20)
+        plt.xlabel('MoCA score (out of 29)', fontsize=20)
+        plt.xticks(fontsize=10)
+        plt.yticks(fontsize=10)
+
+        plt.show()
+
+    def sara_dist(self, dataframe):
+        """ gives distplot of SARA scores, only for SCA
+        """
+        sns.set(rc={'figure.figsize':(20,10)})
+
+        dataframe = dataframe.query('group == "SCA"')
+        sns.distplot(dataframe["SARA_total_score"], hist=False, rug=True)
+        plt.legend(self.group, fontsize=10)           
+        plt.title(f'Distribution of SARA scores for participants', fontsize=20);
+        plt.xlabel('SARA score (out of 40)', fontsize=20)
+        plt.xticks(fontsize=10)
+        plt.yticks(fontsize=10)
+
+        plt.show()
+
+    #etiology data only in deanonymized database
+
 class AllParticipants:
-    def __init__(self, group = ['SCA', 'OC']):
+    def __init__(self, group = ['SCA', 'OC']): #change to access 1 group?
         # data cleaning stuff
         self.group = group 
 
@@ -108,28 +152,36 @@ class AllParticipants:
         return df_all
 
     def yoe_dist(self, dataframe):
-        """gives distplot of years of education
+        """gives distplot of years of education, broken down by group
         """
-        #drop odd cases to allow for visualization
+        sns.set(rc={'figure.figsize':(20,10)})
+
+        #remove non-numerical cases
         dataframe = dataframe[dataframe.years_of_education != '13-16']
         dataframe = dataframe[dataframe.years_of_education != '20+']
 
-        sns.distplot(dataframe['years_of_education'])
-        plt.xlabel('years of education', fontsize=20)
-        plt.title(f'Distribution of YOE for {self.group} group', fontsize=20);
+        dist = sns.FacetGrid(dataframe, hue="group")
+        dist = dist.map(sns.distplot, "years_of_education", hist=False, rug=True)
+        plt.legend(self.group, fontsize=10)
+        plt.xlabel('Years of Education', fontsize=20)
+        plt.title(f'Distribution of years of education for participant database', fontsize=20);
         plt.xticks(fontsize=10)
         plt.yticks(fontsize=10);
 
         plt.show()
 
     def age_dist(self, dataframe):
-        """gives distplot of years of education
+        """gives distplot of age, broken down by group
         """
-        sns.distplot(dataframe['age'])
-        plt.xlabel('age (years)', fontsize=20)
-        plt.title(f'Distribution of age for {self.group} group', fontsize=20);
-        plt.xticks(fontsize=10)
-        plt.yticks(fontsize=10);
+        sns.set(rc={'figure.figsize':(20,10)})
+
+        dist = sns.FacetGrid(dataframe, hue="group")
+        dist = dist.map(sns.distplot, "age", hist=False, rug=True)
+        plt.legend(self.group, fontsize=10)           
+        plt.title(f'Distribution of age for participants for participant database', fontsize=20);
+        plt.xlabel('Age', fontsize=20)
+        plt.xticks(fontsize=20)
+        plt.yticks(fontsize=20)
 
         plt.show()
 
@@ -158,13 +210,56 @@ class AvaParticipants:
 
     
     def yoe_dist(self, dataframe):
+        """gives distplot of years of education, broken down by group
+        """
+        sns.set(rc={'figure.figsize':(20,10)})
+
+        #remove non-numerical cases
+        dataframe = dataframe[dataframe.years_of_education != '13-16']
+        dataframe = dataframe[dataframe.years_of_education != '20+']
+
+        dist = sns.FacetGrid(dataframe, hue="group")
+        dist = dist.map(sns.distplot, "years_of_education", hist=False, rug=True)
+        plt.legend(self.group, fontsize=10)
+        plt.xlabel('Years of Education', fontsize=20)
+        plt.title(f'Distribution of years of education for available participants', fontsize=20);
+        plt.xticks(fontsize=10)
+        plt.yticks(fontsize=10);
+
+        plt.show()
+
+    def age_dist(self, dataframe):
+        """gives distplot of age, broken down by group
+        """
+        sns.set(rc={'figure.figsize':(20,10)})
+
+        dist = sns.FacetGrid(dataframe, hue="group")
+        dist = dist.map(sns.distplot, "age", hist=False, rug=True)
+        plt.legend(self.group, fontsize=10)           
+        plt.title(f'Distribution of age for participants for available participants', fontsize=20);
+        plt.xlabel('Age', fontsize=20)
+        plt.xticks(fontsize=20)
+        plt.yticks(fontsize=20)
+
+        plt.show()
+
+
+
+
+
+    def yoe_dist1(self, dataframe):
         """gives distplot of years of education
         """
         #drop odd cases to allow for visualization
         dataframe = dataframe[dataframe.years_of_education != '13-16']
         dataframe = dataframe[dataframe.years_of_education != '20+']
 
-        sns.distplot(dataframe['years_of_education'])
+        df_sca = dataframe[dataframe.group == 'SCA']
+        df_oc = dataframe[dataframe.group == 'OC']
+
+        sns.distplot(df_sca['years_of_education'], label = 'patient')
+        sns.distplot(df_oc['years_of_education'], label = 'control')
+        plt.legend()
         plt.xlabel('years of education', fontsize=20)
         plt.title(f'Distribution of YOE for {self.group} group', fontsize=20);
         plt.xticks(fontsize=10)
@@ -172,13 +267,23 @@ class AvaParticipants:
 
         plt.show()
 
-    def age_dist(self, dataframe):
-        """gives distplot of years of education
+    def yoe_dist2(self, dataframe):
+        """gives distplot of yoe
         """
-        sns.distplot(dataframe['age'])
-        plt.xlabel('age (years)', fontsize=20)
-        plt.title(f'Distribution of age for {self.group} group', fontsize=20);
-        plt.xticks(fontsize=10)
-        plt.yticks(fontsize=10);
+        sns.set(rc={'figure.figsize':(20,10)})
+
+        dataframe = dataframe[dataframe.years_of_education != '13-16']
+        dataframe = dataframe[dataframe.years_of_education != '20+']
+
+        targets = [dataframe.loc[dataframe['group'] == group] for group in self.group]
+
+        #for i, group in enumerate(self.group):
+        for target in targets:
+            sns.distplot(target[['years_of_education']])
+            plt.legend(self.group, fontsize=10)
+            plt.xlabel('age (years)', fontsize=20)
+            plt.title(f'Distribution of age for {self.group} group', fontsize=20);
+            plt.xticks(fontsize=10)
+            plt.yticks(fontsize=10);
 
         plt.show()

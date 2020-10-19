@@ -145,7 +145,7 @@ class AtaxiaAna:
         pd.options.display.max_rows
         pd.set_option('display.max_rows', None)
 
-        return dataframe
+        return dataframe.sort_values('days_passed')
 
     def total_experiments(self):
         #load in dataframe
