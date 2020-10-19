@@ -5,8 +5,9 @@ import glob
 import re
 import matplotlib.pyplot as plt
 import seaborn as sns
-
 from pathlib import Path
+
+from sklearn.linear_model import LinearRegression
 
 import warnings
 warnings.filterwarnings("ignore")
@@ -645,12 +646,17 @@ class CoRTLanguageExp:
     
     def participant_accuracy(self, dataframe, hue=None):
         """ *gives frequency disribution of the percent correct per participant
+            Args: 
+                dataframe (pandas dataframe): dataframe output from `load_dataframe`
+                hue (str): default is None. 
         """
         #note: want additional legend for group of subject
         #important to first make correct repeated subj_ids
 
+        df = dataframe.groupby(['participant_id', 'group', 'block_num'])['correct'].mean().reset_index() 
+
         plt.figure(figsize=(10,10));
-        sns.barplot(x="participant_id", y="correct", hue=hue, data=dataframe)
+        sns.barplot(x="participant_id", y="correct", hue=hue, data=df)
         plt.xlabel('participant', fontsize=20)
         plt.ylabel('% correct', fontsize=20)
         plt.title('Number of correct answers', fontsize=20);
@@ -726,19 +732,26 @@ class CoRTLanguageExp:
 
         plt.show()
 
-    def rt_by_condition(self, dataframe, hue=None):
+    def rt_by_condition(self, dataframe, x='cloze_descript', hue='group'):
         """ *plots reaction time across easy vs hard cloze condition.
             does so only for meaningful and correct responses.
 
             hue: use 'group_condition_name' or 'group_CoRT_condition' (i.e. visualization variables)
         """
 
-        sns.set(rc={'figure.figsize':(20,10)})
+        # sns.set(rc={'figure.figsize':(20,10)})
 
-        sns.factorplot(x='condition_name', y='rt', hue=hue, data=dataframe.query('correct==1 and trial_type=="meaningful"'))
-        plt.xlabel('Cloze Condition', fontsize=20),
-        plt.ylabel('Reaction Time', fontsize=20)
-        plt.title('Reaction time across cloze conditions', fontsize=20);
+        if x=="cloze_descript":
+            x_label = "Cloze Probability"
+        elif x=="CoRT_descript":
+            x_label = "CoRT"
+        else:
+            x_label = x
+
+        sns.factorplot(x=x, y='rt', hue=hue, data=dataframe.query('correct==1 and trial_type=="meaningful"'))
+        plt.xlabel(x_label, fontsize=20),
+        plt.ylabel('RT (ms)', fontsize=20)
+        # plt.title(f'Reaction time across {x_label}', fontsize=20);
         plt.tick_params(axis = 'both', which = 'major', labelsize = 20)
 
         plt.show()
@@ -856,7 +869,6 @@ class CoRTLanguageExp:
 
         plt.show()
 
-
     def rt_cont_cloze_control(self, dataframe):
         """rt for continuous variable of cloze -- scatter 4 each participant
         """
@@ -887,8 +899,60 @@ class CoRTLanguageExp:
         grouped_table.columns = ["_".join(pair) for pair in grouped_table.columns]
         grouped_table.columns = grouped_table.columns.str.strip('_')
     
-    #eventually: regression model to see how variables explain RT variance (psypy)
+    def scatterplot_cort(self, dataframe):
+        df = dataframe[dataframe['correct']==1]
+        df = pd.pivot_table(df, index='participant_id', columns=['CoRT_descript'], values='rt', aggfunc={'rt': np.mean})
 
+        sns.lmplot(data = df, x = "strong CoRT", y = "strong non-CoRT"); 
+        plt.show()
+
+    def scatterplot_cloze(self, dataframe):
+        df = dataframe[dataframe['correct']==1]
+        df = pd.pivot_table(df, index='participant_id', columns=['cloze_descript'], values='rt', aggfunc={'rt': np.mean})
+
+        sns.lmplot(data = df, x = "low cloze", y = "high cloze"); 
+        plt.show()
+
+    def linear_model_cort(self, dataframe):
+
+        df = dataframe[dataframe['correct']==1].groupby(['participant_id', 'CoRT_descript'])['rt'].apply(lambda x: x.mean()).reset_index()
+
+        # initialise linear regression model
+        model = LinearRegression()
+
+        # do one hot encoding of participant id
+        X = pd.get_dummies(df['participant_id'])
+
+        # fit model
+        model.fit(X=X, y=df['rt'])
+
+        df_out = pd.DataFrame({'group': [ele[0] for ele in X.columns], 'coef': model.coef_})
+
+        sns.boxplot(x='group', y='coef', data=df_out)
+        sns.swarmplot(x='group', y='coef', data=df_out, color=".25")
+        plt.ylabel('Pace (ms / CoRT)')
+        plt.show()
+
+    def linear_model_cloze(self, dataframe):
+
+        df = dataframe[dataframe['correct']==1].groupby(['participant_id', 'cloze_descript'])['rt'].apply(lambda x: x.mean()).reset_index()
+
+        # initialise linear regression model
+        model = LinearRegression()
+
+        # do one hot encoding of participant id
+        X = pd.get_dummies(df['participant_id'])
+
+        # fit model
+        model.fit(X=X, y=df['rt'])
+
+        df_out = pd.DataFrame({'group': [ele[0] for ele in X.columns], 'coef': model.coef_})
+
+        sns.boxplot(x='group', y='coef', data=df_out)
+        sns.swarmplot(x='group', y='coef', data=df_out, color=".25")
+        plt.ylabel('Pace (ms / cloze)')
+        plt.show()
+        
 class EnglishVerif:
 
     def __init__(self):

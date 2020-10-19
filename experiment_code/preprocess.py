@@ -742,18 +742,18 @@ class ExpSentences:
             # concat versions if there are more than one
             df_all = pd.concat([df_all, df])
 
-            #correct participant ids (1-n)
-            #df_all = self._relabel_part_id(df_all)
+        #correct participant ids (1-n)
+        df_all = self._relabel_part_id(df_all)
 
-            #ADD code to attach sequential number to subj_id repeats
-            #if overcomplicated, manually attach number to subj_id for cases
-            #cases: 
-                #3rd sAA -> sAA2
-                #2nd sEO -> sEO1
-            #df_all['participant_id'] = df_all['participant_id'].str.replace(" ", "|")
+        #ADD code to attach sequential number to subj_id repeats
+        #if overcomplicated, manually attach number to subj_id for cases
+        #cases: 
+            #3rd sAA -> sAA2
+            #2nd sEO -> sEO1
+        #df_all['participant_id'] = df_all['participant_id'].str.replace(" ", "|")
 
-            # filter out bad subjs based on id
-            df_all = self._remove_bad_subjs(df_all, bad_subjs=bad_subjs)
+        # # filter out bad subjs based on id
+        # df_all = self._remove_bad_subjs(df_all, bad_subjs=bad_subjs)
 
         return df_all
 
@@ -790,18 +790,30 @@ class ExpSentences:
         
         return blocks
 
-    def _relabel_part_id(self, dataframe):
-        # get all values of participant id
-        old_id = dataframe['participant_id'].values
+    def _relabel_part_id(self, dataframe): 
 
-        # get new values of participant id
-        temp = defaultdict(lambda: len(temp))
-        res = [temp[ele] for ele in old_id]
+        groups = np.unique(dataframe['group'])
 
-        # assign new participant id to dataframe
-        dataframe['participant_id'] = np.array(res) + 1
+        df_all = pd.DataFrame()
+        for group in groups:
+
+            # filter dataframe first
+            df = dataframe[dataframe['group']==group]
+
+            # get all values of participant id
+            old_id = df['participant_private_id'].values
+
+            # get new values of participant id
+            temp = defaultdict(lambda: len(temp))
+            res = [temp[ele] for ele in old_id]
+
+            # assign new participant id to dataframe
+            part_num = np.array(res) + 1
+            df['participant_id'] = df['group'].str[0] + part_num.astype(str)
+
+            df_all = pd.concat([df_all, df])
     
-        return dataframe
+        return df_all
 
     def _remove_bad_subjs(self, dataframe, bad_subjs):
         """ removes bad subj from dataframe and returns filtered dataframe
