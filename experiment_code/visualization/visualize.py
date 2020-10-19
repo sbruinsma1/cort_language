@@ -614,7 +614,7 @@ class CoRTLanguageExp:
     def __init__(self, task_name='cort_language', 
                 task_type='experiment',
                 versions=[10,11,12],
-                bad_subjs=['sAI', 'sLA', 'sDH']):
+                bad_subjs=['p06', 'p11', 'p08', 'c05']):
         # data cleaning stuff
         self.task_name = task_name
         self.task_type = task_type
@@ -634,7 +634,8 @@ class CoRTLanguageExp:
                             bad_subjs=self.bad_subjs)
 
         #get group with cloze condition 
-        df['group_condition_name'] = df['group'] + " " + df['condition_name']
+        # df['group_condition_name'] = df['group'] + " " + df['condition_name']
+        df['group_cloze_name'] = df['group'] + " " + df['cloze_descript']
 
         #get group with CoRT description
         df['group_CoRT_condition'] = df['group'] + " " + df['CoRT_descript']
@@ -653,10 +654,10 @@ class CoRTLanguageExp:
         #note: want additional legend for group of subject
         #important to first make correct repeated subj_ids
 
-        df = dataframe.groupby(['participant_id', 'group', 'block_num'])['correct'].mean().reset_index() 
+        # df = dataframe.groupby(['participant_id', 'group', 'block_num'])['correct'].mean().reset_index() 
 
         plt.figure(figsize=(10,10));
-        sns.barplot(x="participant_id", y="correct", hue=hue, data=df)
+        sns.barplot(x="participant_id", y="correct", hue=hue, data=dataframe)
         plt.xlabel('participant', fontsize=20)
         plt.ylabel('% correct', fontsize=20)
         plt.title('Number of correct answers', fontsize=20);
@@ -701,15 +702,15 @@ class CoRTLanguageExp:
 
         plt.show()
 
-    def accuracy_by_condition(self, dataframe, hue=None):
+    def accuracy_by_condition(self, dataframe, x='cloze_descript', hue=None):
         """ *plots reaction time across runs, categorized by easy vs hard cloze condition.
             does so only for meaningful and correct responses.
         """
 
         sns.set(rc={'figure.figsize':(20,10)})
 
-        sns.factorplot(x='condition_name', y='correct', hue=hue, data=dataframe.query('attempt==1 and trial_type=="meaningful"'))
-        plt.xlabel('Run', fontsize=20),
+        sns.factorplot(x=x, y='correct', hue=hue, data=dataframe.query('attempt==1 and trial_type=="meaningful"'))
+        plt.xlabel(x, fontsize=20),
         plt.ylabel('% Correct', fontsize=20)
         plt.title('Accuracy across conditions', fontsize=20);
         plt.tick_params(axis = 'both', which = 'major', labelsize = 20)
@@ -933,9 +934,13 @@ class CoRTLanguageExp:
         plt.ylabel('Pace (ms / CoRT)')
         plt.show()
 
+        # stats_out = stats.ttest_ind(df_out[df_out['group']=="c"]['coef'], df_out[df_out['group']=="p"]['coef'])
+
+        # print(float(stats_out.pvalue))
+
     def linear_model_cloze(self, dataframe):
 
-        df = dataframe[dataframe['correct']==1].groupby(['participant_id', 'cloze_descript'])['rt'].apply(lambda x: x.mean()).reset_index()
+        df = dataframe[dataframe['correct']==1].groupby(['group', 'participant_id', 'cloze_descript'])['rt'].apply(lambda x: x.mean()).reset_index()
 
         # initialise linear regression model
         model = LinearRegression()
