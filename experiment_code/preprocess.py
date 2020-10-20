@@ -733,6 +733,9 @@ class ExpSentences:
             # get version
             df["version"] = version
 
+            #relabel CoRT column values (remove "strong")
+            df['CoRT_descript'] = df['CoRT_descript'].str.split(n=1).str[1]
+
             # get condition name (make sure it's just characters)
             df['condition_name'] = df['condition_name'].str.extract('([a-zA-Z]*)')
 
