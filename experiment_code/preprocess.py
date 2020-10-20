@@ -706,7 +706,7 @@ class ExpSentences:
             def _rename_cols(dataframe):
                 """rename some columns for analysis
                 """
-                return dataframe.rename({'Local Date':'local_date','Experiment ID':'experiment_id', 'Experiment Version':'experiment_version', 'Participant Public ID':'participant_id', 'Participant Private ID':'participant_private_id', 
+                return dataframe.rename({'Local Date':'local_date','Experiment ID':'experiment_id', 'Experiment Version':'experiment_version', 'Participant Public ID':'participant_public_id', 'Participant Private ID':'participant_id', 
                             'Task Name':'task_name', 'Task Version':'task_version', 'Spreadsheet Name':'spreadsheet_version', 'Spreadsheet Row': 'spreadsheet_row', 'Trial Number':'sentence_num', 'Zone Type':'zone_type', 
                             'Reaction Time':'rt', 'Response':'response', 'Attempt':'attempt', 'Correct':'correct', 'Incorrect':'incorrect', 'Participant Starting Group':'group'}, axis=1)
 
@@ -801,7 +801,7 @@ class ExpSentences:
             df = dataframe[dataframe['group']==group]
 
             # get all values of participant id
-            old_id = df['participant_private_id'].values
+            old_id = df['participant_public_id'].values
 
             # get new values of participant id
             temp = defaultdict(lambda: len(temp))
