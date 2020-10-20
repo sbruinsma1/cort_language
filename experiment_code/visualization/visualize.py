@@ -6,6 +6,11 @@ import re
 import matplotlib.pyplot as plt
 import seaborn as sns
 from pathlib import Path
+from collections import defaultdict
+from functools import partial
+from scipy.stats import linregress
+
+from scipy.stats import f_oneway
 
 from sklearn.linear_model import LinearRegression
 
@@ -709,12 +714,20 @@ class CoRTLanguageExp:
 
         sns.set(rc={'figure.figsize':(20,10)})
 
-        sns.factorplot(x=x, y='correct', hue=hue, data=dataframe.query('attempt==1 and trial_type=="meaningful"'))
-        plt.xlabel(x, fontsize=20),
+        if x=="cloze_descript":
+            x_label = "Cloze"
+        elif x=="CoRT_descript":
+            x_label = "CoRT"
+        else:
+            x_label = x
+
+        sns.factorplot(x=x, y='correct', hue=hue, data=dataframe.query('attempt==1 and trial_type=="meaningful"'), legend=False)
+        plt.xlabel(x_label, fontsize=20),
         plt.ylabel('% Correct', fontsize=20)
-        plt.title('Accuracy across conditions', fontsize=20);
+        # plt.title('Accuracy across conditions', fontsize=20);
         plt.tick_params(axis = 'both', which = 'major', labelsize = 20)
-        plt.ylim(bottom=.7, top=1.0)
+        plt.ylim(bottom=.9, top=1.0)
+        plt.legend(loc='upper right', fontsize=15)
 
         plt.show()
  
@@ -725,35 +738,41 @@ class CoRTLanguageExp:
 
         sns.set(rc={'figure.figsize':(20,10)})
 
-        sns.factorplot(x='block_num', y='rt', hue=hue, data=dataframe.query('correct==1 and trial_type=="meaningful"'))
+        if hue=="cloze_descript":
+            df = dataframe.rename(columns={'cloze_descript': 'Cloze'})
+            hue = "Cloze"
+        elif hue=="CoRT_descript":
+            df = dataframe.rename(columns={'CoRT_descript': 'CoRT'})
+            hue = "CoRT"
+
+        ax = sns.factorplot(x='block_num', y='rt', hue=hue, data=df.query('correct==1 and trial_type=="meaningful"'))
         plt.xlabel('Run', fontsize=20),
-        plt.ylabel('Reaction Time', fontsize=20)
-        plt.title('Reaction time across runs', fontsize=20);
-        plt.tick_params(axis = 'both', which = 'major', labelsize = 20)
+        plt.ylabel('RT (ms)', fontsize=20)
+        # plt.title('Reaction time across runs', fontsize=20);
+        plt.tick_params(axis = 'both', which = 'major', labelsize = 20) 
 
         plt.show()
 
-    def rt_by_condition(self, dataframe, x='cloze_descript', hue='group'):
+    def rt_by_condition(self, dataframe, x='CoRT_descript', hue='group'):
         """ *plots reaction time across easy vs hard cloze condition.
             does so only for meaningful and correct responses.
 
             hue: use 'group_condition_name' or 'group_CoRT_condition' (i.e. visualization variables)
         """
 
-        # sns.set(rc={'figure.figsize':(20,10)})
+        sns.set(rc={'figure.figsize':(20,10)})
 
         if x=="cloze_descript":
-            x_label = "Cloze Probability"
+            xlabel = "Cloze"
         elif x=="CoRT_descript":
-            x_label = "CoRT"
-        else:
-            x_label = x
+            xlabel = "CoRT"
 
-        sns.factorplot(x=x, y='rt', hue=hue, data=dataframe.query('correct==1 and trial_type=="meaningful"'))
-        plt.xlabel(x_label, fontsize=20),
+        sns.factorplot(x=x, y='rt', hue=hue, data=dataframe.query('correct==1 and trial_type=="meaningful"'), legend=False)
+        plt.xlabel(xlabel, fontsize=20),
         plt.ylabel('RT (ms)', fontsize=20)
         # plt.title(f'Reaction time across {x_label}', fontsize=20);
         plt.tick_params(axis = 'both', which = 'major', labelsize = 20)
+        plt.legend(loc='upper right', fontsize=15)
 
         plt.show()
     
@@ -916,48 +935,115 @@ class CoRTLanguageExp:
 
     def linear_model_cort(self, dataframe):
 
-        df = dataframe[dataframe['correct']==1].groupby(['participant_id', 'CoRT_descript'])['rt'].apply(lambda x: x.mean()).reset_index()
+        df = dataframe[dataframe['correct']==1].groupby(['participant_id', 'CoRT_descript', 'block_num'])['rt'].apply(lambda x: x.mean()).reset_index()
 
         # initialise linear regression model
         model = LinearRegression()
 
-        # do one hot encoding of participant id
-        X = pd.get_dummies(df['participant_id'])
+        X = pd.get_dummies(df[['participant_id', 'CoRT_descript']])
 
         # fit model
         model.fit(X=X, y=df['rt'])
 
-        df_out = pd.DataFrame({'group': [ele[0] for ele in X.columns], 'coef': model.coef_})
+        df_out = pd.DataFrame({'group': [ele for ele in X.columns], 'coef': model.coef_})
+        df_out = df_out[df_out['group'].str.contains('participant')]
+        df_out['group'] = df_out['group'].apply(lambda x: 'control' if '_c' in x else 'patient')
 
         sns.boxplot(x='group', y='coef', data=df_out)
         sns.swarmplot(x='group', y='coef', data=df_out, color=".25")
         plt.ylabel('Pace (ms / CoRT)')
         plt.show()
 
-        # stats_out = stats.ttest_ind(df_out[df_out['group']=="c"]['coef'], df_out[df_out['group']=="p"]['coef'])
-
-        # print(float(stats_out.pvalue))
-
     def linear_model_cloze(self, dataframe):
 
-        df = dataframe[dataframe['correct']==1].groupby(['group', 'participant_id', 'cloze_descript'])['rt'].apply(lambda x: x.mean()).reset_index()
+        df = dataframe[dataframe['correct']==1].groupby(['participant_id', 'cloze_descript', 'block_num'])['rt'].apply(lambda x: x.mean()).reset_index()
 
         # initialise linear regression model
         model = LinearRegression()
 
         # do one hot encoding of participant id
-        X = pd.get_dummies(df['participant_id'])
+        # X = pd.get_dummies(df['participant_id'])
+        X = pd.get_dummies(df[['participant_id', 'cloze_descript']])
 
         # fit model
         model.fit(X=X, y=df['rt'])
 
-        df_out = pd.DataFrame({'group': [ele[0] for ele in X.columns], 'coef': model.coef_})
+        df_out = pd.DataFrame({'group': [ele for ele in X.columns], 'coef': model.coef_})
+        df_out = df_out[df_out['group'].str.contains('participant')]
+        df_out['group'] = df_out['group'].apply(lambda x: 'control' if '_c' in x else 'patient')
 
         sns.boxplot(x='group', y='coef', data=df_out)
         sns.swarmplot(x='group', y='coef', data=df_out, color=".25")
         plt.ylabel('Pace (ms / cloze)')
         plt.show()
         
+    def slope_cort(self, dataframe):
+        df = dataframe[dataframe['correct']==1].groupby(['participant_id', 'CoRT_descript', 'block_num'])['rt'].apply(lambda x: x.mean()).reset_index()
+
+        # get subjs
+        subjs = np.unique(df['participant_id'])
+
+        data_dict_all = defaultdict(partial(np.ndarray, 0))
+        for subj in subjs:
+            df_subj = df.query(f'participant_id=="{subj}"')
+
+            # calculate RT slope function
+            slope, intercept, r_value, p_value, std_err = linregress(df_subj[df_subj['CoRT_descript']=="strong CoRT"]['rt'], df_subj[df_subj['CoRT_descript']=="strong non-CoRT"]['rt'])
+
+            data_dict = {'subj': subj, 'slope': slope, 'intercept': intercept, 'r': r_value, 'p': p_value, 'std_error': std_err}
+
+            for k,v in data_dict.items():
+                # data_dict[k].append(v)
+                data_dict_all[k] = np.append(data_dict_all[k], v)
+
+        df_out = pd.DataFrame.from_dict(data_dict_all)
+        df_out['group'] = df_out['subj'].apply(lambda x: 'control' if 'c' in x else 'patient')
+
+        sns.set(rc={'figure.figsize':(10,10)})
+        sns.boxplot(x='group', y='slope', data=df_out)
+        sns.swarmplot(x='group', y='slope', data=df_out, color=".25")
+        plt.tick_params(axis = 'both', which = 'major', labelsize = 20)
+        plt.ylabel('Pace (ms / CoRT)', fontsize=20)
+        plt.xlabel('')
+        plt.show()
+
+        F, p = f_oneway(df[df['CoRT_descript']=="strong CoRT"]['rt'], df[df['CoRT_descript']=="strong non-CoRT"]['rt'])
+        print(f'F stat: {F}, p-value: {p}')
+
+    def slope_cloze(self, dataframe):
+
+        df = dataframe[dataframe['correct']==1].groupby(['participant_id', 'cloze_descript', 'block_num'])['rt'].apply(lambda x: x.mean()).reset_index()
+
+        # get subjs
+        subjs = np.unique(df['participant_id'])
+
+        data_dict_all = defaultdict(partial(np.ndarray, 0))
+        for subj in subjs:
+            df_subj = df.query(f'participant_id=="{subj}"')
+
+            # calculate RT slope function
+            slope, intercept, r_value, p_value, std_err = linregress(df_subj[df_subj['cloze_descript']=="high cloze"]['rt'], df_subj[df_subj['cloze_descript']=="low cloze"]['rt'])
+
+            data_dict = {'subj': subj, 'slope': slope, 'intercept': intercept, 'r': r_value, 'p': p_value, 'std_error': std_err}
+
+            for k,v in data_dict.items():
+                # data_dict[k].append(v)
+                data_dict_all[k] = np.append(data_dict_all[k], v)
+
+        df_out = pd.DataFrame.from_dict(data_dict_all)
+        df_out['group'] = df_out['subj'].apply(lambda x: 'control' if 'c' in x else 'patient')
+
+        sns.set(rc={'figure.figsize':(10,10)})
+        sns.boxplot(x='group', y='slope', data=df_out)
+        sns.swarmplot(x='group', y='slope', data=df_out, color=".25")
+        plt.tick_params(axis = 'both', which = 'major', labelsize = 20)
+        plt.ylabel('Pace (ms / Cloze)', fontsize=20)
+        plt.xlabel('')
+        plt.show()
+
+        F, p = f_oneway(df[df['cloze_descript']=="high cloze"]['rt'], df[df['cloze_descript']=="low cloze"]['rt'])
+        print(f'F stat: {F}, p-value: {p}')
+
 class EnglishVerif:
 
     def __init__(self):
