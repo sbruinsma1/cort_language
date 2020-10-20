@@ -672,7 +672,7 @@ class ExpSentences:
     def __init__(self):
         pass
     
-    def clean_data(self, task_name = "cort_language", versions = [10,11,12], bad_subjs = ['sAI', 'sLA', 'sDH']): #plus one iterance of sEO?
+    def clean_data(self, task_name = "cort_language", versions = [10,11,12], bad_subjs = ['p06', 'p11', 'p08', 'c05']): #plus one iterance of sEO?
         """
         cleans data downloaded from gorilla. removes any rows that are not trials
         and remove bad subjs if they exist
@@ -753,7 +753,7 @@ class ExpSentences:
         #df_all['participant_id'] = df_all['participant_id'].str.replace(" ", "|")
 
         # # filter out bad subjs based on id
-        # df_all = self._remove_bad_subjs(df_all, bad_subjs=bad_subjs)
+        df_all = self._remove_bad_subjs(df_all, bad_subjs=bad_subjs)
 
         return df_all
 
@@ -809,7 +809,8 @@ class ExpSentences:
 
             # assign new participant id to dataframe
             part_num = np.array(res) + 1
-            df['participant_id'] = df['group'].str[0] + part_num.astype(str)
+            part_num = part_num.astype(str)
+            df['participant_id'] = df['group'].str[0] + np.char.zfill(part_num, 2)
 
             df_all = pd.concat([df_all, df])
     
