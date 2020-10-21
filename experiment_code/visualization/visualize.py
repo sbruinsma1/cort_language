@@ -825,18 +825,22 @@ class CoRTLanguageExp:
 
     #WORKING FUNCS
 
-    def average_rt(self, dataframe, x = None):
+    def average_rt(self, dataframe, x='CoRT_descript', hue='group'):
         """plot slope of RT across blocks for  (e.g. cloze)
         """
         sns.set(rc={'figure.figsize':(20,10)})
-
-        #note: still need to add grouping by subject first (problem with indexing)
-        #grouped_df['rt_slope'] = df.groupby(['participant_id', 'block_num']).apply(lambda x: x['rt'].iloc[0] - x['rt'].iloc[4]/x['block_num'])grouped_df.array
-
-        sns.catplot(x=x, y="rt", hue='group', kind="box", data=dataframe.query('correct==1 and trial_type=="meaningful"'))
-        plt.xlabel(f'{x}', fontsize=20),
-        plt.ylabel('Reaction Time', fontsize=20)
-        plt.title('Average reaction time between cloze conditions', fontsize=20);
+        df = dataframe[(dataframe['trial_type']=="meaningful") & (dataframe['correct']==1)]
+        df = df.groupby(['participant_id', x, hue])['rt'].agg('mean').reset_index()
+        df.columns = ["".join(x) for x in df.columns.ravel()]
+        
+        # sns.barplot(x=x, y='rt', hue=hue, data=df)
+        g = sns.catplot(x=x, y='rt', hue=hue, data=df ,kind='box') # kind='box'
+        # sns.swarmplot(x=x, y='rt', hue=hue, data=df)
+        # plt.xlabel(x, fontsize=20)
+        plt.xlabel('')
+        plt.ylabel('Reaction Time (ms)', fontsize=20)
+        # ax1.axhline(10, ls='--')
+        # plt.title('Average reaction time between cloze conditions', fontsize=20);
         plt.tick_params(axis = 'both', which = 'major', labelsize = 15)
         plt.ylim(0, 1500)
 
@@ -933,52 +937,8 @@ class CoRTLanguageExp:
         sns.lmplot(data = df, x = "low cloze", y = "high cloze"); 
         plt.show()
 
-    def linear_model_cort(self, dataframe):
-
-        df = dataframe[dataframe['correct']==1].groupby(['participant_id', 'CoRT_descript', 'block_num'])['rt'].apply(lambda x: x.mean()).reset_index()
-
-        # initialise linear regression model
-        model = LinearRegression()
-
-        X = pd.get_dummies(df[['participant_id', 'CoRT_descript']])
-
-        # fit model
-        model.fit(X=X, y=df['rt'])
-
-        df_out = pd.DataFrame({'group': [ele for ele in X.columns], 'coef': model.coef_})
-        df_out = df_out[df_out['group'].str.contains('participant')]
-        df_out['group'] = df_out['group'].apply(lambda x: 'control' if '_c' in x else 'patient')
-
-        sns.boxplot(x='group', y='coef', data=df_out)
-        sns.swarmplot(x='group', y='coef', data=df_out, color=".25")
-        plt.ylabel('Pace (ms / CoRT)')
-        plt.show()
-
-    def linear_model_cloze(self, dataframe):
-
-        df = dataframe[dataframe['correct']==1].groupby(['participant_id', 'cloze_descript', 'block_num'])['rt'].apply(lambda x: x.mean()).reset_index()
-
-        # initialise linear regression model
-        model = LinearRegression()
-
-        # do one hot encoding of participant id
-        # X = pd.get_dummies(df['participant_id'])
-        X = pd.get_dummies(df[['participant_id', 'cloze_descript']])
-
-        # fit model
-        model.fit(X=X, y=df['rt'])
-
-        df_out = pd.DataFrame({'group': [ele for ele in X.columns], 'coef': model.coef_})
-        df_out = df_out[df_out['group'].str.contains('participant')]
-        df_out['group'] = df_out['group'].apply(lambda x: 'control' if '_c' in x else 'patient')
-
-        sns.boxplot(x='group', y='coef', data=df_out)
-        sns.swarmplot(x='group', y='coef', data=df_out, color=".25")
-        plt.ylabel('Pace (ms / cloze)')
-        plt.show()
-        
     def slope_cort(self, dataframe):
-        df = dataframe[dataframe['correct']==1].groupby(['participant_id', 'CoRT_descript', 'block_num'])['rt'].apply(lambda x: x.mean()).reset_index()
+        df = dataframe[(dataframe['correct']==1) & (dataframe['trial_type']=="meaningful")].groupby(['participant_id', 'CoRT_descript', 'block_num'])['rt'].apply(lambda x: x.mean()).reset_index()
 
         # get subjs
         subjs = np.unique(df['participant_id'])
@@ -1012,7 +972,7 @@ class CoRTLanguageExp:
 
     def slope_cloze(self, dataframe):
 
-        df = dataframe[dataframe['correct']==1].groupby(['participant_id', 'cloze_descript', 'block_num'])['rt'].apply(lambda x: x.mean()).reset_index()
+        df = dataframe[(dataframe['correct']==1) & (dataframe['trial_type']=="meaningful")].groupby(['participant_id', 'cloze_descript', 'block_num'])['rt'].apply(lambda x: x.mean()).reset_index()
 
         # get subjs
         subjs = np.unique(df['participant_id'])
@@ -1043,6 +1003,9 @@ class CoRTLanguageExp:
 
         F, p = f_oneway(df[df['cloze_descript']=="high cloze"]['rt'], df[df['cloze_descript']=="low cloze"]['rt'])
         print(f'F stat: {F}, p-value: {p}')
+
+    def simulate_hypotheses(self):
+        pass
 
 class EnglishVerif:
 
