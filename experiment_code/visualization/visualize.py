@@ -619,7 +619,7 @@ class CoRTLanguageExp:
     def __init__(self, task_name='cort_language', 
                 task_type='experiment',
                 versions=[10,11,12],
-                bad_subjs=['p06', 'p11', 'p08','c04']):
+                bad_subjs=['p06', 'p11', 'p08','c04', 'c17']):
         # data cleaning stuff
         self.task_name = task_name
         self.task_type = task_type
@@ -717,7 +717,7 @@ class CoRTLanguageExp:
         """
 
         sns.set(rc={'figure.figsize':(20,10)})
-        sns.set_palette("Paired")
+        #sns.set_palette("Paired")
 
         if x=="cloze_descript":
             x_label = "Cloze"
@@ -727,7 +727,7 @@ class CoRTLanguageExp:
             x_label = x
 
         sns.factorplot(x=x, y='correct', hue=hue, data=dataframe.query('attempt==1 and trial_type=="meaningful"'), legend=False)
-        plt.xlabel(x_label, fontsize=20),
+        #plt.xlabel(x_label, fontsize=20),
         plt.ylabel('% Correct', fontsize=20)
         # plt.title('Accuracy across conditions', fontsize=20);
         plt.tick_params(axis = 'both', which = 'major', labelsize = 20)
@@ -752,7 +752,7 @@ class CoRTLanguageExp:
 
         ax = sns.factorplot(x='block_num', y='rt', hue=hue, data=df.query('correct==1 and trial_type=="meaningful"'))
         plt.xlabel('Run', fontsize=20),
-        plt.ylabel('RT (ms)', fontsize=20)
+        plt.ylabel('Reaction Time (ms)', fontsize=20)
         # plt.title('Reaction time across runs', fontsize=20);
         plt.tick_params(axis = 'both', which = 'major', labelsize = 20) 
 
@@ -774,7 +774,7 @@ class CoRTLanguageExp:
 
         sns.factorplot(x=x, y='rt', hue=hue, data=dataframe.query('correct==1 and trial_type=="meaningful"'), legend=False)
         plt.xlabel(xlabel, fontsize=20),
-        plt.ylabel('RT (ms)', fontsize=20)
+        plt.ylabel('Reaction Time (ms)', fontsize=25)
         # plt.title(f'Reaction time across {x_label}', fontsize=20);
         plt.tick_params(axis = 'both', which = 'major', labelsize = 20)
         plt.legend(loc='upper right', fontsize=15)
@@ -789,7 +789,7 @@ class CoRTLanguageExp:
 
         sns.factorplot(x=x, y='rt', hue='group_CoRT_condition', data=dataframe.query('correct==1 and trial_type=="meaningful"'))
         plt.xlabel(f'{x}', fontsize=20),
-        plt.ylabel('Reaction Time', fontsize=20)
+        plt.ylabel('Reaction Time (ms)', fontsize=20)
         plt.title(f'Reaction time across covariate and CoRT conditions', fontsize=20);
         plt.tick_params(axis = 'both', which = 'major', labelsize = 20)
 
