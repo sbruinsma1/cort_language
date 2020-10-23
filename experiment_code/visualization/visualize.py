@@ -666,7 +666,7 @@ class CoRTLanguageExp:
         plt.legend(loc= "lower left", fontsize=15)
         plt.xlabel('Participant', fontsize=20)
         plt.ylabel('% correct', fontsize=20)
-        plt.title('Number of correct answers', fontsize=20);
+        # plt.title('Number of correct answers', fontsize=20);
         plt.yticks(fontsize=20);
         
         plt.show()
@@ -773,8 +773,14 @@ class CoRTLanguageExp:
             xlabel = "CoRT"
 
         sns.factorplot(x=x, y='rt', hue=hue, data=dataframe.query('correct==1 and trial_type=="meaningful"'), legend=False)
+<<<<<<< HEAD
         plt.xlabel(xlabel, fontsize=20),
         plt.ylabel('Reaction Time (ms)', fontsize=25)
+=======
+        plt.xlabel('', fontsize=20),
+        plt.ylabel('Reaction Time (ms)', fontsize=20)
+        plt.legend(loc= "upper right", fontsize=15)
+>>>>>>> 8d7cb47c7311275ae7ad5a5786e67a6a92cf4249
         # plt.title(f'Reaction time across {x_label}', fontsize=20);
         plt.tick_params(axis = 'both', which = 'major', labelsize = 20)
         plt.legend(loc='upper right', fontsize=15)
@@ -820,8 +826,6 @@ class CoRTLanguageExp:
 
         plt.show()
 
-    #EXTRA FUNCS - due to query of dataframe in above
-
     def run_accuracy_meaning(self, dataframe):
         """ plots accuracy across runs, categorized by easy vs hard cloze condition, and for each group.
             does so only for all responses.
@@ -853,8 +857,6 @@ class CoRTLanguageExp:
 
         plt.show()
 
-    #WORKING FUNCS
-
     def average_rt(self, dataframe, x='CoRT_descript', hue='group'):
         """plot slope of RT across blocks for  (e.g. cloze)
         """
@@ -864,7 +866,7 @@ class CoRTLanguageExp:
         df.columns = ["".join(x) for x in df.columns.ravel()]
         
         # sns.barplot(x=x, y='rt', hue=hue, data=df)
-        g = sns.catplot(x=x, y='rt', hue=hue, data=df ,kind='box') # kind='box'
+        g = sns.catplot(x=x, y='rt', hue=hue, data=df ,kind='box', legend=False) # kind='box'
         # sns.swarmplot(x=x, y='rt', hue=hue, data=df)
         # plt.xlabel(x, fontsize=20)
         plt.xlabel('')
@@ -872,10 +874,10 @@ class CoRTLanguageExp:
         # ax1.axhline(10, ls='--')
         # plt.title('Average reaction time between cloze conditions', fontsize=20);
         plt.tick_params(axis = 'both', which = 'major', labelsize = 15)
+        plt.legend(loc='upper right', fontsize=15)
         plt.ylim(0, 1500)
 
         plt.show()
-
 
     def rt_cont_cloze_control(self, dataframe):
         """rt for continuous variable of cloze -- scatter 4 each participant
@@ -988,8 +990,33 @@ class CoRTLanguageExp:
         F, p = f_oneway(df[df['cloze_descript']=="high cloze"]['rt'], df[df['cloze_descript']=="low cloze"]['rt'])
         print(f'F stat: {F}, p-value: {p}')
 
-    def simulate_hypotheses(self):
-        pass
+    def simulate_cort(self):
+        dataframe = pd.DataFrame({'group': ['control', 'patient', 'control', 'patient'],
+                                'CoRT': ['CoRT', 'CoRT', 'non-CoRT', 'non-CoRT'],
+                                'rt': [700, 900,700,750]})
+
+        sns.factorplot(x='CoRT', y='rt', hue='group', data=dataframe, legend=False)
+        plt.xlabel('', fontsize=20),
+        plt.ylabel('Reaction Time (ms)', fontsize=20)
+        plt.legend(loc= "upper right", fontsize=15)
+        # plt.title(f'Reaction time across {x_label}', fontsize=20);
+        plt.tick_params(axis = 'both', which = 'major', labelsize = 20)
+
+        plt.show()
+
+    def simulate_cloze(self):
+        dataframe = pd.DataFrame({'group': ['control', 'patient', 'control', 'patient'],
+                                'cloze': ['low cloze', 'low cloze', 'high cloze', 'high cloze'],
+                                'rt': [750, 800, 650, 780]})
+
+        sns.factorplot(x='cloze', y='rt', hue='group', data=dataframe, legend=False)
+        plt.xlabel('', fontsize=20),
+        plt.ylabel('Reaction Time (ms)', fontsize=20)
+        plt.legend(loc= "upper right", fontsize=15)
+        # plt.title(f'Reaction time across {x_label}', fontsize=20);
+        plt.tick_params(axis = 'both', which = 'major', labelsize = 20)
+
+        plt.show()
 
 class EnglishVerif:
 
