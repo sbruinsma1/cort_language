@@ -619,7 +619,7 @@ class CoRTLanguageExp:
     def __init__(self, task_name='cort_language', 
                 task_type='experiment',
                 versions=[10,11,12],
-                bad_subjs=['p06', 'p11', 'p08','c04', 'c17']):
+                bad_subjs=['p06', 'p11', 'p08','c04', 'c17']): #p16
         # data cleaning stuff
         self.task_name = task_name
         self.task_type = task_type
@@ -773,14 +773,10 @@ class CoRTLanguageExp:
             xlabel = "CoRT"
 
         sns.factorplot(x=x, y='rt', hue=hue, data=dataframe.query('correct==1 and trial_type=="meaningful"'), legend=False)
-<<<<<<< HEAD
-        plt.xlabel(xlabel, fontsize=20),
+        plt.xlabel('', fontsize=25),
         plt.ylabel('Reaction Time (ms)', fontsize=25)
-=======
-        plt.xlabel('', fontsize=20),
-        plt.ylabel('Reaction Time (ms)', fontsize=20)
+        plt.ylim=(600,1000)
         plt.legend(loc= "upper right", fontsize=15)
->>>>>>> 8d7cb47c7311275ae7ad5a5786e67a6a92cf4249
         # plt.title(f'Reaction time across {x_label}', fontsize=20);
         plt.tick_params(axis = 'both', which = 'major', labelsize = 20)
         plt.legend(loc='upper right', fontsize=15)
@@ -949,7 +945,7 @@ class CoRTLanguageExp:
         sns.boxplot(x='group', y='slope', data=df_out)
         sns.swarmplot(x='group', y='slope', data=df_out, color=".25")
         plt.tick_params(axis = 'both', which = 'major', labelsize = 20)
-        plt.ylabel('Pace (ms / CoRT)', fontsize=20)
+        plt.ylabel('RT slope (CoRT)', fontsize=20)
         plt.xlabel('')
         plt.show()
 
@@ -983,7 +979,7 @@ class CoRTLanguageExp:
         sns.boxplot(x='group', y='slope', data=df_out)
         sns.swarmplot(x='group', y='slope', data=df_out, color=".25")
         plt.tick_params(axis = 'both', which = 'major', labelsize = 20)
-        plt.ylabel('Pace (ms / Cloze)', fontsize=20)
+        plt.ylabel('Slope of RT for cloze)', fontsize=20)
         plt.xlabel('')
         plt.show()
 
@@ -996,8 +992,9 @@ class CoRTLanguageExp:
                                 'rt': [700, 900,700,750]})
 
         sns.factorplot(x='CoRT', y='rt', hue='group', data=dataframe, legend=False)
-        plt.xlabel('', fontsize=20),
-        plt.ylabel('Reaction Time (ms)', fontsize=20)
+        plt.xlabel('', fontsize=25),
+        plt.ylabel('Reaction Time (ms)', fontsize=25)
+        plt.ylim=(600,1000)
         plt.legend(loc= "upper right", fontsize=15)
         # plt.title(f'Reaction time across {x_label}', fontsize=20);
         plt.tick_params(axis = 'both', which = 'major', labelsize = 20)
@@ -1010,8 +1007,9 @@ class CoRTLanguageExp:
                                 'rt': [750, 800, 650, 780]})
 
         sns.factorplot(x='cloze', y='rt', hue='group', data=dataframe, legend=False)
-        plt.xlabel('', fontsize=20),
-        plt.ylabel('Reaction Time (ms)', fontsize=20)
+        plt.xlabel('', fontsize=25),
+        plt.ylabel('Reaction Time (ms)', fontsize=25)
+        plt.ylim=(600,1000)
         plt.legend(loc= "upper right", fontsize=15)
         # plt.title(f'Reaction time across {x_label}', fontsize=20);
         plt.tick_params(axis = 'both', which = 'major', labelsize = 20)
