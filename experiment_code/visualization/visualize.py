@@ -766,12 +766,14 @@ class CoRTLanguageExp:
         """
 
         sns.set(rc={'figure.figsize':(20,10)})
+        sns.set_style("whitegrid", {'axes.grid' : False})
 
         if x=="cloze_descript":
             xlabel = "Cloze"
         elif x=="CoRT_descript":
             xlabel = "CoRT"
 
+<<<<<<< HEAD
         sns.factorplot(x=x, y='rt', hue=hue, data=dataframe.query('correct==1 and trial_type=="meaningful"'), legend=False)
         plt.xlabel('', fontsize=25),
         plt.ylabel('Reaction Time (ms)', fontsize=25)
@@ -780,6 +782,13 @@ class CoRTLanguageExp:
         # plt.title(f'Reaction time across {x_label}', fontsize=20);
         plt.tick_params(axis = 'both', which = 'major', labelsize = 20)
         plt.legend(loc='upper right', fontsize=15)
+=======
+        sns.factorplot(x=x, y='rt', hue=hue, data=dataframe.query('correct==1 and trial_type=="meaningful"'), scale = 3, legend=False)
+        plt.xlabel('', fontsize=30),
+        plt.ylabel('Reaction Time (ms)', fontsize=30)
+        plt.tick_params(axis = 'both', which = 'major', labelsize = 30)
+        plt.legend(loc='upper right', fontsize=30, title_fontsize='40')
+>>>>>>> e234da400edd1cac4b86f362bdcfecc98ea6e587
 
         plt.show()
     
@@ -930,8 +939,11 @@ class CoRTLanguageExp:
             df_subj = df.query(f'participant_id=="{subj}"')
 
             # calculate RT slope function
-            slope, intercept, r_value, p_value, std_err = linregress(df_subj[df_subj['CoRT_descript']=="strong CoRT"]['rt'], df_subj[df_subj['CoRT_descript']=="strong non-CoRT"]['rt'])
-
+            try: 
+                slope, intercept, r_value, p_value, std_err = linregress(df_subj[df_subj['CoRT_descript']=="CoRT"]['rt'], df_subj[df_subj['CoRT_descript']=="non-CoRT"]['rt'])
+            except: 
+                pass
+            
             data_dict = {'subj': subj, 'slope': slope, 'intercept': intercept, 'r': r_value, 'p': p_value, 'std_error': std_err}
 
             for k,v in data_dict.items():
@@ -944,8 +956,13 @@ class CoRTLanguageExp:
         sns.set(rc={'figure.figsize':(10,10)})
         sns.boxplot(x='group', y='slope', data=df_out)
         sns.swarmplot(x='group', y='slope', data=df_out, color=".25")
+<<<<<<< HEAD
         plt.tick_params(axis = 'both', which = 'major', labelsize = 20)
         plt.ylabel('RT slope (CoRT)', fontsize=20)
+=======
+        plt.tick_params(axis = 'both', which = 'major', labelsize = 30)
+        plt.ylabel('RT slope (CoRT)', fontsize=30)
+>>>>>>> e234da400edd1cac4b86f362bdcfecc98ea6e587
         plt.xlabel('')
         plt.show()
 
@@ -964,7 +981,10 @@ class CoRTLanguageExp:
             df_subj = df.query(f'participant_id=="{subj}"')
 
             # calculate RT slope function
-            slope, intercept, r_value, p_value, std_err = linregress(df_subj[df_subj['cloze_descript']=="high cloze"]['rt'], df_subj[df_subj['cloze_descript']=="low cloze"]['rt'])
+            try:
+                slope, intercept, r_value, p_value, std_err = linregress(df_subj[df_subj['cloze_descript']=="high cloze"]['rt'], df_subj[df_subj['cloze_descript']=="low cloze"]['rt'])
+            except: 
+                pass
 
             data_dict = {'subj': subj, 'slope': slope, 'intercept': intercept, 'r': r_value, 'p': p_value, 'std_error': std_err}
 
@@ -978,8 +998,13 @@ class CoRTLanguageExp:
         sns.set(rc={'figure.figsize':(10,10)})
         sns.boxplot(x='group', y='slope', data=df_out)
         sns.swarmplot(x='group', y='slope', data=df_out, color=".25")
+<<<<<<< HEAD
         plt.tick_params(axis = 'both', which = 'major', labelsize = 20)
         plt.ylabel('Slope of RT for cloze)', fontsize=20)
+=======
+        plt.tick_params(axis = 'both', which = 'major', labelsize = 30)
+        plt.ylabel('RT slope (Cloze)', fontsize=30)
+>>>>>>> e234da400edd1cac4b86f362bdcfecc98ea6e587
         plt.xlabel('')
         plt.show()
 
@@ -1017,6 +1042,7 @@ class CoRTLanguageExp:
         plt.show()
 
 class EnglishVerif:
+
 
     def __init__(self):
         # data cleaning stuff
