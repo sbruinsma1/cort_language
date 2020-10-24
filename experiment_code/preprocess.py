@@ -882,9 +882,9 @@ class ExpSentences:
         elif version==10:
             value = "CONCAT OF 7-9. Shortened to 5 runs (experiment)" 
         elif version==11:
-            value = "added keyboard reminder. patient + control exp combined (automatic 'group')" 
+            value = "added keyboard reminder. patient + control exp combined (automatic 'group') - gorilla version 3" 
         elif version==12:
-            value = "same as 11"
+            value = "same as 11 - - gorilla version 5"
         else:
             print(f'please update version description for {version}')
         return value
