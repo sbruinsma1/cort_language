@@ -619,7 +619,7 @@ class CoRTLanguageExp:
     def __init__(self, task_name='cort_language', 
                 task_type='experiment',
                 versions=[10,11,12],
-                bad_subjs=[]):
+                bad_subjs=['c04', 'c12', 'p06', 'p08', 'p11']):
         # data cleaning stuff
         self.task_name = task_name
         self.task_type = task_type
@@ -929,8 +929,11 @@ class CoRTLanguageExp:
             df_subj = df.query(f'participant_id=="{subj}"')
 
             # calculate RT slope function
-            slope, intercept, r_value, p_value, std_err = linregress(df_subj[df_subj['CoRT_descript']=="strong CoRT"]['rt'], df_subj[df_subj['CoRT_descript']=="strong non-CoRT"]['rt'])
-
+            try: 
+                slope, intercept, r_value, p_value, std_err = linregress(df_subj[df_subj['CoRT_descript']=="CoRT"]['rt'], df_subj[df_subj['CoRT_descript']=="non-CoRT"]['rt'])
+            except: 
+                pass
+            
             data_dict = {'subj': subj, 'slope': slope, 'intercept': intercept, 'r': r_value, 'p': p_value, 'std_error': std_err}
 
             for k,v in data_dict.items():
@@ -943,8 +946,8 @@ class CoRTLanguageExp:
         sns.set(rc={'figure.figsize':(10,10)})
         sns.boxplot(x='group', y='slope', data=df_out)
         sns.swarmplot(x='group', y='slope', data=df_out, color=".25")
-        plt.tick_params(axis = 'both', which = 'major', labelsize = 20)
-        plt.ylabel('Pace (ms / CoRT)', fontsize=20)
+        plt.tick_params(axis = 'both', which = 'major', labelsize = 30)
+        plt.ylabel('RT slope (CoRT)', fontsize=30)
         plt.xlabel('')
         plt.show()
 
@@ -963,7 +966,10 @@ class CoRTLanguageExp:
             df_subj = df.query(f'participant_id=="{subj}"')
 
             # calculate RT slope function
-            slope, intercept, r_value, p_value, std_err = linregress(df_subj[df_subj['cloze_descript']=="high cloze"]['rt'], df_subj[df_subj['cloze_descript']=="low cloze"]['rt'])
+            try:
+                slope, intercept, r_value, p_value, std_err = linregress(df_subj[df_subj['cloze_descript']=="high cloze"]['rt'], df_subj[df_subj['cloze_descript']=="low cloze"]['rt'])
+            except: 
+                pass
 
             data_dict = {'subj': subj, 'slope': slope, 'intercept': intercept, 'r': r_value, 'p': p_value, 'std_error': std_err}
 
@@ -977,8 +983,8 @@ class CoRTLanguageExp:
         sns.set(rc={'figure.figsize':(10,10)})
         sns.boxplot(x='group', y='slope', data=df_out)
         sns.swarmplot(x='group', y='slope', data=df_out, color=".25")
-        plt.tick_params(axis = 'both', which = 'major', labelsize = 20)
-        plt.ylabel('Pace (ms / Cloze)', fontsize=20)
+        plt.tick_params(axis = 'both', which = 'major', labelsize = 30)
+        plt.ylabel('RT slope (Cloze)', fontsize=30)
         plt.xlabel('')
         plt.show()
 
