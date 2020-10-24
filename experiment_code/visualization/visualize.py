@@ -990,6 +990,37 @@ class CoRTLanguageExp:
         F, p = f_oneway(df[df['cloze_descript']=="high cloze"]['rt'], df[df['cloze_descript']=="low cloze"]['rt'])
         print(f'F stat: {F}, p-value: {p}')
 
+    def rt_diff_cort(self, dataframe):
+
+        df = dataframe[(dataframe['correct']==1) & (dataframe['trial_type']=="meaningful")].groupby(['participant_id', 'CoRT_descript'])['rt'].apply(lambda x: x.mean()).reset_index()
+        df_pivot = pd.pivot_table(df, index='participant_id', columns=['CoRT_descript'], values='rt').reset_index()
+        df_pivot['diff_rt'] = df_pivot['non-CoRT'] - df_pivot['CoRT'] 
+        df_pivot['group'] = df_pivot['participant_id'].apply(lambda x: 'control' if 'c' in x else 'patient')
+
+        sns.set(rc={'figure.figsize':(10,10)})
+        sns.set_style("whitegrid", {'axes.grid' : False})
+        sns.boxplot(x='group', y='diff_rt', data=df_pivot)
+        sns.swarmplot(x='group', y='diff_rt', data=df_pivot, color=".25", size=10)
+        plt.tick_params(axis = 'both', which = 'major', labelsize = 30)
+        plt.ylabel('RT diff (Non-CoRT - CoRT)', fontsize=30)
+        plt.xlabel('')
+        plt.show()
+
+    def rt_diff_cloze(self, dataframe):
+        df = dataframe[(dataframe['correct']==1) & (dataframe['trial_type']=="meaningful")].groupby(['participant_id', 'cloze_descript'])['rt'].apply(lambda x: x.mean()).reset_index()
+        df_pivot = pd.pivot_table(df, index='participant_id', columns=['cloze_descript'], values='rt').reset_index()
+        df_pivot['diff_rt'] = df_pivot['low cloze'] - df_pivot['high cloze'] 
+        df_pivot['group'] = df_pivot['participant_id'].apply(lambda x: 'control' if 'c' in x else 'patient')
+
+        sns.set(rc={'figure.figsize':(10,10)})
+        sns.set_style("whitegrid", {'axes.grid' : False})
+        sns.boxplot(x='group', y='diff_rt', data=df_pivot)
+        sns.swarmplot(x='group', y='diff_rt', data=df_pivot, color=".25", size=10)
+        plt.tick_params(axis = 'both', which = 'major', labelsize = 30)
+        plt.ylabel('RT diff (low - high)', fontsize=30)
+        plt.xlabel('')
+        plt.show()
+    
     def simulate_cort(self):
         dataframe = pd.DataFrame({'group': ['control', 'patient', 'control', 'patient'],
                                 'CoRT': ['CoRT', 'CoRT', 'non-CoRT', 'non-CoRT'],
