@@ -766,19 +766,18 @@ class CoRTLanguageExp:
         """
 
         sns.set(rc={'figure.figsize':(20,10)})
+        sns.set_style("whitegrid", {'axes.grid' : False})
 
         if x=="cloze_descript":
             xlabel = "Cloze"
         elif x=="CoRT_descript":
             xlabel = "CoRT"
 
-        sns.factorplot(x=x, y='rt', hue=hue, data=dataframe.query('correct==1 and trial_type=="meaningful"'), legend=False)
-        plt.xlabel('', fontsize=20),
-        plt.ylabel('Reaction Time (ms)', fontsize=20)
-        plt.legend(loc= "upper right", fontsize=15)
-        # plt.title(f'Reaction time across {x_label}', fontsize=20);
-        plt.tick_params(axis = 'both', which = 'major', labelsize = 20)
-        plt.legend(loc='upper right', fontsize=15)
+        sns.factorplot(x=x, y='rt', hue=hue, data=dataframe.query('correct==1 and trial_type=="meaningful"'), scale = 3, legend=False)
+        plt.xlabel('', fontsize=30),
+        plt.ylabel('Reaction Time (ms)', fontsize=30)
+        plt.tick_params(axis = 'both', which = 'major', labelsize = 30)
+        plt.legend(loc='upper right', fontsize=30, title_fontsize='40')
 
         plt.show()
     
@@ -1020,6 +1019,7 @@ class CoRTLanguageExp:
         plt.show()
 
 class EnglishVerif:
+
 
     def __init__(self):
         # data cleaning stuff
