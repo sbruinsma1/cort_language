@@ -748,13 +748,6 @@ class ExpSentences:
         #correct participant ids (1-n)
         df_all = self._relabel_part_id(df_all)
 
-        #ADD code to attach sequential number to subj_id repeats
-        #if overcomplicated, manually attach number to subj_id for cases
-        #cases: 
-            #3rd sAA -> sAA2
-            #2nd sEO -> sEO1
-        #df_all['participant_id'] = df_all['participant_id'].str.replace(" ", "|")
-
         # # filter out bad subjs based on id
         df_all = self._remove_bad_subjs(df_all, bad_subjs=bad_subjs)
 
@@ -894,7 +887,7 @@ class EnglishPrescreen:
     def __init__(self):
         pass
 
-    def clean_data(self, task_name = "prepilot_english", versions = [10,11,12]):
+    def clean_data(self, task_name = "prepilot_english", versions = [10,11,12], bad_subjs = ['p06', 'p11', 'p08', 'c05']):
         """
         cleans english preprocessing task data downloaded from gorilla. removes any rows that are not trials.
         """
@@ -922,7 +915,7 @@ class EnglishPrescreen:
 
             #rename columns that are not already renamed (i.e. 'zone_type' and 'rt')
             df = df.rename({'Experiment ID':'experiment_id', 'Experiment Version':'experiment_version', 'Participant Private ID':'participant_id', 'Spreadsheet Row': 'sentence_num', 'Zone Type':'zone_type', 'Reaction Time':'rt', 
-                            'Correct':'correct', 'Incorrect':'incorrect'}, axis=1)
+                            'Correct':'correct', 'Incorrect':'incorrect', 'Participant Starting Group':'group', 'Participant Public ID':'participant_public_id','Attempt':'attempt'}, axis=1)
 
             # filter dataset to include trials and experimental blocks (i.e. not instructions)
             response_type = _get_response_type() # response_type is different across the task
@@ -937,6 +930,9 @@ class EnglishPrescreen:
 
             #correct participant ids (1-n)
             df_all = self._relabel_part_id(df_all)
+
+            # # filter out bad subjs based on id
+            df_all = self._remove_bad_subjs(df_all, bad_subjs=bad_subjs)
 
         return df_all
 
@@ -961,22 +957,45 @@ class EnglishPrescreen:
         """
         Returns: list of columns to keep for analysis
         """
-        cols_to_keep = ['Experiment ID', 'Experiment Version', 'Participant Private ID', 'Spreadsheet Row', 'Zone Type', 'Reaction Time', 'Correct', 'Incorrect', 
-                        'display', 'response', 'type', 'item']
+        cols_to_keep = ['Experiment ID', 'Experiment Version', 'Participant Private ID', 'Participant Public ID', 'Spreadsheet Row', 'Zone Type', 'Reaction Time', 'Correct', 'Incorrect', 'Participant Starting Group',
+                        'display', 'response', 'type', 'item', 'Attempt']
 
         return cols_to_keep
 
-    def _relabel_part_id(self, dataframe):
-        # get all values of participant id
-        old_id = dataframe['participant_id'].values
+    def _relabel_part_id(self, dataframe): 
 
-        # get new values of participant id
-        temp = defaultdict(lambda: len(temp))
-        res = [temp[ele] for ele in old_id]
+        groups = np.unique(dataframe['group'])
 
-        # assign new participant id to dataframe
-        dataframe['participant_id'] = np.array(res) + 1
+        df_all = pd.DataFrame()
+        for group in groups:
+
+            # filter dataframe first
+            df = dataframe[dataframe['group']==group]
+
+            # get all values of participant id
+            old_id = df['participant_public_id'].values
+
+            # get new values of participant id
+            temp = defaultdict(lambda: len(temp))
+            res = [temp[ele] for ele in old_id]
+
+            # assign new participant id to dataframe
+            part_num = np.array(res) + 1
+            part_num = part_num.astype(str)
+            df['participant_id'] = df['group'].str[0] + np.char.zfill(part_num, 2)
+
+            df_all = pd.concat([df_all, df])
     
-        return dataframe
+        return df_all
+
+    def _remove_bad_subjs(self, dataframe, bad_subjs):
+        """ removes bad subj from dataframe and returns filtered dataframe
+            Args:
+                dataframe
+                bad_subjs (list): list of ids given by `Participant_Private_ID` of gorilla spreadsheet
+            Returns:
+                dataframe with bad subj(s) removed
+        """
+        return dataframe[~dataframe['participant_id'].isin(bad_subjs)]
 
         

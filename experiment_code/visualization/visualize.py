@@ -648,6 +648,8 @@ class CoRTLanguageExp:
         #get group with meaningful vs meaningless trial type
         df['group_trial_type'] = df['group'] + ": " + df['trial_type']
 
+        df['cloze_cort'] = df['CoRT_descript'] + ", " + df['cloze_descript']
+
         return df
     
     def participant_accuracy(self, dataframe, hue=None):
@@ -661,13 +663,13 @@ class CoRTLanguageExp:
 
         # df = dataframe.groupby(['participant_id', 'group', 'block_num'])['correct'].mean().reset_index() 
 
-        plt.figure(figsize=(10,10));
+        plt.figure(figsize=(20,10));
         sns.barplot(x="participant_id", y="correct", hue=hue, data=dataframe)
-        plt.legend(loc= "lower left", fontsize=15)
-        plt.xlabel('Participant', fontsize=20)
-        plt.ylabel('% correct', fontsize=20)
+        #plt.legend(loc='lower left', fontsize=25, title_fontsize='40')
+        plt.xlabel('Participant', fontsize=40)
+        plt.ylabel('% correct', fontsize=40)
         # plt.title('Number of correct answers', fontsize=20);
-        plt.yticks(fontsize=20);
+        plt.yticks(fontsize=30);
         
         plt.show()
 
@@ -703,21 +705,21 @@ class CoRTLanguageExp:
 
         sns.factorplot(x='block_num', y='correct', hue=hue, legend_out = False, legend = False, data=dataframe.query('trial_type=="meaningful"'))
         plt.legend(loc= "lower right", fontsize=15)
-        plt.xlabel('Run', fontsize=20),
-        plt.ylabel('% Correct', fontsize=20)
-        plt.title('Accuracy across runs', fontsize=20);
+        plt.xlabel('Run', fontsize=30),
+        plt.ylabel('% Correct', fontsize=30)
+        #plt.title('Accuracy across runs', fontsize=20);
         plt.tick_params(axis = 'both', which = 'major', labelsize = 20)
         plt.ylim(bottom=.7, top=1.0)
 
         plt.show()
 
-    def accuracy_by_condition(self, dataframe, x='cloze_descript', hue=None):
+    def accuracy_by_condition(self, dataframe, x='cloze_descript', hue='group'):
         """ *plots reaction time across runs, categorized by easy vs hard cloze condition.
             does so only for meaningful and correct responses.
         """
 
-        sns.set(rc={'figure.figsize':(20,10)})
-        #sns.set_palette("Paired")
+        sns.set(rc={'figure.figsize':(10,10)})
+        sns.set_style("whitegrid", {'axes.grid' : False})
 
         if x=="cloze_descript":
             x_label = "Cloze"
@@ -726,13 +728,13 @@ class CoRTLanguageExp:
         else:
             x_label = x
 
-        sns.factorplot(x=x, y='correct', hue=hue, data=dataframe.query('attempt==1 and trial_type=="meaningful"'), legend=False)
-        #plt.xlabel(x_label, fontsize=20),
-        plt.ylabel('% Correct', fontsize=20)
+        sns.factorplot(x=x, y='correct', hue=hue, scale = 3, data=dataframe.query('attempt==1 and trial_type=="meaningful"'), legend=False)
+        plt.xlabel('', fontsize=20),
+        plt.ylabel('% Correct', fontsize=40)
         # plt.title('Accuracy across conditions', fontsize=20);
-        plt.tick_params(axis = 'both', which = 'major', labelsize = 20)
+        plt.tick_params(axis = 'both', which = 'major', labelsize = 40)
         plt.ylim(bottom=.9, top=1.0)
-        plt.legend(loc='upper right', fontsize=15)
+        plt.legend(loc='lower right', fontsize=25, title_fontsize='40')
 
         plt.show()
  
@@ -750,7 +752,7 @@ class CoRTLanguageExp:
             df = dataframe.rename(columns={'CoRT_descript': 'CoRT'})
             hue = "CoRT"
 
-        ax = sns.factorplot(x='block_num', y='rt', hue=hue, data=df.query('correct==1 and trial_type=="meaningful"'))
+        ax = sns.factorplot(x='block_num', y='rt', hue=hue, data=dataframe.query('correct==1 and trial_type=="meaningful"'))
         plt.xlabel('Run', fontsize=20),
         plt.ylabel('Reaction Time (ms)', fontsize=20)
         # plt.title('Reaction time across runs', fontsize=20);
@@ -765,30 +767,22 @@ class CoRTLanguageExp:
             hue: use 'group_condition_name' or 'group_CoRT_condition' (i.e. visualization variables)
         """
 
-        sns.set(rc={'figure.figsize':(20,10)})
+        sns.set(rc={'figure.figsize':(10,10)})
         sns.set_style("whitegrid", {'axes.grid' : False})
+        sns.set_palette("Paired")
 
         if x=="cloze_descript":
             xlabel = "Cloze"
         elif x=="CoRT_descript":
             xlabel = "CoRT"
 
-<<<<<<< HEAD
-        sns.factorplot(x=x, y='rt', hue=hue, data=dataframe.query('correct==1 and trial_type=="meaningful"'), legend=False)
-        plt.xlabel('', fontsize=25),
-        plt.ylabel('Reaction Time (ms)', fontsize=25)
-        plt.ylim=(600,1000)
-        plt.legend(loc= "upper right", fontsize=15)
-        # plt.title(f'Reaction time across {x_label}', fontsize=20);
-        plt.tick_params(axis = 'both', which = 'major', labelsize = 20)
-        plt.legend(loc='upper right', fontsize=15)
-=======
         sns.factorplot(x=x, y='rt', hue=hue, data=dataframe.query('correct==1 and trial_type=="meaningful"'), scale = 3, legend=False)
-        plt.xlabel('', fontsize=30),
-        plt.ylabel('Reaction Time (ms)', fontsize=30)
-        plt.tick_params(axis = 'both', which = 'major', labelsize = 30)
-        plt.legend(loc='upper right', fontsize=30, title_fontsize='40')
->>>>>>> e234da400edd1cac4b86f362bdcfecc98ea6e587
+        plt.xlabel('', fontsize=40),
+        plt.ylabel('Reaction Time (ms)', fontsize=40)
+        plt.ylim([650,1000])
+        #plt.plot(ylim=(700,1000))
+        plt.tick_params(axis = 'both', which = 'major', labelsize = 40)
+        plt.legend(loc='upper right', fontsize=25, title_fontsize='40')
 
         plt.show()
     
@@ -796,13 +790,15 @@ class CoRTLanguageExp:
 
         #MAYBE look @ covariates independently
 
-        sns.set(rc={'figure.figsize':(20,10)})
+        sns.set(rc={'figure.figsize':(5,5)})
+        sns.set_style("whitegrid", {'axes.grid' : False})
 
-        sns.factorplot(x=x, y='rt', hue='group_CoRT_condition', data=dataframe.query('correct==1 and trial_type=="meaningful"'))
+        sns.factorplot(x=x, y='rt', hue='group_CoRT_condition', data=dataframe.query('correct==1 and trial_type=="meaningful"'), legend=False)
         plt.xlabel(f'{x}', fontsize=20),
         plt.ylabel('Reaction Time (ms)', fontsize=20)
         plt.title(f'Reaction time across covariate and CoRT conditions', fontsize=20);
         plt.tick_params(axis = 'both', which = 'major', labelsize = 20)
+        plt.legend(loc='upper right', fontsize=15, title_fontsize='40')
 
         plt.show()
 
@@ -826,6 +822,107 @@ class CoRTLanguageExp:
         plt.legend(loc= "upper right", fontsize=15)
         plt.xlabel('Mean RT', fontsize=20)
         plt.ylabel('Std of RT', fontsize=20)
+        #plt.title('Item analysis of reaction time for groups', fontsize=20)
+        plt.tick_params(axis = 'both', which = 'major', labelsize = 15);
+
+        plt.show()
+
+        #scatter plot of cloze (1) and CoRT (2) as continuous variables
+
+    def trial_ana_rt_control(self, dataframe):
+        """granular analysis of RT for sentences (plotting RT & look @ error) for controls, indexed by CoRT
+        """
+        sns.set(rc={'figure.figsize':(20,10)})
+
+        #create pivot table to see mean/sd differences in groups
+        dataframe = dataframe.query('correct==1 and trial_type=="meaningful" and group =="control"')
+        grouped_table = pd.pivot_table(dataframe, values=['rt'], index=['spreadsheet_row'], columns=['CoRT_descript'],
+                                        aggfunc= {np.mean, np.std}).reset_index()
+        # join multilevel columns
+        grouped_table.columns = ["_".join(pair) for pair in grouped_table.columns]
+        grouped_table.columns = grouped_table.columns.str.strip('_')
+
+        #note: can make index full_sentence to see item ana instead
+
+        sns.scatterplot(x="rt_mean_CoRT", y="rt_std_CoRT", label = "CoRT", data=grouped_table)
+        sns.scatterplot(x="rt_mean_non-CoRT", y="rt_std_non-CoRT", label = "non-CoRT", data=grouped_table)
+        plt.legend(loc= "upper right", fontsize=15)
+        plt.xlabel('Mean RT', fontsize=20)
+        plt.ylabel('Std of RT', fontsize=20)
+        #plt.title('Item analysis of reaction time for groups', fontsize=20)
+        plt.tick_params(axis = 'both', which = 'major', labelsize = 15);
+
+        plt.show()
+
+    def trial_ana_rt_patient(self, dataframe):
+        """granular analysis of RT for sentences (plotting RT & look @ error) for patients, indexed by CoRT
+        """
+        sns.set(rc={'figure.figsize':(20,10)})
+
+        #create pivot table to see mean/sd differences in groups
+        dataframe = dataframe.query('correct==1 and trial_type=="meaningful" and group =="patient"')
+        grouped_table = pd.pivot_table(dataframe, values=['rt'], index=['spreadsheet_row'], columns=['CoRT_descript'],
+                                        aggfunc= {np.mean, np.std}).reset_index()
+        # join multilevel columns
+        grouped_table.columns = ["_".join(pair) for pair in grouped_table.columns]
+        grouped_table.columns = grouped_table.columns.str.strip('_')
+
+        #note: can make index full_sentence to see item ana instead
+
+        sns.scatterplot(x="rt_mean_CoRT", y="rt_std_CoRT", label = "CoRT", data=grouped_table)
+        sns.scatterplot(x="rt_mean_non-CoRT", y="rt_std_non-CoRT", label = "non-CoRT", data=grouped_table)
+        plt.legend(loc= "upper right", fontsize=15)
+        plt.xlabel('Mean RT', fontsize=20)
+        plt.ylabel('Std of RT', fontsize=20)
+        #plt.title('Item analysis of reaction time for groups', fontsize=20)
+        plt.tick_params(axis = 'both', which = 'major', labelsize = 15);
+
+        plt.show()
+
+    def scatterplot_cort_cont(self, dataframe):
+
+        sns.set(rc={'figure.figsize':(20,10)})
+
+        #create pivot table to see mean/sd differences in groups
+        dataframe = dataframe.query('correct==1 and trial_type=="meaningful"')
+        grouped_table = pd.pivot_table(dataframe, values=['rt'], index=['spreadsheet_row', 'CoRT_mean', 'cloze_probability'], columns=['group'],
+                                        aggfunc= {np.mean, np.std}).reset_index()
+        # join multilevel columns
+        grouped_table.columns = ["_".join(pair) for pair in grouped_table.columns]
+        grouped_table.columns = grouped_table.columns.str.strip('_')
+
+        #note: can make index full_sentence to see item ana instead
+
+        sns.scatterplot(x="CoRT_mean", y="rt_mean_control", label = "control", data=grouped_table)
+        sns.scatterplot(x="CoRT_mean", y="rt_mean_patient", label = "patient", data=grouped_table)
+        plt.legend(loc= "upper right", fontsize=15)
+        plt.xlabel('CoRT rating', fontsize=20)
+        plt.ylabel('Mean RT', fontsize=20)
+        #plt.title('Item analysis of reaction time for groups', fontsize=20)
+        plt.tick_params(axis = 'both', which = 'major', labelsize = 15);
+
+        plt.show()
+
+
+    def scatterplot_cloze_cont(self, dataframe):
+
+        sns.set(rc={'figure.figsize':(20,10)})
+
+        #create pivot table to see mean/sd differences in groups
+        dataframe = dataframe.query('correct==1 and trial_type=="meaningful"')
+        grouped_table = pd.pivot_table(dataframe, values=['rt'], index=['spreadsheet_row', 'CoRT_mean', 'cloze_probability'], columns=['group'],
+                                        aggfunc= {np.mean, np.std}).reset_index()
+        # join multilevel columns
+        grouped_table.columns = ["_".join(pair) for pair in grouped_table.columns]
+        grouped_table.columns = grouped_table.columns.str.strip('_')
+
+        #note: can make index full_sentence to see item ana instead
+
+        sns.scatterplot(x="cloze_probability", y="rt_mean_control", label = "control", data=grouped_table)
+        sns.scatterplot(x="cloze_probability", y="rt_mean_patient", label = "patient", data=grouped_table)
+        plt.legend(loc= "upper right", fontsize=15)
+        plt.xlabel('Cloze probability', fontsize=20)
+        plt.ylabel('Mean RT', fontsize=20)
         #plt.title('Item analysis of reaction time for groups', fontsize=20)
         plt.tick_params(axis = 'both', which = 'major', labelsize = 15);
 
@@ -865,7 +962,8 @@ class CoRTLanguageExp:
     def average_rt(self, dataframe, x='CoRT_descript', hue='group'):
         """plot slope of RT across blocks for  (e.g. cloze)
         """
-        sns.set(rc={'figure.figsize':(20,10)})
+        sns.set(rc={'figure.figsize':(10,10)})
+        sns.set_style("whitegrid", {'axes.grid' : False})
         df = dataframe[(dataframe['trial_type']=="meaningful") & (dataframe['correct']==1)]
         df = df.groupby(['participant_id', x, hue])['rt'].agg('mean').reset_index()
         df.columns = ["".join(x) for x in df.columns.ravel()]
@@ -884,6 +982,23 @@ class CoRTLanguageExp:
 
         plt.show()
 
+    def rt_low_cloze(self, dataframe):
+        
+        sns.set(rc={'figure.figsize':(10,10)})
+        sns.set_style("whitegrid", {'axes.grid' : False})
+
+        dataframe = dataframe[dataframe.cloze_descript == 'low cloze']
+
+        sns.factorplot(x='CoRT_descript', y='rt', hue='group', data=dataframe.query('correct==1 and trial_type=="meaningful"'), scale = 2, legend=False)
+        plt.xlabel('', fontsize=40),
+        plt.ylabel('Reaction Time (ms)', fontsize=40)
+        plt.ylim([650,1050])
+        #plt.plot(ylim=(700,1000))
+        plt.tick_params(axis = 'both', which = 'major', labelsize = 40)
+        plt.legend(loc='upper right', fontsize=25, title_fontsize='40')
+
+        plt.show()
+
     def rt_cont_cloze_control(self, dataframe):
         """rt for continuous variable of cloze -- scatter 4 each participant
         """
@@ -892,13 +1007,13 @@ class CoRTLanguageExp:
 
         fig = plt.figure(figsize=(10,10))
 
-        participants = df['participant_id'].unique()
+        participants = dataframe['participant_id'].unique()
 
         for i, participant in enumerate(participants):
             
             fig.add_subplot(1, len(participants), i+1)
 
-            sns.scatterplot(x="cloze_probability", y="rt", data=df)
+            sns.scatterplot(x="cloze_probability", y="rt", data=dataframe)
             plt.xlabel('mean rt', fontsize=20)
             plt.ylabel('std of rt', fontsize=20)
             plt.title('item analysis of rt for controls', fontsize=20)
@@ -956,17 +1071,12 @@ class CoRTLanguageExp:
         sns.set(rc={'figure.figsize':(10,10)})
         sns.boxplot(x='group', y='slope', data=df_out)
         sns.swarmplot(x='group', y='slope', data=df_out, color=".25")
-<<<<<<< HEAD
         plt.tick_params(axis = 'both', which = 'major', labelsize = 20)
         plt.ylabel('RT slope (CoRT)', fontsize=20)
-=======
-        plt.tick_params(axis = 'both', which = 'major', labelsize = 30)
-        plt.ylabel('RT slope (CoRT)', fontsize=30)
->>>>>>> e234da400edd1cac4b86f362bdcfecc98ea6e587
         plt.xlabel('')
         plt.show()
 
-        F, p = f_oneway(df[df['CoRT_descript']=="strong CoRT"]['rt'], df[df['CoRT_descript']=="strong non-CoRT"]['rt'])
+        F, p = f_oneway(df[df['CoRT_descript']=="CoRT"]['rt'], df[df['CoRT_descript']=="non-CoRT"]['rt'])
         print(f'F stat: {F}, p-value: {p}')
 
     def slope_cloze(self, dataframe):
@@ -998,13 +1108,8 @@ class CoRTLanguageExp:
         sns.set(rc={'figure.figsize':(10,10)})
         sns.boxplot(x='group', y='slope', data=df_out)
         sns.swarmplot(x='group', y='slope', data=df_out, color=".25")
-<<<<<<< HEAD
         plt.tick_params(axis = 'both', which = 'major', labelsize = 20)
         plt.ylabel('Slope of RT for cloze)', fontsize=20)
-=======
-        plt.tick_params(axis = 'both', which = 'major', labelsize = 30)
-        plt.ylabel('RT slope (Cloze)', fontsize=30)
->>>>>>> e234da400edd1cac4b86f362bdcfecc98ea6e587
         plt.xlabel('')
         plt.show()
 
@@ -1012,20 +1117,60 @@ class CoRTLanguageExp:
         print(f'F stat: {F}, p-value: {p}')
 
     def rt_diff_cort(self, dataframe):
-
+        
         df = dataframe[(dataframe['correct']==1) & (dataframe['trial_type']=="meaningful")].groupby(['participant_id', 'CoRT_descript'])['rt'].apply(lambda x: x.mean()).reset_index()
         df_pivot = pd.pivot_table(df, index='participant_id', columns=['CoRT_descript'], values='rt').reset_index()
         df_pivot['diff_rt'] = df_pivot['non-CoRT'] - df_pivot['CoRT'] 
         df_pivot['group'] = df_pivot['participant_id'].apply(lambda x: 'control' if 'c' in x else 'patient')
 
-        sns.set(rc={'figure.figsize':(10,10)})
+        sns.set(rc={'figure.figsize':(10,20)})
         sns.set_style("whitegrid", {'axes.grid' : False})
         sns.boxplot(x='group', y='diff_rt', data=df_pivot)
         sns.swarmplot(x='group', y='diff_rt', data=df_pivot, color=".25", size=10)
-        plt.tick_params(axis = 'both', which = 'major', labelsize = 30)
-        plt.ylabel('RT diff (Non-CoRT - CoRT)', fontsize=30)
+        plt.tick_params(axis = 'both', which = 'major', labelsize = 40)
+        plt.ylabel('RT diff (Non-CoRT - CoRT)', fontsize=40)
         plt.xlabel('')
         plt.show()
+
+    def rt_diff_cort_in_low(self, dataframe):
+        
+        df = dataframe[(dataframe['correct']==1) & (dataframe['trial_type']=="meaningful") & (dataframe['cloze_descript']=="low cloze")].groupby(['participant_id', 'CoRT_descript'])['rt'].apply(lambda x: x.mean()).reset_index()
+        df_pivot = pd.pivot_table(df, index='participant_id', columns=['CoRT_descript'], values='rt').reset_index()
+        df_pivot['diff_rt'] = df_pivot['non-CoRT'] - df_pivot['CoRT'] 
+        df_pivot['group'] = df_pivot['participant_id'].apply(lambda x: 'control' if 'c' in x else 'patient')
+
+        sns.set(rc={'figure.figsize':(10,20)})
+        sns.set_style("whitegrid", {'axes.grid' : False})
+        sns.boxplot(x='group', y='diff_rt', data=df_pivot)
+        sns.swarmplot(x='group', y='diff_rt', data=df_pivot, color=".25", size=10)
+        plt.tick_params(axis = 'both', which = 'major', labelsize = 40)
+        plt.ylabel('RT diff (Non-CoRT - CoRT) in low cloze', fontsize=40)
+        plt.ylim([-125,125])
+        plt.xlabel('')
+        plt.show()
+        
+        #df_low = df_pivot.query('cloze_descipt == "low cloze"')
+        F, p = f_oneway(df_pivot[df_pivot["non-CoRT"]] - df_pivot[df_pivot["CoRT"]])
+        print(f'F stat: {F}, p-value: {p}')
+
+
+    def rt_diff_cort_in_high(self, dataframe):
+        
+        df = dataframe[(dataframe['correct']==1) & (dataframe['trial_type']=="meaningful") & (dataframe['cloze_descript']=="high cloze")].groupby(['participant_id', 'CoRT_descript'])['rt'].apply(lambda x: x.mean()).reset_index()
+        df_pivot = pd.pivot_table(df, index='participant_id', columns=['CoRT_descript'], values='rt').reset_index()
+        df_pivot['diff_rt'] = df_pivot['non-CoRT'] - df_pivot['CoRT'] 
+        df_pivot['group'] = df_pivot['participant_id'].apply(lambda x: 'control' if 'c' in x else 'patient')
+
+        sns.set(rc={'figure.figsize':(10,20)})
+        sns.set_style("whitegrid", {'axes.grid' : False})
+        sns.boxplot(x='group', y='diff_rt', data=df_pivot)
+        sns.swarmplot(x='group', y='diff_rt', data=df_pivot, color=".25", size=10)
+        plt.tick_params(axis = 'both', which = 'major', labelsize = 40)
+        plt.ylabel('RT diff (Non-CoRT - CoRT) in high cloze', fontsize=40)
+        plt.ylim([-125,125])
+        plt.xlabel('')
+        plt.show()
+        #do sig test
 
     def rt_diff_cloze(self, dataframe):
         df = dataframe[(dataframe['correct']==1) & (dataframe['trial_type']=="meaningful")].groupby(['participant_id', 'cloze_descript'])['rt'].apply(lambda x: x.mean()).reset_index()
@@ -1033,27 +1178,34 @@ class CoRTLanguageExp:
         df_pivot['diff_rt'] = df_pivot['low cloze'] - df_pivot['high cloze'] 
         df_pivot['group'] = df_pivot['participant_id'].apply(lambda x: 'control' if 'c' in x else 'patient')
 
-        sns.set(rc={'figure.figsize':(10,10)})
+        sns.set(rc={'figure.figsize':(10,20)})
         sns.set_style("whitegrid", {'axes.grid' : False})
         sns.boxplot(x='group', y='diff_rt', data=df_pivot)
         sns.swarmplot(x='group', y='diff_rt', data=df_pivot, color=".25", size=10)
-        plt.tick_params(axis = 'both', which = 'major', labelsize = 30)
-        plt.ylabel('RT diff (low - high)', fontsize=30)
+        plt.tick_params(axis = 'both', which = 'major', labelsize = 40)
+        plt.ylabel('RT diff (low - high) in high cloze', fontsize=40)
+        #plt.ylim([-100,100])
         plt.xlabel('')
         plt.show()
-    
+
+        #for low/high too (with sig test)
+
     def simulate_cort(self):
         dataframe = pd.DataFrame({'group': ['control', 'patient', 'control', 'patient'],
                                 'CoRT': ['CoRT', 'CoRT', 'non-CoRT', 'non-CoRT'],
                                 'rt': [700, 900,700,750]})
 
-        sns.factorplot(x='CoRT', y='rt', hue='group', data=dataframe, legend=False)
-        plt.xlabel('', fontsize=25),
-        plt.ylabel('Reaction Time (ms)', fontsize=25)
-        plt.ylim=(600,1000)
-        plt.legend(loc= "upper right", fontsize=15)
+        sns.set(rc={'figure.figsize':(10,10)})
+        sns.set_style("whitegrid", {'axes.grid' : False})
+
+        sns.factorplot(x='CoRT', y='rt', hue='group', data=dataframe, scale = 3, legend=False)
+        plt.xlabel('', fontsize=40),
+        plt.ylabel('Reaction Time (ms)', fontsize=40)
+        #plt.ylim([650,1000])
+        plt.yticks([])
+        plt.legend(loc= "upper right", fontsize=25, title_fontsize='40')
         # plt.title(f'Reaction time across {x_label}', fontsize=20);
-        plt.tick_params(axis = 'both', which = 'major', labelsize = 20)
+        plt.tick_params(axis = 'both', which = 'major', labelsize = 40)
 
         plt.show()
 
@@ -1062,45 +1214,55 @@ class CoRTLanguageExp:
                                 'cloze': ['low cloze', 'low cloze', 'high cloze', 'high cloze'],
                                 'rt': [750, 800, 650, 780]})
 
-        sns.factorplot(x='cloze', y='rt', hue='group', data=dataframe, legend=False)
-        plt.xlabel('', fontsize=25),
-        plt.ylabel('Reaction Time (ms)', fontsize=25)
-        plt.ylim=(600,1000)
-        plt.legend(loc= "upper right", fontsize=15)
+        sns.set(rc={'figure.figsize':(10,10)})
+        sns.set_style("whitegrid", {'axes.grid' : False})
+
+        sns.factorplot(x='cloze', y='rt', hue='group', data=dataframe, scale = 3, legend=False)
+        plt.xlabel('', fontsize=40),
+        plt.ylabel('Reaction Time (ms)', fontsize=40)
+        #plt.ylim([650,1000])
+        plt.yticks([])
+        plt.legend(loc= "upper right", fontsize=25, title_fontsize='40')
         # plt.title(f'Reaction time across {x_label}', fontsize=20);
-        plt.tick_params(axis = 'both', which = 'major', labelsize = 20)
+        plt.tick_params(axis = 'both', which = 'major', labelsize = 40)
 
         plt.show()
 
 class EnglishVerif:
 
+    def __init__(self, task_name="prepilot_english",
+                versions=[10,11,12],
+                bad_subjs=['p06', 'p11', 'p08','c04', 'c17']):
 
-    def __init__(self):
         # data cleaning stuff
-        self.task_name = "prepilot_english"
-        self.versions = [10,11,12]
-                               
+        self.task_name = task_name
+        self.versions = versions
+        self.bad_subjs = bad_subjs
+
     def load_dataframe(self):
         """ imports clean dataframe
         """
 
         english = EnglishPrescreen()
         df = english.clean_data(task_name=self.task_name, 
-                            versions=self.versions) 
+                            versions=self.versions,
+                            bad_subjs=self.bad_subjs) 
         return df
     
-    def count_of_correct(self, dataframe):
+    def count_of_attempts(self, dataframe):
         """gives counts of correct (1.0) vs incorrect (0.0) responses
         note: NA are counted as 0
         """
 
         plt.figure(figsize=(10,10));
-        sns.countplot(x='correct', data= dataframe);
-        plt.xlabel('incorrect vs correct', fontsize=20)
-        plt.ylabel('count', fontsize=20)
-        plt.title('Number of correct answers', fontsize=20);
-        plt.xticks(fontsize=20)
-        plt.yticks(fontsize=20);
+        sns.countplot(x='attempt', hue = 'group', data= dataframe);
+        #plt.xlabel('incorrect vs correct', fontsize=20)
+        plt.ylabel('Count', fontsize=30)
+        plt.xlabel('Attempt', fontsize=30)
+        #plt.title('Number of attempts', fontsize=30);
+        #plt.xticks('')
+        plt.yticks(fontsize=30)
+        plt.legend(loc='upper right', fontsize=15, title_fontsize='40')
 
         plt.show()
         
@@ -1113,10 +1275,79 @@ class EnglishVerif:
 
         plt.figure(figsize=(10,10));
         sns.barplot(x="participant_id", y="correct", data=dataframe)
-        plt.xlabel('participant', fontsize=20)
-        plt.ylabel('% correct', fontsize=20)
-        plt.title('Number of correct answers', fontsize=20);
-        plt.yticks(fontsize=20);
+        plt.xlabel('Participant', fontsize=30)
+        plt.ylabel('% correct', fontsize=30)
+        #plt.title('Number of correct answers', fontsize=20);
+        plt.yticks(fontsize=30);
+
+        plt.show()
+
+
+    def rt_by_condition(self, dataframe):
+        """ *plots reaction time across easy vs hard cloze condition.
+            does so only for meaningful and correct responses.
+
+            hue: use 'group_condition_name' or 'group_CoRT_condition' (i.e. visualization variables)
+        """
+
+        #dataframe = dataframe[dataframe.cloze_descript == 'low cloze']
+
+        sns.set(rc={'figure.figsize':(10,10)})
+        sns.set_style("whitegrid", {'axes.grid' : False})
+
+        sns.factorplot(x='response', y='rt', hue = 'group', data=dataframe.query('correct==1'), scale = 3, legend=False)
+        plt.xlabel('', fontsize=40),
+        plt.ylabel('Reaction Time (ms)', fontsize=40)
+        #plt.yticks([700, 750, 800, 850, 900, 950, 1000, 1050, 1100])
+        plt.tick_params(axis = 'both', which = 'major', labelsize = 30)
+        plt.legend(loc='upper right', fontsize=25, title_fontsize='40')
+
+        plt.show()
+
+    def rt_word(self, dataframe):
+        """ *plots reaction time across easy vs hard cloze condition.
+            does so only for meaningful and correct responses.
+
+            hue: use 'group_condition_name' or 'group_CoRT_condition' (i.e. visualization variables)
+        """
+
+        #dataframe = dataframe[dataframe.cloze_descript == 'low cloze']
+
+        sns.set(rc={'figure.figsize':(10,10)})
+        sns.set_style("whitegrid", {'axes.grid' : False})
+
+        sns.factorplot(x='group', y='rt', data=dataframe.query('correct==1 and response=="word"'), scale = 3, legend=False)
+        plt.xlabel('', fontsize=40),
+        plt.ylabel('Reaction Time (ms)', fontsize=40)
+        plt.yticks([700, 750, 800, 850, 900, 950, 1000, 1050, 1100])
+        #plt.yticks([500, 550, 600, 650, 700, 750])
+        plt.tick_params(axis = 'both', which = 'major', labelsize = 30)
+        plt.legend(loc='upper right', fontsize=25, title_fontsize='40')
+
+        plt.show()
+    
+    def trial_ana_rt(self, dataframe):
+        """granular analysis of RT for sentences (plotting RT & look @ error) for controls
+        """
+        sns.set(rc={'figure.figsize':(20,10)})
+
+        #create pivot table to see mean/sd differences in groups
+        dataframe = dataframe.query('correct==1 and response=="word"')
+        grouped_table = pd.pivot_table(dataframe, values=['rt'], index=['sentence_num'], columns=['group'],
+                                        aggfunc= {np.mean, np.std}).reset_index()
+        # join multilevel columns
+        grouped_table.columns = ["_".join(pair) for pair in grouped_table.columns]
+        grouped_table.columns = grouped_table.columns.str.strip('_')
+
+        #note: can make index full_sentence to see item ana instead
+
+        sns.scatterplot(x="rt_mean_control", y="rt_std_control", label = "control", data=grouped_table)
+        sns.scatterplot(x="rt_mean_patient", y="rt_std_patient", label = "patient", data=grouped_table)
+        plt.legend(loc= "upper right", fontsize=15)
+        plt.xlabel('Mean RT', fontsize=20)
+        plt.ylabel('Std of RT', fontsize=20)
+        #plt.title('Item analysis of reaction time for groups', fontsize=20)
+        plt.tick_params(axis = 'both', which = 'major', labelsize = 15);
 
         plt.show()
 

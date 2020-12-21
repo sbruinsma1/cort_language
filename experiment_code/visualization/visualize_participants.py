@@ -45,8 +45,6 @@ class MyParticipants:
 
         return df_all
 
-    #ERROR WITH BELOW: cannot astype a datetimelike from [datetime64[ns]] to [float64] -- although df contains values
-
     def yoe_dist(self, dataframe):
         """ *plots kde plot of distribution of of years of education across groups.
         """
