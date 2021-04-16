@@ -48,13 +48,14 @@ class MyParticipants:
         return df_all
 
     def yoe_dist(self, dataframe):
-        """gives distplot of years of education, broken down by group
+        """gives distplot of years of skeducation, broken down by group
         """
         sns.set(rc={'figure.figsize':(20,10)})
 
         #remove non-numerical cases
         dataframe = dataframe[dataframe.years_of_education != '13-16']
         dataframe = dataframe[dataframe.years_of_education != '20+']
+        #dataframe = dataframe.dropna() 
 
         dist = sns.FacetGrid(dataframe, hue="group")
         dist = dist.map(sns.distplot, "years_of_education", hist=False, rug=True)
@@ -63,7 +64,8 @@ class MyParticipants:
         plt.title(f'Distribution of years of education for participants', fontsize=20);
         plt.xticks(fontsize=10)
         plt.yticks(fontsize=10);
-
+        
+        print(dataframe[dataframe.years_of_education].mean(skipna=True))
         plt.show()
 
     def age_dist(self, dataframe):

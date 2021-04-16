@@ -20,6 +20,8 @@ pillow = "==6.2.0"
 pyo = "==1.0.0"
 boxsdk = "*"
 seaborn = "*"
+urllib = "*"
+urllib3 = "*"
 
 [requires]
 python_version = "3.7"
