@@ -28,11 +28,17 @@ def get_model_features(model_name):
         quant_features = ['correct']
         qual_features = ['CoRT_descript', 'group', 'trial_type']
     elif model_name=='cloze':
-        quant_features = ['rt']
-        qual_features = ['cloze_descript', 'group', 'correct', 'trial_type']
+        quant_features = ['correct']
+        qual_features = ['cloze_descript', 'group', 'trial_type']
+    elif model_name=='demog':
+        quant_features = ['years_of_education', 'age', 'MOCA_total_score', 'SARA_total_score']
+        qual_features = ['group', 'gender'] #input array of etiology? ignore skewed gender?
     elif model_name=='cort+cloze':
-        quant_features = ['rt']
-        qual_features = ['CoRT_descript', 'cloze_descript', 'group', 'correct', 'trial_type']
+        quant_features = ['correct']
+        qual_features = ['CoRT_descript', 'cloze_descript', 'group', 'trial_type']
+    elif model_name=='combined':
+        quant_features = ['correct','years_of_education', 'age', 'MOCA_total_score', 'SARA_total_score']
+        qual_features = ['CoRT_descript', 'cloze_descript', 'group', 'trial_type']
     else:
         print('please define model type')
         
@@ -51,7 +57,7 @@ def model_fitting(dataframe, model_name, subj_id, data_to_predict):
     """
     
     # filter dataframe for `subj`
-    dataframe = dataframe[dataframe['subj']==subj_id]
+    dataframe = dataframe[dataframe['participant_id']==subj_id]
 
     # shuffle data before splitting
     shuffled_data = dataframe.sample(frac=1., random_state=42)
@@ -67,6 +73,7 @@ def model_fitting(dataframe, model_name, subj_id, data_to_predict):
 
     # fit model
     fitted_model = fit_model(model, X=train, y=train[data_to_predict])
+    #inspect weights 
 
     print(f'fitting {model_name} model for {subj_id}')
 
@@ -123,7 +130,7 @@ def compare_models(model_results):
     Returns: 
         Plot comparing model performance (training RMSE versus CV RMSE)
     """
-    model_names = model_results['model_name'].unique()
+    model_names = model_results['model_name'].unique() #LINE NOT WORKING
     fig = go.Figure(
         [go.Bar(x=model_names, y=model_results['train_rmse'], name='Training RMSE'),
         go.Bar(x=model_names, y=model_results['cv_rmse'], name='CV RMSE')]

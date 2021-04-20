@@ -40,7 +40,8 @@ class MyParticipants:
         df_all = df_all.query('participated=="yes"')
         
         #drop subjects who were dropped from experiment
-        dropped = ['sAI', 'sLA', 'sDH']
+        dropped = ['sAI', 'sEO', 'sLA', 'sDH', 'sEU']
+        #'p06', 'p11', 'p08','c05', 'c19' in exp
         df_all = df_all[~df_all.public_id.isin(dropped)] 
 
         #still need to make 1 row for each subject (if possible without deleting data)

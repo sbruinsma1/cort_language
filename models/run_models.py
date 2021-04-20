@@ -3,9 +3,8 @@ import numpy as np
 
 #from action_prediction import modeling
 #from action_prediction import constants as const
+from experiment_code import constants as const
 from models import modeling
-from experiment_code.constants import Defaults
-from experiment_code.visualization.visualize import CoRTLanguageExp
 
 def run(dataframe, model_names):
     """Run models for predicting accuracy
@@ -24,26 +23,24 @@ def run(dataframe, model_names):
         
         for subj in const.subj_id:
             
-            try:
-                # fit model
-                fitted_model, train, test = modeling.model_fitting(dataframe=dataframe, 
-                                                        model_name=model_name, 
-                                                        subj_id=subj,
-                                                        data_to_predict='corr_resp')
+            # fit model
+            fitted_model, train, test = modeling.model_fitting(dataframe=dataframe, 
+                                                    model_name=model_name, 
+                                                    subj_id=subj,
+                                                    data_to_predict='rt')
 
-                # compute train and cv error
-                train_rmse, cv_rmse = modeling.compute_train_cv_error(fitted_model, 
-                                                            train, 
-                                                            test, 
-                                                            data_to_predict='corr_resp')
+            # compute train and cv error
+            train_rmse, cv_rmse = modeling.compute_train_cv_error(fitted_model, 
+                                                        train, 
+                                                        test, 
+                                                        data_to_predict='rt')
 
-                # appending data to dataframe
-                d = {'train_rmse': train_rmse, 'cv_rmse': cv_rmse,'model_name': model_name, 'subj': subj}
-                df = pd.DataFrame(data=[d])
-                models = pd.concat([models, df])
-            
-            except: 
-                print(f'error raised when fitting {model_name} model for {subj}')
+            # appending data to dataframe
+            d = {'train_rmse': train_rmse, 'cv_rmse': cv_rmse,'model_name': model_name, 'subj': subj}
+            df = pd.DataFrame(data=[d])
+            models = pd.concat([models, df])
+        
+            #print(f'error raised when fitting {model_name} model for {subj}')
 
     # compare models
     fig = modeling.compare_models(model_results=models)    
