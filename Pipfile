@@ -20,12 +20,8 @@ pillow = "==6.2.0"
 pyo = "==1.0.0"
 boxsdk = "*"
 seaborn = "*"
-<<<<<<< HEAD
-urllib = "*"
 urllib3 = "*"
-=======
 sklearn = "*"
->>>>>>> mk_visualize
 
 [requires]
 python_version = "3.7"
