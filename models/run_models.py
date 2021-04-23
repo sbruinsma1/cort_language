@@ -38,7 +38,7 @@ def run(dataframe, model_names):
             # appending data to dataframe
             d = {'train_rmse': train_rmse, 'cv_rmse': cv_rmse,'model_name': model_name, 'subj': subj}
             df = pd.DataFrame(data=[d])
-            models = pd.concat([models, df])
+            models = pd.concat([models, df], ignore_index=True)
         
             #print(f'error raised when fitting {model_name} model for {subj}')
 

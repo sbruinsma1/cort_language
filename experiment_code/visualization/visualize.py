@@ -1282,7 +1282,7 @@ class EnglishVerif:
 
         plt.show()
         
-        print('Answers mean:', dataframe.correct.mean())
+        print('Answers mean:', dataframe.correct.mean(), 'std', dataframe.correct.std())
         #print('Percentage of correct vs incorrect',dataframe['correct'].value_counts(normalize=True) * 100)
 
     def participant_accuracy(self, dataframe):
@@ -1298,6 +1298,7 @@ class EnglishVerif:
 
         plt.show()
 
+        print('Answers mean:', dataframe.correct.mean(), 'std', dataframe.correct.std())
 
     def rt_by_condition(self, dataframe):
         """ *plots reaction time across easy vs hard cloze condition.

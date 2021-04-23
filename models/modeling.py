@@ -27,11 +27,14 @@ def get_model_features(model_name):
     if model_name=='cort':
         quant_features = ['correct']
         qual_features = ['CoRT_descript', 'group', 'trial_type']
+    elif model_name=='rt':
+        quant_features = ['rt']
+        qual_features = ['group']
     elif model_name=='cloze':
         quant_features = ['correct']
         qual_features = ['cloze_descript', 'group', 'trial_type']
     elif model_name=='demog':
-        quant_features = ['years_of_education', 'age', 'MOCA_total_score', 'SARA_total_score']
+        quant_features = ['years_of_education', 'age', 'MOCA_mean', 'SARA_mean']
         qual_features = ['group', 'gender'] #input array of etiology? ignore skewed gender?
     elif model_name=='cort+cloze':
         quant_features = ['correct']
@@ -135,7 +138,7 @@ def compare_models(model_results):
         [go.Bar(x=model_names, y=model_results['train_rmse'], name='Training RMSE'),
         go.Bar(x=model_names, y=model_results['cv_rmse'], name='CV RMSE')]
         )
-    fig.update_yaxes({'range': [0.4, 0.45]})
+    #fig.update_yaxes({'range': [0.4, 0.45]})
 
     return fig
 
