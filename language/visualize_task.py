@@ -41,7 +41,8 @@ def load_dataframe(
     bad_subjs=['p06', 'p11', 'p08', 'c05', 'c19'],
     trial_type='meaningful',
     attempt=None,
-    correct=None
+    correct=None,
+    remove_outliers=True
     ):
     """ load dataframe and do filtering
 
@@ -50,6 +51,7 @@ def load_dataframe(
         trial_type (str): default is 'meaningful'
         attempt (int or None): default is None. other option is 1
         correct (int or None): default is None. other options [0,1]
+        remove_outliers (bool): default is True. removes outliers +- 2std from mean
     Returns:
         pd dataframe
     """
@@ -77,6 +79,15 @@ def load_dataframe(
         df = df.query('attempt==1')
     if correct is not None:
         df = df.query('correct==1')
+
+    if remove_outliers:
+        # remove outliers (+- 2 std from mean)
+        df_participant = df.groupby('participant_id')['rt'].agg(
+            {'mean', 'std'}).reset_index().rename(
+            {'mean': 'rt_mean', 'std': 'rt_std'}, axis=1)
+        df = df_participant.merge(df, on='participant_id')
+        df = df[df['rt'] > df['rt_mean'] - 2 * df['rt_std']]
+        df = df[df['rt'] < df['rt_mean'] + 2 * df['rt_std']]
 
     return df
 
