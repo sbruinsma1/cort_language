@@ -1,10 +1,8 @@
 import numpy as np
 import pandas as pd
 import os
-import glob
-import re
-import matplotlib.pyplot as plt
 import seaborn as sns
+import matplotlib.pyplot as plt
 from collections import defaultdict
 from functools import partial
 from scipy.stats import linregress
@@ -20,12 +18,13 @@ from language.preprocess import Task
 def plotting_style():
     plt.style.use('seaborn-poster') # ggplot
     sns.set_style(style='white') 
-    params = {'axes.labelsize': 30,
-            'axes.titlesize': 25,
-            'legend.fontsize': 20,
-            'xtick.labelsize': 25,
-            'ytick.labelsize': 25,
-            'figure.figsize': (8,8),
+    params = {'axes.labelsize': 35,
+            'axes.titlesize': 40,
+            'legend.fontsize': 35,
+            'xtick.labelsize': 35,
+            'ytick.labelsize': 35,
+            'lines.markersize': 20,
+            # 'figure.figsize': (8,8),
             'font.weight': 'regular',
             # 'font.size': 'regular',
             'font.family': 'sans-serif',
@@ -38,7 +37,7 @@ def plotting_style():
     np.set_printoptions(formatter={'float_kind':'{:f}'.format})
                                
 def load_dataframe(
-    bad_subjs=['p06', 'p11', 'p08', 'c05', 'c19'],
+    bad_subjs=['p06', 'p11', 'p08', 'c19'], # 'c05'
     trial_type='meaningful',
     attempt=None,
     correct=None,
@@ -113,22 +112,22 @@ def plot_rt(
     """
 
     if plot_type=='line':
-        ax = sns.lineplot(x=x, y=y, hue=hue, data=dataframe, err_style='bars', palette='rocket') # legend=True,
+        ax = sns.lineplot(x=x, y=y, hue=hue, data=dataframe, err_style='bars', palette='rocket', ax=ax) # legend=True,
     elif plot_type=='point':
-        ax = sns.pointplot(x=x, y=y, hue=hue, data=dataframe, err_style='bars', palette='rocket')
+        ax = sns.pointplot(x=x, y=y, hue=hue, data=dataframe, err_style='bars', palette='rocket', ax=ax)
     elif plot_type=='bar':
-        ax = sns.barplot(x=x, y=y, hue=hue, data=dataframe, palette='rocket')
+        ax = sns.barplot(x=x, y=y, hue=hue, data=dataframe, palette='rocket', ax=ax)
     elif plot_type=='box':
         dataframe = dataframe.groupby(['participant_id', x, hue])[y].agg('mean').reset_index()
         dataframe.columns = ["".join(x) for x in dataframe.columns.ravel()]
-        ax = sns.boxplot(x=x, y=y, hue=hue, data=dataframe, palette='rocket')
+        ax = sns.boxplot(x=x, y=y, hue=hue, data=dataframe, palette='rocket', ax=ax)
 
     xlabel = x
     if x=='block_num':
         xlabel = 'Blocks'
     plt.xticks(rotation="45", ha="right")
-    plt.ylabel("Reaction Time (ms)")
-    plt.xlabel(xlabel)
+    ax.set_ylabel("Reaction Time (ms)")
+    ax.set_xlabel(xlabel)
 
     if hue is not None:
         plt.legend(loc='best', frameon=False)
@@ -137,7 +136,6 @@ def plot_rt(
         plt.savefig(os.path.join(FIG_DIR, 'reaction_time.svg', pad_inches=0, bbox_inches='tight'))
     
     plt.tight_layout()
-    plt.show()
 
     # df = pd.pivot_table(dataframe, values=y, index='subj_id', columns=['method', 'num_regions'], aggfunc=np.mean) # 'X_data'
     return ax
@@ -163,18 +161,18 @@ def plot_acc(
     """
 
     if plot_type=='line':
-        ax = sns.lineplot(x=x, y=y, hue=hue, data=dataframe, err_style='bars', palette='rocket') # legend=True,
+        ax = sns.lineplot(x=x, y=y, hue=hue, data=dataframe, err_style='bars', palette='rocket', ax=ax) # legend=True,
     elif plot_type=='point':
-        ax = sns.pointplot(x=x, y=y, hue=hue, data=dataframe, err_style='bars', palette='rocket')
+        ax = sns.pointplot(x=x, y=y, hue=hue, data=dataframe, err_style='bars', palette='rocket', ax=ax)
     elif plot_type=='bar':
-        ax = sns.barplot(x=x, y=y, hue=hue, data=dataframe, palette='rocket')
+        ax = sns.barplot(x=x, y=y, hue=hue, data=dataframe, palette='rocket', ax=ax)
 
     xlabel = x
     if x=='block_num':
         xlabel = 'Blocks'
     plt.xticks(rotation="45", ha="right")
-    plt.ylabel("Accuracy")
-    plt.xlabel(xlabel)
+    ax.set_ylabel("Accuracy")
+    ax.set_xlabel(xlabel)
     plt.ylim([0.85, 1]);
     plt.yticks([0.85, 0.95, 1])
 
@@ -185,14 +183,15 @@ def plot_acc(
         plt.savefig(os.path.join(FIG_DIR, 'accuracy.svg', pad_inches=0, bbox_inches='tight'))
     
     plt.tight_layout()
-    plt.show()
 
     # df = pd.pivot_table(dataframe, values=y, index='subj_id', columns=['method', 'num_regions'], aggfunc=np.mean) # 'X_data'
     return ax
 
 def item_analysis(
     dataframe,
-    y='rt'
+    y='rt',
+    ax=None,
+    hue=None
     ):
     """granular analysis of RT for sentences (plotting RT & look @ error)
     """
@@ -205,18 +204,24 @@ def item_analysis(
     grouped_table.columns = grouped_table.columns.str.strip('_')
 
     # plot scatterplot
-    sns.scatterplot(x=f"{y}_mean_control", y=f"{y}_std_control", label="control", data=grouped_table, palette='rocket')
-    sns.scatterplot(x=f"{y}_mean_patient", y=f"{y}_std_patient", label="patient", data=grouped_table, palette='rocket')
-    plt.legend(loc= "upper right", fontsize=15)
-    plt.xlabel('Mean RT', fontsize=20)
-    plt.ylabel('Std RT', fontsize=20)
-    plt.tick_params(axis='both', which='major', labelsize=15);
+    ax = sns.scatterplot(x=f"{y}_mean_control", y=f"{y}_std_control", label="control", data=grouped_table, palette='rocket', ax=ax)
+    ax = sns.scatterplot(x=f"{y}_mean_patient", y=f"{y}_std_patient", label="patient", data=grouped_table, palette='rocket', ax=ax)
+    plt.legend(loc= "upper right")
+    ax.set_xlabel('Mean RT')
+    ax.set_ylabel('Std RT')
 
-    plt.show()
+    if hue is not None:
+        plt.legend(loc='best', frameon=False)
+
+    plt.tight_layout()
+
+    return ax
 
 def scatterplot_rating(
     dataframe, 
-    x='CoRT'
+    x='CoRT',
+    ax=None,
+    hue=None
     ):
     """scatterplot of ratings (CoRT or cloze) for RT
 
@@ -224,11 +229,10 @@ def scatterplot_rating(
         dataframe (pd dataframe):
         x (str): default is 'CoRT'. other option: 'cloze'
     """
-    grouped_table = pd.pivot_table(dataframe, values=['rt'], index=['spreadsheet_row', 'CoRT_mean', 'cloze_probability'], columns=['group'],
-                                    aggfunc= {np.mean, np.std}).reset_index()
-    # join multilevel columns
-    grouped_table.columns = ["_".join(pair) for pair in grouped_table.columns]
-    grouped_table.columns = grouped_table.columns.str.strip('_')
+    # get patient and control data
+    df_control = dataframe.query('group=="control"').groupby(['CoRT_mean', 'cloze_probability', 'group'])['rt'].agg({'mean', 'std'}).reset_index()
+    df_patient = dataframe.query('group=="patient"').groupby(['CoRT_mean', 'cloze_probability', 'group'])['rt'].agg({'mean', 'std'}).reset_index()
+    df = pd.concat([df_control, df_patient])
 
     # figure out x axis
     xlabel = 'CoRT (mean)'
@@ -238,17 +242,25 @@ def scatterplot_rating(
         x = 'cloze_probability'
         xlabel = 'Cloze (mean)'
 
-    sns.scatterplot(x=x, y="rt_mean_control", label="control", data=grouped_table, palette='rocket')
-    sns.scatterplot(x=x, y="rt_mean_patient", label="patient", data=grouped_table, palette='rocket')
-    plt.legend(loc="upper right", fontsize=15)
-    plt.xlabel(xlabel, fontsize=20)
-    plt.ylabel('Mean RT', fontsize=20)
-    plt.tick_params(axis='both', which='major', labelsize=15);
-    plt.show()
+    ax = sns.scatterplot(x=x, y="mean", hue=hue, data=df, palette='rocket', ax=ax)
+    plt.legend(loc="upper right")
+    plt.xlabel(xlabel)
+    plt.ylabel('Mean RT')
+
+    if hue is not None:
+        plt.legend(loc='best', frameon=False)
+
+    plt.tight_layout()
+
+    return ax
 
 def plot_slope(
     dataframe,
-    y='CoRT'
+    y='CoRT',
+    x='group',
+    ax=None,
+    hue=None,
+    plot_type='box'
     ):
 
     cond1 = 'CoRT'; cond2 = 'non-CoRT'
@@ -263,8 +275,11 @@ def plot_slope(
         df_subj = df.query(f'participant_id=="{subj}"')
 
         # calculate RT slope function
-        slope, intercept, r_value, p_value, std_err = linregress(df_subj[df_subj[y]==cond1]['rt'], df_subj[df_subj[y]==cond2]['rt'])
-        data_dict = {'subj': subj, 'slope': slope, 'intercept': intercept, 'r': r_value, 'p': p_value, 'std_error': std_err}
+        try:
+            slope, intercept, r_value, p_value, std_err = linregress(df_subj[df_subj[y]==cond1]['rt'], df_subj[df_subj[y]==cond2]['rt'])
+            data_dict = {'subj': subj, 'slope': slope, 'intercept': intercept, 'r': r_value, 'p': p_value, 'std_error': std_err}
+        except:
+            pass
 
         for k,v in data_dict.items():
             data_dict_all[k] = np.append(data_dict_all[k], v)
@@ -272,19 +287,32 @@ def plot_slope(
     df_out = pd.DataFrame.from_dict(data_dict_all)
     df_out['group'] = df_out['subj'].apply(lambda x: 'control' if 'c' in x else 'patient')
 
-    sns.boxplot(x='group', y='slope', data=df_out, palette='rocket')
-    sns.swarmplot(x='group', y='slope', data=df_out, color=".25", size=15)
-    plt.tick_params(axis = 'both', which = 'major', labelsize = 20)
-    plt.ylabel(f'RT slope ({y})', fontsize=20)
-    plt.xlabel('')
-    plt.show()
+    if plot_type=='box':
+        ax = sns.boxplot(x=x, y='slope', data=df_out, palette='rocket', ax=ax)
+    elif plot_type=='bar':
+        ax = sns.barplot(x=x, y='slope', data=df_out, palette='rocket', ax=ax)
+    ax = sns.swarmplot(x=x, y='slope', data=df_out, color=".25",  size=12, ax=ax)
+    ax.set_ylabel(f'RT slope ({y})')
+    ax.set_xlabel('')
 
-    F, p = f_oneway(df[df[y]==cond1]['rt'], df[df[y]==cond2]['rt'])
-    print(f'F stat: {F}, p-value: {p}')
+    if hue is not None:
+        plt.legend(loc='best', frameon=False)
+
+    F, p = f_oneway(df_out.query('group=="control"')['slope'], df_out.query('group=="patient"')['slope'])
+    # F, p = f_oneway(df[df[y]==cond1]['rt'], df[df[y]==cond2]['rt'])
+    print(f'F stat for {y} slope: {F}, p-value: {p}')
+
+    plt.tight_layout()
+
+    return ax
 
 def rt_diff(
     dataframe,
-    y='CoRT'
+    y='CoRT',
+    x='group',
+    ax=None,
+    hue=None,
+    plot_type='box'
     ):
 
     cond1 = 'CoRT'; cond2 = 'non-CoRT'
@@ -296,47 +324,45 @@ def rt_diff(
     df_pivot['diff_rt'] = df_pivot[cond2] - df_pivot[cond1] 
     df_pivot['group'] = df_pivot['participant_id'].apply(lambda x: 'control' if 'c' in x else 'patient')
 
-    sns.boxplot(x='group', y='diff_rt', data=df_pivot, palette='rocket')
-    sns.swarmplot(x='group', y='diff_rt', data=df_pivot, color=".25", size=15)
-    plt.tick_params(axis = 'both', which = 'major', labelsize = 40)
-    plt.ylabel(f'RT diff ({cond2} - {cond1})', fontsize=40)
-    plt.xlabel('')
-    plt.show()
+    if plot_type=='box':
+        ax = sns.boxplot(x=x, y='diff_rt', data=df_pivot, palette='rocket', ax=ax)
+    elif plot_type=='bar':
+        ax = sns.barplot(x=x, y='diff_rt', data=df_pivot, palette='rocket', ax=ax)
+    ax = sns.swarmplot(x=x, y='diff_rt', data=df_pivot, color=".25", size=10, ax=ax) # size=15, 
+    ax.set_ylabel(f'RT diff ({cond2} - {cond1})')
+    ax.set_xlabel('')
 
-def rt_diff_cort_in_low(dataframe):
-    
-    df = dataframe[(dataframe['correct']==1) & (dataframe['trial_type']=="meaningful") & (dataframe['cloze']=="low cloze")].groupby(['participant_id', 'CoRT'])['rt'].apply(lambda x: x.mean()).reset_index()
-    df_pivot = pd.pivot_table(df, index='participant_id', columns=['CoRT'], values='rt').reset_index()
-    df_pivot['diff_rt'] = df_pivot['non-CoRT'] - df_pivot['CoRT'] 
-    df_pivot['group'] = df_pivot['participant_id'].apply(lambda x: 'control' if 'c' in x else 'patient')
+    if hue is not None:
+        plt.legend(loc='best', frameon=False)
 
-    sns.set(rc={'figure.figsize':(10,20)})
-    sns.set_style("whitegrid", {'axes.grid' : False})
-    sns.boxplot(x='group', y='diff_rt', data=df_pivot)
-    sns.swarmplot(x='group', y='diff_rt', data=df_pivot, color=".25", size=10)
-    plt.tick_params(axis = 'both', which = 'major', labelsize = 40)
-    plt.ylabel('RT diff (Non-CoRT - CoRT) in low cloze', fontsize=40)
-    plt.ylim([-125,125])
-    plt.xlabel('')
-    plt.show()
-    
-    #df_low = df_pivot.query('cloze_descipt == "low cloze"')
-    F, p = f_oneway(df_pivot[df_pivot["non-CoRT"]] - df_pivot[df_pivot["CoRT"]])
-    print(f'F stat: {F}, p-value: {p}')
+    plt.tight_layout()
 
-def rt_diff_cort_in_high(dataframe):
-    
-    df = dataframe[(dataframe['correct']==1) & (dataframe['trial_type']=="meaningful") & (dataframe['cloze']=="high cloze")].groupby(['participant_id', 'CoRT'])['rt'].apply(lambda x: x.mean()).reset_index()
-    df_pivot = pd.pivot_table(df, index='participant_id', columns=['CoRT'], values='rt').reset_index()
-    df_pivot['diff_rt'] = df_pivot['non-CoRT'] - df_pivot['CoRT'] 
-    df_pivot['group'] = df_pivot['participant_id'].apply(lambda x: 'control' if 'c' in x else 'patient')
+    F, p = f_oneway(df_pivot.query('group=="control"')['diff_rt'], df_pivot.query('group=="patient"')['diff_rt'])
+    # F, p = f_oneway(df[df[y]==cond1]['rt'], df[df[y]==cond2]['rt'])
+    print(f'F stat for {y} RT diff: {F}, p-value: {p}')
 
-    sns.set(rc={'figure.figsize':(10,20)})
-    sns.set_style("whitegrid", {'axes.grid' : False})
-    sns.boxplot(x='group', y='diff_rt', data=df_pivot)
-    sns.swarmplot(x='group', y='diff_rt', data=df_pivot, color=".25", size=10)
-    plt.tick_params(axis = 'both', which = 'major', labelsize = 40)
-    plt.ylabel('RT diff (Non-CoRT - CoRT) in high cloze', fontsize=40)
-    plt.ylim([-125,125])
-    plt.xlabel('')
-    plt.show()
+    return ax
+
+def interaction_analysis(
+    dataframe,
+    x='group',
+    hue=None,
+    ax=None,
+    plot_type='bar'
+    ):
+
+    if plot_type=='box':
+        ax = sns.boxplot(x=x, y='rt', hue=hue, data=dataframe, palette='rocket', ax=ax)
+    elif plot_type=='bar':
+        ax = sns.barplot(x=x, y='rt', hue=hue, data=dataframe, palette='rocket')
+    elif plot_type=='line':
+        ax = sns.lineplot(x=x, y='rt', hue=hue, data=dataframe, palette='rocket')
+    ax.set_ylabel(f'RT')
+    ax.set_xlabel('')
+
+    if hue is not None:
+        plt.legend(loc='best', frameon=False)
+
+    plt.tight_layout()
+
+    return ax
