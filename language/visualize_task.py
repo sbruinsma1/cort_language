@@ -18,11 +18,11 @@ from language.preprocess import Task
 def plotting_style():
     plt.style.use('seaborn-poster') # ggplot
     sns.set_style(style='white') 
-    params = {'axes.labelsize': 35,
+    params = {'axes.labelsize': 50,
             'axes.titlesize': 40,
             'legend.fontsize': 35,
-            'xtick.labelsize': 35,
-            'ytick.labelsize': 35,
+            'xtick.labelsize': 40,
+            'ytick.labelsize': 40,
             'lines.markersize': 20,
             # 'figure.figsize': (8,8),
             'font.weight': 'regular',
@@ -64,6 +64,7 @@ def load_dataframe(
 
     # create new variables
     # df['group_condition_name'] = df['group'] + " " + df['condition_name']
+    df['group'] = df['group'].map({'patient': 'CD', 'control': 'CO'})
     df['group_cloze_condition'] = df['group'] + ": " + df['cloze']
     df['group_CoRT_condition'] = df['group'] + ": " + df['CoRT']
     df['group_trial_type'] = df['group'] + ": " + df['trial_type']
@@ -125,8 +126,8 @@ def plot_rt(
     xlabel = x
     if x=='block_num':
         xlabel = 'Blocks'
-    plt.xticks(rotation="45", ha="right")
-    ax.set_ylabel("Reaction Time (ms)")
+    # plt.xticks(rotation="45", ha="right")
+    ax.set_ylabel("Mean RT (ms)")
     ax.set_xlabel(xlabel)
 
     if hue is not None:
@@ -170,11 +171,11 @@ def plot_acc(
     xlabel = x
     if x=='block_num':
         xlabel = 'Blocks'
-    plt.xticks(rotation="45", ha="right")
+    # plt.xticks(rotation="45", ha="right")
     ax.set_ylabel("Accuracy")
     ax.set_xlabel(xlabel)
     plt.ylim([0.85, 1]);
-    plt.yticks([0.85, 0.95, 1])
+    # plt.yticks([0.85, 0.95, 1])
 
     if hue is not None:
         ax.legend(loc='best', frameon=False)
@@ -204,8 +205,8 @@ def item_analysis(
     grouped_table.columns = grouped_table.columns.str.strip('_')
 
     # plot scatterplot
-    ax = sns.scatterplot(x=f"{y}_mean_control", y=f"{y}_std_control", label="control", data=grouped_table, palette='rocket', ax=ax)
-    ax = sns.scatterplot(x=f"{y}_mean_patient", y=f"{y}_std_patient", label="patient", data=grouped_table, palette='rocket', ax=ax)
+    ax = sns.scatterplot(x=f"{y}_mean_CO", y=f"{y}_std_CO", label="CO", data=grouped_table, palette='rocket', ax=ax)
+    ax = sns.scatterplot(x=f"{y}_mean_CD", y=f"{y}_std_CD", label="CD", data=grouped_table, palette='rocket', ax=ax)
     plt.legend(loc= "upper right")
     ax.set_xlabel('Mean RT')
     ax.set_ylabel('Std RT')
@@ -230,8 +231,8 @@ def scatterplot_rating(
         x (str): default is 'CoRT'. other option: 'cloze'
     """
     # get patient and control data
-    df_control = dataframe.query('group=="control"').groupby(['CoRT_mean', 'cloze_probability', 'group'])['rt'].agg({'mean', 'std'}).reset_index()
-    df_patient = dataframe.query('group=="patient"').groupby(['CoRT_mean', 'cloze_probability', 'group'])['rt'].agg({'mean', 'std'}).reset_index()
+    df_control = dataframe.query('group=="CO"').groupby(['CoRT_mean', 'cloze_probability', 'group'])['rt'].agg({'mean', 'std'}).reset_index()
+    df_patient = dataframe.query('group=="CD"').groupby(['CoRT_mean', 'cloze_probability', 'group'])['rt'].agg({'mean', 'std'}).reset_index()
     df = pd.concat([df_control, df_patient])
 
     # figure out x axis
@@ -285,7 +286,7 @@ def plot_slope(
             data_dict_all[k] = np.append(data_dict_all[k], v)
 
     df_out = pd.DataFrame.from_dict(data_dict_all)
-    df_out['group'] = df_out['subj'].apply(lambda x: 'control' if 'c' in x else 'patient')
+    df_out['group'] = df_out['subj'].apply(lambda x: 'CO' if 'c' in x else 'CD')
 
     if plot_type=='box':
         ax = sns.boxplot(x=x, y='slope', data=df_out, palette='rocket', ax=ax)
@@ -298,7 +299,7 @@ def plot_slope(
     if hue is not None:
         plt.legend(loc='best', frameon=False)
 
-    F, p = f_oneway(df_out.query('group=="control"')['slope'], df_out.query('group=="patient"')['slope'])
+    F, p = f_oneway(df_out.query('group=="CO"')['slope'], df_out.query('group=="CD"')['slope'])
     # F, p = f_oneway(df[df[y]==cond1]['rt'], df[df[y]==cond2]['rt'])
     print(f'F stat for {y} slope: {F}, p-value: {p}')
 
@@ -322,7 +323,7 @@ def rt_diff(
     df = dataframe.groupby(['participant_id', y])['rt'].apply(lambda x: x.mean()).reset_index()
     df_pivot = pd.pivot_table(df, index='participant_id', columns=[y], values='rt').reset_index()
     df_pivot['diff_rt'] = df_pivot[cond2] - df_pivot[cond1] 
-    df_pivot['group'] = df_pivot['participant_id'].apply(lambda x: 'control' if 'c' in x else 'patient')
+    df_pivot['group'] = df_pivot['participant_id'].apply(lambda x: 'CO' if 'c' in x else 'CD')
 
     if plot_type=='box':
         ax = sns.boxplot(x=x, y='diff_rt', data=df_pivot, palette='rocket', ax=ax)
@@ -337,7 +338,7 @@ def rt_diff(
 
     plt.tight_layout()
 
-    F, p = f_oneway(df_pivot.query('group=="control"')['diff_rt'], df_pivot.query('group=="patient"')['diff_rt'])
+    F, p = f_oneway(df_pivot.query('group=="CO"')['diff_rt'], df_pivot.query('group=="CD"')['diff_rt'])
     # F, p = f_oneway(df[df[y]==cond1]['rt'], df[df[y]==cond2]['rt'])
     print(f'F stat for {y} RT diff: {F}, p-value: {p}')
 

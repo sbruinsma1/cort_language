@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 24.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 408.8 273.3" style="enable-background:new 0 0 408.8 273.3;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#D1D1D1;}
+	.st1{fill:none;stroke:#231F20;stroke-width:1.5;stroke-miterlimit:10;}
+	.st2{fill:#231F20;}
+	.st3{fill:#D1D1D1;stroke:#231F20;stroke-miterlimit:10;}
+	.st4{font-family:'ArialMT';}
+	.st5{font-size:10px;}
+	.st6{font-size:8px;}
+	.st7{font-size:24px;}
+	.st8{font-size:7.2px;}
+	.st9{fill:none;stroke:#231F20;stroke-width:2;stroke-miterlimit:10;}
+	.st10{font-size:12px;}
+	.st11{font-size:20px;}
+</style>
+<rect x="269.5" y="45.2" class="st0" width="123.7" height="26.4"/>
+<rect x="269.5" y="75.1" class="st0" width="123.7" height="26.4"/>
+<rect x="269.5" y="13.8" class="st0" width="123.7" height="26.4"/>
+<rect x="144.3" y="45.2" class="st0" width="123.7" height="26.4"/>
+<rect x="144.3" y="75.1" class="st0" width="123.7" height="26.4"/>
+<rect x="144.1" y="13.8" class="st0" width="123.7" height="26.4"/>
+<rect x="19.1" y="45.2" class="st0" width="123.7" height="26.4"/>
+<rect x="19.1" y="75.2" class="st0" width="123.7" height="26.4"/>
+<g>
+	<g>
+		<line class="st1" x1="16.3" y1="167.8" x2="347.2" y2="249.8"/>
+		<g>
+			<path class="st2" d="M356,251.9c-4.5,0.5-10.3,1.9-14.2,3.8l4.2-6.3l-0.8-7.5C347.8,245.5,352.3,249.4,356,251.9z"/>
+		</g>
+	</g>
+</g>
+<path class="st3" d="M54.6,156.6h-31c-6.6,0-12-5.4-12-12v-12.3c0-6.6,5.4-12,12-12h30.9c6.6,0,12,5.4,12,12v12.3
+	C66.6,151.2,61.2,156.6,54.6,156.6z"/>
+<text transform="matrix(1 0 0 1 31.3867 141.2141)" class="st2 st4 st5">The</text>
+<path class="st3" d="M93.4,165.9H62.5c-6.6,0-12-5.4-12-12v-12.3c0-6.6,5.4-12,12-12h30.9c6.6,0,12,5.4,12,12v12.3
+	C105.4,160.5,100,165.9,93.4,165.9z"/>
+<path class="st3" d="M132.4,175.6h-30.9c-6.6,0-12-5.4-12-12v-12.3c0-6.6,5.4-12,12-12h30.9c6.6,0,12,5.4,12,12v12.3
+	C144.4,170.2,139,175.6,132.4,175.6z"/>
+<path class="st3" d="M178.5,182.9h-30.9c-6.6,0-12-5.4-12-12v-12.3c0-6.6,5.4-12,12-12h30.9c6.6,0,12,5.4,12,12v12.3
+	C190.5,177.5,185.1,182.9,178.5,182.9z"/>
+<path class="st3" d="M215.3,193.1h-30.9c-6.6,0-12-5.4-12-12v-12.3c0-6.6,5.4-12,12-12h30.9c6.6,0,12,5.4,12,12v12.3
+	C227.3,187.7,221.9,193.1,215.3,193.1z"/>
+<path class="st3" d="M252,202.6h-30.9c-6.6,0-12-5.4-12-12v-12.3c0-6.6,5.4-12,12-12H252c6.6,0,12,5.4,12,12v12.3
+	C264,197.2,258.6,202.6,252,202.6z"/>
+<text transform="matrix(1 0 0 1 157.8091 139.3547)" class="st2 st4 st6">Context Phrase</text>
+<text transform="matrix(1 0 0 1 352.666 182.9152)" class="st2 st4 st6">Target </text>
+<text transform="matrix(1 0 0 1 24.8276 163.9748)" class="st2 st4 st6">500 ms</text>
+<text transform="matrix(1 0 0 1 64.7783 173.424)" class="st2 st4 st6">500 ms</text>
+<text transform="matrix(1 0 0 1 105.5107 182.9162)" class="st2 st4 st6">500 ms</text>
+<text transform="matrix(1 0 0 1 147.2358 190.4719)" class="st2 st4 st6">500 ms</text>
+<text transform="matrix(1 0 0 1 183.5986 201.1115)" class="st2 st4 st6">500 ms</text>
+<text transform="matrix(1 0 0 1 333.0664 241.0236)" class="st2 st4 st6">2000 ms (Key Press)</text>
+<path class="st3" d="M295.6,211.9h-30.9c-6.6,0-12-5.4-12-12v-12.3c0-6.6,5.4-12,12-12h30.9c6.6,0,12,5.4,12,12v12.3
+	C307.6,206.5,302.2,211.9,295.6,211.9z"/>
+<path class="st3" d="M333.7,221.3h-30.9c-6.6,0-12-5.4-12-12V197c0-6.6,5.4-12,12-12h30.9c6.6,0,12,5.4,12,12v12.3
+	C345.7,215.9,340.3,221.3,333.7,221.3z"/>
+<text transform="matrix(1 0 0 1 67.3472 151.2453)" class="st2 st4 st5">man</text>
+<text transform="matrix(1 0 0 1 94.0786 160.3039)" class="st2 st4 st5">loosened</text>
+<text transform="matrix(1 0 0 1 149.7832 168.4084)" class="st2 st4 st5">the</text>
+<text transform="matrix(1 0 0 1 190.1924 177.9436)" class="st2 st4 st5">tie</text>
+<text transform="matrix(1 0 0 1 219.2905 188.7268)" class="st2 st4 st5">around</text>
+<text transform="matrix(1 0 0 1 270.4932 197.0139)" class="st2 st4 st5">his</text>
+<path class="st3" d="M377.9,230.1H347c-6.6,0-12-5.4-12-12v-12.3c0-6.6,5.4-12,12-12h30.9c6.6,0,12,5.4,12,12v12.3
+	C389.9,224.7,384.5,230.1,377.9,230.1z"/>
+<text transform="matrix(1 0 0 1 222.5063 211.9172)" class="st2 st4 st6">500 ms</text>
+<text transform="matrix(1 0 0 1 264.4941 221.3469)" class="st2 st4 st6">500 ms</text>
+<text transform="matrix(1 0 0 1 303.3809 230.0578)" class="st2 st4 st6">500 ms</text>
+<text transform="matrix(1 0 0 1 352.5996 215.6818)" class="st2 st4 st5">neck</text>
+<text transform="matrix(1 0 0 1 310.2021 209.8811)" class="st2 st4 st7">+</text>
+<text transform="matrix(1 0 0 1 341.3003 225.1425)" class="st2 st4 st8">False</text>
+<text transform="matrix(1 0 0 1 371.1807 225.1428)" class="st2 st4 st8">True</text>
+<text transform="matrix(1 0 0 1 341.6904 262.6177)" class="st2 st4 st8">False = Meaningless</text>
+<text transform="matrix(1 0 0 1 341.6904 271.2177)" class="st2 st4 st8">True  = Meaningful</text>
+<rect x="19.1" y="13.8" class="st0" width="123.7" height="26.4"/>
+<line class="st9" x1="19.9" y1="13" x2="19.9" y2="106.7"/>
+<line class="st9" x1="19" y1="106.7" x2="393.1" y2="106.7"/>
+<line class="st9" x1="19.2" y1="13" x2="393.1" y2="13.8"/>
+<line class="st9" x1="393.1" y1="13.4" x2="393.1" y2="107.1"/>
+<line class="st9" x1="19.1" y1="40.2" x2="393.2" y2="40.2"/>
+<text transform="matrix(1 0 0 1 46.6331 30.3957)" class="st4 st10">Predictability</text>
+<text transform="matrix(1 0 0 1 46.633 62.7542)" class="st4 st10">High</text>
+<text transform="matrix(1 0 0 1 46.6327 95.8446)" class="st4 st10">Low</text>
+<text transform="matrix(1 0 0 1 184.4897 30.3953)" class="st4 st10">Dynamic</text>
+<text transform="matrix(1 0 0 1 310.5482 30.3957)" class="st4 st10">Static</text>
+<text transform="matrix(1 0 0 1 150.1688 55.3336)" class="st4 st5">He loosened the tie</text>
+<text transform="matrix(1 0 0 1 150.1688 68.5336)" class="st4 st5">around his ___</text>
+<text transform="matrix(1 0 0 1 149.783 85.0583)" class="st4 st5">A large stone blocked the</text>
+<text transform="matrix(1 0 0 1 149.783 98.2583)" class="st4 st5">entrance of the ___</text>
+<text transform="matrix(1 0 0 1 274.6879 55.3331)" class="st4 st5">Her job was easy most</text>
+<text transform="matrix(1 0 0 1 274.6879 68.5331)" class="st4 st5">of the ___</text>
+<text transform="matrix(1 0 0 1 274.6875 85.0582)" class="st4 st5">The state park was</text>
+<text transform="matrix(1 0 0 1 274.6875 98.2582)" class="st4 st5">popular for its large ___</text>
+<text transform="matrix(1 0 0 1 2.5456 17.711)" class="st4 st11">A</text>
+<text transform="matrix(1 0 0 1 2.5454 120.3002)" class="st4 st11">B</text>
+</svg>
