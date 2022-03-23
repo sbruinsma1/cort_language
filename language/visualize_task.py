@@ -5,8 +5,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 from collections import defaultdict
 from functools import partial
-from scipy.stats import linregress
-from scipy.stats import f_oneway
+from scipy.stats import f_oneway, linregress, ttest_ind
 
 import warnings
 warnings.filterwarnings("ignore")
@@ -16,15 +15,15 @@ from language.constants import DATA_DIR, FIG_DIR
 from language.preprocess import Task
 
 def plotting_style():
-    plt.style.use('seaborn-poster') # ggplot
+    plt.style.use('seaborn-paper') # ggplot
     sns.set_style(style='white') 
-    params = {'axes.labelsize': 50,
+    params = {'axes.labelsize': 45,
             'axes.titlesize': 40,
-            'legend.fontsize': 35,
+            'legend.fontsize': 30,
             'xtick.labelsize': 40,
             'ytick.labelsize': 40,
             'lines.markersize': 20,
-            # 'figure.figsize': (8,8),
+            'figure.figsize': (10,6),
             'font.weight': 'regular',
             # 'font.size': 'regular',
             'font.family': 'sans-serif',
@@ -49,7 +48,7 @@ def load_dataframe(
         bad_subjs (list of str): default is ['p06', 'p11', 'p08', 'c05', 'c19']
         trial_type (str): default is 'meaningful'
         attempt (int or None): default is None. other option is 1
-        correct (int or None): default is None. other options [0,1]
+        correct (bool or None): default is None. other options True (correct trials only) or False (incorrect trials)
         remove_outliers (bool): default is True. removes outliers +- 2std from mean
     Returns:
         pd dataframe
@@ -64,11 +63,12 @@ def load_dataframe(
 
     # create new variables
     # df['group_condition_name'] = df['group'] + " " + df['condition_name']
+    df['correct'] = df['correct'].map({1: True, 0: False})
     df['group'] = df['group'].map({'patient': 'CD', 'control': 'CO'})
-    df['group_cloze_condition'] = df['group'] + ": " + df['cloze']
-    df['group_CoRT_condition'] = df['group'] + ": " + df['CoRT']
+    df['group_cloze'] = df['group'] + ": " + df['cloze']
+    df['group_CoRT'] = df['group'] + ": " + df['CoRT']
     df['group_trial_type'] = df['group'] + ": " + df['trial_type']
-    df['cloze_cort'] = df['CoRT'] + ", " + df['cloze']
+    df['cort_cloze'] = df['CoRT']  + ", " + df['cloze']
 
     # filter dataframe
     if trial_type is not None:
@@ -78,7 +78,7 @@ def load_dataframe(
     if attempt is not None:
         df = df.query('attempt==1')
     if correct is not None:
-        df = df.query('correct==1')
+        df = df[df['correct']==correct]
 
     if remove_outliers:
         # remove outliers (+- 2 std from mean)
@@ -98,7 +98,8 @@ def plot_rt(
     hue=None, 
     ax=None, 
     plot_type='bar', 
-    save=False
+    save=False,
+    ci=95
     ):
 
     """plots eval predictions (R CV) for all models in dataframe.
@@ -112,12 +113,15 @@ def plot_rt(
         save (bool): default is False
     """
 
+    if ci is not None:
+        ci=95
+
     if plot_type=='line':
-        ax = sns.lineplot(x=x, y=y, hue=hue, data=dataframe, err_style='bars', palette='rocket', ax=ax) # legend=True,
+        ax = sns.lineplot(x=x, y=y, hue=hue, data=dataframe, err_style='bars', palette='rocket', ax=ax, ci=ci) # legend=True, err_style='bars', style=hue, 
     elif plot_type=='point':
-        ax = sns.pointplot(x=x, y=y, hue=hue, data=dataframe, err_style='bars', palette='rocket', ax=ax)
+        ax = sns.pointplot(x=x, y=y, hue=hue, data=dataframe, err_style='bars', palette='rocket', ax=ax, ci=ci)
     elif plot_type=='bar':
-        ax = sns.barplot(x=x, y=y, hue=hue, data=dataframe, palette='rocket', ax=ax)
+        ax = sns.barplot(x=x, y=y, hue=hue, data=dataframe, palette='rocket', ax=ax, ci=ci)
     elif plot_type=='box':
         dataframe = dataframe.groupby(['participant_id', x, hue])[y].agg('mean').reset_index()
         dataframe.columns = ["".join(x) for x in dataframe.columns.ravel()]
@@ -220,7 +224,7 @@ def item_analysis(
 
 def scatterplot_rating(
     dataframe, 
-    x='CoRT',
+    x='CoRT_mean',
     ax=None,
     hue=None
     ):
@@ -231,8 +235,8 @@ def scatterplot_rating(
         x (str): default is 'CoRT'. other option: 'cloze'
     """
     # get patient and control data
-    df_control = dataframe.query('group=="CO"').groupby(['CoRT_mean', 'cloze_probability', 'group'])['rt'].agg({'mean', 'std'}).reset_index()
-    df_patient = dataframe.query('group=="CD"').groupby(['CoRT_mean', 'cloze_probability', 'group'])['rt'].agg({'mean', 'std'}).reset_index()
+    df_control = dataframe.query('group=="CO"').groupby([x, 'group'])['rt'].agg({'mean', 'std'}).reset_index()
+    df_patient = dataframe.query('group=="CD"').groupby([x, 'group'])['rt'].agg({'mean', 'std'}).reset_index()
     df = pd.concat([df_control, df_patient])
 
     # figure out x axis
@@ -341,29 +345,5 @@ def rt_diff(
     F, p = f_oneway(df_pivot.query('group=="CO"')['diff_rt'], df_pivot.query('group=="CD"')['diff_rt'])
     # F, p = f_oneway(df[df[y]==cond1]['rt'], df[df[y]==cond2]['rt'])
     print(f'F stat for {y} RT diff: {F}, p-value: {p}')
-
-    return ax
-
-def interaction_analysis(
-    dataframe,
-    x='group',
-    hue=None,
-    ax=None,
-    plot_type='bar'
-    ):
-
-    if plot_type=='box':
-        ax = sns.boxplot(x=x, y='rt', hue=hue, data=dataframe, palette='rocket', ax=ax)
-    elif plot_type=='bar':
-        ax = sns.barplot(x=x, y='rt', hue=hue, data=dataframe, palette='rocket')
-    elif plot_type=='line':
-        ax = sns.lineplot(x=x, y='rt', hue=hue, data=dataframe, palette='rocket')
-    ax.set_ylabel(f'RT')
-    ax.set_xlabel('')
-
-    if hue is not None:
-        plt.legend(loc='best', frameon=False)
-
-    plt.tight_layout()
 
     return ax
