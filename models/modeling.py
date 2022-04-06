@@ -159,6 +159,8 @@ def compare_models(model_results):
 
     plt.show()
 
+    return models_melt
+
 def define_model(quant_features, qual_features):
     """Define model
         
