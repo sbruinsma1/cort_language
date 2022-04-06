@@ -1,0 +1,280 @@
+,CoRT_descript,CoRT_mean,CoRT_std,MAX_#G,MAX_#P,MAX_CUE,MAX_FSG,MAX_TARGET,MIN_#G,MIN_#P,MIN_CUE,MIN_FSG,MIN_TARGET,cloze_descript,cloze_probability,dataset,fsg_descript,full_sentence,last_word,random_word,rt_mean,rt_std,target_word,trial_type,word_count,display,answer
+0,,,,,,,,,,,,,,,,,,,,,,,,,,general instructions,
+0,,,,,,,,,,,,,,,,,,,,,,,,,,non-cort instructions,
+273,,,,140.0,64.0,cologne,0.457, perfume,140.0,2.0,cologne,0.014000000000000000, face,,,,low fsg,,, woods,,,,non-cort,,non-cort trial,MAX_TARGET
+244,,,,156.0,132.0,trousers,0.846, pants,156.0,3.0,trousers,0.019, shirt,,,,high fsg,,, yard,,,,non-cort,,non-cort trial,MAX_TARGET
+65,,,,154.0,47.0,carpenter,0.305, wood,154.0,2.0,carpenter,0.013000000000000000, rug,,,,low fsg,,, yuck,,,,non-cort,,non-cort trial,MAX_TARGET
+493,,,,147.0,50.0,cube,0.34, ice,147.0,2.0,cube,0.014000000000000000, triangle,,,,low fsg,,, section,,,,non-cort,,non-cort trial,MAX_TARGET
+83,,,,179.0,54.0,screw,0.302, driver,179.0,2.0,screw,0.011000000000000000, turn,,,,low fsg,,, lymph,,,,non-cort,,non-cort trial,MAX_TARGET
+26,,,,138.0,113.0,day,0.8190000000000000, night,138.0,2.0,day,0.014000000000000000, break,,,,high fsg,,, rock,,,,non-cort,,non-cort trial,MAX_TARGET
+148,,,,151.0,87.0,grown-ups,0.5760000000000000, adults,151.0,2.0,grown-ups,0.013000000000000000, big,,,,medium fsg,,, take,,,,non-cort,,non-cort trial,MAX_TARGET
+336,,,,146.0,82.0,cone,0.562, ice cream,146.0,2.0,cone,0.014000000000000000, triangle,,,,medium fsg,,, reasoning,,,,non-cort,,non-cort trial,MAX_TARGET
+435,,,,153.0,86.0,crafts,0.562, art,153.0,2.0,crafts,0.013000000000000000, popsicle sticks,,,,medium fsg,,, save,,,,non-cort,,non-cort trial,MAX_TARGET
+141,,,,148.0,77.0,angry,0.52, mad,148.0,2.0,angry,0.014000000000000000, violent,,,,medium fsg,,, spend,,,,non-cort,,non-cort trial,MAX_TARGET
+281,,,,127.0,103.0,him,0.8110000000000000, her,127.0,4.0,him,0.031, male,,,,high fsg,,, lit,,,,non-cort,,non-cort trial,MAX_TARGET
+144,,,,154.0,58.0,title,0.377, book,154.0,2.0,title,0.013000000000000000, insurance,,,,low fsg,,, giant,,,,non-cort,,non-cort trial,MAX_TARGET
+111,,,,165.0,125.0,thread,0.758, needle,165.0,2.0,thread,0.012, rope,,,,medium fsg,,, universal,,,,non-cort,,non-cort trial,MAX_TARGET
+272,,,,144.0,95.0,tusk,0.66, elephant,144.0,2.0,tusk,0.014000000000000000, task,,,,medium fsg,,, yuck,,,,non-cort,,non-cort trial,MAX_TARGET
+53,,,,150.0,56.0,carbon,0.373, copy,150.0,2.0,carbon,0.013000000000000000, typewriter,,,,low fsg,,, so long,,,,non-cort,,non-cort trial,MAX_TARGET
+121,,,,180.0,98.0,sell,0.544, buy,180.0,2.0,sell,0.011000000000000000, solicit,,,,medium fsg,,, united,,,,non-cort,,non-cort trial,MAX_TARGET
+4,,,,149.0,131.0,saddle,0.879, horse,149.0,2.0,saddle,0.013000000000000000, sore,,,,high fsg,,, oven,,,,non-cort,,non-cort trial,MAX_TARGET
+137,,,,148.0,119.0,physician,0.804, doctor,148.0,2.0,physician,0.014000000000000000, smart,,,,high fsg,,, owe,,,,non-cort,,non-cort trial,MAX_TARGET
+56,,,,138.0,64.0,scare,0.46400000000000000, fright,138.0,2.0,scare,0.014000000000000000, laugh,,,,low fsg,,, restaurant,,,,non-cort,,non-cort trial,MAX_TARGET
+114,,,,154.0,52.0,almond,0.33800000000000000, nut,154.0,2.0,almond,0.013000000000000000, pecan,,,,low fsg,,, warm,,,,non-cort,,non-cort trial,MAX_TARGET
+133,,,,153.0,126.0,lobe,0.8240000000000000, ear,153.0,4.0,lobe,0.026000000000000000, earring,,,,high fsg,,, tin,,,,non-cort,,non-cort trial,MAX_TARGET
+253,,,,152.0,134.0,cob,0.882, corn,152.0,2.0,cob,0.013000000000000000, web,,,,high fsg,,, witness,,,,non-cort,,non-cort trial,MAX_TARGET
+249,,,,132.0,52.0,height,0.39400000000000000, tall,132.0,3.0,height,0.023, feet,,,,low fsg,,, water,,,,non-cort,,non-cort trial,MAX_TARGET
+207,,,,150.0,99.0,man,0.66, woman,150.0,2.0,man,0.013000000000000000, wife,,,,medium fsg,,, formula,,,,non-cort,,non-cort trial,MAX_TARGET
+195,,,,143.0,97.0,aroma,0.6780000000000000, smell,143.0,2.0,aroma,0.014000000000000000, spaghetti,,,,medium fsg,,, saint,,,,non-cort,,non-cort trial,MAX_TARGET
+396,,,,147.0,55.0,corporation,0.374, business,147.0,2.0,corporation,0.014000000000000000, work,,,,low fsg,,, test,,,,non-cort,,non-cort trial,MAX_TARGET
+20,,,,138.0,115.0,pane,0.833, window,138.0,2.0,pane,0.014000000000000000, hurt,,,,high fsg,,, test tube,,,,non-cort,,non-cort trial,MAX_TARGET
+279,,,,149.0,120.0,hilarious,0.8110000000000000, funny,149.0,2.0,hilarious,0.014000000000000000, humorous,,,,high fsg,,, washer,,,,non-cort,,non-cort trial,MAX_TARGET
+123,,,,165.0,135.0,thunder,0.818, lightning,165.0,2.0,thunder,0.012, loud,,,,high fsg,,, vicks,,,,non-cort,,non-cort trial,MAX_TARGET
+99,,,,152.0,100.0,celebration,0.6580000000000000, party,152.0,2.0,celebration,0.013000000000000000, joy,,,,medium fsg,,, low,,,,non-cort,,non-cort trial,MAX_TARGET
+203,,,,149.0,84.0,hard,0.564, soft,149.0,2.0,hard,0.013000000000000000, work,,,,medium fsg,,, smooth,,,,non-cort,,non-cort trial,MAX_TARGET
+137,,,,153.0,133.0,dill,0.8690000000000000, pickle,153.0,2.0,dill,0.013000000000000000, weed,,,,high fsg,,, trouble,,,,non-cort,,non-cort trial,MAX_TARGET
+293,,,,149.0,125.0,meow,0.8390000000000000, cat,149.0,3.0,meow,0.02, bark,,,,high fsg,,, sport,,,,non-cort,,non-cort trial,MAX_TARGET
+45,,,,138.0,46.0,adjective,0.33300000000000000, noun,138.0,2.0,adjective,0.014000000000000000, word,,,,low fsg,,, science,,,,non-cort,,non-cort trial,MAX_TARGET
+56,,,,145.0,118.0,teller,0.8140000000000000, bank,145.0,2.0,teller,0.014000000000000000, banker,,,,high fsg,,, rap,,,,non-cort,,non-cort trial,MAX_TARGET
+260,,,,150.0,87.0,tug,0.58, pull,150.0,2.0,tug,0.013000000000000000, rip,,,,medium fsg,,, jaguar,,,,non-cort,,non-cort trial,MAX_TARGET
+308,,,,148.0,66.0,honesty,0.446, truth,148.0,2.0,honesty,0.014000000000000000, veracity,,,,low fsg,,, insurance,,,,non-cort,,non-cort trial,MAX_TARGET
+246,,,,154.0,54.0,attractive,0.35100000000000000, pretty,154.0,2.0,attractive,0.013000000000000000, model,,,,low fsg,,, zinc,,,,non-cort,,non-cort trial,MAX_TARGET
+233,,,,153.0,71.0,tricycle,0.46400000000000000, bicycle,153.0,2.0,tricycle,0.013000000000000000, small,,,,low fsg,,, smooth,,,,non-cort,,non-cort trial,MAX_TARGET
+147,,,,153.0,141.0,cheddar,0.922, cheese,153.0,4.0,cheddar,0.026000000000000000, swiss,,,,high fsg,,, loan,,,,non-cort,,non-cort trial,MAX_TARGET
+27,,,,165.0,79.0,laugh,0.479, cry,165.0,2.0,laugh,0.012, reaction,,,,low fsg,,, stamp,,,,non-cort,,non-cort trial,MAX_TARGET
+146,,,,150.0,54.0,diploma,0.36, graduation,150.0,2.0,diploma,0.013000000000000000, done,,,,low fsg,,, tea bag,,,,non-cort,,non-cort trial,MAX_TARGET
+398,,,,148.0,82.0,correct,0.5540000000000000, wrong,148.0,2.0,correct,0.014000000000000000, intelligent,,,,medium fsg,,, trash,,,,non-cort,,non-cort trial,MAX_TARGET
+140,,,,184.0,114.0,groom,0.62, bride,184.0,2.0,groom,0.011000000000000000, wedding,,,,medium fsg,,, subject,,,,non-cort,,non-cort trial,MAX_TARGET
+185,,,,180.0,144.0,hammer,0.8, nail,180.0,2.0,hammer,0.011000000000000000, pistol,,,,high fsg,,, wrong,,,,non-cort,,non-cort trial,MAX_TARGET
+35,,,,148.0,48.0,genuine,0.324, real,148.0,2.0,genuine,0.014000000000000000, good,,,,low fsg,,, tier,,,,non-cort,,non-cort trial,MAX_TARGET
+27,,,,138.0,124.0,tardy,0.899, late,138.0,2.0,tardy,0.014000000000000000, school,,,,high fsg,,, calcium,,,,non-cort,,non-cort trial,MAX_TARGET
+112,,,,179.0,78.0,seed,0.436, plant,179.0,2.0,seed,0.011000000000000000, pot,,,,low fsg,,, yes,,,,non-cort,,non-cort trial,MAX_TARGET
+27,,,,148.0,52.0,sandals,0.35100000000000000, shoes,148.0,2.0,sandals,0.014000000000000000, vacation,,,,low fsg,,, wall,,,,non-cort,,non-cort trial,MAX_TARGET
+109,,,,140.0,55.0,perfume,0.39300000000000000, smell,140.0,2.0,perfume,0.014000000000000000, woman,,,,low fsg,,, washington,,,,non-cort,,non-cort trial,MAX_TARGET
+101,,,,119.0,67.0,thin,0.563, fat,119.0,2.0,thin,0.017, small,,,,medium fsg,,, trigger,,,,non-cort,,non-cort trial,MAX_TARGET
+128,,,,201.0,139.0,difficulty,0.691, hard,201.0,2.0,difficulty,0.01, tough,,,,medium fsg,,, peddler,,,,non-cort,,non-cort trial,MAX_TARGET
+86,,,,153.0,78.0,goodbye,0.51, hello,153.0,2.0,goodbye,0.013000000000000000, so long,,,,medium fsg,,, gone,,,,non-cort,,non-cort trial,MAX_TARGET
+189,,,,151.0,55.0,christ,0.364, jesus,151.0,2.0,christ,0.013000000000000000, son,,,,low fsg,,, sidewalk,,,,non-cort,,non-cort trial,MAX_TARGET
+55,,,,127.0,71.0,cardboard,0.5590000000000000, box,127.0,2.0,cardboard,0.016, table,,,,medium fsg,,, feet,,,,non-cort,,non-cort trial,MAX_TARGET
+43,,,,153.0,95.0,addition,0.621, subtraction,153.0,2.0,addition,0.013000000000000000, numbers,,,,medium fsg,,, soft,,,,non-cort,,non-cort trial,MAX_TARGET
+459,,,,139.0,117.0,crib,0.8420000000000000, baby,139.0,2.0,crib,0.014000000000000000, house,,,,high fsg,,, tiger,,,,non-cort,,non-cort trial,MAX_TARGET
+137,,,,148.0,107.0,grizzly,0.723, bear,148.0,2.0,grizzly,0.014000000000000000, murder,,,,medium fsg,,, yellow,,,,non-cort,,non-cort trial,MAX_TARGET
+37,,,,148.0,55.0,taxes,0.37200000000000000, money,148.0,2.0,taxes,0.014000000000000000, revenue,,,,low fsg,,, together,,,,non-cort,,non-cort trial,MAX_TARGET
+362,,,,135.0,42.0,hurry,0.311, fast,135.0,39.0,hurry,0.289, rush,,,,low fsg,,, dark,,,,non-cort,,non-cort trial,MAX_TARGET
+329,,,,148.0,70.0,hose,0.473, water,148.0,2.0,hose,0.014000000000000000, wet,,,,low fsg,,, zoo,,,,non-cort,,non-cort trial,MAX_TARGET
+230,,,,152.0,67.0,cloak,0.441, dagger,152.0,2.0,cloak,0.013000000000000000, vampire,,,,low fsg,,, nutmeg,,,,non-cort,,non-cort trial,MAX_TARGET
+404,,,,126.0,48.0,cottage,0.381, house,126.0,2.0,cottage,0.016, thatched,,,,low fsg,,, wind,,,,non-cort,,non-cort trial,MAX_TARGET
+17,,,,165.0,115.0,calf,0.6970000000000000, cow,165.0,2.0,calf,0.012, veal,,,,medium fsg,,, space,,,,non-cort,,non-cort trial,MAX_TARGET
+94,,,,146.0,89.0,desire,0.61, want,146.0,2.0,desire,0.014000000000000000, yearn,,,,medium fsg,,, out,,,,non-cort,,non-cort trial,MAX_TARGET
+108,,,,150.0,83.0,grandpa,0.5530000000000000, grandma,150.0,2.0,grandpa,0.013000000000000000, father,,,,medium fsg,,, sour,,,,non-cort,,non-cort trial,MAX_TARGET
+325,,,,140.0,59.0,concept,0.42100000000000000, idea,140.0,2.0,concept,0.014000000000000000, vision,,,,low fsg,,, you,,,,non-cort,,non-cort trial,MAX_TARGET
+256,,,,152.0,129.0,cobweb,0.8490000000000000, spider,152.0,2.0,cobweb,0.013000000000000000, sticky,,,,high fsg,,, talk,,,,non-cort,,non-cort trial,MAX_TARGET
+162,,,,180.0,82.0,love,0.456, hate,180.0,2.0,love,0.011000000000000000, warmth,,,,low fsg,,, slab,,,,non-cort,,non-cort trial,MAX_TARGET
+221,,,,146.0,125.0,margarine,0.856, butter,146.0,2.0,margarine,0.014000000000000000, oleo,,,,high fsg,,, words,,,,non-cort,,non-cort trial,MAX_TARGET
+193,,,,148.0,47.0,chuck,0.318, throw,148.0,2.0,chuck,0.014000000000000000, woolery,,,,low fsg,,, guilt,,,,non-cort,,non-cort trial,MAX_TARGET
+76,,,,148.0,84.0,scout,0.568, boy,148.0,2.0,scout,0.014000000000000000, uniform,,,,medium fsg,,, shot,,,,non-cort,,non-cort trial,MAX_TARGET
+291,,,,178.0,144.0,hive,0.809, bee,178.0,2.0,hive,0.011000000000000000, allergy,,,,high fsg,,, parent,,,,non-cort,,non-cort trial,MAX_TARGET
+475,,,,146.0,44.0,crops,0.301, corn,146.0,2.0,crops,0.014000000000000000, vegetables,,,,low fsg,,, recall,,,,non-cort,,non-cort trial,MAX_TARGET
+31,,,,126.0,85.0,acre,0.675, land,126.0,2.0,acre,0.016, property,,,,medium fsg,,, uniform,,,,non-cort,,non-cort trial,MAX_TARGET
+48,,,,132.0,103.0,giggle,0.78, laugh,132.0,2.0,giggle,0.015, silly,,,,medium fsg,,, zit,,,,non-cort,,non-cort trial,MAX_TARGET
+264,,,,146.0,118.0,tuna,0.8080000000000000, fish,146.0,2.0,tuna,0.014000000000000000, gross,,,,high fsg,,, out,,,,non-cort,,non-cort trial,MAX_TARGET
+3,,,,150.0,62.0,galaxy,0.413, stars,150.0,2.0,galaxy,0.013000000000000000, science,,,,low fsg,,, sergeant,,,,non-cort,,non-cort trial,MAX_TARGET
+42,,,,152.0,49.0,savior,0.322, christ,152.0,2.0,savior,0.013000000000000000, memory,,,,low fsg,,, villain,,,,non-cort,,non-cort trial,MAX_TARGET
+93,,,,152.0,73.0,thermometer,0.48, temperature,152.0,2.0,thermometer,0.013000000000000000, measure,,,,low fsg,,, rubbish,,,,non-cort,,non-cort trial,MAX_TARGET
+381,,,,147.0,62.0,cookout,0.42200000000000000, barbecue,147.0,2.0,cookout,0.014000000000000000, party,,,,low fsg,,, usa,,,,non-cort,,non-cort trial,MAX_TARGET
+9,,,,146.0,72.0,caffeine,0.493, coffee,146.0,2.0,caffeine,0.014000000000000000, stimulant,,,,low fsg,,, window,,,,non-cort,,non-cort trial,MAX_TARGET
+121,,,,153.0,128.0,perspire,0.8370000000000000, sweat,153.0,2.0,perspire,0.013000000000000000, sport,,,,high fsg,,, whole,,,,non-cort,,non-cort trial,MAX_TARGET
+221,,,,143.0,88.0,clever,0.615, smart,143.0,2.0,clever,0.014000000000000000, stupid,,,,medium fsg,,, mate,,,,non-cort,,non-cort trial,MAX_TARGET
+16,,,,148.0,53.0,accident,0.358, car,148.0,2.0,accident,0.014000000000000000, tragedy,,,,low fsg,,, goose,,,,non-cort,,non-cort trial,MAX_TARGET
+38,,,,147.0,79.0,taxi,0.537, cab,147.0,2.0,taxi,0.014000000000000000, ride,,,,medium fsg,,, wipe,,,,non-cort,,non-cort trial,MAX_TARGET
+265,,,,148.0,46.0,tune,0.311, music,148.0,2.0,tune,0.014000000000000000, up,,,,low fsg,,, sew,,,,non-cort,,non-cort trial,MAX_TARGET
+182,,,,138.0,125.0,halt,0.9060000000000000, stop,138.0,7.0,halt,0.051, go,,,,high fsg,,, sound,,,,non-cort,,non-cort trial,MAX_TARGET
+85,,,,165.0,125.0,good,0.758, bad,165.0,2.0,good,0.012, right,,,,medium fsg,,, death,,,,non-cort,,non-cort trial,MAX_TARGET
+270,,,,148.0,77.0,back,0.52, front,148.0,2.0,back,0.014000000000000000, stomach,,,,medium fsg,,, tree,,,,non-cort,,non-cort trial,MAX_TARGET
+87,,,,140.0,95.0,deputy,0.679, sheriff,140.0,2.0,deputy,0.014000000000000000, marshal,,,,medium fsg,,, weight,,,,non-cort,,non-cort trial,MAX_TARGET
+93,,,,150.0,77.0,cautious,0.513, careful,150.0,2.0,cautious,0.013000000000000000, sign,,,,medium fsg,,, notice,,,,non-cort,,non-cort trial,MAX_TARGET
+311,,,,144.0,82.0,bark,0.569, dog,144.0,2.0,bark,0.014000000000000000, yell,,,,medium fsg,,, shut,,,,non-cort,,non-cort trial,MAX_TARGET
+11,,,,180.0,106.0,tale,0.589, story,180.0,2.0,tale,0.011000000000000000, say,,,,medium fsg,,, slice,,,,non-cort,,non-cort trial,MAX_TARGET
+49,,,,146.0,56.0,learner,0.384, student,146.0,2.0,learner,0.014000000000000000, store,,,,low fsg,,, set,,,,non-cort,,non-cort trial,MAX_TARGET
+77,,,,197.0,77.0,age,0.391, old,197.0,2.0,age,0.01, weight,,,,low fsg,,, place,,,,non-cort,,non-cort trial,MAX_TARGET
+113,,,,99.0,53.0,seek,0.535, find,99.0,2.0,seek,0.02, destroy,,,,medium fsg,,, wild,,,,non-cort,,non-cort trial,MAX_TARGET
+235,,,,130.0,71.0,trigonometry,0.546, math,130.0,2.0,trigonometry,0.015, formula,,,,medium fsg,,, writing,,,,non-cort,,non-cort trial,MAX_TARGET
+238,,,,152.0,73.0,closing,0.48, opening,152.0,2.0,closing,0.013000000000000000, time,,,,low fsg,,, tree,,,,non-cort,,non-cort trial,MAX_TARGET
+64,,,,148.0,80.0,legs,0.541, arms,148.0,2.0,legs,0.014000000000000000, thighs,,,,medium fsg,,, trip,,,,non-cort,,non-cort trial,MAX_TARGET
+70,,,,150.0,83.0,demon,0.5530000000000000, devil,150.0,2.0,demon,0.013000000000000000, wings,,,,medium fsg,,, table,,,,non-cort,,non-cort trial,MAX_TARGET
+53,,,,154.0,87.0,adore,0.565, love,154.0,2.0,adore,0.013000000000000000, people,,,,medium fsg,,, sarcastic,,,,non-cort,,non-cort trial,MAX_TARGET
+91,,,,177.0,63.0,cause,0.35600000000000000, effect,177.0,2.0,cause,0.011000000000000000, worthy,,,,low fsg,,, whiskey,,,,non-cort,,non-cort trial,MAX_TARGET
+103,,,,139.0,91.0,algebra,0.655, math,139.0,2.0,algebra,0.014000000000000000, yuck,,,,medium fsg,,, volunteer,,,,non-cort,,non-cort trial,MAX_TARGET
+330,,,,148.0,48.0,hospital,0.324, sick,148.0,2.0,hospital,0.014000000000000000, work,,,,low fsg,,, smooth,,,,non-cort,,non-cort trial,MAX_TARGET
+240,,,,99.0,34.0,trophy,0.34300000000000000, win,99.0,2.0,trophy,0.02, sport,,,,low fsg,,, year,,,,non-cort,,non-cort trial,MAX_TARGET
+231,,,,148.0,78.0,atlas,0.527, map,148.0,2.0,atlas,0.014000000000000000, strength,,,,medium fsg,,, caffeine,,,,non-cort,,non-cort trial,MAX_TARGET
+71,,,,144.0,87.0,afraid,0.604, scare,144.0,2.0,afraid,0.014000000000000000, run,,,,medium fsg,,, vote,,,,non-cort,,non-cort trial,MAX_TARGET
+348,,,,148.0,46.0,hull,0.311, boat,148.0,2.0,hull,0.014000000000000000, move,,,,low fsg,,, vienna,,,,non-cort,,non-cort trial,MAX_TARGET
+303,,,,144.0,115.0,bank,0.799, money,144.0,2.0,bank,0.014000000000000000, vault,,,,medium fsg,,, loud,,,,non-cort,,non-cort trial,MAX_TARGET
+146,,,,180.0,122.0,look,0.6780000000000000, see,180.0,2.0,look,0.011000000000000000, read,,,,medium fsg,,, went,,,,non-cort,,non-cort trial,MAX_TARGET
+75,,,,98.0,45.0,dentist,0.45900000000000000, teeth,98.0,2.0,dentist,0.02, cavity,,,,low fsg,,, men,,,,non-cort,,non-cort trial,MAX_TARGET
+183,,,,149.0,76.0,architecture,0.51, building,149.0,2.0,architecture,0.013000000000000000, skyscraper,,,,medium fsg,,, vicious,,,,non-cort,,non-cort trial,MAX_TARGET
+234,,,,150.0,118.0,clorox,0.787, bleach,150.0,2.0,clorox,0.013000000000000000, wash,,,,medium fsg,,, uppercase,,,,non-cort,,non-cort trial,MAX_TARGET
+95,,,,139.0,73.0,cavern,0.525, cave,139.0,2.0,cavern,0.014000000000000000, wood,,,,medium fsg,,, salsa,,,,non-cort,,non-cort trial,MAX_TARGET
+214,,,,148.0,60.0,hatch,0.405, egg,148.0,2.0,hatch,0.014000000000000000, escape,,,,low fsg,,, george,,,,non-cort,,non-cort trial,MAX_TARGET
+180,,,,165.0,102.0,toss,0.618, throw,165.0,2.0,toss,0.012, game,,,,medium fsg,,, poker,,,,non-cort,,non-cort trial,MAX_TARGET
+138,,,,147.0,74.0,tin,0.503, can,147.0,2.0,tin,0.014000000000000000, silver,,,,medium fsg,,, up,,,,non-cort,,non-cort trial,MAX_TARGET
+432,,,,142.0,86.0,crackle,0.606, pop,142.0,2.0,crackle,0.014000000000000000, sound,,,,medium fsg,,, cool,,,,non-cort,,non-cort trial,MAX_TARGET
+283,,,,140.0,58.0,melody,0.414, song,140.0,5.0,melody,0.036000000000000000, rhythm,,,,low fsg,,, hot,,,,non-cort,,non-cort trial,MAX_TARGET
+70,,,,150.0,120.0,affection,0.8, love,150.0,2.0,affection,0.013000000000000000, show,,,,high fsg,,, path,,,,non-cort,,non-cort trial,MAX_TARGET
+214,,,,140.0,52.0,asleep,0.371, awake,140.0,2.0,asleep,0.014000000000000000, unconscious,,,,low fsg,,, synonym,,,,non-cort,,non-cort trial,MAX_TARGET
+260,,,,148.0,67.0,hen,0.45300000000000000, chicken,148.0,2.0,hen,0.014000000000000000, goose,,,,low fsg,,, pirates,,,,non-cort,,non-cort trial,MAX_TARGET
+133,,,,150.0,70.0,phony,0.467, fake,150.0,2.0,phony,0.013000000000000000, snobs,,,,low fsg,,, gross,,,,non-cort,,non-cort trial,MAX_TARGET
+99,,,,152.0,129.0,pepperoni,0.8490000000000000, pizza,152.0,2.0,pepperoni,0.013000000000000000, yuck,,,,high fsg,,, men,,,,non-cort,,non-cort trial,MAX_TARGET
+0,,,,,,,,,,,,,,,,,,,,,,,,,,cort instructions,
+49,CoRT,,,,,,,,,,,,,low cloze,0.41,,,"Before|descending|the|canyon,|we|hiked|the",trail,dress,872.3150341244740,320.9883870461150,trail,cort,,cort trial,
+286,CoRT,,,,,,,,,,,,,high cloze,0.82,,,The|toddler|jumped|but|the|jar|was|out|of,reach,pet,897.3799999533670,279.67812646153400,reach,cort,,cort trial,
+313,CoRT,,,,,,,,,,,,,low cloze,0.49,,,"When|the|building|came|down,|there|was|a|loud",crash,port,858.2705785652660,283.3227897969710,crash,cort,,cort trial,
+216,CoRT,,,,,,,,,,,,,high cloze,0.88,,,The|bride|smiled|as|she|walked|down|the,aisle,bread,685.9607963813280,201.46288302368900,aisle,cort,,cort trial,
+407,strong CoRT,4.5,0.8366600265340760,,,,,,,,,,,medium cloze,0.71,block_baldwin,,Denise|struck|her|attacker|a|heavy,,rock,,,blow,cort,6.0,cort trial,
+318,strong CoRT,4.166666666666670,1.6020819787597200,,,,,,,,,,,medium cloze,0.69,block_baldwin,,Billy|hit|his|sister|on|the,,salt,,,head,cort,6.0,cort trial,
+133,CoRT,,,,,,,,,,,,,high cloze,0.85,,,Jan|tried|to|squeeze|in|but|there|was|no,room,fly,766.6674133364540,303.3077525057710,room,cort,,cort trial,
+45,CoRT,,,,,,,,,,,,,high cloze,0.8,,,A|nearby|woman|sprayed|the|robber|with,mace,budge,819.9269454209550,206.71630163592700,mace,cort,,cort trial,
+45,strong CoRT,4.0,1.2649110640673500,,,,,,,,,,,medium cloze,0.66,block_baldwin,,After|accidentally|swallowing|a|bug|he|began|to,,feet,,,cough,cort,8.0,cort trial,
+474,strong CoRT,4.333333333333330,1.2110601416390000,,,,,,,,,,,medium cloze,0.54,peele,,"During|the|violent|storm,|lightning|struck|the|house's",,dull,,,roof,cort,8.0,cort trial,
+187,CoRT,,,,,,,,,,,,,low cloze,0.44,,,Stacy|was|not|careful|and|spilled|wine|on|her,dress,noises,852.4868124507350,310.55321515947600,dress,cort,,cort trial,
+915,strong CoRT,5.0,0.0,,,,,,,,,,,medium cloze,0.74,peele,,Karen|put|the|grilled|hamburger|on|a|brioche,,girl,,,bun,cort,8.0,cort trial,
+71,CoRT,,,,,,,,,,,,,high cloze,0.98,,,"During|the|hike,|Lila's|feet|hurt|more|with|each",step,rash,711.8738586294860,209.20442874360300,step,cort,,cort trial,
+47,CoRT,,,,,,,,,,,,,low cloze,0.39,,,Barb|pulled|her|sleeve|back|to|reveal|a|big,bruise,dress,902.1801713232550,284.88625111366500,bruise,cort,,cort trial,
+259,CoRT,,,,,,,,,,,,,high cloze,0.8,,,The|librarian|sternly|told|us|to|be,quiet,porch,861.9459615167820,299.6060736804220,quiet,cort,,cort trial,
+49,strong CoRT,4.25,0.957427107756338,,,,,,,,,,,medium cloze,0.59,peele,,"After|chugging|the|soda,|Peter|let|out|a|loud",,washer,,,burp,cort,9.0,cort trial,
+262,CoRT,,,,,,,,,,,,,high cloze,0.93,,,The|maid|dusted|the|books|on|the,shelf,days,804.2079097735680,245.2807620005250,shelf,cort,,cort trial,
+231,CoRT,,,,,,,,,,,,,low cloze,0.32,,,The|crowd|became|rowdy|after|drinking|too|much|sweet,wine,bug,901.9317851762620,339.53344413966400,wine,cort,,cort trial,
+19,CoRT,,,,,,,,,,,,,high cloze,0.96,,,"After|washing|his|hands,|Brandon|dried|them|with|a",towel,dam,777.3788563267760,251.55324752883600,towel,cort,,cort trial,
+167,CoRT,,,,,,,,,,,,,low cloze,0.5,,,"Over|the|summer,|the|boys|went|swimming|in|the",lake,bed,798.3375516638630,303.00320556273100,lake,cort,,cort trial,
+65,CoRT,,,,,,,,,,,,,low cloze,0.46,,,"Distracted|while|driving,|Maya|got|stuck|in|the|sticky",mud,sunset,841.8795190076830,342.4021018458410,mud,cort,,cort trial,
+465,strong CoRT,4.166666666666670,0.7527726527090810,,,,,,,,,,,medium cloze,0.71,block_baldwin,,During|the|lecture|Jen|kept|checking|the,,bear,,,time,cort,7.0,cort trial,
+118,strong CoRT,4.0,0.6324555320336760,,,,,,,,,,,medium cloze,0.53,peele,,"After|the|bathtub|overflowed,|Lynn|used|towels|to",,cry,,,clean,cort,8.0,cort trial,
+11,CoRT,,,,,,,,,,,,,low cloze,0.5,,,"After|returning|to|his|bedroom,|the|monk|removed|his",robe,signs,772.5962544727300,280.73377523388000,robe,cort,,cort trial,
+97,CoRT,,,,,,,,,,,,,high cloze,0.8,,,Her|left|hand|was|freezing|after|she|lost|her,glove,ropes,875.5814545891140,261.15155059579200,glove,cort,,cort trial,
+63,CoRT,,,,,,,,,,,,,high cloze,0.95,,,Dean|dropped|the|cookies|and|had|to|make|a|fresh,batch,gap,720.2175609940110,206.30465050755200,batch,cort,,cort trial,
+141,CoRT,,,,,,,,,,,,,high cloze,0.9,,,John|swept|the|floor|with|a,broom,cheer,705.4828982810120,168.8643265062020,broom,cort,,cort trial,
+244,CoRT,,,,,,,,,,,,,high cloze,0.93,,,The|fisherman|easily|put|the|bait|on|the,hook,job,840.1707370602450,375.0720463925410,hook,cort,,cort trial,
+516,strong CoRT,4.0,0.8164965809277260,,,,,,,,,,,medium cloze,0.57,peele,,"Every|fifteen|minutes,|the|clock|would",,married,,,chime,cort,6.0,cort trial,
+51,CoRT,,,,,,,,,,,,,low cloze,0.46,,,"Before|placing|each|brick,|he|applied|a|glob|of",cement,garden,879.0959551183660,280.9981207965010,cement,cort,,cort trial,
+23,strong CoRT,4.4,0.547722557505166,,,,,,,,,,,medium cloze,0.61,peele,,Aaron|wrote|the|lesson|on|the|board|with|colorful,,burp,,,chalk,cort,9.0,cort trial,
+256,CoRT,,,,,,,,,,,,,high cloze,0.91,,,The|knight|prepared|for|battle|and|drew|his,sword,act,715.2992021526240,239.01864394158300,sword,cort,,cort trial,
+296,CoRT,,,,,,,,,,,,,low cloze,0.39,,,The|young|man|quickly|pulled|the|sword|from|the,sheath,moon,984.9717177515330,348.62459450344900,sheath,cort,,cort trial,
+219,CoRT,,,,,,,,,,,,,low cloze,0.34,,,The|captain|steered|the|ship|and|narrowly|avoided|the,iceberg,arm,948.2817898146530,290.46037290368700,iceberg,cort,,cort trial,
+254,strong CoRT,4.4,0.5477225575051660,,,,,,,,,,,medium cloze,0.66,peele,,"At|the|landfill,|Fred|cut|himself|on|a|rusty",,soothe,,,nail,cort,9.0,cort trial,
+248,CoRT,,,,,,,,,,,,,high cloze,0.9,,,The|gentleman|on|the|bus|offered|the|child|his,seat,gate,843.3037633153480,322.14675721687900,seat,cort,,cort trial,
+675,strong CoRT,4.2,0.44721359549995800,,,,,,,,,,,medium cloze,0.52,peele,,He|wouldn't|jump|so|his|sister|gave|him|a,,mile,,,push,cort,9.0,cort trial,
+876,strong CoRT,4.833333333333330,0.40824829046386300,,,,,,,,,,,medium cloze,0.6,peele,,Jessica|went|to|the|treadmill|and|started|to|slowly,,ring,,,walk,cort,9.0,cort trial,
+63,strong CoRT,4.0,1.224744871391590,,,,,,,,,,,medium cloze,0.79,peele,,"After|eating|the|peach,|the|child|threw|out|the",,milk,,,pit,cort,9.0,cort trial,
+643,strong CoRT,4.75,0.5000000000000000,,,,,,,,,,,medium cloze,0.67,peele,,He|heard|a|noise|at|midnight|and|grabbed|his,,nose,,,gun,cort,9.0,cort trial,
+252,strong CoRT,4.2,1.3038404810405300,,,,,,,,,,,medium cloze,0.68,peele,,"At|the|hospital,|Elise|was|attended|to|by|a",,river,,,nurse,cort,9.0,cort trial,
+181,CoRT,,,,,,,,,,,,,high cloze,0.92,,,She|washed|the|dirty|dishes|in|the,sink,batch,690.6459694773060,193.15297387489800,sink,cort,,cort trial,
+238,strong CoRT,4.0,0.0,,,,,,,,,,,medium cloze,0.76,peele,,"At|noon,|the|grandfather|clock|began|to|loudly",,teeth,,,chime,cort,8.0,cort trial,
+204,CoRT,,,,,,,,,,,,,low cloze,0.47,,,The|baby's|ice|cream|was|snatched|up|by|the,dog,time,901.6224365972320,310.7478372900280,dog,cort,,cort trial,
+302,strong CoRT,4.2,0.8366600265340760,,,,,,,,,,,medium cloze,0.56,peele,,Benjamin|had|trouble|parking|because|the|space|was,,glass,,,small,cort,8.0,cort trial,
+647,strong CoRT,4.166666666666670,0.7527726527090810,,,,,,,,,,,medium cloze,0.76,block_baldwin,,He|lay|down|and|went|to,,shore,,,sleep,cort,6.0,cort trial,
+20,CoRT,,,,,,,,,,,,,high cloze,0.83,,,"After|weeks|at|sea,|the|bottle|washed|up|onto",shore,aim,830.6383765961880,299.9611799851570,shore,cort,,cort trial,
+274,CoRT,,,,,,,,,,,,,low cloze,0.42,,,The|reckless|driver|drove|too|quickly|around|the,corner,joy,860.1869939763380,328.41131799250800,corner,cort,,cort trial,
+82,strong CoRT,4.0,1.1547005383792500,,,,,,,,,,,medium cloze,0.54,peele,,"After|hours|of|hiking,|Britt|had|worn|out|her",,age,,,shoes,cort,9.0,cort trial,
+34,CoRT,,,,,,,,,,,,,low cloze,0.46,,,"As|Jill|felt|the|sharp|pain,|she|began|to",cry,hair,711.9982292158830,190.01195351812100,cry,cort,,cort trial,
+153,strong CoRT,4.333333333333330,0.5773502691896260,,,,,,,,,,,medium cloze,0.52,peele,,Alexander|placed|the|car|key|in|the,,sick,,,ignition,cort,7.0,cort trial,
+14,CoRT,,,,,,,,,,,,,high cloze,0.81,,,"After|she|bought|the|dress,|she|ripped|off|its",tag,smart,883.1964438881220,273.1828804512970,tag,cort,,cort trial,
+38,CoRT,,,,,,,,,,,,,low cloze,0.42,,,At|recess|the|younger|children|usually|play,tag,knot,845.408232702055,209.47297479636900,tag,cort,,cort trial,
+456,strong CoRT,4.25,0.957427107756338,,,,,,,,,,,medium cloze,0.74,peele,,"During|the|campfire,|the|heavy|smoke|made|Lance",,tea,,,cough,cort,8.0,cort trial,
+203,CoRT,,,,,,,,,,,,,high cloze,0.9,,,The|accountant|ironed|a|shirt|before|going|to,work,lies,744.8106432353750,301.62833869384900,work,cort,,cort trial,
+199,CoRT,,,,,,,,,,,,,low cloze,0.42,,,They|broke|into|the|store|and|began|to,steal,joke,900.1833852420920,339.07134952758200,steal,cort,,cort trial,
+91,CoRT,,,,,,,,,,,,,low cloze,0.34,,,Grandmother|baked|a|pie|and|set|it|on|the,counter,kick,845.5261137974260,341.8628394442230,counter,cort,,cort trial,
+278,CoRT,,,,,,,,,,,,,low cloze,0.5,,,"The|simple,|fun|camp|game|soon|escalated|into|a",fight,lawn,871.6095118577400,263.0139076394670,fight,cort,,cort trial,
+314,CoRT,,,,,,,,,,,,,low cloze,0.37,,,"When|the|robber|trapped|Dorothy,|she|began|to",cry,glass,727.7961129445410,170.01644967549500,cry,cort,,cort trial,
+521,strong CoRT,4.25,0.5,,,,,,,,,,,medium cloze,0.64,peele,,"Every|morning,|Liz|would|carefully|brush|her",,wine,,,hair,cort,7.0,cort trial,
+200,strong CoRT,4.0,0.8164965809277260,,,,,,,,,,,medium cloze,0.62,peele,,Animals|ate|the|jam|because|Mitch|didn't|replace|the,,play,,,lid,cort,9.0,cort trial,
+3,CoRT,,,,,,,,,,,,,high cloze,1.0,,,"After|driving|over|sharp|glass,|Ronald|had|a|flat",tire,loan,735.6516145933460,210.39288759602500,tire,cort,,cort trial,
+29,CoRT,,,,,,,,,,,,,low cloze,0.42,,,Andy|reached|the|curb|and|told|the|dog|to,sit,cloth,834.2512895661830,242.3255719373230,sit,cort,,cort trial,
+144,CoRT,,,,,,,,,,,,,high cloze,0.93,,,Katie|put|the|flowers|in|an|expensive,vase,win,723.6675736109930,312.17752858846400,vase,cort,,cort trial,
+587,strong CoRT,4.25,0.5,,,,,,,,,,,medium cloze,0.62,peele,,"Frustrated|with|his|teammates,|Julian|stormed|off|in|a",,north,,,huff,cort,9.0,cort trial,
+299,CoRT,,,,,,,,,,,,,high cloze,0.85,,,"To|avoid|hitting|her|head,|she|had|to",duck,deed,969.1935502750270,319.23261831447200,duck,cort,,cort trial,
+131,CoRT,,,,,,,,,,,,,high cloze,0.86,,,Jane|fried|some|bacon|in|the,pan,gag,880.5765972580580,314.7557725895690,pan,cort,,cort trial,
+283,strong CoRT,4.0,0.7071067811865480,,,,,,,,,,,medium cloze,0.59,peele,,"Before|going|to|bed,|Kat|always|washes|her",,town,,,face,cort,8.0,cort trial,
+312,CoRT,,,,,,,,,,,,,high cloze,0.94,,,When|the|alarm|rang|the|firefighter|slid|down|the,pole,thief,777.0116180407460,266.6931894001430,pole,cort,,cort trial,
+283,CoRT,,,,,,,,,,,,,high cloze,0.87,,,The|thief|ran|by|and|snatched|the|lady's,purse,gym,811.1119606279200,225.5957113925140,purse,cort,,cort trial,
+58,strong CoRT,4.0,1.5491933384829700,,,,,,,,,,,medium cloze,0.6,block_baldwin,,After|dinner|they|washed|the,,snob,,,dishes,cort,5.0,cort trial,
+92,CoRT,,,,,,,,,,,,,low cloze,0.47,,,Greg|clutched|his|queasy|stomach|and|began|to,vomit,sleep,874.5102230316070,382.60023799136400,vomit,cort,,cort trial,
+255,CoRT,,,,,,,,,,,,,high cloze,0.94,,,The|kitten|played|with|the|ball|of,yarn,joke,754.5461366976000,234.70623273436400,yarn,cort,,cort trial,
+310,CoRT,,,,,,,,,,,,,high cloze,0.95,,,When|she|got|out|of|the|car|she|closed|the,door,steep,770.3922560025030,237.37950780817900,door,cort,,cort trial,
+299,strong CoRT,4.25,0.5,,,,,,,,,,,medium cloze,0.57,peele,,Ben|cleaned|out|his|blocked|sinuses|with|a|saline,,age,,,solution,cort,9.0,cort trial,
+57,strong CoRT,4.0,1.4142135623731000,,,,,,,,,,,medium cloze,0.78,block_baldwin,,After|dinner|the|maid|collected|the|family’s,,deer,,,plates,cort,7.0,cort trial,
+216,strong CoRT,4.666666666666670,0.5163977794943220,,,,,,,,,,,medium cloze,0.67,block_baldwin,,As|Shelley|walked|up|the|mountain|trail|it|became,,knife,,,steep,cort,9.0,cort trial,
+315,CoRT,,,,,,,,,,,,,high cloze,0.95,,,"When|the|two|met,|one|of|them|held|out|his",hand,choke,739.4562806537990,251.8602581480160,hand,cort,,cort trial,
+179,CoRT,,,,,,,,,,,,,high cloze,0.9,,,She|preheated|the|oven|and|greased|the,pan,sensitive,766.839710406961,309.58853245007300,pan,cort,,cort trial,
+221,CoRT,,,,,,,,,,,,,low cloze,0.33,,,The|cargo|at|the|shipyard|fell|with|a|loud,bang,seagull,911.624192330254,338.1933402893180,bang,cort,,cort trial,
+243,strong CoRT,4.6,0.5477225575051660,,,,,,,,,,,medium cloze,0.56,peele,,At|the|beach|Sammy's|sandwich|was|snatched|by|a,,pull,,,seagull,cort,9.0,cort trial,
+270,CoRT,,,,,,,,,,,,,low cloze,0.44,,,The|pirates|escaped|with|a|large|bag|of,gold,noise,823.0092924711780,286.3504813867950,gold,cort,,cort trial,
+304,CoRT,,,,,,,,,,,,,low cloze,0.36,,,Wade|spotted|the|incoming|ball|and|was|able|to,duck,track,939.853116820296,282.98478011205400,duck,cort,,cort trial,
+139,CoRT,,,,,,,,,,,,,high cloze,0.88,,,Joan|fed|her|baby|some|warm,milk,mace,816.3437180371440,316.42401917931700,milk,cort,,cort trial,
+15,CoRT,,,,,,,,,,,,,high cloze,0.81,,,"After|speaking,|Allen|left|the|noisy",room,like,954.0071000825770,402.92716844369400,room,cort,,cort trial,
+16,CoRT,,,,,,,,,,,,,high cloze,0.82,,,"After|swallowing|too|quickly,|Simon|began|to",choke,wit,797.3835436727720,314.2247500026950,choke,cort,,cort trial,
+906,strong CoRT,4.8,0.4472135954999580,,,,,,,,,,,medium cloze,0.54,peele,,Juice|spilled|when|the|baby|knocked|over|the,,food,,,cup,cort,8.0,cort trial,
+7,CoRT,,,,,,,,,,,,,high cloze,0.92,,,"After|raking|the|yard,|Pat|jumped|into|the|pile|of",leaves,tag,732.2696710610580,250.12640645076200,leaves,cort,,cort trial,
+298,CoRT,,,,,,,,,,,,,low cloze,0.38,,,"Tired|of|beige|walls,|Ingrid|painted|them|a|bold",red,chirp,1001.6703197319900,297.5050151965900,red,cort,,cort trial,
+121,strong CoRT,4.5,0.5773502691896260,,,,,,,,,,,medium cloze,0.52,peele,,"After|the|clumsy|woman|fell,|the|crowd|began|to",,fall,,,laugh,cort,9.0,cort trial,
+0,CoRT,,,,,,,,,,,,,low cloze,0.46,,,Abby|stuck|his|picture|to|her|wall|with|a,tack,lab,923.9854839627980,281.001589578437,tack,cort,,cort trial,
+634,strong CoRT,4.5,0.5477225575051660,,,,,,,,,,,medium cloze,0.7,block_baldwin,,He|crept|into|the|room|without|a,,whim,,,sound,cort,7.0,cort trial,
+147,CoRT,,,,,,,,,,,,,low cloze,0.5,,,Kyle|carefully|scooped|the|honey|out|of|the,jar,sit,881.084356172093,276.0377881289230,jar,cort,,cort trial,
+172,CoRT,,,,,,,,,,,,,low cloze,0.36,,,Rachel|missed|her|appointment|after|writing|down|the|wrong,address,charge,978.1537205387380,312.94109323300500,address,cort,,cort trial,
+40,CoRT,,,,,,,,,,,,,high cloze,0.94,,,"At|the|show,|all|the|animals|jumped|through|a",hoop,ten,734.2774297916930,197.16572662035900,hoop,cort,,cort trial,
+27,CoRT,,,,,,,,,,,,,high cloze,0.88,,,Ana|accidentally|tripped|and|fell|down|the,stairs,rock,814.4738727503860,252.4740030667210,stairs,cort,,cort trial,
+288,CoRT,,,,,,,,,,,,,low cloze,0.36,,,The|tranquil|park|atmosphere|was|disturbed|by|the|honking,horn,teach,862.8055090010320,302.8687766261970,horn,cort,,cort trial,
+212,CoRT,,,,,,,,,,,,,high cloze,0.85,,,The|box|landed|on|the|ground|with|a|dull,thud,net,938.3161891155970,351.95525876459800,thud,cort,,cort trial,
+36,CoRT,,,,,,,,,,,,,low cloze,0.4,,,"As|he|left,|the|insulted|man|made|a",gesture,luck,972.9965547586400,289.88875382111600,gesture,cort,,cort trial,
+184,CoRT,,,,,,,,,,,,,high cloze,0.82,,,"Soon|after|Janice|stepped|on|the|wet|floor,|she",slipped,crowd,856.2535604356130,310.82174909751300,slipped,cort,,cort trial,
+238,CoRT,,,,,,,,,,,,,low cloze,0.31,,,The|evil|witch|eyed|the|young|princess|with|a,glare,udder,884.4716296165060,238.92182719506100,glare,cort,,cort trial,
+389,strong CoRT,4.333333333333330,0.8164965809277260,,,,,,,,,,,medium cloze,0.71,peele,,Courtney|was|so|happy|and|relieved|she|started|to,,choice,,,cry,cort,9.0,cort trial,
+131,strong CoRT,4.333333333333330,0.8164965809277260,,,,,,,,,,,medium cloze,0.75,peele,,"After|the|mother|left,|the|baby|began|to|loudly",,diet,,,cry,cort,9.0,cort trial,
+110,CoRT,,,,,,,,,,,,,low cloze,0.34,,,His|brand|new|soccer|ball|landed|in|the,mud,drip,913.0746721517760,277.2786237047540,mud,cort,,cort trial,
+301,CoRT,,,,,,,,,,,,,low cloze,0.4,,,"To|enter|the|castle,|she|rode|across|a",bridge,fit,940.9375850230780,329.36881702200400,bridge,cort,,cort trial,
+236,CoRT,,,,,,,,,,,,,high cloze,0.82,,,The|dog|ran|inside|just|before|it|started|to,rain,bake,854.0782240907030,273.8090240537930,rain,cort,,cort trial,
+70,CoRT,,,,,,,,,,,,,low cloze,0.39,,,"During|the|earthquake,|many|of|the|small|buildings",collapsed,fit,910.598880007527,277.3539732489630,collapsed,cort,,cort trial,
+64,CoRT,,,,,,,,,,,,,high cloze,0.8,,,Delia|needed|her|keys|and|rummaged|around|in|her,purse,wine,768.0745013774520,405.5362377858930,purse,cort,,cort trial,
+127,CoRT,,,,,,,,,,,,,high cloze,0.89,,,I|roasted|the|marshmallow|over|the,fire,wrath,806.0392902597420,317.9761075574100,fire,cort,,cort trial,
+245,CoRT,,,,,,,,,,,,,high cloze,0.82,,,The|fisherman|trapped|hundreds|of|sharks|in|their,nets,tire,856.2357415366440,346.98496494134700,nets,cort,,cort trial,
+32,strong CoRT,4.6,0.5477225575051660,,,,,,,,,,,medium cloze,0.78,peele,,"After|Chris|dropped|bread|in|the|water,|it|became",,stand,,,soggy,cort,9.0,cort trial,
+56,CoRT,,,,,,,,,,,,,high cloze,0.87,,,Charles|dunked|the|basketball|through|the,hoop,will,722.1406467596840,239.7862311009470,hoop,cort,,cort trial,
+104,CoRT,,,,,,,,,,,,,high cloze,0.97,,,He|loosened|the|tie|around|his,neck,win,674.7778877375960,182.3456389738570,neck,cort,,cort trial,
+200,CoRT,,,,,,,,,,,,,low cloze,0.5,,,They|were|startled|by|the|sudden,noise,night,867.5556407177960,203.16162670793100,noise,cort,,cort trial,
+100,CoRT,,,,,,,,,,,,,high cloze,0.86,,,He|climbed|a|ladder|in|order|to|reshingle|the,roof,kick,770.9498361711780,327.49741593808900,roof,cort,,cort trial,
+68,strong CoRT,4.666666666666670,0.5163977794943220,,,,,,,,,,,medium cloze,0.71,peele,,"After|getting|hit|by|the|ball,|Tyler|started|to",,monster,,,cry,cort,9.0,cort trial,
+411,strong CoRT,4.0,0.8164965809277260,,,,,,,,,,,medium cloze,0.72,peele,,"Descending|the|steps,|the|old|man|clutched|the",,patch,,,railing,cort,8.0,cort trial,
+50,CoRT,,,,,,,,,,,,,low cloze,0.49,,,"Before|leaving|for|the|party,|Kim|dabbed|on|some",perfume,duck,927.2306253812930,401.47657268038300,perfume,cort,,cort trial,
+285,CoRT,,,,,,,,,,,,,low cloze,0.5,,,"The|toddler|enjoyed|feeding|bread|to|the|fat,|white",duck,lobe,961.89467795018,292.40187933704200,duck,cort,,cort trial,
+10,CoRT,,,,,,,,,,,,,low cloze,0.43,,,"After|returning|home,|Sharon|hung|her|jacket|on|the",hook,live,827.3649968175260,282.10914776588100,hook,cort,,cort trial,
+170,CoRT,,,,,,,,,,,,,high cloze,0.88,,,Paulina|gave|the|huge|lollipop|a|big,lick,luck,832.0187991976390,350.1409595604330,lick,cort,,cort trial,
+767,strong CoRT,4.5,0.5773502691896260,,,,,,,,,,,medium cloze,0.66,peele,,In|the|bathroom|Aubrey|slipped|and|fell|in|the,,lace,,,tub,cort,9.0,cort trial,
+99,CoRT,,,,,,,,,,,,,low cloze,0.34,,,He|blew|out|his|cigarette|smoke|in|a|small,puff,pipe,899.6435460198970,283.7240025976280,puff,cort,,cort trial,
+288,strong CoRT,4.0,1.4142135623731000,,,,,,,,,,,medium cloze,0.75,peele,,"Before|opening|the|gate,|Jim|lifted|the",,made,,,latch,cort,7.0,cort trial,
+260,CoRT,,,,,,,,,,,,,high cloze,0.9,,,The|little|girl|tripped|and|immediately|began|to,cry,play,701.8419221362210,203.56648339304300,cry,cort,,cort trial,
+89,strong CoRT,4.428571428571430,0.5345224838248490,,,,,,,,,,,medium cloze,0.78,block_baldwin,,"After|mixing|the|batter,|the|muffins|were|ready|to",,bull,,,bake,cort,9.0,cort trial,
+134,strong CoRT,4.0,0.8164965809277260,,,,,,,,,,,medium cloze,0.56,peele,,"After|the|rain|stopped,|Caroline|played|outside|in|the",,sink,,,puddles,cort,9.0,cort trial,
+5,CoRT,,,,,,,,,,,,,high cloze,0.96,,,"After|hitting|the|iceberg,|the|ship|began|to",sink,milk,782.2440793852340,333.04817944325000,sink,cort,,cort trial,
+268,CoRT,,,,,,,,,,,,,high cloze,0.81,,,The|officer|barged|in|and|quickly|flashed|his,badge,shook,777.1685525914050,279.7904558729150,badge,cort,,cort trial,
+95,strong CoRT,4.0,1.0,,,,,,,,,,,medium cloze,0.53,peele,,"After|playing|outside,|the|child's|face|was|covered|in",,tour,,,dirt,cort,9.0,cort trial,
+107,CoRT,,,,,,,,,,,,,low cloze,0.38,,,He|used|his|skateboard|to|grind|along|the,rails,kill,989.4871080680490,294.56014303446700,rails,cort,,cort trial,
+93,CoRT,,,,,,,,,,,,,low cloze,0.39,,,Greta|quickly|woke|after|Jess|gave|her|a|painful,pinch,art,925.388233273506,252.2950253330490,pinch,cort,,cort trial,
+241,CoRT,,,,,,,,,,,,,low cloze,0.32,,,The|farmer|collected|wood|to|build|a|new,barn,cough,850.6137022016190,200.34020057696300,barn,cort,,cort trial,
+46,CoRT,,,,,,,,,,,,,low cloze,0.45,,,A|stray|baseball|smacked|an|unsuspecting|walker|in|the,head,queen,727.9617682908580,211.6060252446500,head,cort,,cort trial,
+180,CoRT,,,,,,,,,,,,,high cloze,0.89,,,She|threw|away|the|old|paper|in|the,trash,knot,793.019189979913,230.7985031490870,trash,cort,,cort trial,
+142,CoRT,,,,,,,,,,,,,low cloze,0.49,,,Karen|realized|she|had|stepped|in|a|pile|of,poop,wine,853.1396328205650,330.4293567598210,poop,cort,,cort trial,
+143,CoRT,,,,,,,,,,,,,low cloze,0.36,,,Karen|shrieked|when|she|discovered|the|dead,mouse,feud,844.4076667465760,298.1125238235680,mouse,cort,,cort trial,
+157,CoRT,,,,,,,,,,,,,low cloze,0.35,,,Mary|was|upset|when|she|spilled|coffee|on|her|favorite,blouse,rang,788.458562174504,225.47697375260300,blouse,cort,,cort trial,
+280,CoRT,,,,,,,,,,,,,low cloze,0.41,,,The|strong|landscaper|removed|the|tree|root|with|one,pull,dog,890.0539104611870,295.64940574406500,pull,cort,,cort trial,
+35,CoRT,,,,,,,,,,,,,low cloze,0.34,,,"As|a|clumsy|toddler,|Serena|often|spilled|her",milk,shell,762.4527323505950,214.45739428233800,milk,cort,,cort trial,
+249,CoRT,,,,,,,,,,,,,high cloze,0.83,,,The|girls|drew|beautiful|designs|on|the|street|with,chalk,husband,860.6273196117820,357.05157944721900,chalk,cort,,cort trial,
+31,strong CoRT,4.0,0.0,,,,,,,,,,,medium cloze,0.71,peele,,"After|Ashley|left|the|bananas|out,|they|turned|to",,milk,,,mush,cort,9.0,cort trial,
+503,strong CoRT,4.0,1.224744871391590,,,,,,,,,,,medium cloze,0.53,peele,,"Ethan|used|his|pen|to|draw|a|small,|dark",,work,,,circle,cort,9.0,cort trial,
+297,CoRT,,,,,,,,,,,,,high cloze,0.8,,,"Tired|from|studying,|Dan|crumpled|his|papers|into|a",ball,towel,768.6654851963900,212.93322036011400,ball,cort,,cort trial,
+24,strong CoRT,4.5,0.8366600265340760,,,,,,,,,,,medium cloze,0.68,block_baldwin,,Abbey|pushed|to|open|the|door|when|she|needed|to,,ham,,,pull,cort,10.0,cort trial,
+213,CoRT,,,,,,,,,,,,,low cloze,0.34,,,The|boys|ran|to|the|car|carrying|their,bags,ignition,769.6037042076390,219.15671772403400,bags,cort,,cort trial,
+207,CoRT,,,,,,,,,,,,,high cloze,0.89,,,The|boat|passed|easily|under|the,bridge,lodge,746.3859732215960,232.1603568714990,bridge,cort,,cort trial,
+617,strong CoRT,4.0,0.7071067811865480,,,,,,,,,,,medium cloze,0.69,peele,,Hank|made|a|special|horseshoe|for|Blazer's|deformed,,tongue,,,hoof,cort,8.0,cort trial,
+123,strong CoRT,5.0,0.0,,,,,,,,,,,medium cloze,0.58,peele,,After|the|dog|ate|the|trash|he|began|to,,animals,,,vomit,cort,9.0,cort trial,
+419,strong CoRT,4.166666666666670,1.6020819787597200,,,,,,,,,,,medium cloze,0.66,block_baldwin,,Diane|slowly|sank|into|the|hot,,mistake,,,tub,cort,6.0,cort trial,
+0,,,,,,,,,,,,,,,,,,,,,,,,,,end,

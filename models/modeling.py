@@ -27,23 +27,24 @@ def get_model_features(model_name):
     """
     #ALTER FOR EXP
     if model_name=='cort':
-        quant_features = ['correct']
-        qual_features = ['CoRT_descript', 'group', 'trial_type']
-    elif model_name=='rt':
-        quant_features = ['rt']
-        qual_features = ['group']
+        quant_features = ['correct', 'CoRT_mean']
+        qual_features = ['group', 'trial_type'] #'CoRT_descript', 
     elif model_name=='cloze':
-        quant_features = ['correct']
-        qual_features = ['cloze_descript', 'group', 'trial_type']
-    elif model_name=='demog':
-        quant_features = ['years_of_education', 'age', 'MOCA_mean', 'SARA_mean']
-        qual_features = ['group', 'gender'] #input array of etiology? ignore skewed gender?
+        quant_features = ['correct', 'cloze_probability']
+        qual_features = ['group', 'trial_type'] #'cloze_descript',
     elif model_name=='cort+cloze':
         quant_features = ['correct']
         qual_features = ['CoRT_descript', 'cloze_descript', 'group', 'trial_type']
-    elif model_name=='combined':
-        quant_features = ['correct','years_of_education', 'age', 'MOCA_total_score', 'SARA_total_score']
-        qual_features = ['CoRT_descript', 'cloze_descript', 'group', 'trial_type']
+    elif model_name=='demographic':
+        quant_features = ['years_of_education', 'age', 'MOCA_mean', 'SARA_mean']
+        qual_features = ['group','gender'] #input etiology (once work)
+    elif model_name=='sentence':
+        quant_features = ['word_count']
+        qual_features = ['cause_effect', 'dynamic_verb', 'orientation', 'negative', 'tense', 'spelling_modified']
+    elif model_name=='rt':
+        # for model verification (should be 0)
+        quant_features = ['rt']
+        qual_features = []
     else:
         print('please define model type')
         
@@ -147,7 +148,14 @@ def compare_models(model_results):
     models_melt = model_results.melt(value_vars=['train_rmse', 'cv_rmse', 'test_rmse'], id_vars=['model_name', 'subj'])
 
     # plot
+    plt.figure(figsize=(20,10))
     sns.barplot(x='model_name', y='value', hue='variable', data=models_melt)
+    plt.legend(loc='upper right', fontsize=20, title_fontsize='40')
+    plt.xlabel('Models', fontsize=35)
+    plt.ylabel('RMSE', fontsize=35)
+    plt.xticks(fontsize=20)
+    plt.yticks(fontsize=20)
+    plt.ylim(bottom=100, top=300)
 
     plt.show()
 

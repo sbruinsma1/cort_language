@@ -683,13 +683,14 @@ class CoRTLanguageExp:
         sns.barplot(x="participant_id", y="correct", hue=hue, data=dataframe)
         #plt.legend(loc='lower left', fontsize=25, title_fontsize='40')
         plt.xlabel('Participant', fontsize=40)
-        plt.ylabel('% correct', fontsize=40)
+        plt.ylabel('Accuracy', fontsize=40)
         # plt.title('Number of correct answers', fontsize=20);
         plt.yticks(fontsize=30);
+        plt.xticks(rotation=45, fontsize=20)
         
         plt.show()
 
-        print('Answers mean:', dataframe.correct.mean())
+        print('Answers mean:', dataframe.correct.mean(), 'Answers sd:', dataframe.correct.std())
         #print('Percentage of correct vs incorrect',dataframe['correct'].value_counts(normalize=True) * 100)
 
     def count_of_correct_per_participant(self, dataframe):
@@ -744,9 +745,11 @@ class CoRTLanguageExp:
         else:
             x_label = x
 
-        sns.factorplot(x=x, y='correct', hue=hue, scale = 3, data=dataframe.query('attempt==1 and trial_type=="meaningful"'), legend=False)
+        #corrected = dataframe["correct"]*100
+
+        sns.factorplot(x=x, y="correct", hue=hue, scale = 3, data=dataframe.query('attempt==1 and trial_type=="meaningful"'), legend=False)
         plt.xlabel('', fontsize=20),
-        plt.ylabel('% Correct', fontsize=40)
+        plt.ylabel('Accuracy', fontsize=40)
         # plt.title('Accuracy across conditions', fontsize=20);
         plt.tick_params(axis = 'both', which = 'major', labelsize = 40)
         plt.ylim(bottom=.9, top=1.0)
@@ -783,7 +786,7 @@ class CoRTLanguageExp:
             hue: use 'group_condition_name' or 'group_CoRT_condition' (i.e. visualization variables)
         """
 
-        sns.set(rc={'figure.figsize':(10,10)})
+        sns.set(rc={'figure.figsize':(10,20)})
         sns.set_style("whitegrid", {'axes.grid' : False})
         sns.set_palette("Paired")
 
@@ -793,12 +796,12 @@ class CoRTLanguageExp:
             xlabel = "CoRT"
 
         sns.factorplot(x=x, y='rt', hue=hue, data=dataframe.query('correct==1 and trial_type=="meaningful"'), scale = 3, legend=False)
-        plt.xlabel('', fontsize=40),
-        plt.ylabel('Reaction Time (ms)', fontsize=40)
+        plt.xlabel('', fontsize=30),
+        plt.ylabel('Reaction Time (ms)', fontsize=30)
         plt.ylim([650,1000])
         #plt.plot(ylim=(700,1000))
-        plt.tick_params(axis = 'both', which = 'major', labelsize = 40)
-        plt.legend(loc='upper right', fontsize=25, title_fontsize='40')
+        plt.tick_params(axis = 'both', which = 'major', labelsize = 30)
+        plt.legend(loc='upper right', fontsize=30, title_fontsize='40')
 
         plt.show()
     
@@ -1289,12 +1292,13 @@ class EnglishVerif:
         """*gives frequency disribution of the percent correct per participant
         """
 
-        plt.figure(figsize=(10,10));
+        plt.figure(figsize=(20,10));
         sns.barplot(x="participant_id", y="correct", data=dataframe)
         plt.xlabel('Participant', fontsize=30)
-        plt.ylabel('% correct', fontsize=30)
+        plt.ylabel('Accuracy', fontsize=30)
         #plt.title('Number of correct answers', fontsize=20);
-        plt.yticks(fontsize=30);
+        plt.yticks(fontsize=30)
+        plt.xticks(rotation=45, fontsize=20)
 
         plt.show()
 
