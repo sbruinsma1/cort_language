@@ -36,7 +36,7 @@ def plotting_style():
     np.set_printoptions(formatter={'float_kind':'{:f}'.format})
                                
 def load_dataframe(
-    bad_subjs=['p06', 'p11', 'p08', 'c19'], # 'c05'
+    bad_subjs=['p06', 'p11', 'c05'],
     trial_type='meaningful',
     attempt=None,
     correct=None,
@@ -45,7 +45,7 @@ def load_dataframe(
     """ load dataframe and do filtering
 
     Args: 
-        bad_subjs (list of str): default is ['p06', 'p11', 'p08', 'c05', 'c19']
+        drop_subjects (bool): default is True
         trial_type (str): default is 'meaningful'
         attempt (int or None): default is None. other option is 1
         correct (bool or None): default is None. other options True (correct trials only) or False (incorrect trials)
@@ -56,7 +56,7 @@ def load_dataframe(
     fpath = os.path.join(DATA_DIR, 'task_data_all.csv')
     if not os.path.isfile(fpath):
         task = Task()
-        task.preprocess()
+        task.preprocess(bad_subjs=bad_subjs)
     df = pd.read_csv(fpath)
 
     df = df.rename({'cloze_descript': 'cloze', 'CoRT_descript': 'CoRT'}, axis=1)

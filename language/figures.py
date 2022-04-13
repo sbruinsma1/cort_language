@@ -5,6 +5,8 @@ import re
 import matplotlib.pyplot as plt
 from matplotlib.gridspec import GridSpec
 from scipy.stats import f_oneway, linregress, ttest_ind, ttest_rel
+import statsmodels.api as sm
+from statsmodels.formula.api import ols
 
 import warnings
 warnings.filterwarnings("ignore")
@@ -12,6 +14,7 @@ warnings.filterwarnings("ignore")
 # load in directories
 from language.constants import FIG_DIR
 from language import visualize_task as vis_task
+from language import visualize_participants as vis_part
 
 def fig1():
     plt.clf()
@@ -24,7 +27,7 @@ def fig1():
     y_pos = 1.1
     labelsize = 60
 
-    df = vis_task.load_dataframe(bad_subjs=['p11', 'p06'], # 'c05'
+    df = vis_task.load_dataframe(bad_subjs=['p06', 'p11', 'c05'],
                                 trial_type='meaningful',
                                 attempt=None,
                                 correct=None,
@@ -37,9 +40,11 @@ def fig1():
     ax.set_ylim([0.93, 1.0])
 
     # do summary/stats
-    print(df.groupby(['group'])['correct'].agg({'mean', 'std'}))
+    print(df.groupby(['group', 'participant_id'])['correct'].mean().groupby('group').agg({'mean', 'std'}))
+    # stat = ttest_ind(df[df['group']=='CD']['correct'], df[df['group']=='CO']['correct'], equal_var=True, nan_policy='omit')
+    # print(stat)
                    
-    df = vis_task.load_dataframe(bad_subjs=['p11', 'p06'], # 'c05'
+    df = vis_task.load_dataframe(
                             trial_type='meaningful',
                             attempt=None,
                             correct=True,
@@ -50,9 +55,9 @@ def fig1():
     ax.text(x_pos, y_pos, 'B', transform=ax.transAxes, fontsize=labelsize, verticalalignment='top')
 
     # do summary/stats  
-    print(df.groupby(['group'])['rt'].agg({'mean', 'std'}))
-    stat = ttest_ind(df[df['group']=='CD']['rt'], df[df['group']=='CO']['rt'], equal_var=True, nan_policy='omit')
-    print(stat)
+    print(df.groupby(['group', 'participant_id'])['rt'].mean().groupby('group').agg({'mean', 'std'}))
+    # stat = ttest_ind(df[df['group']=='CD']['rt'], df[df['group']=='CO']['rt'], equal_var=True, nan_policy='omit')
+    # print(stat)
 
     plt.subplots_adjust(left=0.125, bottom=0.001, right=2.0, top=2.0, wspace=.2, hspace=.3)
     save_path = os.path.join(FIG_DIR, f'fig1.svg')
@@ -69,8 +74,7 @@ def fig2():
     y_pos = 1.1
     labelsize = 60
 
-    df = vis_task.load_dataframe(bad_subjs=['p11', 'p06'], # 'c05'
-                                trial_type='meaningful',
+    df = vis_task.load_dataframe(trial_type='meaningful',
                                 attempt=None,
                                 correct=True,
                                 remove_outliers=True
@@ -140,7 +144,7 @@ def figS1():
     y_pos = 1.1
     labelsize = 60
 
-    df = vis_task.load_dataframe(bad_subjs=['p11', 'p06'], # 'c05'
+    df = vis_task.load_dataframe(
                                 trial_type='meaningful',
                                 attempt=None,
                                 correct=True,
@@ -172,7 +176,7 @@ def figS2():
     fig = plt.figure()
     gs = GridSpec(1, 1, figure=fig)
 
-    df = vis_task.load_dataframe(bad_subjs=['p11', 'p06'], # 'c05'
+    df = vis_task.load_dataframe(
                                 trial_type='meaningful',
                                 attempt=None,
                                 correct=True,
@@ -198,7 +202,7 @@ def figS3():
     y_pos = 1.1
     labelsize = 60
 
-    df = vis_task.load_dataframe(bad_subjs=['p11', 'p06'], # 'c05'
+    df = vis_task.load_dataframe(
                                 trial_type='meaningless',
                                 attempt=None,
                                 correct=None,
@@ -210,7 +214,7 @@ def figS3():
     ax.text(x_pos, y_pos, 'A', transform=ax.transAxes, fontsize=labelsize, verticalalignment='top')
     ax.set_ylim([0.93, 1.0])
                                
-    df = vis_task.load_dataframe(bad_subjs=['p11', 'p06'], # 'c05'
+    df = vis_task.load_dataframe( 
                             trial_type='meaningless',
                             attempt=None,
                             correct=True,
@@ -224,3 +228,9 @@ def figS3():
     plt.subplots_adjust(left=0.125, bottom=0.001, right=2.0, top=2.0, wspace=.2, hspace=.3)
     save_path = os.path.join(FIG_DIR, f'figS3.svg')
     plt.savefig(save_path, bbox_inches="tight", dpi=300)
+
+def table1():
+    
+    df = vis_part.load_dataframe()
+
+    # average MOCA scores

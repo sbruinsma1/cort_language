@@ -4,11 +4,8 @@ import pandas as pd
 import os
 import glob
 import re
-import matplotlib.pyplot as plt
-import seaborn as sns
-import re
-from pathlib import Path
 import datetime as dt
+import dateutil
 from collections import defaultdict
 
 import warnings
@@ -26,7 +23,7 @@ class Task:
         self, 
         task_name="cort_language", 
         versions=[10,11,12], 
-        bad_subjs=None
+        bad_subjs=['p06', 'p11', 'c05']
         ): 
         """
         cleans data downloaded from gorilla. removes any rows that are not trials
@@ -36,7 +33,6 @@ class Task:
                 
                 Kwargs: 
                     bad_subjs (list of str or None): list of id(s) of bad subj(s). on gorilla, id is given by `participant_id`.
-                    'p06', 'p11', 'p08','c05', 'c19'
 
             Returns:
                 dataframe
@@ -110,7 +106,9 @@ class Task:
 
         # # filter out bad subjs based on id
         if bad_subjs is not None:
-            df_all = self._remove_bad_subjs(df_all, bad_subjs=bad_subjs)
+            idx = df_all.participant_id.isin(bad_subjs)
+            df_all.loc[~idx, 'dropped'] = False
+            df_all.loc[idx, 'dropped'] = True
 
         df_all.to_csv(os.path.join(DATA_DIR, 'task_data_all.csv'))
 
@@ -230,7 +228,7 @@ class Prescreen:
     def preprocess(self, 
         task_name="prepilot_english", 
         versions=[10,11,12], 
-        bad_subjs=None
+        bad_subjs=['p06', 'p11', 'c05']
         ):
         """
         cleans english preprocessing task data downloaded from gorilla. removes any rows that are not trials.
@@ -277,7 +275,9 @@ class Prescreen:
 
         # # filter out bad subjs based on id
         if bad_subjs is not None:
-            df_all = self._remove_bad_subjs(df_all, bad_subjs=bad_subjs)
+            idx = df_all.participant_id.isin(bad_subjs)
+            df_all.loc[~idx, 'dropped'] = False
+            df_all.loc[idx, 'dropped'] = True
 
         df_all.to_csv(os.path.join(DATA_DIR, 'prescreen_data_all.csv'))
         return df_all
@@ -334,14 +334,132 @@ class Prescreen:
     
         return df_all
 
-    def _remove_bad_subjs(self, dataframe, bad_subjs):
-        """ removes bad subj from dataframe and returns filtered dataframe
-            Args:
-                dataframe
-                bad_subjs (list): list of ids given by `Participant_Private_ID` of gorilla spreadsheet
-            Returns:
-                dataframe with bad subj(s) removed
-        """
-        return dataframe[~dataframe['participant_id'].isin(bad_subjs)]
+class Participants:
+
+    def __init__(self):
+    # data cleaning stuff
+        self.testing_summary = "Patient_Testing_Database_MERGED.csv" 
+        self.used_participants = "Old_Gorilla_Participants.csv"
+        self.old_used_participants = "Gorilla_Paricipants.csv"
+        self.eligibility_cutoff = [14, 40] #change upper bound 
+        self.min_date = '07/01/2020'
+        self.exp_cutoff = 14.0
+        self.exp_name = "Sequence Preparation Motor" #NOT work with spaces for ana/query
+        self.group_name = ['AC', 'OC']
+        self.age_range = [] 
+        self.yoe_range = []
+    
+    def _calculate_date_difference(self, date1, date2): 
+        days_passed = float("NaN")
+        try:
+            if isinstance(date1, str) and isinstance(date2, str): #CHECK TYPE!
+                dt1 = dateutil.parser.parse(date1)
+                dt2 = dateutil.parser.parse(date2)
+
+                delta = dt2 - dt1 
+
+                days_passed = abs(round(delta.days))
+        except:
+            pass
+        return days_passed
+
+    def preprocess(self,
+        bad_subjs=['sAI', 'sEO', 'sEU']):
+
+        def _convert_date_iso(x):
+            value = None
+            try:
+                value = dateutil.parser.parse(x)
+            except:
+                pass
+            return value   
+
+        # load merge dataset
+        dataframe = pd.read_csv(os.path.join(DATA_DIR, self.testing_summary))
+        dataframe['current_date'] = dt.date.today().isoformat()
+        dataframe['date_of_testing_iso'] = dataframe['date_of_testing'].apply(lambda x: _convert_date_iso(x))
+        dataframe['dob_iso'] = dataframe['dob'].apply(lambda x: _convert_date_iso(x))
+
+        dataframe['days_passed'] = dataframe.apply(lambda x: self._calculate_date_difference(x['current_date'], x['date_of_testing']), axis=1) 
+        dataframe['age'] = dataframe.apply(lambda x: self._calculate_date_difference(x['current_date'], x['dob']), axis=1)/365
+
+        #concat old and new version of exp (difference: patients/controls in same exp)
+        fpath1 = os.path.join(DATA_DIR, self.old_used_participants)
+        fpath2 = os.path.join(DATA_DIR, self.used_participants)
+        my_dataframe = pd.concat([pd.read_csv(fpath1), pd.read_csv(fpath2)])
+
+        my_dataframe['group'] = my_dataframe['group'].map({'control':'OC', 'patient':'SCA'})
+
+        #merge with merged database for participant info - 
+        # dataframe = pd.merge(my_dataframe, dataframe, how='left', copy = False)
+
+        # merge dataframes
+        dataframe = my_dataframe.merge(dataframe, on=['subj_id', 'group'])
+
+        # filter for participants who have participated
+        dataframe = dataframe.query('participated=="yes"')
+
+        if bad_subjs is not None:
+            idx = dataframe.public_id.isin(bad_subjs) # correspond to bad_subjs=['p06', 'p11', 'c05']
+            dataframe.loc[~idx, 'dropped'] = False
+            dataframe.loc[idx, 'dropped'] = True
+
+        # get subj id
+        # dataframe['subj_id'] = dataframe['subj_id'].str[:2]
+        # dataframe = dataframe[dataframe['subj_id'].isin(['AC', 'OC'])]
+
+        # save to disk
+        dataframe.to_csv(os.path.join(DATA_DIR, 'participant_info.csv'))
+
+        #add line so only shows 1 iterance of participant
+
+        return dataframe
+        
+    def _subject_recent_experiment(self, eligible=True):
+        #load in dataframe
+        dataframe = self.preprocess_dataframe()
+
+        # filter dataframe for min date 
+        #dataframe = dataframe.query(f'date_of_testing_iso > "{self.min_date}"') 
+        
+        dataframe = dataframe.query(f'days_passed > {self.exp_cutoff}')
+
+        cols_to_keep = ['subj_id', 'exp_id', 'date_of_testing_iso', 'days_passed', 'current_date', 'group', 'age', 'years_of_education']
+        dataframe = dataframe[cols_to_keep]
+
+        return dataframe
+
+    def available_participants(self):
+        #load in dataframe
+        dataframe = self._subject_recent_experiment()
+        participants_dataframe = self._load_used_participants_dataframes()
+
+        #create list of contacted participants
+        contacted_participants = participants_dataframe['subj_id'].tolist()
+
+        #remove contacted from available participants
+        dataframe = dataframe[~dataframe['subj_id'].isin(contacted_participants)]
+
+        if dataframe.empty==False:
+            print(f'Congrats, you have {len(dataframe)} new available {self.group_name} participants!')
+        if dataframe.empty==True:
+            print(f'You have already contacted all available {self.group_name} participants.')
+
+        pd.options.display.max_rows
+        pd.set_option('display.max_rows', None)
+
+        return dataframe.sort_values('days_passed')
+
+    def total_experiments(self):
+        #load in dataframe
+        dataframe = self.preprocess_dataframe()
+
+        #filter dataframe for specific experiment
+        dataframe = dataframe.query('exp_id == "Sequence Preparation Motor"')
+        #dataframe = dataframe.query(f'exp_id == {self.exp_name}')
+
+        return print(f'{self.exp_name} experiment has tested {len(dataframe)} {self.group_name} participants')
+    
+
 
         

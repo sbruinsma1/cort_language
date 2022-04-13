@@ -12,8 +12,6 @@ from scipy.stats import linregress
 
 from scipy.stats import f_oneway
 
-from sklearn.linear_model import LinearRegression
-
 import warnings
 warnings.filterwarnings("ignore")
 
@@ -22,21 +20,21 @@ from language.constants import DATA_DIR
 from language.preprocess import Prescreen
     
 def load_dataframe(
-                bad_subjs=['p06', 'p11', 'p08', 'c05', 'c19']
-                ):
+    bad_subjs=['p06', 'p11', 'c05']
+    ):
     """ imports preprocessed dataframe
 
     Args: 
-        bad_subjs (list of str or None): ['p06', 'p11', 'p08', 'c05', 'c19']
+        bad_subjs (list of str):
     """
     fpath = os.path.join(DATA_DIR, 'prescreen_data_all.csv')
     if not os.path.isfile(fpath):
         english = Prescreen()
-        df = english.preprocess() 
+        df = english.preprocess(bad_subjs=bad_subjs) 
     df = pd.read_csv(fpath)
 
     if bad_subjs is not None:
-        df = df[~df['participant_id'].isin(bad_subjs)]
+        df = df[~df['bad_subjs'].isin(bad_subjs)]
 
     return df
 
@@ -58,7 +56,6 @@ def count_of_attempts(dataframe):
     plt.show()
     
     print('Answers mean:', dataframe.correct.mean())
-    #print('Percentage of correct vs incorrect',dataframe['correct'].value_counts(normalize=True) * 100)
 
 def participant_accuracy(dataframe):
     """*gives frequency disribution of the percent correct per participant
@@ -72,7 +69,6 @@ def participant_accuracy(dataframe):
     plt.yticks(fontsize=30);
 
     plt.show()
-
 
 def rt_by_condition(dataframe):
     """ *plots reaction time across easy vs hard cloze condition.
