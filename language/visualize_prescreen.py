@@ -34,7 +34,7 @@ def load_dataframe(
     df = pd.read_csv(fpath)
 
     if bad_subjs is not None:
-        df = df[~df['bad_subjs'].isin(bad_subjs)]
+        df = df[~df['participant_id'].isin(bad_subjs)]
 
     return df
 

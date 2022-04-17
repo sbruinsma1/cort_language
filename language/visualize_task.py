@@ -1,3 +1,4 @@
+import gc
 import numpy as np
 import pandas as pd
 import os
@@ -5,6 +6,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 from collections import defaultdict
 from functools import partial
+import scipy as sp
 from scipy.stats import f_oneway, linregress, ttest_ind
 
 import warnings
@@ -59,17 +61,6 @@ def load_dataframe(
         task.preprocess(bad_subjs=bad_subjs)
     df = pd.read_csv(fpath)
 
-    df = df.rename({'cloze_descript': 'cloze', 'CoRT_descript': 'CoRT'}, axis=1)
-
-    # create new variables
-    # df['group_condition_name'] = df['group'] + " " + df['condition_name']
-    df['correct'] = df['correct'].map({1: True, 0: False})
-    df['group'] = df['group'].map({'patient': 'CD', 'control': 'CO'})
-    df['group_cloze'] = df['group'] + ": " + df['cloze']
-    df['group_CoRT'] = df['group'] + ": " + df['CoRT']
-    df['group_trial_type'] = df['group'] + ": " + df['trial_type']
-    df['cort_cloze'] = df['CoRT']  + ", " + df['cloze']
-
     # filter dataframe
     if trial_type is not None:
         df = df.query(f'trial_type=="{trial_type}"')
@@ -117,11 +108,11 @@ def plot_rt(
         ci=95
 
     if plot_type=='line':
-        ax = sns.lineplot(x=x, y=y, hue=hue, data=dataframe, err_style='bars', palette='rocket', ax=ax, ci=ci) # legend=True, err_style='bars', style=hue, 
+        ax = sns.lineplot(x=x, y=y, hue=hue, data=dataframe, err_style='bars', err_kws={'elinewidth':1}, palette='rocket', ax=ax, ci=ci) # legend=True, err_style='bars', style=hue, 
     elif plot_type=='point':
-        ax = sns.pointplot(x=x, y=y, hue=hue, data=dataframe, err_style='bars', palette='rocket', ax=ax, ci=ci)
+        ax = sns.pointplot(x=x, y=y, hue=hue, data=dataframe, err_style='bars',palette='rocket', ax=ax, ci=ci)
     elif plot_type=='bar':
-        ax = sns.barplot(x=x, y=y, hue=hue, data=dataframe, palette='rocket', ax=ax, ci=ci)
+        ax = sns.barplot(x=x, y=y, hue=hue, data=dataframe, palette='rocket',errwidth=1, ax=ax, ci=ci)
     elif plot_type=='box':
         dataframe = dataframe.groupby(['participant_id', x, hue])[y].agg('mean').reset_index()
         dataframe.columns = ["".join(x) for x in dataframe.columns.ravel()]
@@ -166,11 +157,12 @@ def plot_acc(
     """
 
     if plot_type=='line':
-        ax = sns.lineplot(x=x, y=y, hue=hue, data=dataframe, err_style='bars', palette='rocket', ax=ax) # legend=True,
+        ax = sns.lineplot(x=x, y=y, hue=hue, data=dataframe, err_style='bars',err_kws={'elinewidth':1}, palette='rocket', ax=ax) # legend=True,
     elif plot_type=='point':
-        ax = sns.pointplot(x=x, y=y, hue=hue, data=dataframe, err_style='bars', palette='rocket', ax=ax)
+        ax = sns.pointplot(x=x, y=y, hue=hue, data=dataframe, err_style='bars',errwidth=1, palette='rocket', ax=ax)
     elif plot_type=='bar':
-        ax = sns.barplot(x=x, y=y, hue=hue, data=dataframe, palette='rocket', ax=ax)
+        ax = sns.barplot(x=x, y=y, hue=hue, data=dataframe, errwidth=1, palette='rocket', ax=ax)
+        # ax = sns.swarmplot(x=x, y=y, data=dataframe, color="0", alpha=.35)
 
     xlabel = x
     if x=='block_num':
@@ -222,39 +214,29 @@ def item_analysis(
 
     return ax
 
-def scatterplot_rating(
+def plot_scatterplot(
     dataframe, 
-    x='CoRT_mean',
+    x='rt',
+    y='MOCA_total_score',
     ax=None,
     hue=None
     ):
-    """scatterplot of ratings (CoRT or cloze) for RT
-
+    """
     Args: 
         dataframe (pd dataframe):
-        x (str): default is 'CoRT'. other option: 'cloze'
+        x (str):
+        y (str):
     """
-    # get patient and control data
-    df_control = dataframe.query('group=="CO"').groupby([x, 'group'])['rt'].agg({'mean', 'std'}).reset_index()
-    df_patient = dataframe.query('group=="CD"').groupby([x, 'group'])['rt'].agg({'mean', 'std'}).reset_index()
-    df = pd.concat([df_control, df_patient])
+    dataframe = dataframe.dropna()
 
-    # figure out x axis
-    xlabel = 'CoRT (mean)'
-    if x=='CoRT':
-        x = 'CoRT_mean'
-    elif x=='cloze':
-        x = 'cloze_probability'
-        xlabel = 'Cloze (mean)'
-
-    ax = sns.scatterplot(x=x, y="mean", hue=hue, data=df, palette='rocket', ax=ax)
+    ax = sns.lmplot(x=x, y=y, hue=hue, palette='rocket', data=dataframe) # ax=ax
     plt.legend(loc="upper right")
-    plt.xlabel(xlabel)
-    plt.ylabel('Mean RT')
+    plt.xlabel(x)
+    plt.ylabel(y)
 
-    if hue is not None:
-        plt.legend(loc='best', frameon=False)
-
+    r, p = sp.stats.pearsonr(dataframe[x], dataframe[y])
+    print(f'R = {r}, p = {p}')
+        
     plt.tight_layout()
 
     return ax
@@ -295,7 +277,7 @@ def plot_slope(
     if plot_type=='box':
         ax = sns.boxplot(x=x, y='slope', data=df_out, palette='rocket', ax=ax)
     elif plot_type=='bar':
-        ax = sns.barplot(x=x, y='slope', data=df_out, palette='rocket', ax=ax)
+        ax = sns.barplot(x=x, y='slope', data=df_out, errwidth=1,palette='rocket', ax=ax)
     ax = sns.swarmplot(x=x, y='slope', data=df_out, color=".25",  size=12, ax=ax)
     ax.set_ylabel(f'RT slope ({y})')
     ax.set_xlabel('')
@@ -330,9 +312,9 @@ def rt_diff(
     df_pivot['group'] = df_pivot['participant_id'].apply(lambda x: 'CO' if 'c' in x else 'CD')
 
     if plot_type=='box':
-        ax = sns.boxplot(x=x, y='diff_rt', data=df_pivot, palette='rocket', ax=ax)
+        ax = sns.boxplot(x=x, y='diff_rt', data=df_pivot, errwidth=1,palette='rocket', ax=ax)
     elif plot_type=='bar':
-        ax = sns.barplot(x=x, y='diff_rt', data=df_pivot, palette='rocket', ax=ax)
+        ax = sns.barplot(x=x, y='diff_rt', data=df_pivot, errwidth=1,palette='rocket', ax=ax)
     ax = sns.swarmplot(x=x, y='diff_rt', data=df_pivot, color=".25", size=10, ax=ax) # size=15, 
     ax.set_ylabel(f'RT diff ({cond2} - {cond1})')
     ax.set_xlabel('')
@@ -341,9 +323,5 @@ def rt_diff(
         plt.legend(loc='best', frameon=False)
 
     plt.tight_layout()
-
-    F, p = f_oneway(df_pivot.query('group=="CO"')['diff_rt'], df_pivot.query('group=="CD"')['diff_rt'])
-    # F, p = f_oneway(df[df[y]==cond1]['rt'], df[df[y]==cond2]['rt'])
-    print(f'F stat for {y} RT diff: {F}, p-value: {p}')
 
     return ax

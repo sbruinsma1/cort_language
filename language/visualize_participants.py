@@ -35,11 +35,6 @@ def yoe_dist(dataframe):
     """
     sns.set(rc={'figure.figsize':(20,10)})
 
-    #remove non-numerical cases
-    dataframe = dataframe[dataframe.years_of_education != '13-16']
-    dataframe = dataframe[dataframe.years_of_education != '20+']
-    #dataframe = dataframe.dropna() 
-
     dist = sns.FacetGrid(dataframe, hue="group")
     dist = dist.map(sns.distplot, "years_of_education", hist=False, rug=True)
     plt.legend(group, fontsize=10)
@@ -83,8 +78,6 @@ def moca_dist(dataframe):
     """ gives distplot of MoCA scores, broken down by group
     """
     sns.set(rc={'figure.figsize':(20,10)})
-
-    dataframe['MOCA_total_score'] = np.where(dataframe['MOCA_total_score'] == '26/29', 26, dataframe['MOCA_total_score'])
 
     dist = sns.FacetGrid(dataframe, hue="group")
     dist = dist.map(sns.distplot, "MOCA_total_score", hist=False, rug=True)

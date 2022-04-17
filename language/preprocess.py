@@ -64,9 +64,7 @@ class Task:
 
             # determine which cols to keep depending on task
             cols_to_keep = self._cols_to_keep()
-
             df = df[cols_to_keep]
-
             #rename some columns for analysis
             df = _rename_cols(df)
 
@@ -109,6 +107,15 @@ class Task:
             idx = df_all.participant_id.isin(bad_subjs)
             df_all.loc[~idx, 'dropped'] = False
             df_all.loc[idx, 'dropped'] = True
+
+        # create new variables
+        df_all = df_all.rename({'cloze_descript': 'cloze', 'CoRT_descript': 'CoRT'}, axis=1)
+        df_all['correct'] = df_all['correct'].map({1: True, 0: False})
+        df_all['group'] = df_all['group'].map({'patient': 'CD', 'control': 'CO'})
+        df_all['group_cloze'] = df_all['group'] + ": " + df_all['cloze']
+        df_all['group_CoRT'] = df_all['group'] + ": " + df_all['CoRT']
+        df_all['group_trial_type'] = df_all['group'] + ": " + df_all['trial_type']
+        df_all['cort_cloze'] = df_all['CoRT']  + ", " + df_all['cloze']
 
         df_all.to_csv(os.path.join(DATA_DIR, 'task_data_all.csv'))
 
@@ -273,6 +280,8 @@ class Prescreen:
         #correct participant ids (1-n)
         df_all = self._relabel_part_id(df_all)
 
+        df_all['group'] = df_all['group'].map({'patient': 'CD', 'control': 'CO'})
+
         # # filter out bad subjs based on id
         if bad_subjs is not None:
             idx = df_all.participant_id.isin(bad_subjs)
@@ -339,8 +348,7 @@ class Participants:
     def __init__(self):
     # data cleaning stuff
         self.testing_summary = "Patient_Testing_Database_MERGED.csv" 
-        self.used_participants = "Old_Gorilla_Participants.csv"
-        self.old_used_participants = "Gorilla_Paricipants.csv"
+        self.participants = "Gorilla_Participants.csv"
         self.eligibility_cutoff = [14, 40] #change upper bound 
         self.min_date = '07/01/2020'
         self.exp_cutoff = 14.0
@@ -364,7 +372,7 @@ class Participants:
         return days_passed
 
     def preprocess(self,
-        bad_subjs=['sAI', 'sEO', 'sEU']):
+        bad_subjs=['p06', 'p11', 'c05']):
 
         def _convert_date_iso(x):
             value = None
@@ -383,35 +391,26 @@ class Participants:
         dataframe['days_passed'] = dataframe.apply(lambda x: self._calculate_date_difference(x['current_date'], x['date_of_testing']), axis=1) 
         dataframe['age'] = dataframe.apply(lambda x: self._calculate_date_difference(x['current_date'], x['dob']), axis=1)/365
 
-        #concat old and new version of exp (difference: patients/controls in same exp)
-        fpath1 = os.path.join(DATA_DIR, self.old_used_participants)
-        fpath2 = os.path.join(DATA_DIR, self.used_participants)
-        my_dataframe = pd.concat([pd.read_csv(fpath1), pd.read_csv(fpath2)])
-
-        my_dataframe['group'] = my_dataframe['group'].map({'control':'OC', 'patient':'SCA'})
-
-        #merge with merged database for participant info - 
-        # dataframe = pd.merge(my_dataframe, dataframe, how='left', copy = False)
+        #get gorilla participants
+        my_dataframe = pd.read_csv(os.path.join(DATA_DIR, self.participants))
 
         # merge dataframes
-        dataframe = my_dataframe.merge(dataframe, on=['subj_id', 'group'])
+        my_dataframe['group'] = my_dataframe['group'].map({'control':'CO', 'patient':'CD'})
+        dataframe['group'] = dataframe['group'].map({'OC': 'CO', 'SCA': 'CD'})
 
-        # filter for participants who have participated
-        dataframe = dataframe.query('participated=="yes"')
+        dataframe = my_dataframe.merge(dataframe, on=['subj_id', 'group'])
+ 
+        # clean up dataframes
+        dataframe['MOCA_total_score'] = dataframe['MOCA_total_score'].str.replace('26/29', '26').astype(float)
+        dataframe['years_of_education'] = dataframe['years_of_education'].replace('13-16', '16').astype(float)
 
         if bad_subjs is not None:
-            idx = dataframe.public_id.isin(bad_subjs) # correspond to bad_subjs=['p06', 'p11', 'c05']
+            idx = dataframe.public_id.isin(bad_subjs)
             dataframe.loc[~idx, 'dropped'] = False
             dataframe.loc[idx, 'dropped'] = True
 
-        # get subj id
-        # dataframe['subj_id'] = dataframe['subj_id'].str[:2]
-        # dataframe = dataframe[dataframe['subj_id'].isin(['AC', 'OC'])]
-
         # save to disk
         dataframe.to_csv(os.path.join(DATA_DIR, 'participant_info.csv'))
-
-        #add line so only shows 1 iterance of participant
 
         return dataframe
         
