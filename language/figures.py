@@ -63,7 +63,7 @@ def fig1():
     ax.text(x_pos, y_pos, 'B', transform=ax.transAxes, fontsize=labelsize, verticalalignment='top')
 
     # anova
-    print(pg.anova(dv='rt', between=['group', 'block_num'], data=df_grouped, detailed=True))
+    print(pg.mixed_anova(dv='rt', between='group', within='block_num', subject='participant_id', data=df_grouped))
 
     plt.subplots_adjust(left=0.125, bottom=0.001, right=2.0, top=2.0, wspace=.2, hspace=.3)
     save_path = os.path.join(FIG_DIR, f'fig1.svg')
@@ -113,6 +113,42 @@ def fig2():
 
     plt.subplots_adjust(left=0.125, bottom=0.001, right=2.0, top=2.0, wspace=.2, hspace=.3)
     save_path = os.path.join(FIG_DIR, f'fig2.svg')
+    plt.savefig(save_path, bbox_inches="tight", dpi=300)
+
+def fig3():
+    plt.clf()
+    vis_task.plotting_style()
+
+    fig = plt.figure()
+    gs = GridSpec(1, 2, figure=fig)
+
+    x_pos = -0.1
+    y_pos = 1.1
+    labelsize = 60
+
+    df = vis_task.load_dataframe(trial_type=None, # 'meaningless'
+                                attempt=None,
+                                correct=True,
+                                remove_outliers=True
+                                )  
+    # group
+    df_grouped = df.groupby(['participant_id', 'group', 'cloze', 'trial_type'])['rt'].mean().reset_index()
+
+    ax = fig.add_subplot(gs[0,0])
+    vis_task.plot_rt(df_grouped, x='cloze', y='rt', plot_type='bar', hue='group', ax=ax)
+    ax.set_ylim([500, 1100])
+    ax.text(x_pos, y_pos, 'A', transform=ax.transAxes, fontsize=labelsize, verticalalignment='top')
+
+    ax = fig.add_subplot(gs[0,1]) 
+    vis_task.rt_diff(df_grouped, y='cloze', plot_type='bar', ax=ax)
+    ax.text(x_pos, y_pos, 'B', transform=ax.transAxes, fontsize=labelsize, verticalalignment='top')
+
+    # do stats
+    df_grouped['cloze'] = df_grouped['cloze'].map({'high cloze': 0, 'low cloze': 1}) 
+    print(pg.anova(dv='rt', between=['group', 'cloze', 'trial_type'], data=df_grouped, detailed=True))
+
+    plt.subplots_adjust(left=0.125, bottom=0.001, right=2.0, top=2.0, wspace=.2, hspace=.3)
+    save_path = os.path.join(FIG_DIR, f'fig3.svg')
     plt.savefig(save_path, bbox_inches="tight", dpi=300)
 
 def figS1():
