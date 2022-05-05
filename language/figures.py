@@ -28,8 +28,8 @@ def fig1():
     y_pos = 1.1
     labelsize = 60
 
-    df = vis_task.load_dataframe(bad_subjs=['p06', 'p11', 'c05'],
-                                trial_type='meaningful',
+    df = vis_task.load_dataframe(bad_subjs=['p06', 'p08', 'p11', 'c05'],
+                                trial_type=None, # both meaningless and meaningful
                                 attempt=None,
                                 correct=None,
                                 remove_outliers=True
@@ -40,6 +40,11 @@ def fig1():
     ax.text(x_pos, y_pos, 'A', transform=ax.transAxes, fontsize=labelsize, verticalalignment='top')
     ax.set_ylim([0.9, 1.0])
 
+    # group dataframe
+    print('ACCURACY')
+    df_grouped = df.groupby(['participant_id', 'group'])['correct'].mean().reset_index()
+    print(df_grouped.groupby('group')['correct'].agg({'mean', 'std'}))
+
     # do stats
     df_grouped = df.groupby(['participant_id', 'group', 'CoRT', 'cloze'])['correct'].mean().reset_index()
     df_grouped['cloze'] = df_grouped['cloze'].map({'high cloze': 0, 'low cloze': 1})
@@ -48,13 +53,15 @@ def fig1():
 
     # do summary/stats     
     df = vis_task.load_dataframe(
+                            bad_subjs=['p06', 'p08', 'p11', 'c05'],
                             trial_type='meaningful',
                             attempt=None,
                             correct=True,
                             remove_outliers=True
                             ) 
 
-    # group dataframe
+    # group dataframe - RT
+    print('REACTION TIME')
     df_grouped = df.groupby(['participant_id', 'group', 'block_num'])['rt'].mean().reset_index()
     print(df_grouped.groupby('group')['rt'].agg({'mean', 'std'}))
 
@@ -80,7 +87,8 @@ def fig2():
     y_pos = 1.1
     labelsize = 60
 
-    df = vis_task.load_dataframe(trial_type='meaningful',
+    df = vis_task.load_dataframe(bad_subjs=['p06', 'p08', 'p11', 'c05'],
+                                trial_type='meaningful',
                                 attempt=None,
                                 correct=True,
                                 remove_outliers=True
@@ -126,25 +134,42 @@ def fig3():
     y_pos = 1.1
     labelsize = 60
 
-    df = vis_task.load_dataframe(trial_type=None, # 'meaningless'
+    df = vis_task.load_dataframe(
+                                bad_subjs=['p06', 'p08', 'p11', 'c05'],
+                                trial_type='meaningless',
                                 attempt=None,
                                 correct=True,
                                 remove_outliers=True
-                                )  
+                                )
+    # group
+    df_grouped = df.groupby(['participant_id', 'group', 'cloze'])['rt'].mean().reset_index()
+
+    ax = fig.add_subplot(gs[0,0])
+    ax = vis_task.plot_rt(df_grouped, x='cloze', plot_type='bar', hue='group', ax=ax)
+    ax.text(x_pos, y_pos, 'A', transform=ax.transAxes, fontsize=labelsize, verticalalignment='top')
+    plt.ylim([600, 1100])
+
+    # do stats
+    df_grouped['cloze'] = df_grouped['cloze'].map({'high cloze': 0, 'low cloze': 1})
+    print(pg.anova(dv='rt', between=['group', 'cloze'], data=df_grouped, detailed=True))
+                               
+    df = vis_task.load_dataframe( 
+                            bad_subjs=['p06', 'p08', 'p11', 'c05'],
+                            trial_type=None,
+                            attempt=None,
+                            correct=True,
+                            remove_outliers=True
+                            ) 
+    
     # group
     df_grouped = df.groupby(['participant_id', 'group', 'cloze', 'trial_type'])['rt'].mean().reset_index()
 
-    ax = fig.add_subplot(gs[0,0])
-    vis_task.plot_rt(df_grouped, x='cloze', y='rt', plot_type='bar', hue='group', ax=ax)
-    ax.set_ylim([500, 1100])
-    ax.text(x_pos, y_pos, 'A', transform=ax.transAxes, fontsize=labelsize, verticalalignment='top')
-
-    ax = fig.add_subplot(gs[0,1]) 
-    vis_task.rt_diff(df_grouped, y='cloze', plot_type='bar', ax=ax)
+    ax = fig.add_subplot(gs[0,1])
+    ax = vis_task.rt_diff(df_grouped, x='group', y='trial_type', plot_type='bar', ax=ax)
     ax.text(x_pos, y_pos, 'B', transform=ax.transAxes, fontsize=labelsize, verticalalignment='top')
 
     # do stats
-    df_grouped['cloze'] = df_grouped['cloze'].map({'high cloze': 0, 'low cloze': 1}) 
+    df_grouped['cloze'] = df_grouped['cloze'].map({'high cloze': 0, 'low cloze': 1})
     print(pg.anova(dv='rt', between=['group', 'cloze', 'trial_type'], data=df_grouped, detailed=True))
 
     plt.subplots_adjust(left=0.125, bottom=0.001, right=2.0, top=2.0, wspace=.2, hspace=.3)
@@ -162,7 +187,8 @@ def figS1():
     y_pos = 1.1
     labelsize = 60
 
-    df_grouped = vis_task.load_dataframe(
+    df = vis_task.load_dataframe(
+                                bad_subjs=['p06', 'p08', 'p11', 'c05'],
                                 trial_type='meaningful',
                                 attempt=None,
                                 correct=True,
@@ -192,66 +218,6 @@ def figS2():
     vis_task.plotting_style()
 
     fig = plt.figure()
-    gs = GridSpec(1, 1, figure=fig)
-
-    df = vis_task.load_dataframe(
-                                trial_type='meaningful',
-                                attempt=None,
-                                correct=True,
-                                remove_outliers=True
-                                ) 
-    ax = fig.add_subplot(gs[0,0])
-    ax = vis_task.plot_rt(df, x='group_cloze', hue='CoRT', ax=ax)
-    plt.ylim([600, 1000])
-    # ax.text(x_pos, y_pos, 'A', transform=ax.transAxes, fontsize=labelsize, verticalalignment='top')
-
-    plt.subplots_adjust(left=0.125, bottom=0.001, right=2.0, top=2.0, wspace=.2, hspace=.3)
-    save_path = os.path.join(FIG_DIR, f'figS2-test.svg')
-    plt.savefig(save_path, bbox_inches="tight", dpi=300)
-
-def figS3():
-    plt.clf()
-    vis_task.plotting_style()
-
-    fig = plt.figure()
-    gs = GridSpec(1, 2, figure=fig)
-
-    x_pos = -0.1
-    y_pos = 1.1
-    labelsize = 60
-
-    df = vis_task.load_dataframe(
-                                trial_type='meaningless',
-                                attempt=None,
-                                correct=None,
-                                remove_outliers=True
-                                )
-
-    ax = fig.add_subplot(gs[0,0])
-    ax = vis_task.plot_acc(df, x='group', plot_type='bar', ax=ax)
-    ax.text(x_pos, y_pos, 'A', transform=ax.transAxes, fontsize=labelsize, verticalalignment='top')
-    ax.set_ylim([0.93, 1.0])
-                               
-    df = vis_task.load_dataframe( 
-                            trial_type='meaningless',
-                            attempt=None,
-                            correct=True,
-                            remove_outliers=True
-                            ) 
-    ax = fig.add_subplot(gs[0,1])
-    ax = vis_task.plot_rt(df, x='block_num', plot_type='line', hue='group', ax=ax)
-    ax.text(x_pos, y_pos, 'B', transform=ax.transAxes, fontsize=labelsize, verticalalignment='top')
-
-
-    plt.subplots_adjust(left=0.125, bottom=0.001, right=2.0, top=2.0, wspace=.2, hspace=.3)
-    save_path = os.path.join(FIG_DIR, f'figS3.svg')
-    plt.savefig(save_path, bbox_inches="tight", dpi=300)
-
-def figS4():
-    plt.clf()
-    vis_task.plotting_style()
-
-    fig = plt.figure()
     gs = GridSpec(1, 2, figure=fig)
 
     x_pos = -0.1
@@ -262,7 +228,7 @@ def figS4():
     df_part = vis_part.load_dataframe()
 
     ax = fig.add_subplot(gs[0,0])
-    df1 = vis_task.load_dataframe(trial_type='meaningless', attempt=None, correct=None, remove_outliers=True)
+    df1 = vis_task.load_dataframe(bad_subjs=['p06', 'p08', 'p11', 'c05'], trial_type='meaningless', attempt=None, correct=None, remove_outliers=True)
     df = df1.merge(df_part, on=['participant_id', 'dropped', 'group'])
     df = df.groupby(['participant_id', 'group'])[['correct', 'MOCA_total_score']].mean().reset_index()
     print('MOCA ~ ACCURACY')
@@ -274,7 +240,7 @@ def figS4():
     plt.savefig(save_path, bbox_inches="tight", dpi=300)
 
     ax = fig.add_subplot(gs[0,1])
-    df1 = vis_task.load_dataframe(trial_type='meaningless', attempt=None, correct=True, remove_outliers=True)
+    df1 = vis_task.load_dataframe(bad_subjs=['p06', 'p08', 'p11', 'c05'], trial_type='meaningless', attempt=None, correct=True, remove_outliers=True)
     df = df1.merge(df_part, on=['participant_id', 'dropped', 'group'])
     df = df.groupby(['participant_id', 'group'])[['rt', 'MOCA_total_score']].mean().reset_index()
     print('MOCA ~ RT')
@@ -283,25 +249,25 @@ def figS4():
 
 
     plt.subplots_adjust(left=0.125, bottom=0.001, right=2.0, top=2.0, wspace=.2, hspace=.3)
-    save_path = os.path.join(FIG_DIR, f'figS4B.svg')
+    save_path = os.path.join(FIG_DIR, f'figS2.svg')
     plt.savefig(save_path, bbox_inches="tight", dpi=300)
 
 def table1():
     # load dataframe
-    df = vis_part.load_dataframe()
+    df = vis_part.load_dataframe(bad_subjs=['p06', 'p08', 'p11', 'c05'])
     df_mean = df.groupby(['participant_id', 'group']).mean()
 
     # age differences
-    CD = df_mean.query('group=="SCA"')['age']
-    CO = df_mean.query('group=="OC"')['age']
+    CD = df_mean.query('group=="CD"')['age']
+    CO = df_mean.query('group=="CO"')['age']
     stat = ttest_ind(CD, CO, equal_var=False, nan_policy='omit')
     print(f'AGE: {stat}')
     print(df_mean.groupby('group')['age'].agg({'mean', 'std'}))
     print('AGE')
 
     # education differences
-    CD = df_mean.query('group=="SCA"')['years_of_education']
-    CO = df_mean.query('group=="OC"')['years_of_education']
+    CD = df_mean.query('group=="CD"')['years_of_education']
+    CO = df_mean.query('group=="CO"')['years_of_education']
     stat = ttest_ind(CD, CO, equal_var=False, nan_policy='omit')
     print(stat)
     print(df_mean.groupby('group')['years_of_education'].agg({'mean', 'std'}))
@@ -313,13 +279,11 @@ def table1():
     print('SARA\n')
 
     # MOCA differences
-    CD = df_mean.query('group=="SCA"')['MOCA_total_score']
-    CO = df_mean.query('group=="OC"')['MOCA_total_score']
+    CD = df_mean.query('group=="CD"')['MOCA_total_score']
+    CO = df_mean.query('group=="CO"')['MOCA_total_score']
     stat = ttest_ind(CD, CO, equal_var=False, nan_policy='omit')
     print(stat)
     print(df_mean.groupby('group')['MOCA_total_score'].agg({'mean', 'std'}))
     print('MOCA\n')
 
-
-
-    return df_mean.reset_index()
+    return df_mean.reset_index()[['participant_id', 'years_of_education', 'MOCA_total_score', 'SARA_total_score', 'age']]

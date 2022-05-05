@@ -13,7 +13,7 @@ from language.preprocess import Participants
 
 
 def load_dataframe(
-    bad_subjs=['p06', 'p11', 'c05']
+    bad_subjs=['p06', 'p08', 'p11', 'c05']
     ):
     """imports clean dataframe
     """

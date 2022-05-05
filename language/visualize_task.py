@@ -305,6 +305,8 @@ def rt_diff(
     cond1 = 'CoRT'; cond2 = 'non-CoRT'
     if y=='cloze':
         cond1 = 'high cloze'; cond2 = 'low cloze'
+    elif y=='trial_type':
+        cond1 = 'meaningful'; cond2 = 'meaningless'
 
     df = dataframe.groupby(['participant_id', y])['rt'].apply(lambda x: x.mean()).reset_index()
     df_pivot = pd.pivot_table(df, index='participant_id', columns=[y], values='rt').reset_index()
