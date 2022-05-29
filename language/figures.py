@@ -151,7 +151,7 @@ def fig3():
 
     # do stats
     df_grouped['cloze'] = df_grouped['cloze'].map({'high cloze': 0, 'low cloze': 1})
-    print(pg.anova(dv='rt', between=['group', 'cloze'], data=df_grouped, detailed=True))
+    print(pg.anova(dv='rt', between=['cloze', 'group'], data=df_grouped, detailed=True))
                                
     df = vis_task.load_dataframe( 
                             bad_subjs=['p06', 'p08', 'p11', 'c05'],

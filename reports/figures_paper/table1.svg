@@ -214,23 +214,23 @@
 <text transform="matrix(1 0 0 1 333.7528 302.0811)" class="st2 st3">SAOA</text>
 <text transform="matrix(1 0 0 1 333.7528 343.118)" class="st2 st3">SAOA</text>
 <text transform="matrix(0.9563 0 0 1 379.8661 20.406)" class="st2 st3">Included</text>
-<text transform="matrix(1 0 0 1 379.8661 40.7521)" class="st2 st3">True</text>
-<text transform="matrix(1 0 0 1 379.8661 179.0219)" class="st2 st3">False</text>
-<text transform="matrix(1 0 0 1 379.8657 60.4002)" class="st2 st3">True</text>
-<text transform="matrix(1 0 0 1 379.8652 81.152)" class="st2 st3">True</text>
-<text transform="matrix(1 0 0 1 379.8657 99.6254)" class="st2 st3">True</text>
-<text transform="matrix(1 0 0 1 379.8648 120.652)" class="st2 st3">True</text>
-<text transform="matrix(1 0 0 1 379.8658 321.4149)" class="st2 st3">True</text>
-<text transform="matrix(1 0 0 1 379.8657 159.6769)" class="st2 st3">True</text>
-<text transform="matrix(1 0 0 1 379.8657 199.4062)" class="st2 st3">True</text>
-<text transform="matrix(1 0 0 1 379.8643 218.3909)" class="st2 st3">True</text>
-<text transform="matrix(1 0 0 1 379.8657 259.4743)" class="st2 st3">True</text>
-<text transform="matrix(1 0 0 1 379.8657 283.507)" class="st2 st3">True</text>
-<text transform="matrix(1 0 0 1 379.8639 303.893)" class="st2 st3">True</text>
-<text transform="matrix(1 0 0 1 379.8657 340.5712)" class="st2 st3">True</text>
-<text transform="matrix(1 0 0 1 379.8634 363.9603)" class="st2 st3">True</text>
-<text transform="matrix(1 0 0 1 379.8661 139.5439)" class="st2 st3">False</text>
-<text transform="matrix(1 0 0 1 379.8661 240.4676)" class="st2 st3">False</text>
+<text transform="matrix(1 0 0 1 379.8661 40.7521)" class="st2 st3">Yes</text>
+<text transform="matrix(1 0 0 1 379.8661 179.0219)" class="st2 st3">No</text>
+<text transform="matrix(1 0 0 1 379.8657 60.4002)" class="st2 st3">Yes</text>
+<text transform="matrix(1 0 0 1 379.8652 81.152)" class="st2 st3">Yes</text>
+<text transform="matrix(1 0 0 1 379.8657 99.6254)" class="st2 st3">Yes</text>
+<text transform="matrix(1 0 0 1 379.8648 120.652)" class="st2 st3">Yes</text>
+<text transform="matrix(1 0 0 1 379.8658 321.4149)" class="st2 st3">Yes</text>
+<text transform="matrix(1 0 0 1 379.8657 159.6769)" class="st2 st3">Yes</text>
+<text transform="matrix(1 0 0 1 379.8657 199.4062)" class="st2 st3">Yes</text>
+<text transform="matrix(1 0 0 1 379.8643 218.3909)" class="st2 st3">Yes</text>
+<text transform="matrix(1 0 0 1 379.8657 259.4743)" class="st2 st3">Yes</text>
+<text transform="matrix(1 0 0 1 379.8657 283.507)" class="st2 st3">Yes</text>
+<text transform="matrix(1 0 0 1 379.8639 303.893)" class="st2 st3">Yes</text>
+<text transform="matrix(1 0 0 1 379.8657 340.5712)" class="st2 st3">Yes</text>
+<text transform="matrix(1 0 0 1 379.8634 363.9603)" class="st2 st3">Yes</text>
+<text transform="matrix(1 0 0 1 379.8663 139.5438)" class="st2 st3">No</text>
+<text transform="matrix(1 0 0 1 379.8661 240.4676)" class="st2 st3">No</text>
 <line class="st0" x1="383.5" y1="380.4" x2="396.4" y2="380.4"/>
 <line class="st0" x1="383.5" y1="409.7" x2="396.4" y2="409.7"/>
 <line class="st0" x1="383.5" y1="438.9" x2="396.4" y2="438.9"/>
